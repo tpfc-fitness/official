@@ -54,5 +54,12 @@ module.exports = {
     action: 'resevation',
     description: 'First Class 頭等倉運動空間目前推出免費體驗課與新生優惠前10堂8000元活動，幫助想要打好重訓基礎的人用最少的投資換到最大的效益，本店位於民權西路捷運站四號出口步行約三分鐘處，位處台北市中心，方便的交通讓您不再因距離因素而放棄健身的熱情。',
     chunks: ['resevation']
+  }, {
+    title: '感謝您的預約!',
+    filename: 'thankyou.html',
+    template: 'App.ejs',
+    action: 'resevation',
+    description: '感謝您預約 First Class 頭等倉運動空間免費體驗課程',
+    chunks: ['thankyou']
   }]
 };

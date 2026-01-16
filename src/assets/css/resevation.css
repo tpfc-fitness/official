@@ -1,15 +1,23 @@
 @import url("_library");
 
-.resevation-h1 {
+.resevation-title {
   line-height: 140%;
   font-weight: 700;
 
+  @apply p:text-[48px] t:text-[32px] m:text-[32px];
+}
+
+.resevation-h1 {
+  line-height: 140%;
+  font-weight: 700;
+  
   @apply p:text-[40px] t:text-[32px] m:text-[32px];
 }
 
 .resevation-h2 {
   line-height: 140%;
   font-weight: 700;
+  color: var(--x7de9);
   
   @apply p:text-[32px] tm:text-[28px];
 }
@@ -149,7 +157,7 @@
 
 .resevation-bg-01 {
   background: linear-gradient(rgba(#2d2d2d, 0.76), rgba(#2d2d2d, 0.76)),
-  url('@imgs/resevation/bg-01.png') center center no-repeat;
+  url('@imgs/resevation/bg-04.jpg') center center no-repeat;
   background-size: cover;
 }
 

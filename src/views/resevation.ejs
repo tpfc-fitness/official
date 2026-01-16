@@ -1,14 +1,27 @@
+<div class="resevation-kv relative bg-[var(--x15)] pt:pt-[60px] m:pt-[20px]">
+  <%- require('img.ejs')({
+    path: require('@imgs/common/logo_vertical_w.png'),
+    alt : '頭等倉運動空間',
+    style: {
+      main: 'pt:absolute pt:top-[46px] m:relative left-1/2 -translate-x-1/2 pt:w-[172px] pt:h-[85px] m:w-[98px] m:h-[45px] m:mb-[20px]'
+    }
+  }) %>
+  <%- require('img.ejs')({
+    path: require('@imgs/resevation/kv.png'),
+    alt : '頭等倉運動空間',
+    style: {
+      main: 'w-full h-auto'
+    }
+  }) %>
+  <div class="pt:absolute pt:w-[80%] right-0 bottom-[-18px] p:px-[30px] p:py-[22px] t:px-[20px] t:py-[6px] m:px-[12px] m:py-[10px] bg-[#565656] bg-opacity-70 text-[var(--white)] p:text-[64px] t:text-[32px] m:text-[24px] font-bold">
+    <p>讓運動不只是任務，</p>
+    <p class="pt:pl-[84px]">而是一件你願意一再回來的事。</p>
+  </div>
+</div>
 <section id="resevation" class="contact-bd flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:pt-[60px] p:pb-[20px] t:px-[20px] t:py-[40px] m:pb-[20px]">
-  <div data-aos="fade-in" class="pt:bg-[var(--black)] p:p-[80px] p:min-w-[600px] p:min-h-[400px] p:max-w-[800px] text-center t:p-[30px] t:pb-[40px]">
+  <div data-aos="fade-in" class="pt:bg-[var(--black)] p:p-[60px] p:min-w-[600px] p:min-h-[400px] p:max-w-[800px] text-center t:p-[30px] t:pb-[40px]">
     <div class="m:p-[20px]">
-      <h1 class="resevation-h1 p:mb-[20px] t:mb-[14px]">
-        <%- require('img.ejs')({
-          path: require('@imgs/common/logo_vertical_w.png'),
-          alt : '頭等倉運動空間',
-          style: {
-            main: 'mx-auto pt:mb-[20px] m:mb-[10px] pt:w-[170px] pt:h-[84px] m:w-[100px] m:h-[50px]'
-          }
-        }) %>
+      <h1 class="resevation-title p:mb-[20px] t:mb-[14px]">
         預約免費體驗
       </h1>
       <p class="resevation-p p:mb-[10px] tm:mb-[12px]">▼ 請填寫送出下方表單 ▼</p>
@@ -40,14 +53,14 @@
   </header>
   <ul class="p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
     <li data-aos="fade-in" class="space-y-[12px]">
-      <h3 class="resevation-h1">InBody 免費測量 &<br class="pt:hidden"/> 身體狀況評估</h3>
+      <h3 class="resevation-h2">InBody 免費測量 &<br class="pt:hidden"/> 身體狀況評估</h3>
       <p class="resevation-p">你知道你的身體組成嗎?<br/>
         多少肌肉量? 多少脂肪量? <br class="pt:hidden" />一天躺著不動可以消耗多少熱量?<br/>
         得到這些數據後結合你的目標再做合理的訓練安排，效果才能事半功倍喔🔥</p>
     </li>
     <li data-aos="fade-in" class="space-y-[12px]">
       <div>
-        <h3 class="resevation-h1 pb-[4px]">基礎動作教學</h3>
+        <h3 class="resevation-h2 pb-[4px]">基礎動作教學</h3>
         <p class="resevation-p text-[var(--x56)]">*動作將依照個人需求與身體狀況調整</p>
       </div>
       <p class="resevation-p">確認訓練基礎動作是否正確<br/>
@@ -55,20 +68,20 @@
         我們會依照你的身體結構，將動作調整成最適合你又不容易受傷的方式</p>
     </li>
     <li data-aos="fade-in" class="space-y-[12px]">
-      <h3 class="resevation-h1">動作調整 & 問題解決</h3>
+      <h3 class="resevation-h2">動作調整 & 問題解決</h3>
       <p class="resevation-p">如果有自己健身過，也可以提出平常訓練時的困擾<br/>
         在這堂體驗課我們希望可以把你的問題全部解決<br/>
         不要不好意思問，只怕你把疑問帶回家!</p>
     </li>
     <li data-aos="fade-in" class="space-y-[12px]">
-      <h3 class="resevation-h1">訓練觀念建立</h3>
+      <h3 class="resevation-h2">訓練觀念建立</h3>
       <p class="resevation-p">就算最後沒有選擇我們，<br class="pt:hidden" />我們也希望你在未來的訓練之路上能一路順遂<br>
         包括新手最容易犯的錯、肌肉長不大、<br class="pt:hidden" />減脂減不下來的觀念誤區<br>
         在這一小時內<br class="pt:hidden" />我們會盡量將所有必要的健身知識傳授給你
       </p>
     </li>
     <li data-aos="fade-in" class="space-y-[12px]">
-      <h3 class="resevation-h1">擬定後續訓練計畫 &<br class="pt:hidden" /> QA 時間</h3>
+      <h3 class="resevation-h2">擬定後續訓練計畫 &<br class="pt:hidden" /> QA 時間</h3>
       <p class="resevation-p">教練會根據整堂體驗課的狀況、<br class="pt:hidden" />你的身體狀況和生活習慣與訓練目標<br>
         擬定最適合且最高效的訓練計劃<br>
         並且總結本堂體驗課的重點，讓你能夠把知識帶走而不是停留原地沒有進步
@@ -76,7 +89,7 @@
     </li>
   </ul>
 </section>
-<p class="p:text-[40px] t:text-[30px] m:text-[28px] font-bold leading-[140%] text-[var(--white)] text-center bg-[var(--black)] pt:p-[50px] m:p-[30px]">
+<p class="p:text-[40px] t:text-[30px] m:text-[28px] font-bold leading-[140%] text-[var(--x15)] text-center bg-[var(--xc7)] pt:p-[50px] m:p-[30px]">
   🔥目前透過自創的<br class="pt:hidden" />無痛減脂模式幫助上百位學員成功轉變🔥
 </p>
 <div class="resevation-bg-01 text-center pt:py-[90px] m:py-[60px]">
@@ -240,7 +253,11 @@
             {{item.subTitle}}
           </p>
           <h3 class="resevation-h3 deco-line">{{item.title}}</h3>
-          <p class="resevation-p" v-html="item.text" />
+          <ul>
+            <li v-for="li in item.content">
+              ✅ <span class="resevation-p" v-html="li" />
+            </li>
+          </ul>
         </div>
       </li>
     </ul>
@@ -251,7 +268,10 @@
   <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[50px] m:mb-[42px]">
     <ul class="comments-slider p:flex p:flex-wrap">
       <li v-for="(item, index) in store.resevation.comments" :key="index" class="p:w-1/3 p:my-[10px] p:h-[258px] t:h-[200px] m:h-[170px]">
-        <div class="h-full bg-[var(--x56)] p:py-[32px] p:px-[24px] p:mx-[10px] tm:p-[16px]">
+        <figure class=" p:py-[32px] p:px-[24px] p:mx-[10px] tm:p-[16px]">
+          <img class="w-full h-auto lazy" alt="頭等倉運動空間五星好評 | first class 頭等倉運動空間`" :src="item">
+        </figure>
+        <!-- <div class="h-full bg-[var(--x56)] p:py-[32px] p:px-[24px] p:mx-[10px] tm:p-[16px]">
           <ul class="flex space-x-[6px] p:mb-[20px] t:mb-[16px] m:mb-[8px]">
             <li>
               <%- require('@component/svg.ejs')({
@@ -295,7 +315,7 @@
             </li>
           </ul>
           <p class="resevation-p" v-html="item"/>
-        </div>
+        </div> -->
       </li>
     </ul>
     <div class="m-slider-ctrl comments-slider-ctrl p:hidden">
@@ -312,7 +332,7 @@
       <ul class="inbody-slider pb-[30px]">
         <li v-for="(item, index) in store.resevation.inbody" :key="index">
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h2 pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
+            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
             <figure class="p:w-[510px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[315px] m:h-[183px]">
               <img class="object-cover object-right !w-full lazy" :alt="`${item.alt} | first class 頭等倉運動空間`" :src="item.img">
             </figure>
@@ -333,7 +353,7 @@
       <ul class="body-shape-slider pb-[30px]">
         <li v-for="(item, index) in store.resevation.bodyShape" :key="index">
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h2 pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">矯正</span></h3>
+            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">矯正</span></h3>
             <div class="flex pt:space-x-[20px] m:space-x-[10px]">
               <figure class="p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]">
                 <img class="object-cover object-right !w-full lazy" :alt="`${item.before.alt} | first class 頭等倉運動空間`" :src="item.before.img">
@@ -363,12 +383,12 @@
     type: 'button',
     func: 'scrollToResevation()',
     style: {
-      main: '--highlight mx-auto p:text-[18px] text-[var(--white)] p:w-[270px] p:h-[50px] t:w-[216px] t:h-[60px] m:w-[220px] m:h-[46px]'
+      main: '--highlight mx-auto p:text-[18px] text-[var(--white)] p:w-[270px] p:h-[50px] t:w-[216px] t:h-[60px] m:w-[220px] m:h-[56px]'
     }
   }) %>
 </section>
 <section class="p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] t:px-[32px] m:pt-[40px] m:pb-[80px] bg-[var(--black)] text-[var(--white)]">
-  <p class="resevation-p text-center p:mb-[70px] t:mb-[40px] m:mb-[40px] m:px-[12px]">經過了長時間的研究與學習<br>
+  <p class="resevation-p text-center p:mb-[70px] t:mb-[40px] m:mb-[40px] m:px-[12px]">從小白一路學習成長到專業教練<br>
     目前可以取得健身相關知識的地方都沒有辦法完全滿足一個積極想要改變的 <span class="resevation-h3">小資新手</span><br>
     以下是一路走來的各種學習管道分析<br>
     你可以根據這個表格選擇你現階段所需並且可支付得起的<br><br>
@@ -566,24 +586,21 @@
   </div>
 </section>
 <div class="resevation-bg-02 text-center pt:py-[90px] m:py-[60px]">
-  <p class="resevation-p text-[var(--black)]">我們的教練們起初也和一般的上班族一樣，<br>
-    上班久坐、下班看劇打手遊，<br>
-    每天外食、假日社交高油高澱粉飲食，<br>
-    身材臃腫，或吸收不良<br>
-    貌似不胖但體脂高的嚇人的超級泡芙人<br><br>
-    每天看著自己越來越不健康好看的身體，<br>
-    開始上健身房期望練出好體態<br>
-    摸索了三年終於研究出一種無痛減脂增肌的生活模式
+  <p class="resevation-p text-[var(--black)]">頭等倉真心希望每個人都能培養運動興趣，愛上運動<br>
+    並且能夠沒有任何負擔和擔憂<br><br>
+    因此開啟了這個工作室<br>
+    不會比較彼此、只在乎自己有沒有進步<br>
+    不用害怕做錯、只有鼓勵和關心
   </p>
 </div>
 <section data-aos="fade-in" class="flex flex-col justify-center items-center text-center text-[var(--white)] bg-[var(--black)] p:pt-[90px] p:pb-[60px] t:pt-[75px] t:pb-[45px] m:pt-[40px] m:pb-[20px] m:px-[12px]">
   <header class="p:pb-[70px] t:pb-[56px] m:pb-[40px]">
-    <h2 class="resevation-h1 pb-[12px]">新生10堂優惠課程規劃</h2>
+    <h2 class="resevation-h1 pb-[12px]">🔥新生10堂優惠課程規劃🔥</h2>
     <p class="resevation-p">我們深知一堂動輒1x00元的教練課<br class="pt:hidden" />對很多新手來說是一個重擔，<br>頭等倉推出新生前10堂8000元優惠課程，<br>我們沒辦法陪伴你訓練一輩子，<br class="pt:hidden" />但我們能幫助你打好訓練的基礎</p>
   </header>
   <ul class="p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
     <li class="pt:space-y-[12px] m:space-y-[6px]">
-      <h3 class="resevation-h1">10大基礎動作學習</h3>
+      <h3 class="resevation-h2">10大基礎動作學習</h3>
       <p class="resevation-p text-[var(--x56)]">*動作將依照個人需求與身體狀況調整</p>
       <p class="resevation-p">包含新手最害怕的深蹲、硬舉、臥推，<br>
         還有引體向上、滑輪下拉、啞鈴划船、坐姿划船、<br class="pt:hidden" />肩推、羅馬尼亞硬舉、蝴蝶肌夾胸<br>
@@ -591,21 +608,21 @@
     </li>
     <li class="space-y-[12px]">
       <div>
-        <h3 class="resevation-h1 pb-[4px]">健身房生態與<br class="pt:hidden" />器械操作養成</h3>
+        <h3 class="resevation-h2 pb-[4px]">健身房生態與<br class="pt:hidden" />器械操作養成</h3>
       </div>
       <p class="resevation-p">每次孤身一人進到健身房，<br class="pt:hidden" />看到一堆器材就嚇到去有氧區慢跑嗎?<br>
         通過10堂課慢慢讓您熟悉健身房氛圍及器械的調整<br>
         讓您以後進出健身房<br class="pt:hidden" />就像進出自家後院一樣怡然又自得</p>
     </li>
     <li class="space-y-[12px]">
-      <h3 class="resevation-h1">健身與飲食觀念培養</h3>
+      <h3 class="resevation-h2">健身與飲食觀念培養</h3>
       <p class="resevation-p">俗話說，三分練七分吃<br>
         那你知道要怎麼正確的吃和正確的練嗎?<br>
         透過10堂課淺移默化核心觀念<br>
         讓你永遠不復胖又能保持健康作息，活出自信人生</p>
     </li>
     <li class="space-y-[12px]">
-      <h3 class="resevation-h1">訓練觀念建立</h3>
+      <h3 class="resevation-h2">訓練觀念建立</h3>
       <p class="resevation-p">就算最後沒有選擇我們，<br class="pt:hidden" />我們也希望你在未來的訓練之路上能一路順遂<br>
         包括新手最容易犯的錯、肌肉長不大、<br class="pt:hidden" />減脂減不下來的觀念誤區<br>
         在這一小時內，<br class="pt:hidden" />我們會盡量將所有必要的健身知識傳授給你
@@ -619,19 +636,19 @@
   </header>
   <ul class="p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
     <li class="space-y-[12px]">
-      <h3 class="resevation-h1">隨時提問&隨時關心</h3>
+      <h3 class="resevation-h2">隨時提問&隨時關心</h3>
       <p class="resevation-p">課後自主練習有任何問題都可以拍攝動作詢問教練<br>
         絕對不會愛理不理💪🏻💪🏻💪🏻</p>
     </li>
     <li class="space-y-[12px]">
       <div>
-        <h3 class="resevation-h1 pb-[4px]">課堂回顧</h3>
+        <h3 class="resevation-h2 pb-[4px]">課堂回顧</h3>
       </div>
       <p class="resevation-p">每次課堂結束後，總結課堂學習重點<br>
         紀錄學生課堂上的動作以便學生事後翻閱回憶動作</p>
     </li>
     <li class="space-y-[12px]">
-      <h3 class="resevation-h1">回家作業</h3>
+      <h3 class="resevation-h2">回家作業</h3>
       <p class="resevation-p">如果你想要~可以跟教練要回家作業<br>
         不來健身房的時候也可以在家裡持續鍛鍊身體<br>
         畢竟增肌減脂沒有休息的一天!</p>
@@ -648,21 +665,21 @@
   <ul class="p:w-[840px] p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
     <li class="space-y-[12px]">
       <h3 class="resevation-h2">Q1: <br class="pt:hidden" />免費體驗課會推銷嗎?</h3>
-      <p class="resevation-p">我們不會硬性推銷也不會硬是把學生留下來，<br class="pt:hidden" />運動不能強迫，<br />更重要的是我們希望您可以開心運動、愛上運動💗</p>
+      <p class="resevation-p">我們<b>不會硬性推銷</b>也不會硬是把學生留下來，<br class="pt:hidden" />運動不能強迫，<br />更重要的是我們希望您可以開心運動、愛上運動💗</p>
     </li>
     <li class="space-y-[12px]">
       <div>
         <h3 class="resevation-h2 pb-[4px]">Q2: <br class="pt:hidden" />新生優惠有上課期限嗎?</h3>
       </div>
-      <p class="resevation-p">為了保持您的運動頻率以達到最佳的雕塑效果，<br>務必於三個月內銷課完畢喔！</p>
+      <p class="resevation-p">為了保持您的運動頻率以達到最佳的雕塑效果，<br>務必於<b>三個月內</b>銷課完畢喔！</p>
     </li>
     <li class="space-y-[12px]">
       <h3 class="resevation-h2">Q3: <br class="pt:hidden" />有一對二或團課嗎?</h3>
-      <p class="resevation-p">我們有提供一對二的私人教練課程，<br class="pt:hidden" />但目前尚未開放團課<br>有任何最新團課資訊，會第一時間在粉絲專頁公告，快來追蹤我們！</p>
+      <p class="resevation-p">我們有提供一對二的私人教練課程，<br class="pt:hidden" />也開放團課囉！<br>團課內容請<a class="font-bold underline" target="_blank" rel="noopener" href="https://www.fit-book.com.tw/tpfcfitness/534">點擊此處瀏覽</a></p>
     </li>
     <li class="space-y-[12px]">
       <h3 class="resevation-h2">Q4: <br class="pt:hidden" />新生優惠結束後的價格?</h3>
-      <p class="resevation-p">課程價格會依照購買堂數而有所不同，一對一的價格區間會落在1200~1600元之間，<br class="pt:hidden" />建議可以先來體驗一次課程，教練會根據你的需求與生活作息，設計一套專屬的訓練計畫，幫助你找到最適合、也最有效率的運動方式唷🔥</p>
+      <p class="resevation-p">課程價格會依照購買堂數而有所不同，一對一的價格區間會落在<b>1400~1600元</b>之間，當下還會有<b>其他優惠</b>可以合併使用<br class="pt:hidden" />建議可以先來體驗一次課程，教練會根據你的需求與生活作息，設計一套專屬的訓練計畫，幫助你找到最適合、也最有效率的運動方式唷🔥</p>
     </li>
   </ul>
 </section>

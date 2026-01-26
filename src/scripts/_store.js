@@ -258,28 +258,28 @@ module.exports = window.PetiteVue.reactive({
   resevation: {
     trainingRules: [{
       subTitle: '方針一',
-      title: '個人化週期訓練規劃',
+      title: '即時動作修正優化',
+      content: [
+        '依個人身體調整',
+        '基礎動作確實到位',
+        '每一下都有效率',
+      ]
+    }, {
+      subTitle: '方針二',
+      title: '個人化週期訓練',
       content: [
         '依 InBody 與目標規劃',
         '每週課表不盲練',
         '訓練方向清楚有效'
       ]
     }, {
-      subTitle: '方針二',
+      subTitle: '方針三',
       title: '漸進式強度設計',
       content: [
         '精準選擇訓練重量',
         '循序增加訓練強度',
         '刺激成長不只假累',
         '安全訓練不易受傷'
-      ]
-    }, {
-      subTitle: '方針三',
-      title: '即時動作修正優化',
-      content: [
-        '依個人身體調整',
-        '基礎動作確實到位',
-        '每一下都有效率',
       ]
     }, {
       subTitle: '方針四',

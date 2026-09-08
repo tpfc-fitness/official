@@ -1,0 +1,35 @@
+<%/* 歡迎加入：應徵條件與工作內容 */%>
+<% const careers = require('_data/careers.js'); -%>
+<section class="text-[var(--white)] bg-[var(--black)] p:p-[60px] t:p-[50px] m:p-[30px]">
+  <div class="p:mx-auto p:w-[900px]">
+    <h3 data-aos="fade-up" class="font-bold p:text-[38px] p:mb-[30px] tm:text-[30px] tm:mb-[22px]">歡迎加入 FIRST CLASS FITNESS 的大家庭</h3>
+    <div class="p:flex p:items-center">
+      <div data-aos="fade-up" class="p:w-1/2 p:text-[14px] t:pb-[24px] m:pb-[10px]">
+        <h4 class="font-bold p:text-[24px] tm:text-[26px] tm:mb-[8px]">應徵條件</h4>
+        <ol class="m-list --order tm:space-y-[8px] p:mb-[12px] tm:mb-[20px]">
+          <% careers.condition.forEach((item) => { -%>
+          <li class="font-bold p:text-[16px] p:leading-9">
+            <%= item %>
+          </li>
+          <% }); -%>
+        </ol>
+        <h4 class="font-bold p:text-[24px] tm:text-[26px] tm:mb-[8px]">工作內容</h4>
+        <ol class="m-list --order tm:space-y-[8px]">
+          <% careers.work.forEach((item) => { -%>
+          <li class="font-bold p:text-[16px] p:leading-9">
+            <%= item %>
+          </li>
+          <% }); -%>
+        </ol>
+      </div>
+      <%- require('img.ejs')({
+        path: require('@imgs/careers/firstclass_fitness_equipments.jpeg'),
+        alt : '健身訓練器材',
+        style: {
+          main: 'p:ml-[70px] p:w-[363px] p:h-[363px]',
+          img: 'object-cover object-center'
+        }
+      }) %>
+    </div>
+  </div>
+</section>

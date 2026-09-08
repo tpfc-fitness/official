@@ -1,0 +1,11 @@
+<%/*
+ * 人才招募頁
+ *
+ * 各區塊放在 ./_components/ 底下，檔名數字前綴＝頁面上的順序。
+ * 要改哪一段就開哪一個檔，這裡只負責決定區塊的排列。
+ */%>
+<%- require('./_components/01-kv.ejs')() %>  <%/* KV：CAREERS 人才招募 */%>
+<%- require('./_components/02-join-us.ejs')() %>  <%/* 歡迎加入：應徵條件與工作內容 */%>
+<%- require('./_components/03-jobs.ejs')() %>  <%/* 目前開放職缺 */%>
+<%- require('./_components/04-benefits.ejs')() %>  <%/* 福利與待遇 */%>
+<%- require('./_components/05-apply.ejs')() %>  <%/* 我要加入 */%>

@@ -1,0 +1,19 @@
+<%/* 目前開放職缺 */%>
+<% const jobs = require('_data/jobs.js'); -%>
+<section class="text-[var(--white)] bg-[var(--x15)] p:p-[60px] t:text-center t:p-[40px] m:p-[20px]">
+  <div data-aos="fade-up" class="p:mx-auto p:w-[820px]">
+    <h3 class="font-bold p:text-[38px] p:mb-[70px] tm:text-[32px] tm:mb-[20px]">目前開放職缺 JOBS OPEN</h3>
+    <ul class="p:space-y-[68px] tm:space-y-[40px]">
+      <% jobs.forEach((job) => { -%>
+      <li class="p:flex">
+        <h4 class="font-bold p:flex-grow p:text-[24px] tm:text-[30px] tm:mb-[10px]"><%= job.title %></h4>
+        <ol class="m-list --order p:flex-shrink-0 p:w-1/2 p:text-[16px] tm:text-[14px] tm:leading-6">
+          <% job.cnt.forEach((item) => { -%>
+          <li><%= item %></li>
+          <% }); -%>
+        </ol>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

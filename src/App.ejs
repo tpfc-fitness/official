@@ -1,15 +1,25 @@
 <%
   const TITLENAME = 'First Class 頭等倉運動空間';
   const TITLE = htmlWebpackPlugin.options.title ? `${htmlWebpackPlugin.options.title} | First Class 頭等倉運動空間` : TITLENAME;
-  const fileName = /(.*)(?=\.html$)/.exec(htmlWebpackPlugin.options.filename)[1];
-  const reqFile = require('./views/'+ fileName +'.ejs')({
+  /* view 資料夾名稱由 htmlPage/index.js 指定，與網址檔名脫鉤 */
+  const VIEW = htmlWebpackPlugin.options.view
+    || /(.*)(?=\.html$)/.exec(htmlWebpackPlugin.options.filename)[1];
+  const reqFile = require('./views/' + VIEW + '/index.ejs')({
                     htmlWebpackPlugin
                   });
-  const activityURL = 'https://tpfc-finess.com'
-  const ogImageURL = 'https://tpfc-finess.com'
+  /* 正式網域：唯一來源是 config.js 的 siteUrl（DefinePlugin 注入，已去除結尾斜線） */
+  const SITE_URL = process.env.SITE_URL || '';
+  /* 每頁專屬路徑：來自 htmlPage/index.js 的 path 欄位 */
+  const PAGE_PATH = htmlWebpackPlugin.options.path || `/${htmlWebpackPlugin.options.filename}`;
+  const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
+  const DESCRIPTION = htmlWebpackPlugin.options.description || '';
+  const OG_IMAGE_URL = `${SITE_URL}/static/img/FB_share.png`;
+  const NOINDEX = !!htmlWebpackPlugin.options.noindex;
+  const IS_HOME = PAGE_PATH === '/';
+  const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
 -%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
   <head>
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
@@ -20,19 +30,22 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-    <meta property="og:title" content="<%- TITLE %>">
-    <meta property="og:description" name="description" content="<%- htmlWebpackPlugin.options.description || '' %>">
+    <meta name="description" content="<%= DESCRIPTION %>">
+    <% if (NOINDEX) { -%>
+    <meta name="robots" content="noindex, nofollow">
+    <% } -%>
+    <meta property="og:title" content="<%= TITLE %>">
+    <meta property="og:description" content="<%= DESCRIPTION %>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<%- activityURL %>">
-    <meta property="og:image" content="<%- ogImageURL %>static/img/FB_share.png">
+    <meta property="og:url" content="<%= PAGE_URL %>">
+    <meta property="og:image" content="<%= OG_IMAGE_URL %>">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="<%- TITLE %>">
+    <meta property="og:site_name" content="<%= TITLENAME %>">
     <title><%- TITLE %></title>
     <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
-    <link rel="canonical" href="<%- activityURL %>">
-    <link rel="alternate" href="<%- activityURL %>" />
+    <link rel="canonical" href="<%= PAGE_URL %>">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap" rel="stylesheet">
     <!-- Meta Pixel Code -->
@@ -61,13 +74,22 @@
 
         gtag('config', 'G-WF60XB60MZ');
       </script>
+    <% if (!NOINDEX) { -%>
+    <%- require('@component/mJsonLd.ejs')({
+      SITE_URL,
+      PAGE_URL,
+      PAGE_TITLE,
+      IS_HOME
+    }) %>
+    <% } -%>
   </head>
   <body>
+    <a href="#main" class="l-skip">跳到主要內容</a>
     <div class="l-wrap relative flex flex-col min-h-screen bg-[var(--black)] jWrap" @vue:mounted="mounted">
       <!-- Header Start -->
        <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
         <div class="l-hd flex-shrink-0 top-0 fixed w-full jHd"> 
-          <%- require('@component/mHd.ejs')() %>
+          <%- require('@component/mHd.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
           <%- require('@component/mMarquee.ejs')({
             txt: '凡首次購買，一對一私教人教練課 <b>10</b> 堂 <b>8,000</b> 元，完課期間到館自主訓練免費'
           }) %>
@@ -76,9 +98,9 @@
       <!-- Header End -->
       <!-- Content Start -->
       <div data-aos="fade-in" class="l-main flex flex-grow<%- htmlWebpackPlugin.options.action !== 'resevation' ? ` is-head` : '' %>">
-        <div class="l-content flex-grow overflow-hidden relative bg-[var(--black)]" v-if="store.load.isDone">
+        <main id="main" tabindex="-1" class="l-content flex-grow overflow-hidden relative bg-[var(--black)]">
           <%- reqFile %>
-        </div>
+        </main>
         <%- require('@component/mLoading.ejs')({
           style: {
             main: 'fixed'
@@ -89,7 +111,7 @@
       <!-- Footer Start -->
       <div class="l-ft flex-shrink-0 relative bg-[var(--x15)] text-[var(--white)]">
         <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
-          <%- require('@component/mFt.ejs')() %>
+          <%- require('@component/mFt.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
         <% } else {-%>
           <small class="m-ft-copyright block py-[24px] text-center text-[13px] bg-[#000] m:px-[20px]">
             <%- process.env.COPYRIGHT %>

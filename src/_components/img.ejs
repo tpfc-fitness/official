@@ -1,5 +1,27 @@
 <%
   const crypto = require('crypto');
+  const FS = require('fs');
+  const NODEPATH = require('path');
+  const IMAGESIZE = require('image-size');
+  const sizeOf = typeof IMAGESIZE === 'function' ? IMAGESIZE : IMAGESIZE.imageSize;
+
+  /*
+   * 讀出圖片的真實像素尺寸，供 width / height 屬性使用（修 CLS）。
+   * webpack 產出的網址是 <publicPath>assets/img/<子資料夾>/foo.jpg?hash，
+   * 對應的原始檔則在 src/assets/img/<子資料夾>/foo.jpg。
+   * 任何一步失敗都回傳 null —— 寧可不輸出屬性，也不要輸出錯的尺寸。
+   */
+  const readSize = (url) => {
+    try {
+      const matched = /assets\/img\/[^?]+/.exec(String(url));
+      if (!matched) return null;
+      const abs = NODEPATH.join(process.env.PROJECT_ROOT, 'src', matched[0]);
+      const { width, height } = sizeOf(FS.readFileSync(abs));
+      return width && height ? { width, height } : null;
+    } catch (err) {
+      return null;
+    }
+  };
   const newPath = {
     p: typeof path === 'object' ? path.p : path,
     m: typeof path === 'object'
@@ -49,6 +71,28 @@
                     
         }
     };
+
+  /* 首屏圖片請傳 eager: true —— 立即載入並提高優先度，改善 LCP */
+  const isEager = typeof eager !== 'undefined' && !!eager;
+
+  /*
+   * w-full h-full 取代原本 width="100%" height="100%" 這組 presentational hint。
+   * 版面表現完全相同，但把 width / height 屬性空出來放真實像素，
+   * 瀏覽器才算得出長寬比、在圖片載入前先保留位置（修 CLS）。
+   */
+  const imgClass = [
+    typeof style !== 'undefined' && typeof style.img !== 'undefined' ? style.img : '',
+    'w-full h-full',
+    isEager ? '' : 'lazy',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const size = readSize(img.p.path);
+  const sizeAttr = size ? ` width="${size.width}" height="${size.height}"` : '';
+  const loadAttr = isEager
+    ? ' loading="eager" fetchpriority="high"'
+    : ' loading="lazy"';
 -%>
 <figure<%- typeof style !== 'undefined' && style.main !== 'undefined' ? ` class="${ style.main }"` : '' %>>
   <%  %>
@@ -64,7 +108,7 @@
         <source data-srcset="<%= img.p.webpPath %>.webp?<%= hash(8) %>" type="image/webp">
       <% } -%>
     <% } -%>
-        <img class="<%- typeof style !== 'undefined' && typeof style.img !== 'undefined' ? `${style.img} ` : '' %>lazy" alt="<%- alt %> | <%- process.env.PROJECT_NAME %>" width="100%" height="100%" src="<%= img.p.path %>?<%= hash(8) %>">
+        <img class="<%- imgClass %>" alt="<%- alt %> | <%- process.env.PROJECT_NAME %>"<%- sizeAttr %><%- loadAttr %> decoding="async" src="<%= img.p.path %>?<%= hash(8) %>">
     <% if ( img.m.path || img.p.webp || img.m.webp ) { -%>
       </picture>
     <% } -%>

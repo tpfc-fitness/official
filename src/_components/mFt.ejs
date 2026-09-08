@@ -1,7 +1,15 @@
+<%
+  /* 與 header 共用同一份導覽資料，同樣在 build 期輸出成靜態 <a href> */
+  const navItems = require('_data/nav.js');
+  /* 社群連結同樣只有一份來源，避免 footer 與結構化資料各寫各的而不同步 */
+  const social = require('_data/social.js');
+  const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
+  const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
+-%>
 <footer class="m-ft p:px-[50px] p:pt-[50px] tm:px-[40px] tm:pt-[30px]">
   <div class="p:flex p:justify-between p:pl-[30px]">
     <div data-aos="fade-right" class="tm:flex tm:flex-col tm:items-center p:w-[270px] tm:mb-[50px]">
-      <h2
+      <div
         class="m-hd-logo p:inline-block m:flex m:items-center p:mb-[18px] tm:mb-[16px]"
       >
         <%- require('@component/svg.ejs')({
@@ -13,7 +21,7 @@
         <em class="sr-only">
           <%- process.env.PROJECT_NAME %>
         </em>
-      </h2>
+      </div>
       <p class="tm:text-center p:text-[12px] t:text-[20px] m:text-[14px] p:mb-[22px] tm:mb-[30px]">追蹤我們的社群媒體，每週都會有實質的內容與教學，降低更多的運動傷害，讓我們同步更好的訓練效益！</p>
       <%- require('@component/mBtn.ejs')({
         label: '即刻預約',
@@ -28,49 +36,29 @@
         <li class="p:mx-[40px] tm:w-1/2">
           <h4 class="text-[var(--xc7)] font-bold p:mb-[8px] tm:mb-[6px] p:text-[20px] tm:text-[20px]">網站導覽</h4>
           <ul>
-            <li v-for="item, index in store.nav.items">
-              <a :href="item.url" class="pt:text-[14px] m:text-[12px]">
-                {{ item.label }}
-              </a>
+            <% navItems.forEach((item) => { -%>
+            <li>
+              <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]"<%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
             </li>
+            <% }); -%>
           </ul>
         </li>
         <li class="p:mx-[40px] tm:w-1/2">
           <h4 class="text-[var(--xc7)] font-bold p:mb-[8px] tm:mb-[6px] p:text-[20px] tm:text-[20px]">社群媒體</h4>
           <ul>
+            <% social.forEach((item) => { -%>
             <li>
-              <a href="https://www.facebook.com/tpfc.fit" class="pt:text-[14px] m:text-[12px]">
+              <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]" target="_blank" rel="noopener">
                 <%- require('svg.ejs')({
-                  svgName: 'logo_fb',
+                  svgName: item.icon,
                   style: {
                     main: 'inline w-[16px] h-[16px] text-[var(--xc7)]'
                   }
                 }) %>
-                Facebook
+                <%= item.label %>
               </a>
             </li>
-            <li>
-              <a href="https://www.instagram.com/tpfc.fitness/" class="pt:text-[14px] m:text-[12px]">
-                <%- require('svg.ejs')({
-                  svgName: 'logo_ig',
-                  style: {
-                    main: 'inline w-[16px] h-[16px] text-[var(--xc7)]'
-                  }
-                }) %>
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a href="http://www.tiktok.com/@tpcf.fit" class="pt:text-[14px] m:text-[12px]">
-                <%- require('svg.ejs')({
-                  svgName: 'logo_tiktok',
-                  style: {
-                    main: 'inline w-[16px] h-[16px] text-[var(--xc7)]'
-                  }
-                }) %>
-                TikTok
-              </a>
-            </li>
+            <% }); -%>
           </ul>
         </li>
         <li class="p:mx-[40px] tm:w-full tm:mt-[20px]">
@@ -83,7 +71,7 @@
             <li class="p:mt-[40px] tm:w-1/2">
               <h4 class="text-[var(--xc7)] font-bold p:mb-[8px] tm:mb-[6px] p:text-[20px] tm:text-[20px]">地址電話</h4>
               <a class="block p:mb-[4px] tm:mb-[10px] pt:text-[14px] m:text-[12px]" href="tel:+886-2-25222330">(02)2522-2330</a>
-              <a class="pt:text-[14px] m:text-[12px]" href="https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6" target="_blank" rel="noopener"><p class="leading-tight">104015<br>台北市中山區中山北路二段128巷32號1F</p></a>
+              <a class="pt:text-[14px] m:text-[12px]" href="https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6" target="_blank" rel="noopener"><p class="leading-tight">10449<br>台北市中山區中山北路二段128巷32號1F</p></a>
             </li>
           </ul>
         </li>

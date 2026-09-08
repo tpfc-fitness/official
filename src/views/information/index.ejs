@@ -1,9 +1,15 @@
+<%
+  /* build 期讀取：地址、營業時間、環境照片說明全部進得了 HTML */
+  const information = require('_data/information.js');
+-%>
 <section class="p:pt-[20px] text-[var(--white)] bg-[var(--black)] flex tm:flex-col items-center m:py-[30px] m:px-[20px]">
   <div data-aos="fade-up" class="text-center p:w-1/4 t:py-[50px] t:w-full t:border-b-[1px] t:border-solid t:border-[var(--white)] m:sr-only">
-    <h2 class="inline-block p:rotate-[270deg] p:text-left leading-[1.2] font-black p:text-[40px] t:text-[52px]">交通資訊</h2>
+    <h1 class="inline-block p:rotate-[270deg] p:text-left leading-[1.2] font-black p:text-[40px] t:text-[52px]">交通資訊</h1>
   </div>
   <div class="p:flex p:items-center p:border-l-[1px] border-solid border-[var(--white)] p:mb-[20px] p:w-3/4 t:py-[30px]">
     <%- require('img.ejs')({
+      /* 首屏圖片：立即載入並提高優先度 */
+      eager: true,
       path: require('@imgs/information/map.jpg'),
       alt : '頭等倉運動空間地圖位置',
       style: {
@@ -14,10 +20,12 @@
     <div data-aos="fade-in" class="p:ml-[20px] p:w-[454px] t:p-[30px]">
       <h3 class="font-bold p:text-[26px] p:mb-[40px] tm:text-[24px] tm:mb-[20px]">FIRST CLASS FITNESS<br/>頭等倉運動空間 中山店</h3>
       <ul class="m-p:space-y-[36px] tm:space-y-[16px]">
-        <li v-for="item, index in store.information.location" :key="`env_${index}`">
-          <h3 class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]" v-html="item.title"></h3>
-          <p class="p:text-[16px] tm:text-[14px]" v-html="item.cnt"></p>
+        <% information.location.forEach((item) => { -%>
+        <li>
+          <h3 class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]"><%- item.title %></h3>
+          <p class="p:text-[16px] tm:text-[14px]"><%- item.cnt %></p>
         </li>
+        <% }); -%>
       </ul>
     </div>
   </div>
@@ -29,16 +37,23 @@
   </div>
   <div class="m-slider">
     <ul class="env-slider">
-      <li class="slide" v-for="item in store.information.env">
+      <% information.env.forEach((item) => { -%>
+      <li class="slide">
         <div class="relative">
-          <figure class="flex-shrink-0 m:h-[280px]">
-            <img class="object-cover object-right !w-full lazy" :alt="`${item.title} | first class 頭等倉運動空間`" :src="item.img">
-          </figure>
+          <%- require('img.ejs')({
+            path: item.img,
+            alt: item.title,
+            style: {
+              main: 'flex-shrink-0 m:h-[280px]',
+              img: 'object-cover object-right !w-full'
+            }
+          }) %>
           <div class="absolute bottom-0 left-0 w-full bg-[#000] bg-opacity-70 p:p-[24px] t:p-[16px] m:p-[12px]">
-            <p class="text-left pt:text-[16px] m:text-[14px]">{{item.cnt}}</p>
+            <p class="text-left pt:text-[16px] m:text-[14px]"><%= item.cnt %></p>
           </div>
         </div>
       </li>
+      <% }); -%>
     </ul>
     <div class="m-slider-ctrl">
       <button type="button" class="m-slider-prev">

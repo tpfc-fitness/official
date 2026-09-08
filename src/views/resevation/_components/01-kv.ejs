@@ -1,0 +1,25 @@
+<%/* KV 主視覺 */%>
+<div class="resevation-kv relative bg-[var(--x15)] pt:pt-[60px] m:pt-[20px]">
+  <%- require('img.ejs')({
+    /* 首屏圖片：立即載入並提高優先度 */
+    eager: true,
+    path: require('@imgs/common/logo_vertical_w.png'),
+    alt : '頭等倉運動空間',
+    style: {
+      main: 'pt:absolute pt:top-[46px] m:relative left-1/2 -translate-x-1/2 pt:w-[172px] pt:h-[85px] m:w-[98px] m:h-[45px] m:mb-[20px]'
+    }
+  }) %>
+  <%- require('img.ejs')({
+    /* 首屏圖片：立即載入並提高優先度 */
+    eager: true,
+    path: require('@imgs/resevation/kv.png'),
+    alt : '頭等倉運動空間',
+    style: {
+      main: 'w-full h-auto'
+    }
+  }) %>
+  <div class="pt:absolute pt:w-[80%] right-0 bottom-[-18px] p:px-[30px] p:py-[22px] t:px-[20px] t:py-[6px] m:px-[12px] m:py-[10px] bg-[#565656] bg-opacity-70 text-[var(--white)] p:text-[64px] t:text-[32px] m:text-[24px] font-bold">
+    <p>讓運動不只是任務，</p>
+    <p class="pt:pl-[84px]">而是一件你願意一再回來的事。</p>
+  </div>
+</div>

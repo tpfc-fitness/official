@@ -1,6 +1,12 @@
+<%
+  /* build 期讀取：三種課程的說明文字與圖片全部進得了 HTML */
+  const service = require('_data/service.js');
+-%>
 <section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h2 class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">service<br/>課程項目</h2>
+  <h1 class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">service<br/>課程項目</h1>
   <%- require('img.ejs')({
+    /* 首屏圖片：立即載入並提高優先度 */
+    eager: true,
     path: require('@imgs/service/firstclass_fitness_indoor.jpg'),
     alt : '室內環境',
     style: {
@@ -23,17 +29,27 @@
 </section>
 <section class="text-[var(--white)] bg-[var(--black)] p:px-[60px] pt:pb-[60px] t:w-[550px] t:mx-auto t:p-[30px] m:p-[20px] m:pb-[30px]">
   <ul class="mx-auto p:max-w-[1120px] p:space-y-[32px] t:space-y-[24px] m:space-y-[18px]">
-    <li v-for="item, idx in store.service" :key="item.title">
+    <% service.forEach((item, idx) => { -%>
+    <li>
       <div data-aos="fade-in" class="p:flex p:items-center bg-[var(--x15)] p:max-h-[360px] overflow-hidden">
         <div class="m-slider p:w-1/2">
-          <ul :class="`class-slider-${idx}`">
-            <li v-for="img, index in item.imgs" :key="`${item.title}_img${index}`">
-              <figure class="p:h-[360px]">
-                <img class="object-cover object-right !w-full lazy" :alt="`${item.title} | first class 頭等倉運動空間`" :src="img">
-              </figure>
+          <ul class="class-slider-<%= idx %>">
+            <% item.imgs.forEach((img, index) => { -%>
+            <li>
+              <%- require('img.ejs')({
+                path: img,
+                alt: item.title,
+                /* 第一組課程的第一張圖在首屏內 */
+                eager: idx === 0 && index === 0,
+                style: {
+                  main: 'p:h-[360px]',
+                  img: 'object-cover object-right !w-full'
+                }
+              }) %>
             </li>
+            <% }); -%>
           </ul>
-          <div :class="`m-slider-ctrl-${idx} m:hidden`">
+          <div class="m-slider-ctrl-<%= idx %> m:hidden">
             <button type="button" class="m-slider-prev">
               <span class="sr-only">prev</span>
             </button>
@@ -43,10 +59,11 @@
           </div>
         </div>
         <div class="p:w-1/2 p:p-[42px] t:p-[32px] m:px-[14px] m:pt-[20px] m:pb-[14px]">
-          <h3 class="font-bold p:text-[38px] p:mb-[30px] t:text-[30px] m:text-[28px] t:mb-[22px] m:mb-[8px]">{{item.title}} </h3>
-          <p class="p:text-[14px] t:text-[16px] m:text-[14px]" v-html="item.cnt"/>
+          <h3 class="font-bold p:text-[38px] p:mb-[30px] t:text-[30px] m:text-[28px] t:mb-[22px] m:mb-[8px]"><%= item.title %> </h3>
+          <p class="p:text-[14px] t:text-[16px] m:text-[14px]"><%- item.cnt %></p>
         </div>
       </div>
     </li>
+    <% }); -%>
   </ul>
 </section>

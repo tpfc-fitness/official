@@ -1,0 +1,61 @@
+<%/* 教練故事：Before / After 親身經歷 */%>
+<% const coachStories = require('_data/coach-stories.js'); -%>
+<!-- 過度 -->
+<div class="resevation-bg-02 text-center pt:py-[90px] m:py-[60px]">
+  <p class="resevation-p text-[var(--black)]">
+    我們並不是一開始就懂得怎麼訓練。<br/><br/>
+    在成為教練之前，<br/>
+    我們也曾經卡在自己的身體問題裡，<br/>
+    嘗試過錯的方法、走過不少冤枉路。<br/><br/>
+    正因為親身經歷過那些過程，<br/>
+    才更清楚新手真正需要的是什麼。
+  </p>
+</div>
+
+<% coachStories.forEach((story) => { -%>
+<!-- 教練故事 -->
+<section data-aos="fade-in" class="flex flex-col items-center text-[var(--white)] bg-[var(--x15)] p:pt-[86px] p:pb-[120px] t:pt-[75px] t:pb-[30px] t:px-[32px] m:pt-[40px] m:pb-[80px] m:px-[20px]">
+  <p class="resevation-h3 italic text-center flex items-center justify-center p:mb-[24px] tm:mb-[14px]">
+    <%- require('@component/svg.ejs')({
+      svgName: 'icon_dumbbel',
+      style: {
+        main: 'text-[var(--white)] w-[24px] h-[24px] mr-[8px]'
+      }
+    }) %>
+    <%= story.coach %>
+  </p>
+  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]"><%= story.title %></h2>
+  <div class="reservation-card pt:flex items-center t:flex-col p:w-[1200px] p:mb-[70px]">
+    <%- require('img.ejs')({
+      path: story.before.img,
+      alt: story.before.alt,
+      style: {
+        main: 'resevation-img flex-shrink-0 p:w-[486px] p:h-[315px] t:w-[486px] t:h-[315px] m:w-full',
+        img: 'relative'
+      }
+    }) %>
+    <div class="pt:space-y-[12px] m:space-y-[6px] flex-grow p:pl-[50px] tm:mt-[30px]">
+      <span class="text-[#E12020] resevation-h4">Before</span>
+      <% story.before.paragraphs.forEach((paragraph) => { -%>
+      <p class="resevation-p"><%- paragraph %></p>
+      <% }); -%>
+    </div>
+  </div>
+  <div class="reservation-card-reverse pt:flex items-center p:flex-row-reverse t:flex-col p:w-[1200px] tm:mt-[60px]">
+    <%- require('img.ejs')({
+      path: story.after.img,
+      alt: story.after.alt,
+      style: {
+        main: 'resevation-img flex-shrink-0 p:w-[486px] p:h-[315px] t:w-[486px] t:h-[315px] m:w-full',
+        img: 'relative'
+      }
+    }) %>
+    <div class="pt:space-y-[12px] m:space-y-[6px] flex-grow p:pr-[50px] tm:mt-[30px]">
+      <span class="text-[#E12020] resevation-h4">After</span>
+      <% story.after.paragraphs.forEach((paragraph) => { -%>
+      <p class="resevation-p"><%- paragraph %></p>
+      <% }); -%>
+    </div>
+  </div>
+</section>
+<% }); -%>

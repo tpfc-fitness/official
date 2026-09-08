@@ -1,0 +1,33 @@
+<%/* 頭等倉教練的訓練方針 */%>
+<% const resevation = require('_data/resevation.js'); -%>
+<!-- 訓練方針 -->
+<section data-aos="fade-in" class="p:pt-[90px] p:pb-[120px] t:py-[75px] m:py-[40px]">
+  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px] text-[#fff]">頭等倉教練的訓練方針</h2>
+  <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[40px] m:mb-[28px]">
+    <ul class="training-rules-slider pt:flex">
+      <% resevation.trainingRules.forEach((item) => { -%>
+      <li class="p:w-1/4 m:h-[320px]">
+        <div class="bg-[#fff] space-y-[12px] h-full p:mx-[10px] p:px-[24px] p:py-[32px] t:px-[20px] t:py-[28px] m:px-[24px] m:py-[32px]">
+          <p class="resevation-h4 flex items-center">
+            <%- require('@component/svg.ejs')({
+              svgName: 'icon_bow',
+              style: {
+                main: 'w-[32px] h-[32px] mr-[8px]'
+              }
+            }) %>
+            <%= item.subTitle %>
+          </p>
+          <h3 class="resevation-h3 deco-line"><%= item.title %></h3>
+          <ul>
+            <% item.content.forEach((li) => { -%>
+            <li>
+              ✅ <span class="resevation-p"><%- li %></span>
+            </li>
+            <% }); -%>
+          </ul>
+        </div>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

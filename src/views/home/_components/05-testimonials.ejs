@@ -1,0 +1,15 @@
+<%/* 學員推薦 */%>
+<% const comment = require('_data/comment.js'); -%>
+  <section class="p:p-[30px] bg-[var(--black)] text-[var(--white)] tm:border-[var(--x1f1d)] tm:border-solid tm:border-t-[1px]">
+    <h2 class="font-bold p:text-[48px] tm:text-[30px] text-center m:pt-[30px]">學員推薦</h2>
+    <ul class="p:flex p:flex-wrap p:h-full">
+      <% comment.forEach((item, index) => { -%>
+      <li class="p:w-1/3<%- index !== comment.length - 1 ? ' p:border-r-[1px] tm:border-b-[1px] border-solid tm:border-[var(--white)]' : '' %>">
+        <div class="text-right p:max-w-[420px] p:px-[30px] tm:p-[20px]">
+          <p data-aos="fade-up" class="text-left p:text-[18px] tm:text-[20px] p:my-[40px] tm:py-[10px]"><%- item.cnt %></p>
+          <em data-aos="fade-up" class="font-bold text-[20px]"><%= item.name %></em>
+        </div>
+      </li>
+      <% }); -%>
+    </ul>
+  </section>

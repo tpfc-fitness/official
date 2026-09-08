@@ -14,6 +14,7 @@ const IMAGEMINIMIZERPLUGIN = require('image-minimizer-webpack-plugin');
 const COPYWEBPACKPLUGIN = require('copy-webpack-plugin');
 const IMAGEMINPLUGIN = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const SEOASSETSPLUGIN = require('./htmlPage/SeoAssetsPlugin.js');
 const { VueLoaderPlugin } = require('vue-loader');
 const REMOVEPLUGIN = require('remove-files-webpack-plugin');
 // const { extendDefaultPlugins } = require('svgo');
@@ -68,6 +69,10 @@ const extendPlugins = () => {
         fonts: CONFIG.fonts,
         static: CONFIG.static,
       }),
+      PROJECT_ROOT: JSON.stringify(__dirname),
+      SITE_URL: JSON.stringify(
+        (CONFIG.siteUrl || '').replace(/\/+$/, '')
+      ),
       PROJECT_NAME: JSON.stringify(CONFIG.projectName),
       COPYRIGHT: JSON.stringify(CONFIG.copyright),
       COMMON_PLUGINS: CONFIG.commonPlugins
@@ -172,6 +177,12 @@ const extendPlugins = () => {
     htmlWebpackPlugin,
     [beautifyHtmlWebpackPlugin],
     [new HtmlWebpackSkipAssetsPlugin()],
+    [
+      new SEOASSETSPLUGIN({
+        siteUrl: CONFIG.siteUrl,
+        pages: CONFIG.plugins(),
+      }),
+    ],
     [new VueLoaderPlugin()],
     [
       new IMAGEMINPLUGIN({

@@ -1,56 +1,4 @@
-<section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h2 class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">CAREERS<br/>人才招募</h2>
-  <%- require('img.ejs')({
-    path: require('@imgs/careers/firstclass_fitness_outdoor.jpg'),
-    alt : '室外形象',
-    style: {
-      main: 'p:w-full p:h-full t:hidden m:w-[375px] m:h-[180px]',
-      img: 'object-cover object-center'
-    }
-  }) %>
-</section>
-<section class="text-[var(--white)] bg-[var(--black)] p:p-[60px] t:p-[50px] m:p-[30px]">
-  <div class="p:mx-auto p:w-[900px]">
-    <h3 data-aos="fade-up" class="font-bold p:text-[38px] p:mb-[30px] tm:text-[30px] tm:mb-[22px]">歡迎加入 FIRST CLASS FITNESS 的大家庭</h3>
-    <div class="p:flex p:items-center">
-      <div data-aos="fade-up" class="p:w-1/2 p:text-[14px] t:pb-[24px] m:pb-[10px]">
-        <h4 class="font-bold p:text-[24px] tm:text-[26px] tm:mb-[8px]">應徵條件</h4>
-        <ol class="m-list --order tm:space-y-[8px] p:mb-[12px] tm:mb-[20px]">
-          <li v-for="item in store.careers.condition" class="font-bold p:text-[16px] p:leading-9">
-            {{ item }}
-          </li>
-        </ol>
-        <h4 class="font-bold p:text-[24px] tm:text-[26px] tm:mb-[8px]">工作內容</h4>
-        <ol class="m-list --order tm:space-y-[8px]">
-          <li v-for="item in store.careers.work" class="font-bold p:text-[16px] p:leading-9">
-            {{ item }}
-          </li>
-        </ol>
-      </div>
-      <%- require('img.ejs')({
-        path: require('@imgs/careers/firstclass_fitness_equipments.jpeg'),
-        alt : '健身訓練器材',
-        style: {
-          main: 'p:ml-[70px] p:w-[363px] p:h-[363px]',
-          img: 'object-cover object-center'
-        }
-      }) %>
-    </div>
-  </div>
-</section>
-<section class="text-[var(--white)] bg-[var(--x15)] p:p-[60px] t:text-center t:p-[40px] m:p-[20px]">
-  <div data-aos="fade-up" class="p:mx-auto p:w-[820px]">
-    <h3 class="font-bold p:text-[38px] p:mb-[70px] tm:text-[32px] tm:mb-[20px]">目前開放職缺 JOBS OPEN</h3>
-    <ul class="p:space-y-[68px] tm:space-y-[40px]">
-      <li class="p:flex" v-for="job, index in store.jobs">
-        <h4 class="font-bold p:flex-grow p:text-[24px] tm:text-[30px] tm:mb-[10px]">{{job.title}}</h4>
-        <ol class="m-list --order p:flex-shrink-0 p:w-1/2 p:text-[16px] tm:text-[14px] tm:leading-6">
-          <li v-for="item in job.cnt">{{item}}</li>
-        </ol>
-      </li>
-    </ul>
-  </div>
-</section>
+<%/* 福利與待遇 */%>
 <section class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:py-[110px] t:p-[50px] m:p-[30px]">
   <div data-aos="fade-up" class="p:flex p:w-[900px] p:mx-auto">
     <%- require('img.ejs')({
@@ -110,15 +58,4 @@
       </div>
     </div>
   </div>
-</section>
-<section class="text-[var(--white)] bg-[var(--x15)] p:p-[60px] tm:p-[30px]">
-    <h3 data-aos="fade-right" class="text-center font-bold p:text-[56px] tm:text-[40px] tm:mb-[22px]">我要加入</h3>
-    <p data-aos="fade-right" class="text-center p:text-[16px] tm:text-[18px]">可直接來電或臉書IG諮詢<br/>應徵後 7 天內會通知面試時間，如未採納則不另行通知</p>
-    <%- require('@component/mBtn.ejs')({
-      label: '我要應徵',
-      link: 'https://www.1111.com.tw/corp/117086444/#crop_jobs',
-      style: {
-        main: '--border mx-auto p:text-[14px] tm:text-[16px] p:w-[142px] mt-[30px] h-[42px] tm:w-[170px]'
-      }
-    }) %>
 </section>

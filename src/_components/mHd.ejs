@@ -1,5 +1,7 @@
 <header class="m-hd p:h-[72px] p:px-[20px] t:px-[15px] m:px-[10px] tm:h-[70px] w-full flex items-center bg-[var(--black)]">
-  <h1 class="flex-grow flex items-center">
+  <%/* 這裡是網站識別（logo），不是本頁標題，所以不使用 h1。
+       每一頁的 h1 定義在各自的 view 裡 */%>
+  <div class="flex-grow flex items-center">
     <a
       href="./"
       class="m-hd-logo pt:inline-block m:flex m:items-center"
@@ -16,6 +18,6 @@
         <%- process.env.PROJECT_NAME %>
       </em>
     </a>
-  </h1>
-  <%- require('@component/mNav.ejs')() %>
+  </div>
+  <%- require('@component/mNav.ejs')({ filename: typeof filename !== 'undefined' ? filename : '' }) %>
 </header>

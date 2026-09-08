@@ -1,13 +1,25 @@
+<%
+  /*
+   * 導覽連結在 build 期就輸出成靜態 <a href>，爬蟲不需要執行 JS 即可取得全站內部連結。
+   * 手機選單的開合仍交給 petite-vue（store.nav.active）。
+   */
+  const navItems = require('_data/nav.js');
+  const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
+  const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
+-%>
 <div class="m-nav flex flex-row-reverse items-center text-center pt:flex-shrink-0">
   <button aria-label="menu" type="button" class="m-nav-btn relative p:hidden tm:block h-[40px] w-[40px] flex-shrink-0 z-10" :class="{'active': store.nav.active}" @click="store.nav.onClick">
     <i></i>
   </button>
-  <div class="m-nav-bd tm:absolute tm:right-0 tm:top-0 tm:h-screen tm:w-full tm:flex tm:justify-center tm:overflow-hidden tm:bg-[var(--black)] tm:transition-all tm:duration-300 tm:ease-in-out" :class="[store.nav.active ? 'tm:translate-x-0 tm:z-[5]' : 'tm:translate-x-full']">
+  <nav class="m-nav-bd tm:absolute tm:right-0 tm:top-0 tm:h-screen tm:w-full tm:flex tm:justify-center tm:overflow-hidden tm:bg-[var(--black)] tm:transition-all tm:duration-300 tm:ease-in-out" :class="[store.nav.active ? 'tm:translate-x-0 tm:z-[5]' : 'tm:translate-x-full']" aria-label="主選單">
     <ul class="flex tm:flex-col items-center tm:justify-center">
-      <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]" v-for="item, index in store.nav.items">
-        <a v-if="item.navShow" :href="item.url" class="t:text-[28px] m:text-[24px] tracking-[-0.1em]" :class="{'tm:underline tm:underline-offset-8': store.nowPage === item.url}">
-          {{ item.label }}</a>
+      <% navItems.forEach((item) => { -%>
+        <% if (item.navShow) { -%>
+      <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]">
+        <a href="<%= item.url %>" class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"<%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
       </li>
+        <% } -%>
+      <% }); -%>
     </ul>
-  </div>
-</div> 
+  </nav>
+</div>

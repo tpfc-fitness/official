@@ -1,6 +1,8 @@
 <section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h2 class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">About us<br/>關於我們</h2>
+  <h1 class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">About us<br/>關於我們</h1>
   <%- require('img.ejs')({
+    /* 首屏圖片：立即載入並提高優先度 */
+    eager: true,
     path: require('@imgs/service/firstclass_fitness_indoor.jpg'),
     alt : '室內環境',
     style: {

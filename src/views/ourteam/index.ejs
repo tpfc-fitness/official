@@ -1,13 +1,20 @@
+<%
+  /* build 期讀取資料，教練姓名、證照、專長與照片 alt 全部進得了 HTML */
+  const training = require('_data/training.js');
+  const coach = require('_data/coach.js');
+-%>
 <section class="border-b-[1px] border-solid p:border-[var(--white)] tm:border-[var(--x6)] text-[var(--white)] bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
   <div class="text-center p:w-2/3">
-    <h2 data-aos="fade-right" class="inline-block p:text-left leading-[1.2] font-black p:text-[50px] tm:text-[32px] tm:py-[24px]">教練團隊<br/>TRAINER <br class="pt:hidden"/>GROUP</h2>
+    <h1 data-aos="fade-right" class="inline-block p:text-left leading-[1.2] font-black p:text-[50px] tm:text-[32px] tm:py-[24px]">教練團隊<br/>TRAINER <br class="pt:hidden"/>GROUP</h1>
   </div>
   <div class="p:border-l-[1px] border-solid border-[var(--white)] p:w-1/3 p:py-[40px] p:px-[20px] tm:border-t-[1px] tm:py-[28px] tm:px-[20px]">
     <ul data-aos="fade-in" class="w-fit mx-auto p:space-y-[16px] tm:space-y-[16px]">
-      <li v-for="item in store.traning">
-        <h3 class="font-bold p:text-[18px] tm:text-[20px]">{{item.title}}</h3>
-        <p class="p:text-[12px] tm:text-[14px]" v-html="item.cnt"></p>
+      <% training.forEach((item) => { -%>
+      <li>
+        <h3 class="font-bold p:text-[18px] tm:text-[20px]"><%= item.title %></h3>
+        <p class="p:text-[12px] tm:text-[14px]"><%- item.cnt %></p>
       </li>
+      <% }); -%>
     </ul>
   </div>
 </section>
@@ -17,27 +24,40 @@
   </div>
   <div class="m-slider relative">
     <ul class="coach-slider p:flex p:mx-auto p:max-w-[1330px] p:justify-center p:px-[60px] p:pt-[36px] pb-[72px] p:space-x-[30px]">
-      <li v-for="item in store.coach" class="relative flex flex-col p:w-1/4">
-        <figure class="flex-shrink-0 p:w-[280px] p:h-[324px] tm:h-[340px]">
-          <img class="object-cover object-right !w-full lazy" :alt="`${item.job}-${item.name} | first class 頭等倉運動空間`" :src="item.img">
-        </figure>
+      <% coach.forEach((item, index) => { -%>
+      <li class="relative flex flex-col p:w-1/4">
+        <%- require('img.ejs')({
+          path: item.img,
+          alt: `${item.job}-${item.name}`,
+          /* 第一位教練在首屏內，優先載入 */
+          eager: index === 0,
+          style: {
+            main: 'flex-shrink-0 p:w-[280px] p:h-[324px] tm:h-[340px]',
+            img: 'object-cover object-right !w-full'
+          }
+        }) %>
         <div class="flex-grow text-[var(--white)] bg-[var(--x15)] p:py-[14px] p:px-[16px] tm:py-[13px] tm:px-[12px]">
-          <p class="font-bold p:text-[24px] tm:text-[20px]">{{item.name}}</p>
-          <em class="block p:mb-[10px] tm:mb-[8px] text-[16px]">{{item.job}}</em>
+          <p class="font-bold p:text-[24px] tm:text-[20px]"><%= item.name %></p>
+          <em class="block p:mb-[10px] tm:mb-[8px] text-[16px]"><%= item.job %></em>
           <p class="font-bold p:text-[18px] tm:text-[16px]">證照&研習</p>
           <ul class="m-list --list p:mb-[4px] tm:mb-[8px]">
-            <li v-for="certificate in item.certificate">
-              <em class="p:text-[16px] tm:text-[14px]">{{certificate}}</em>
+            <% item.certificate.forEach((certificate) => { -%>
+            <li>
+              <em class="p:text-[16px] tm:text-[14px]"><%= certificate %></em>
             </li>
+            <% }); -%>
           </ul>
           <p class="font-bold p:text-[18px] tm:text-[16px]">擅長領域</p>
           <ul class="m-list --list p:mb-[4px] tm:mb-[8px]">
-            <li v-for="skill in item.skill">
-              <em class="p:text-[16px] tm:text-[14px]">{{skill}}</em>
+            <% item.skill.forEach((skill) => { -%>
+            <li>
+              <em class="p:text-[16px] tm:text-[14px]"><%= skill %></em>
             </li>
+            <% }); -%>
           </ul>
         </div>
       </li>
+      <% }); -%>
     </ul>
     <div class="m-slider-ctrl p:hidden t:mt-[-70px] m:top-[250px]">
       <button type="button" class="m-slider-prev">

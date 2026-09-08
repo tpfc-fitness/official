@@ -1,15 +1,2 @@
 @import url("_library");
-
-.contact-bd {
-  background: url('@imgs/contact/kv.jpg') center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-@screen tm {
-  .contact-bd {
-    background: url('@imgs/contact/kv.jpg') center center;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-  }
-}
+@import url("_modules/m-reservation");

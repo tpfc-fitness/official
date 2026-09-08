@@ -49,13 +49,13 @@ module.exports = {
     description: 'First Class 頭等倉運動空間目前有四位教練，對於增肌減脂、體態雕塑、肌力訓練、健美、健力都保持著專業知識，不斷精進自我能力，只為了提供學生更安全有效率的健身教學內容。',
     chunks: ['ourteam']
   }, {
-    title: '教練課預約體驗',
+    title: '免費體驗課・民權西路私人教練',
     filename: 'contact.html',
     view: 'contact',
     path: '/contact.html',
     template: 'App.ejs',
     action: 'contact',
-    description: '對於增肌減脂、體態雕塑、肌力訓練、健美、健力有需求的您，歡迎填寫 First Class 頭等倉運動空間體驗表單、預約一對一私人教練課體驗健身氛圍。',
+    description: '位於台北市中山區、捷運民權西路站四號出口步行 3 分鐘的私人教練工作室。免費體驗課含 InBody 檢測、體態評估與基礎動作教學，另有新生優惠前 10 堂 8,000 元，歡迎預約。',
     chunks: ['contact']
   }, {
     title: '交通與環境',

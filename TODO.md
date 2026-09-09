@@ -97,6 +97,14 @@
       「| first class 頭等倉運動空間」結尾，重複性偏高。
 - [ ] **`.vscode/settings.json`** 最後一個屬性有多餘的逗號。
 
+- [ ] **「查看所有 Google 評論」連到的是地標頁，不是評論頁** — 目前用
+      `_data/site.js` 的 `hasMap`。若有直接開啟評論列表的網址會更精準。
+
+- [ ] **`_modules/m-slider.css` 有幾行沒有作用的宣告** —
+      `.m-slider-prev/next::before` 先寫了 `width: 20px; height: 2px;`，
+      緊接著的 `@apply` 又設了 `h-[1px]` 與斷點寬度並覆蓋掉它們。
+      無害，但會誤導閱讀。
+
 ## 六、效能觀察
 
 - [ ] **首頁 KV 背景可能是 LCP 元素** — CSS `background-image` 要等 CSS 解析完

@@ -21,7 +21,8 @@ export default function initReservationPage() {
     store,
     slider: null,
     commentSlider: null,
-    memberResultSlider: null,
+    inbodySlider: null,
+    bodyShapeSlider: null,
     mounted() {
       lazyLoadFun();
       store.load.init();
@@ -96,7 +97,7 @@ export default function initReservationPage() {
         }
 
         // 💬 評價區輪播（全裝置都用）
-        this.memberResultSlider = this.createSlider('.inbody-slider', {
+        this.inbodySlider = this.createSlider('.inbody-slider', {
           controlsContainer: '.inbody-slider-ctrl',
           items: 1,
           slideBy: 1,
@@ -107,7 +108,7 @@ export default function initReservationPage() {
           mouseDrag: true,
           gutter: 10,
         });
-        this.memberResultSlider = this.createSlider('.body-shape-slider', {
+        this.bodyShapeSlider = this.createSlider('.body-shape-slider', {
           controlsContainer: '.body-shape-slider-ctrl',
           items: 1,
           slideBy: 1,
@@ -137,11 +138,13 @@ export default function initReservationPage() {
     destroySliders() {
       this.slider?.destroy();
       this.commentSlider?.destroy();
-      this.memberResultSlider?.destroy();
+      this.inbodySlider?.destroy();
+      this.bodyShapeSlider?.destroy();
 
       this.slider = null;
       this.commentSlider = null;
-      this.memberResultSlider = null;
+      this.inbodySlider = null;
+      this.bodyShapeSlider = null;
     },
 
     scrollToResevation() {

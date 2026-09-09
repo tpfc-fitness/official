@@ -1,0 +1,55 @@
+/*
+ * Google 評論卡（首頁學員推薦）。
+ *
+ * 同一份標記要在三個斷點呈現三種排列：
+ *   桌機：三欄並排，欄與欄之間有直線
+ *   平板：三列堆疊，列與列之間有橫線
+ *   手機：一次一張，由 tiny-slider 輪播
+ * 因此分隔線用 CSS 依斷點切換方向，不在標記裡重複。
+ */
+.m-review {
+  @screen p {
+    > li + li {
+      border-left: 1px solid rgb(255 255 255 / 18%);
+    }
+  }
+
+  @screen t {
+    > li + li {
+      border-top: 1px solid rgb(255 255 255 / 18%);
+    }
+  }
+}
+
+/* 姓名前的短橫線 */
+.m-review-dash {
+  flex-shrink: 0;
+  width: 26px;
+  height: 1px;
+  background-color: rgb(255 255 255 / 55%);
+}
+
+/*
+ * 手機輪播的圓點。
+ * 專案共用的 .tns-nav 是長橫槓，這裡只在本區塊內覆寫成圓點，
+ * 不影響預約頁那幾個沿用長橫槓的輪播。
+ */
+.m-review-slider-wrap {
+  .tns-nav {
+    position: static;
+    justify-content: center;
+    transform: none;
+    margin-top: 20px;
+
+    > * {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background-color: rgb(255 255 255 / 30%);
+    }
+
+    > .tns-nav-active {
+      background-color: var(--x7de9);
+    }
+  }
+}

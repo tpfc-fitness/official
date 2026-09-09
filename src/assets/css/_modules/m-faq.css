@@ -89,34 +89,3 @@ details[open] .m-faq-icon::after {
     }
   }
 }
-
-/*
- * 區塊背景。
- *
- * 目前三個斷點共用同一張 qa-bg.png（1536x1024）。
- * 若之後要為平板與手機準備直幅裁切，把檔案放進同一個資料夾後，
- * 解開下面兩個 @screen 區塊即可 —— 背景圖用 media query 切換就夠，
- * 不需要動到 <picture>。
- */
-.m-learn-more {
-  background: url('@imgs/index/qa-bg.png') center center / cover no-repeat;
-
-  /*
-  @screen t {
-    background-image: url("@imgs/index/qa-bg_t.png");
-  }
-
-  @screen m {
-    background-image: url("@imgs/index/qa-bg_m.png");
-  }
-  */
-
-  /* 壓暗背景，確保文字與面板可讀 */
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    background-color: rgb(10 12 14 / 72%);
-  }
-}

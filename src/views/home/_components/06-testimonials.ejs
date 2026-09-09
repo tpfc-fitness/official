@@ -1,18 +1,77 @@
-<%/* 學員推薦 */%>
-<% const comment = require('_data/comment.js'); -%>
-<section
-  class="p:p-[30px] bg-[var(--black)] text-[var(--white)] tm:border-[var(--x1f1d)] tm:border-solid tm:border-t-[1px]">
-  <h2 class="font-bold p:text-[48px] tm:text-[30px] text-center m:pt-[30px]">學員推薦</h2>
-  <ul class="p:flex p:flex-wrap p:h-full">
-    <% comment.forEach((item, index) => { -%>
-    <li
-      class="p:w-1/3<%- index !== comment.length - 1 ? ' p:border-r-[1px] tm:border-b-[1px] border-solid tm:border-[var(--white)]' : '' %>">
-      <div class="text-right p:max-w-[420px] p:px-[30px] tm:p-[20px]">
-        <p data-aos="fade-up" class="text-left p:text-[18px] tm:text-[20px] p:my-[40px] tm:py-[10px]"><%- item.cnt %>
-        </p>
-        <em data-aos="fade-up" class="font-bold text-[20px]"><%= item.name %></em>
+<%/* 學員推薦（Google 評論） */%>
+<%
+  const comment = require('_data/comment.js');
+  const site = require('_data/site.js');
+-%>
+<section class="m-bg-photo relative overflow-hidden text-[var(--white)]">
+  <div class="relative z-[1] p:flex p:px-[60px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[40px]">
+
+    <%/* 標題：桌機在左欄，平板與手機在上方 */%>
+    <div data-aos="fade-right" class="p:w-[30%] p:flex-shrink-0 p:pr-[40px] tm:mb-[26px]">
+      <p class="flex items-center text-[11px] tracking-[0.24em] text-[rgb(255_255_255_/_55%)] mb-[18px]">
+        TESTIMONIAL
+        <i class="m-review-dash ml-[14px] w-[70px]"></i>
+      </p>
+      <h2 class="font-black leading-[1.2] tracking-[-0.03em] p:text-[46px] t:text-[36px] m:text-[28px]">學員推薦</h2>
+      <p class="leading-[1.8] p:mt-[22px] tm:mt-[12px] p:text-[15px] tm:text-[14px] text-[rgb(255_255_255_/_80%)]">
+        真實的訓練經驗，<br class="t:hidden">比我們自己說更重要。</p>
+    </div>
+
+    <div class="p:flex-grow p:min-w-0">
+      <%/* 桌機與平板的 CTA 在右上；手機移到最下方 */%>
+      <div class="m:hidden text-right p:mb-[24px] t:mb-[22px]">
+        <a href="<%= site.hasMap %>" target="_blank" rel="noopener"
+          class="inline-flex items-center border-b border-solid border-[rgb(255_255_255_/_45%)] pb-[6px] p:text-[14px] t:text-[14px] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">
+          查看所有 Google 評論
+          <%- require('@component/svg.ejs')({
+            svgName: 'arrow',
+            style: { main: 'w-[18px] h-[18px] ml-[16px]' }
+          }) %>
+        </a>
       </div>
-    </li>
-    <% }); -%>
-  </ul>
+
+      <div class="m-review-slider-wrap">
+        <ul class="m-review testimonial-slider p:flex">
+          <% comment.forEach((item) => { -%>
+          <li
+            class="p:w-1/3 p:px-[28px] t:flex t:items-start t:py-[22px] m:border m:border-solid m:border-[rgb(255_255_255_/_18%)] m:bg-[rgb(0_0_0_/_45%)] m:p-[20px]">
+            <div class="t:w-[132px] t:flex-shrink-0">
+              <p class="text-[11px] tracking-[0.2em] text-[rgb(255_255_255_/_55%)]">GOOGLE REVIEW</p>
+              <%/* 五星評價：icon_star 已改為 currentColor，顏色由這裡決定 */%>
+              <p class="flex items-center space-x-[3px] mt-[10px] text-[var(--x7de9)]" role="img" aria-label="五星評價">
+                <% for (let i = 0; i < 5; i += 1) { -%>
+                <%- require('@component/svg.ejs')({
+                  svgName: 'icon_star',
+                  style: { main: 'w-[15px] h-[15px]' }
+                }) %>
+                <% } -%>
+              </p>
+            </div>
+
+            <blockquote class="t:flex-grow t:min-w-0 t:px-[24px] p:mt-[22px] m:mt-[18px]">
+              <p class="leading-[1.9] p:text-[14px] tm:text-[13px]">「<%- item.cnt %>」</p>
+            </blockquote>
+
+            <div class="flex items-center t:flex-shrink-0 p:mt-[24px] m:mt-[18px]">
+              <i class="m-review-dash mr-[14px]"></i>
+              <cite class="not-italic font-bold p:text-[15px] tm:text-[14px]"><%= item.name %></cite>
+            </div>
+          </li>
+          <% }); -%>
+        </ul>
+      </div>
+
+      <%/* 手機的 CTA 在最下方 */%>
+      <div class="pt:hidden text-center mt-[26px]">
+        <a href="<%= site.hasMap %>" target="_blank" rel="noopener"
+          class="inline-flex items-center border-b border-solid border-[rgb(255_255_255_/_45%)] pb-[6px] text-[14px]">
+          查看所有 Google 評論
+          <%- require('@component/svg.ejs')({
+            svgName: 'arrow',
+            style: { main: 'w-[18px] h-[18px] ml-[16px]' }
+          }) %>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>

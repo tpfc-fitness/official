@@ -1,6 +1,8 @@
 @import url('_library');
 @import url('_modules/m-coach');
 @import url('_modules/m-faq');
+@import url('_modules/m-bg-photo');
+@import url('_modules/m-review');
 
 .kv {
   position: relative;

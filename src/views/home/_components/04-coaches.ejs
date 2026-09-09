@@ -34,7 +34,7 @@
           eager: index === 0,
           style: {
             main: 'pt:absolute pt:inset-0 pt:z-0 m:relative m:flex-shrink-0 m:w-[100px] m:h-full',
-            img: 'object-cover object-center'
+            img: 'object-cover object-top'
           }
         }) %>
         <div class="relative z-[2] flex items-center flex-grow pt:items-end m:px-[14px]">
@@ -42,7 +42,7 @@
             <p class="font-bold leading-tight p:text-[26px] t:text-[22px] m:text-[18px]"><%= coach.name %></p>
             <p class="p:mt-[6px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
               <%= coach.title %></p>
-            <p class="p:mt-[8px] tm:mt-[4px] p:text-[13px] tm:text-[12px]"><%= coach.skills.join(' × ') %></p>
+            <p class="p:mt-[4px] p:text-[18px] tm:text-[14px]"><%= coach.skills.join(' × ') %></p>
           </div>
           <span class="flex-shrink-0 p:ml-[16px] tm:ml-[10px]">
             <%- require('@component/svg.ejs')({

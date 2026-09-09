@@ -97,19 +97,20 @@
 <figure<%- typeof style !== 'undefined' && style.main !== 'undefined' ? ` class="${ style.main }"` : '' %>>
   <%  %>
   <% if ( img.m.path || img.p.webp || img.m.webp ) { -%>
-    <picture>
-      <% if ( img.m.webp ) { -%>
-        <source data-srcset="<%= img.m.webpPath %>.webp?<%= hash(8) %>" type="image/webp" media="(max-width: 428px)">
-      <% } -%>
-      <% if ( img.m.path ) { -%>
-        <source data-srcset="<%= img.m.path %>" media="(max-width: 428px)">
-      <% } -%>
-      <% if ( img.p.webp ) { -%>
-        <source data-srcset="<%= img.p.webpPath %>.webp?<%= hash(8) %>" type="image/webp">
-      <% } -%>
+  <picture>
+    <% if ( img.m.webp ) { -%>
+    <source data-srcset="<%= img.m.webpPath %>.webp?<%= hash(8) %>" type="image/webp" media="(max-width: 428px)">
     <% } -%>
-        <img class="<%- imgClass %>" alt="<%- alt %> | <%- process.env.PROJECT_NAME %>"<%- sizeAttr %><%- loadAttr %> decoding="async" src="<%= img.p.path %>?<%= hash(8) %>">
+    <% if ( img.m.path ) { -%>
+    <source data-srcset="<%= img.m.path %>" media="(max-width: 428px)">
+    <% } -%>
+    <% if ( img.p.webp ) { -%>
+    <source data-srcset="<%= img.p.webpPath %>.webp?<%= hash(8) %>" type="image/webp">
+    <% } -%>
+    <% } -%>
+    <img class="<%- imgClass %>" alt="<%- alt %> | <%- process.env.PROJECT_NAME %>" <%- sizeAttr %><%- loadAttr %>
+      decoding="async" src="<%= img.p.path %>?<%= hash(8) %>">
     <% if ( img.m.path || img.p.webp || img.m.webp ) { -%>
-      </picture>
-    <% } -%>
-</figure>
+  </picture>
+  <% } -%>
+  </figure>

@@ -7,8 +7,7 @@
       counter-increment: order 1;
 
       &::before {
-        content: counter(order) ". ";
-  
+        content: counter(order) '. ';
       }
     }
   }
@@ -18,7 +17,7 @@
 
     > li {
       &::before {
-        content: "·";
+        content: '·';
       }
     }
   }

@@ -1,4 +1,4 @@
-import {tns} from 'tiny-slider/src/tiny-slider';
+import { tns } from 'tiny-slider/src/tiny-slider';
 import 'tiny-slider/dist/tiny-slider.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -27,27 +27,27 @@ window.PetiteVue.createApp({
     store.load.init();
 
     setTimeout(() => {
-      if(deviceType() === 'p') {
+      if (deviceType() === 'p') {
         AOS.init({
           offset: 120,
           duration: 800,
           easing: 'ease-in-out',
-          once: true
+          once: true,
         });
       } else {
         hdScroll();
       }
-      vm.windowResize()
+      vm.windowResize();
       window.addEventListener('resize', vm.windowResize);
-    }, 300)
+    }, 300);
 
     store.load.finish();
   },
   windowResize() {
     const vm = this;
     this.$nextTick(() => {
-      if(vm.slider && vm.slider.destroy) vm.slider.destroy();
-      if(deviceType()!=='p') {
+      if (vm.slider && vm.slider.destroy) vm.slider.destroy();
+      if (deviceType() !== 'p') {
         vm.slider = tns({
           container: '.coach-slider',
           items: 1,
@@ -61,19 +61,19 @@ window.PetiteVue.createApp({
             740: {
               items: 2,
               edgePadding: 60,
-              gutter: 40
-            }
+              gutter: 40,
+            },
           },
           onInit: () => {
             AOS.init({
               offset: 120,
               duration: 800,
               easing: 'ease-in-out',
-              once: true
+              once: true,
             });
-          }
+          },
         });
       }
-    })
-  }
+    });
+  },
 }).mount('.jWrap');

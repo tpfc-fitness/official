@@ -1,8 +1,6 @@
 const CONFIG = require('./config.js');
 const purgecss =
-  process.env.NODE_ENV === 'production'
-    ? require('@fullhuman/postcss-purgecss')
-    : () => {};
+  process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss') : () => {};
 
 module.exports = {
   plugins: [
@@ -27,8 +25,7 @@ module.exports = {
       fontFace: true,
       keyframes: true,
       variables: true,
-      defaultExtractor: (content) =>
-        content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+      defaultExtractor: (content) => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
       skippedContentGlobs: ['node_modules/**'],
       safelist: {
         deep: [
@@ -45,13 +42,7 @@ module.exports = {
       },
     }),
     require('autoprefixer')({
-      overrideBrowserslist: [
-        '> 1%',
-        'last 5 versions',
-        'Firefox >= 45',
-        'ios >= 8',
-        'ie >= 10',
-      ],
+      overrideBrowserslist: ['> 1%', 'last 5 versions', 'Firefox >= 45', 'ios >= 8', 'ie >= 10'],
     }),
     require('postcss-color-rgba-fallback'),
   ],

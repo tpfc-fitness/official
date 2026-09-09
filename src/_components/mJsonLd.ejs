@@ -85,4 +85,7 @@
   const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
     .replace(/</g, '\\u003c');
 -%>
-<script type="application/ld+json"><%- json %></script>
+<script type="application/ld+json">
+  <%- json %>
+
+</script>

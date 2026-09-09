@@ -47,13 +47,13 @@
         }]; -%>
       <div class="m-n-sup-fig-list">
         <ul>
-          <% for(let i = 0; i < browsers.length; i += 1) { -%> 
-            <% const { href, text, name } = browsers[i]; -%>
-            <li>
-              <a href="<%= href %>" class="m-n-sup-fig <%= name %>">
-                <p class="m-n-sup-description"><%= text %></p>
-              </a>
-            </li>
+          <% for(let i = 0; i < browsers.length; i += 1) { -%>
+          <% const { href, text, name } = browsers[i]; -%>
+          <li>
+            <a href="<%= href %>" class="m-n-sup-fig <%= name %>">
+              <p class="m-n-sup-description"><%= text %></p>
+            </a>
+          </li>
           <% } -%>
         </ul>
       </div>

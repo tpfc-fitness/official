@@ -4,12 +4,12 @@
   return btoa.split('').reverse().slice(0, length).join(''); }; 
 -%>
 <% if ( process.env.COMMON_PLUGINS || htmlWebpackPlugin.options.plugins ) { -%>
-  <% const plugins = {
+<% const plugins = {
     ...process.env.COMMON_PLUGINS,
     ...htmlWebpackPlugin.options.plugins}
   -%>
-  <% Object.keys(plugins).forEach((key) => { -%>
-    <%
+<% Object.keys(plugins).forEach((key) => { -%>
+<%
       const oriSrc = plugins[key]
       const regex = /\[fullhash:\d+\]/
       const extension = process.env.BUILD_JS_EXTENSION || 'js'
@@ -20,8 +20,9 @@
 <% }); -%>
 <% } -%>
 <% if ( process.env.BUILD_JS_EXTENSION ) { -%>
-  <% const chunks = htmlWebpackPlugin.options.chunks -%>
-  <% for (let i = 0; i < chunks.length; i+=1) { -%>
-    <script src="<%- process.env.ROOT_FILES.js %><%- chunks[i] %>.<%- process.env.BUILD_JS_EXTENSION %>?<%- hash(8) %>"></script>
-  <% } -%>
+<% const chunks = htmlWebpackPlugin.options.chunks -%>
+<% for (let i = 0; i < chunks.length; i+=1) { -%>
+<script src="<%- process.env.ROOT_FILES.js %><%- chunks[i] %>.<%- process.env.BUILD_JS_EXTENSION %>?<%- hash(8) %>">
+</script>
+<% } -%>
 <% } -%>

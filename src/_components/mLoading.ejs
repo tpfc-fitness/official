@@ -6,12 +6,9 @@
 
 <div
   class="m-loading pt:py-[40px] m:py-[30px] mx-auto flex flex-col items-center justify-center<%- props.style.main ? ` ${props.style.main}` : '' %>"
-  v-if="!store.load.isDone"
->
-  <svg
-    class="m-loading-svg pt:w-[120px] pt:h-[120px] m:w-[80px] m:h-[80px] fill-current text-[#b3ce2b]"
-    viewBox="0 0 48 48"
-  >
+  v-if="!store.load.isDone">
+  <svg class="m-loading-svg pt:w-[120px] pt:h-[120px] m:w-[80px] m:h-[80px] fill-current text-[#b3ce2b]"
+    viewBox="0 0 48 48">
     <circle cx="24" cy="4" r="4" />
     <circle cx="12.19" cy="7.86" r="3.7" class="opacity-90" />
     <circle cx="5.02" cy="17.68" r="3.4" class="opacity-80" />

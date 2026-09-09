@@ -1,12 +1,15 @@
 <%/* 品牌理念：用自由的心態打造完美的體態 */%>
-  <section class="flex tm:flex-col">
-    <div class="tm:order-2 flex justify-center items-center p:w-1/2 text-[var(--white)] p:p-[60px] tm:p-[34px] bg-[var(--black)]">
-      <div data-aos="fade-right" class="p:w-[400px]">
-        <h2 class="font-bold p:text-[48px] tm:text-[30px] tm:text-center leading-[1.2] tracking-[-0.03em]">
-          用自由的心態<br>​打造完美的體態
-        </h2>
-        <p class="p:mt-[30px] tm:mt-[24px] text-[14px]">我們相當重視教練與學員間的互動，在訓練計畫中，我<br class="tm:hidden">們的教練不僅透過視覺、聽覺，並施以協助動能來輔以<br class="tm:hidden">更優化的動作回饋，讓您以最高效的方式達成最好的學<br class="tm:hidden">習效果。</p>
-        <%- require('@component/mBtn.ejs')({
+<section class="flex tm:flex-col">
+  <div
+    class="tm:order-2 flex justify-center items-center p:w-1/2 text-[var(--white)] p:p-[60px] tm:p-[34px] bg-[var(--black)]">
+    <div data-aos="fade-right" class="p:w-[400px]">
+      <h2 class="font-bold p:text-[48px] tm:text-[30px] tm:text-center leading-[1.2] tracking-[-0.03em]">
+        用自由的心態<br>​打造完美的體態
+      </h2>
+      <p class="p:mt-[30px] tm:mt-[24px] text-[14px]">我們相當重視教練與學員間的互動，在訓練計畫中，我<br
+          class="tm:hidden">們的教練不僅透過視覺、聽覺，並施以協助動能來輔以<br class="tm:hidden">更優化的動作回饋，讓您以最高效的方式達成最好的學<br
+          class="tm:hidden">習效果。</p>
+      <%- require('@component/mBtn.ejs')({
           label: '專業團隊',
           link: './ourteam.html',
           style: {
@@ -18,10 +21,10 @@
             css: 'p:w-[18px] p:h-[18px] tm:w-[24px] tm:h-[24px]'
           }
         }) %>
-      </div>
     </div>
-    <div class="tm:order-1 p:w-1/2">
-      <%- require('img.ejs')({
+  </div>
+  <div class="tm:order-1 p:w-1/2">
+    <%- require('img.ejs')({
         /* 首屏圖片：立即載入並提高優先度 */
         eager: true,
         path: require('index/firstclass_fitness_indoor.jpg'),
@@ -31,5 +34,5 @@
           img: 'object-cover object-center'
         }
       }) %>
-    </div>
-  </section>
+  </div>
+</section>

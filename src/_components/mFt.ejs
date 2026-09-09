@@ -9,9 +9,7 @@
 <footer class="m-ft p:px-[50px] p:pt-[50px] tm:px-[40px] tm:pt-[30px]">
   <div class="p:flex p:justify-between p:pl-[30px]">
     <div data-aos="fade-right" class="tm:flex tm:flex-col tm:items-center p:w-[270px] tm:mb-[50px]">
-      <div
-        class="m-hd-logo p:inline-block m:flex m:items-center p:mb-[18px] tm:mb-[16px]"
-      >
+      <div class="m-hd-logo p:inline-block m:flex m:items-center p:mb-[18px] tm:mb-[16px]">
         <%- require('@component/svg.ejs')({
           svgName: 'logo_sub',
           style: {
@@ -22,7 +20,8 @@
           <%- process.env.PROJECT_NAME %>
         </em>
       </div>
-      <p class="tm:text-center p:text-[12px] t:text-[20px] m:text-[14px] p:mb-[22px] tm:mb-[30px]">追蹤我們的社群媒體，每週都會有實質的內容與教學，降低更多的運動傷害，讓我們同步更好的訓練效益！</p>
+      <p class="tm:text-center p:text-[12px] t:text-[20px] m:text-[14px] p:mb-[22px] tm:mb-[30px]">
+        追蹤我們的社群媒體，每週都會有實質的內容與教學，降低更多的運動傷害，讓我們同步更好的訓練效益！</p>
       <%- require('@component/mBtn.ejs')({
         label: '即刻預約',
         link: './contact.html',
@@ -38,7 +37,8 @@
           <ul>
             <% navItems.forEach((item) => { -%>
             <li>
-              <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]"<%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
+              <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]"
+                <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
             </li>
             <% }); -%>
           </ul>
@@ -70,17 +70,19 @@
             </li>
             <li class="p:mt-[40px] tm:w-1/2">
               <h4 class="text-[var(--xc7)] font-bold p:mb-[8px] tm:mb-[6px] p:text-[20px] tm:text-[20px]">地址電話</h4>
-              <a class="block p:mb-[4px] tm:mb-[10px] pt:text-[14px] m:text-[12px]" href="tel:+886-2-25222330">(02)2522-2330</a>
-              <a class="pt:text-[14px] m:text-[12px]" href="https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6" target="_blank" rel="noopener"><p class="leading-tight">10449<br>台北市中山區中山北路二段128巷32號1F</p></a>
+              <a class="block p:mb-[4px] tm:mb-[10px] pt:text-[14px] m:text-[12px]"
+                href="tel:+886-2-25222330">(02)2522-2330</a>
+              <a class="pt:text-[14px] m:text-[12px]" href="https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6" target="_blank"
+                rel="noopener">
+                <p class="leading-tight">10449<br>台北市中山區中山北路二段128巷32號1F</p>
+              </a>
             </li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
-  <small
-    class="m-ft-copyright block py-[24px] text-center text-[13px] m:px-[20px]"
-  >
+  <small class="m-ft-copyright block py-[24px] text-center text-[13px] m:px-[20px]">
     <%- process.env.COPYRIGHT %>
   </small>
 </footer>

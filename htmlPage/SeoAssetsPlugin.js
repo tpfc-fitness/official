@@ -18,17 +18,14 @@ class SeoAssetsPlugin {
     return this.pages
       .filter((page) => !page.noindex)
       .map((page) => {
-        const path =
-          page.path || `/${page.filename || ''}`.replace(/^\/+/, '/');
+        const path = page.path || `/${page.filename || ''}`.replace(/^\/+/, '/');
         return `${this.siteUrl}${path}`;
       })
       .filter((url, index, all) => all.indexOf(url) === index);
   }
 
   buildSitemap() {
-    const locs = this.urls
-      .map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`)
-      .join('\n');
+    const locs = this.urls.map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`).join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

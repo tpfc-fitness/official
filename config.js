@@ -34,9 +34,7 @@ module.exports = {
   },
   plugins: () => {
     const def = [];
-    const publish = def.concat(
-      htmlPage.HtmlWebpackPlugin,
-    );
+    const publish = def.concat(htmlPage.HtmlWebpackPlugin);
 
     return publish;
   },

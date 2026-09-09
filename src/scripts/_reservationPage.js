@@ -31,23 +31,23 @@ export default function initReservationPage() {
             offset: 120,
             duration: 800,
             easing: 'ease-in-out',
-            once: true
+            once: true,
           });
-  
+
           if (deviceType() !== 'p') hdScroll();
-  
+
           this.initSliders();
           window.addEventListener('resize', this.debouncedResize);
-  
+
           setTimeout(() => {
             AOS.refreshHard();
           }, 300);
         }, 300);
       });
-  
+
       store.load.finish();
     },
-  
+
     // 📌 debounce for resize
     debouncedResize() {
       clearTimeout(this._resizeTimer);
@@ -55,11 +55,11 @@ export default function initReservationPage() {
         this.initSliders();
       }, 150);
     },
-  
+
     initSliders() {
       this.$nextTick(() => {
         this.destroySliders();
-  
+
         // 📱 平板 / 手機 only
         if (deviceType() !== 'p') {
           this.slider = this.createSlider('.training-rules-slider', {
@@ -73,11 +73,11 @@ export default function initReservationPage() {
               740: {
                 items: 2,
                 edgePadding: 60,
-                gutter: 20
-              }
-            }
+                gutter: 20,
+              },
+            },
           });
-  
+
           this.commentSlider = this.createSlider('.comments-slider', {
             slideBy: 'page',
             items: 1,
@@ -89,12 +89,12 @@ export default function initReservationPage() {
             responsive: {
               740: {
                 items: 2,
-                edgePadding: 20
-              }
-            }
+                edgePadding: 20,
+              },
+            },
           });
         }
-  
+
         // 💬 評價區輪播（全裝置都用）
         this.memberResultSlider = this.createSlider('.inbody-slider', {
           controlsContainer: '.inbody-slider-ctrl',
@@ -105,7 +105,7 @@ export default function initReservationPage() {
           nav: true,
           navPosition: 'bottom',
           mouseDrag: true,
-          gutter: 10
+          gutter: 10,
         });
         this.memberResultSlider = this.createSlider('.body-shape-slider', {
           controlsContainer: '.body-shape-slider-ctrl',
@@ -116,38 +116,38 @@ export default function initReservationPage() {
           nav: true,
           navPosition: 'bottom',
           mouseDrag: true,
-          gutter: 10
+          gutter: 10,
         });
       });
     },
-  
+
     createSlider(containerSelector, options) {
       const el = document.querySelector(containerSelector);
       if (!el) return null;
-  
+
       return tns({
         container: containerSelector,
         autoplay: false,
         loop: false,
         rewind: true,
-        ...options
+        ...options,
       });
     },
-  
+
     destroySliders() {
       this.slider?.destroy();
       this.commentSlider?.destroy();
       this.memberResultSlider?.destroy();
-  
+
       this.slider = null;
       this.commentSlider = null;
       this.memberResultSlider = null;
     },
-  
+
     scrollToResevation() {
       document.querySelector('#resevation').scrollIntoView({
-        behavior: 'smooth' // 平滑滾動
+        behavior: 'smooth', // 平滑滾動
       });
-    }
+    },
   }).mount('.jWrap');
 }

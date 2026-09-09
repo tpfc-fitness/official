@@ -7,9 +7,7 @@ const CSSMINIMIZERPLUGIN = require('css-minimizer-webpack-plugin');
 const HTMLWEBPACKPLUGIN = require('html-webpack-plugin');
 const BEAUTIFYHTMLWEBPACKPLUGIN = require('beautify-html-webpack-plugin');
 const TERSERPLUGIN = require('terser-webpack-plugin');
-const {
-  HtmlWebpackSkipAssetsPlugin,
-} = require('html-webpack-skip-assets-plugin');
+const { HtmlWebpackSkipAssetsPlugin } = require('html-webpack-skip-assets-plugin');
 const IMAGEMINIMIZERPLUGIN = require('image-minimizer-webpack-plugin');
 const COPYWEBPACKPLUGIN = require('copy-webpack-plugin');
 const IMAGEMINPLUGIN = require('imagemin-webpack-plugin').default;
@@ -38,9 +36,7 @@ Object.keys(require('os').networkInterfaces()).forEach((devName) => {
 });
 
 const extension =
-  process.env.APP_ENV === 'build' && CONFIG.buildJSExtension
-    ? CONFIG.buildJSExtension
-    : 'js';
+  process.env.APP_ENV === 'build' && CONFIG.buildJSExtension ? CONFIG.buildJSExtension : 'js';
 const extendPlugins = () => {
   // const jqueryPlugin = CONFIG.jquery ? [new WEBPACKP.ProvidePlugin({
   //   $: 'jquery',
@@ -50,9 +46,7 @@ const extendPlugins = () => {
   const miniCssExtractCSS = new MINiCSSEXTRACTPLUGIN({
     filename:
       CONFIG.css +
-      (CONFIG.commonCss
-        ? `${CONFIG.commonCss}.css?[fullhash:8]`
-        : '[name].css?[fullhash:8]'),
+      (CONFIG.commonCss ? `${CONFIG.commonCss}.css?[fullhash:8]` : '[name].css?[fullhash:8]'),
     experimentalUseImportModule: true,
   });
   let copyWebpackPlugin = () => {};
@@ -70,14 +64,10 @@ const extendPlugins = () => {
         static: CONFIG.static,
       }),
       PROJECT_ROOT: JSON.stringify(__dirname),
-      SITE_URL: JSON.stringify(
-        (CONFIG.siteUrl || '').replace(/\/+$/, '')
-      ),
+      SITE_URL: JSON.stringify((CONFIG.siteUrl || '').replace(/\/+$/, '')),
       PROJECT_NAME: JSON.stringify(CONFIG.projectName),
       COPYRIGHT: JSON.stringify(CONFIG.copyright),
-      COMMON_PLUGINS: CONFIG.commonPlugins
-        ? JSON.stringify(CONFIG.commonPlugins)
-        : '',
+      COMMON_PLUGINS: CONFIG.commonPlugins ? JSON.stringify(CONFIG.commonPlugins) : '',
       BUILD_JS_EXTENSION: JSON.stringify(
         process.env.APP_ENV === 'build' ? CONFIG.buildJSExtension : null
       ),
@@ -220,11 +210,7 @@ const resolveAlias = () => {
   };
 
   Object.keys(CONFIG).forEach((value) => {
-    if (
-      typeof CONFIG[value] === 'string' &&
-      CONFIG[value] &&
-      /\//.test(CONFIG[value])
-    ) {
+    if (typeof CONFIG[value] === 'string' && CONFIG[value] && /\//.test(CONFIG[value])) {
       pathReturn[`@${value}`] = PATH.join(__dirname, `src/${CONFIG[value]}`);
     }
   });
@@ -255,10 +241,7 @@ module.exports = {
     return pathReturn;
   },
   output: {
-    path: PATH.resolve(
-      __dirname,
-      process.env.APP_ENV !== 'deploy' ? process.env.APP_ENV : 'dist'
-    ),
+    path: PATH.resolve(__dirname, process.env.APP_ENV !== 'deploy' ? process.env.APP_ENV : 'dist'),
     filename: `${CONFIG.js}[name].${extension}?[fullhash:8]`,
     publicPath: CONFIG.rootDirectory ? CONFIG.rootDirectory : 'auto',
     pathinfo: false,
@@ -314,10 +297,7 @@ module.exports = {
             loader: MINiCSSEXTRACTPLUGIN.loader,
             options: {
               publicPath: (resourcePath, context) =>
-                `${PATH.relative(PATH.dirname(resourcePath), context).replace(
-                  /\\/g,
-                  '/'
-                )}/`,
+                `${PATH.relative(PATH.dirname(resourcePath), context).replace(/\\/g, '/')}/`,
             },
           },
           'css-loader',
@@ -491,9 +471,7 @@ module.exports = {
                           removeViewBox: false,
                           addAttributesToSVGElement: {
                             params: {
-                              attributes: [
-                                { xmlns: 'http://www.w3.org/2000/svg' },
-                              ],
+                              attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
                             },
                           },
                         },

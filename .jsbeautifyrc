@@ -1,0 +1,13 @@
+{
+  "html": {
+    "indent_size": 2,
+    "wrap_line_length": 120,
+    "wrap_attributes": "auto",
+    "preserve_newlines": true,
+    "max_preserve_newlines": 1,
+    "end_with_newline": true,
+    "indent_inner_html": false,
+    "extra_liners": [],
+    "templating": ["erb"]
+  }
+}

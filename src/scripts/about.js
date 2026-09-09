@@ -27,11 +27,11 @@ window.PetiteVue.createApp({
         offset: 120,
         duration: 800,
         easing: 'ease-in-out',
-        once: true
+        once: true,
       });
-      if(deviceType() !== 'p') hdScroll();
-    }, 300)
-    
+      if (deviceType() !== 'p') hdScroll();
+    }, 300);
+
     store.load.finish();
   },
 }).mount('.jWrap');

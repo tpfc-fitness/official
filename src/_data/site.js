@@ -31,14 +31,7 @@ module.exports = {
   /* 營業時間：週一至週六 13:00–22:00，週日公休（來源：footer 與 information 頁） */
   openingHours: [
     {
-      dayOfWeek: [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ],
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       opens: '13:00',
       closes: '22:00',
     },

@@ -1,4 +1,4 @@
-@import url("_library");
+@import url('_library');
 
 .kv {
   background: rgb(21 35 45 / 85%);
@@ -6,7 +6,7 @@
   background-repeat: no-repeat;
   transition: 0.3s ease-in-out all;
 
-  &:hover{
+  &:hover {
     background: rgb(37 58 73 / 85%);
   }
 }
@@ -16,20 +16,29 @@
 }
 
 @keyframes neon-effect {
-  0%, 13.5%, 15%, 16.5%, 17.8%, 38.5%, 40%, 100% {
+  0%,
+  13.5%,
+  15%,
+  16.5%,
+  17.8%,
+  38.5%,
+  40%,
+  100% {
     text-shadow:
-    0 0 6px rgb(202 228 225 / 92%),
-    0 0 30px rgb(202 228 225 / 34%),
-    0 0 12px rgb(30 132 242 / 52%),
-    0 0 21px rgb(30 132 242 / 92%),
-    0 0 34px rgb(30 132 242 / 78%),
-    0 0 54px rgb(30 132 242 / 92%);
+      0 0 6px rgb(202 228 225 / 92%),
+      0 0 30px rgb(202 228 225 / 34%),
+      0 0 12px rgb(30 132 242 / 52%),
+      0 0 21px rgb(30 132 242 / 92%),
+      0 0 34px rgb(30 132 242 / 78%),
+      0 0 54px rgb(30 132 242 / 92%);
   }
 
-  14.2%, 17.1%, 39.2% {        
+  14.2%,
+  17.1%,
+  39.2% {
     text-shadow: none;
     box-shadow: none;
-  }   
+  }
 }
 
 @screen tm {

@@ -20,109 +20,123 @@
 -%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-  <head>
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="-1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-    <meta name="description" content="<%= DESCRIPTION %>">
-    <% if (NOINDEX) { -%>
-    <meta name="robots" content="noindex">
-    <% } -%>
-    <meta property="og:title" content="<%= TITLE %>">
-    <meta property="og:description" content="<%= DESCRIPTION %>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<%= PAGE_URL %>">
-    <meta property="og:image" content="<%= OG_IMAGE_URL %>">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="<%= TITLENAME %>">
-    <title><%- TITLE %></title>
-    <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
-    <link rel="canonical" href="<%= PAGE_URL %>">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap" rel="stylesheet">
-    <!-- Meta Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
+<head>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+  <meta name="description" content="<%= DESCRIPTION %>">
+  <% if (NOINDEX) { -%>
+  <meta name="robots" content="noindex">
+  <% } -%>
+  <meta property="og:title" content="<%= TITLE %>">
+  <meta property="og:description" content="<%= DESCRIPTION %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= PAGE_URL %>">
+  <meta property="og:image" content="<%= OG_IMAGE_URL %>">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="<%= TITLENAME %>">
+  <title><%- TITLE %></title>
+  <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
+  <link rel="canonical" href="<%= PAGE_URL %>">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap" rel="stylesheet">
+  <!-- Meta Pixel Code -->
+  <script>
+    ! function(f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '420754771004769');
-      fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=420754771004769&ev=PageView&noscript=1"
-      /></noscript>
-      <!-- End Meta Pixel Code -->  
-      <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WF60XB60MZ"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    fbq('init', '420754771004769');
+    fbq('track', 'PageView');
 
-        gtag('config', 'G-WF60XB60MZ');
-      </script>
-    <% if (!NOINDEX) { -%>
-    <%- require('@component/mJsonLd.ejs')({
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=420754771004769&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WF60XB60MZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-WF60XB60MZ');
+
+  </script>
+  <% if (!NOINDEX) { -%>
+  <%- require('@component/mJsonLd.ejs')({
       SITE_URL,
       PAGE_URL,
       PAGE_TITLE,
       IS_HOME
     }) %>
-    <% } -%>
-  </head>
-  <body>
-    <a href="#main" class="l-skip">跳到主要內容</a>
-    <div class="l-wrap relative flex flex-col min-h-screen bg-[var(--black)] jWrap" @vue:mounted="mounted">
-      <!-- Header Start -->
-       <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
-        <div class="l-hd flex-shrink-0 top-0 fixed w-full jHd"> 
-          <%- require('@component/mHd.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
-          <%- require('@component/mMarquee.ejs')({
+  <% } -%>
+</head>
+<body>
+  <a href="#main" class="l-skip">跳到主要內容</a>
+  <div class="l-wrap relative flex flex-col min-h-screen bg-[var(--black)] jWrap" @vue:mounted="mounted">
+    <!-- Header Start -->
+    <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
+    <div class="l-hd flex-shrink-0 top-0 fixed w-full jHd">
+      <%- require('@component/mHd.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
+      <%- require('@component/mMarquee.ejs')({
             txt: '凡首次購買，一對一私教人教練課 <b>10</b> 堂 <b>8,000</b> 元，完課期間到館自主訓練免費'
           }) %>
-        </div>
-      <% } -%>
-      <!-- Header End -->
-      <!-- Content Start -->
-      <div data-aos="fade-in" class="l-main flex flex-grow<%- htmlWebpackPlugin.options.action !== 'resevation' ? ` is-head` : '' %>">
-        <main id="main" tabindex="-1" class="l-content flex-grow overflow-hidden relative bg-[var(--black)]">
-          <%- reqFile %>
-        </main>
-        <%- require('@component/mLoading.ejs')({
+    </div>
+    <% } -%>
+    <!-- Header End -->
+    <!-- Content Start -->
+    <div data-aos="fade-in"
+      class="l-main flex flex-grow<%- htmlWebpackPlugin.options.action !== 'resevation' ? ` is-head` : '' %>">
+      <main id="main" tabindex="-1" class="l-content flex-grow overflow-hidden relative bg-[var(--black)]">
+        <%- reqFile %>
+      </main>
+      <%- require('@component/mLoading.ejs')({
           style: {
             main: 'fixed'
           }
         }) %>
-      </div>
-      <!-- Content End -->
-      <!-- Footer Start -->
-      <div class="l-ft flex-shrink-0 relative bg-[var(--x15)] text-[var(--white)]">
-        <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
-          <%- require('@component/mFt.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
-        <% } else {-%>
-          <small class="m-ft-copyright block py-[24px] text-center text-[13px] bg-[#000] m:px-[20px]">
-            <%- process.env.COPYRIGHT %>
-          </small>
-        <% } -%>
-      </div>
-      <!-- Footer End -->
     </div>
-    <%- require('@component/mNSup.ejs')() %>
-    <%- require('@component/Vendor.ejs')({
+    <!-- Content End -->
+    <!-- Footer Start -->
+    <div class="l-ft flex-shrink-0 relative bg-[var(--x15)] text-[var(--white)]">
+      <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
+      <%- require('@component/mFt.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
+      <% } else {-%>
+      <small class="m-ft-copyright block py-[24px] text-center text-[13px] bg-[#000] m:px-[20px]">
+        <%- process.env.COPYRIGHT %>
+      </small>
+      <% } -%>
+    </div>
+    <!-- Footer End -->
+  </div>
+  <%- require('@component/mNSup.ejs')() %>
+  <%- require('@component/Vendor.ejs')({
       htmlWebpackPlugin
     }) %>
-  </body>
+</body>
 </html>

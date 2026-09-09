@@ -1,6 +1,6 @@
 .m-btn {
-  @apply flex justify-between font-bold text-center border border-solid border-[var(--white)];
-  
+  @apply flex justify-between border border-solid border-[var(--white)] text-center font-bold;
+
   &.\-\-contain {
     @apply text-[var(--black)];
 
@@ -10,7 +10,7 @@
   }
 
   &.\-\-highlight {
-    @apply text-[var(--white)] border-none;
+    @apply border-none text-[var(--white)];
 
     .m-btn-cnt {
       @apply bg-[#E12020] bg-opacity-100;
@@ -23,17 +23,17 @@
 }
 
 .m-btn-cnt {
-  @apply flex items-center justify-center flex-grow;
+  @apply flex flex-grow items-center justify-center;
 }
 
 .m-btn-icon {
-  @apply relative flex items-center justify-center flex-shrink-0;
+  @apply relative flex flex-shrink-0 items-center justify-center;
 
   &::before {
-    content: "";
+    content: '';
     transform: translateY(-50%);
 
-    @apply absolute top-1/2 left-0 h-full w-[1px] bg-[var(--white)];
+    @apply absolute left-0 top-1/2 h-full w-[1px] bg-[var(--white)];
   }
 }
 

@@ -1,8 +1,8 @@
 html,
 body {
   text-size-adjust: none;
-  font-family: 'Noto Sans TC', '微軟正黑體',
-  'Microsoft JhengHei', 'Heiti TC', '黑體', Helvetica, sans-serif;
+  font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', 'Heiti TC', '黑體', Helvetica,
+    sans-serif;
   line-height: 1.8;
   letter-spacing: 0.05em;
 }
@@ -18,13 +18,13 @@ strong {
 }
 
 img {
-  @apply align-middle h-[inherit];
+  @apply h-[inherit] align-middle;
 }
 
 @screen p {
   html,
   body {
-    @apply text-[16px] flex flex-col min-h-screen;
+    @apply flex min-h-screen flex-col text-[16px];
   }
 
   button {

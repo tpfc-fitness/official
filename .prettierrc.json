@@ -2,17 +2,6 @@
   "trailingComma": "es5",
   "semi": true,
   "singleQuote": true,
-  "plugins": ["prettier-plugin-ejs", "prettier-plugin-tailwindcss"],
-  "files.associations": {
-    "*.ejs": "html",
-    "*.css": "postcss"
-  },
-  "emmet.includeLanguages": {
-    "postcss": "css",
-    "ejs": "html"
-  },
-  "emmet.syntaxProfiles": {
-    "postcss": "css",
-    "ejs": "html"
-  }
+  "printWidth": 100,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

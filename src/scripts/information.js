@@ -1,4 +1,4 @@
-import {tns} from 'tiny-slider/src/tiny-slider';
+import { tns } from 'tiny-slider/src/tiny-slider';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'tiny-slider/dist/tiny-slider.css';
@@ -28,7 +28,7 @@ window.PetiteVue.createApp({
     store.load.init();
 
     setTimeout(() => {
-      if(deviceType() !== 'p') hdScroll();
+      if (deviceType() !== 'p') hdScroll();
       vm.slider = tns({
         container: '.env-slider',
         controlsContainer: '.m-slider-ctrl',
@@ -39,32 +39,32 @@ window.PetiteVue.createApp({
         nav: false,
         mouseDrag: true,
         gutter: 10,
-        edgePadding: 50,  // 較小的邊緣填充
+        edgePadding: 50, // 較小的邊緣填充
         responsive: {
           640: {
             items: 1,
           },
           700: {
-            edgePadding: 50,  // 螢幕寬度介於700px至900px
+            edgePadding: 50, // 螢幕寬度介於700px至900px
             items: 1,
           },
           900: {
             edgePadding: 100, // 螢幕寬度大於900px時的設定
             gutter: 34,
             items: 1,
-          }
+          },
         },
         onInit: () => {
           AOS.init({
             offset: 120,
             duration: 800,
             easing: 'ease-in-out',
-            once: true
+            once: true,
           });
-        }
-      })
-    }, 300)
-    
+        },
+      });
+    }, 300);
+
     store.load.finish();
   },
 }).mount('.jWrap');

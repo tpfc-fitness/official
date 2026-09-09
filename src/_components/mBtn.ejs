@@ -5,35 +5,46 @@
   }
 -%>
 <% if ( typeof link !== 'undefined'  ) { -%>
-  <a <%- typeof fadeType !== 'undefined' ? `data-aos=${fadeType}` : '' %> href="<%- link %>" <%- props.target -%> class="m-btn<%- typeof style !== 'undefined' && typeof style.main !== 'undefined' ? ` ${style.main}` : '' %>" @click="<%- typeof func !== 'undefined' ? `${func}` : '' %>">
-    <div class="m-btn-cnt flex items-center justify-center relative<%- typeof style !== 'undefined' && typeof style.wrap !== 'undefined' ? ` ${style.wrap}` : '' %>">
-      <em class="m-btn-txt<%- typeof style !== 'undefined' && typeof style.txt !== 'undefined' ? ` ${style.txt}` : '' %>"><%- label %></em>
-    </div>
-    <% if ( typeof icon !== 'undefined' ) { -%>
-      <span class="m-btn-icon<%- typeof style !== 'undefined' && typeof style.icon !== 'undefined' ? ` ${style.icon}` : '' %>">
-        <%- require('svg.ejs')({
+<a <%- typeof fadeType !== 'undefined' ? `data-aos=${fadeType}` : '' %> href="<%- link %>" <%- props.target -%>
+  class="m-btn<%- typeof style !== 'undefined' && typeof style.main !== 'undefined' ? ` ${style.main}` : '' %>"
+  @click="<%- typeof func !== 'undefined' ? `${func}` : '' %>">
+  <div
+    class="m-btn-cnt flex items-center justify-center relative<%- typeof style !== 'undefined' && typeof style.wrap !== 'undefined' ? ` ${style.wrap}` : '' %>">
+    <em
+      class="m-btn-txt<%- typeof style !== 'undefined' && typeof style.txt !== 'undefined' ? ` ${style.txt}` : '' %>"><%- label %></em>
+  </div>
+  <% if ( typeof icon !== 'undefined' ) { -%>
+  <span
+    class="m-btn-icon<%- typeof style !== 'undefined' && typeof style.icon !== 'undefined' ? ` ${style.icon}` : '' %>">
+    <%- require('svg.ejs')({
           svgName: icon.name,
           style: {
             main: icon.css
           }
         }) %>
-      </span>
-    <% } -%>
-  </a>
+  </span>
+  <% } -%>
+</a>
 <% } else { -%>
-  <button <%- typeof fadeType !== 'undefined' ? `data-aos=${fadeType}` : '' %> type="<%- type %>" class="m-btn<%- typeof style !== 'undefined' && typeof style.main !== 'undefined' ? ` ${style.main}` : '' %>" @click="<%- typeof func !== 'undefined' ? `${func}` : '' %>"<%- typeof disable !== 'undefined' && disable ? ' disabled' : '' %>>
-    <div class="m-btn-cnt flex items-center justify-center relative<%- typeof style !== 'undefined' && typeof style.wrap !== 'undefined' ? ` ${style.wrap}` : '' %>">
-      <em class="m-btn-txt<%- typeof style !== 'undefined' && typeof style.txt !== 'undefined' ? ` ${style.txt}` : '' %>"><%- label %></em>
-    </div>
-    <% if ( typeof icon !== 'undefined' ) { -%>
-      <span class="m-btn-icon<%- typeof style !== 'undefined' && typeof style.icon !== 'undefined' ? ` ${style.icon}` : '' %>">
-        <%- require('svg.ejs')({
+<button <%- typeof fadeType !== 'undefined' ? `data-aos=${fadeType}` : '' %> type="<%- type %>"
+  class="m-btn<%- typeof style !== 'undefined' && typeof style.main !== 'undefined' ? ` ${style.main}` : '' %>"
+  @click="<%- typeof func !== 'undefined' ? `${func}` : '' %>"
+  <%- typeof disable !== 'undefined' && disable ? ' disabled' : '' %>>
+  <div
+    class="m-btn-cnt flex items-center justify-center relative<%- typeof style !== 'undefined' && typeof style.wrap !== 'undefined' ? ` ${style.wrap}` : '' %>">
+    <em
+      class="m-btn-txt<%- typeof style !== 'undefined' && typeof style.txt !== 'undefined' ? ` ${style.txt}` : '' %>"><%- label %></em>
+  </div>
+  <% if ( typeof icon !== 'undefined' ) { -%>
+  <span
+    class="m-btn-icon<%- typeof style !== 'undefined' && typeof style.icon !== 'undefined' ? ` ${style.icon}` : '' %>">
+    <%- require('svg.ejs')({
           svgName: icon.name,
           style: {
             main: icon.css
           }
         }) %>
-      </span>
-    <% } -%>
-  </button>
+  </span>
+  <% } -%>
+</button>
 <% } -%>

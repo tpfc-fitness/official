@@ -1,4 +1,4 @@
-import {tns} from 'tiny-slider/src/tiny-slider';
+import { tns } from 'tiny-slider/src/tiny-slider';
 import 'tiny-slider/dist/tiny-slider.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -27,7 +27,7 @@ window.PetiteVue.createApp({
     store.load.init();
 
     setTimeout(() => {
-      if(deviceType() !== 'p') hdScroll();
+      if (deviceType() !== 'p') hdScroll();
       document.querySelectorAll('[class*="class-slider-"]').forEach((elem, idx) => {
         tns({
           container: `.class-slider-${idx}`,
@@ -45,12 +45,12 @@ window.PetiteVue.createApp({
               offset: 120,
               duration: 800,
               easing: 'ease-in-out',
-              once: true
+              once: true,
             });
-          }
-        })
-      })
-    }, 300)
+          },
+        });
+      });
+    }, 300);
 
     store.load.finish();
   },

@@ -8,17 +8,23 @@
   const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
 -%>
 <div class="m-nav flex flex-row-reverse items-center text-center pt:flex-shrink-0">
-  <button aria-label="menu" type="button" class="m-nav-btn relative p:hidden tm:block h-[40px] w-[40px] flex-shrink-0 z-10" :class="{'active': store.nav.active}" @click="store.nav.onClick">
+  <button aria-label="menu" type="button"
+    class="m-nav-btn relative p:hidden tm:block h-[40px] w-[40px] flex-shrink-0 z-10"
+    :class="{'active': store.nav.active}" @click="store.nav.onClick">
     <i></i>
   </button>
-  <nav class="m-nav-bd tm:absolute tm:right-0 tm:top-0 tm:h-screen tm:w-full tm:flex tm:justify-center tm:overflow-hidden tm:bg-[var(--black)] tm:transition-all tm:duration-300 tm:ease-in-out" :class="[store.nav.active ? 'tm:translate-x-0 tm:z-[5]' : 'tm:translate-x-full']" aria-label="主選單">
+  <nav
+    class="m-nav-bd tm:absolute tm:right-0 tm:top-0 tm:h-screen tm:w-full tm:flex tm:justify-center tm:overflow-hidden tm:bg-[var(--black)] tm:transition-all tm:duration-300 tm:ease-in-out"
+    :class="[store.nav.active ? 'tm:translate-x-0 tm:z-[5]' : 'tm:translate-x-full']" aria-label="主選單">
     <ul class="flex tm:flex-col items-center tm:justify-center">
       <% navItems.forEach((item) => { -%>
-        <% if (item.navShow) { -%>
+      <% if (item.navShow) { -%>
       <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]">
-        <a href="<%= item.url %>" class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"<%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
+        <a href="<%= item.url %>"
+          class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"
+          <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
       </li>
-        <% } -%>
+      <% } -%>
       <% }); -%>
     </ul>
   </nav>

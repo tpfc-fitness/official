@@ -13,7 +13,7 @@
     @apply inset-0 z-[5];
 
     &::before {
-      @apply content-default w-full h-full bg-[var(--black)] opacity-75 absolute;
+      @apply absolute h-full w-full bg-[var(--black)] opacity-75 content-default;
     }
   }
 }

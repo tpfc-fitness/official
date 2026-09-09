@@ -1,6 +1,6 @@
 .bg-gdt {
   background: rgb(50 77 101);
-  background: linear-gradient(138deg, rgb(50 77 101 / 100%) 0%, rgb(0 0 0 / 100%) 100%);  
+  background: linear-gradient(138deg, rgb(50 77 101 / 100%) 0%, rgb(0 0 0 / 100%) 100%);
 }
 
 .ani-special {
@@ -12,23 +12,23 @@
 
 @keyframes neon-animation {
   from {
-      text-shadow:
-          0 0 5px #ff4da6,
-          0 0 10px #ff4da6,
-          0 0 20px #ff4da6,
-          0 0 30px #ff0066,
-          0 0 50px #ff0066,
-          0 0 70px #ff0066,
-          0 0 100px #ff0066;
+    text-shadow:
+      0 0 5px #ff4da6,
+      0 0 10px #ff4da6,
+      0 0 20px #ff4da6,
+      0 0 30px #ff0066,
+      0 0 50px #ff0066,
+      0 0 70px #ff0066,
+      0 0 100px #ff0066;
   }
   to {
-      text-shadow:
-          0 0 5px #ffff33,
-          0 0 10px #ffff33,
-          0 0 20px #ffff33,
-          0 0 30px #ff9933,
-          0 0 50px #ff9933,
-          0 0 70px #ff9933,
-          0 0 100px #ff9933;
+    text-shadow:
+      0 0 5px #ffff33,
+      0 0 10px #ffff33,
+      0 0 20px #ffff33,
+      0 0 30px #ff9933,
+      0 0 50px #ff9933,
+      0 0 70px #ff9933,
+      0 0 100px #ff9933;
   }
 }

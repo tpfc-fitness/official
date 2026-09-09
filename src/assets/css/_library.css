@@ -1,19 +1,19 @@
 /* tailwindcss */
-@import url("tailwindcss/base");
-@import url("tailwindcss/components");
-@import url("tailwindcss/utilities");
+@import url('tailwindcss/base');
+@import url('tailwindcss/components');
+@import url('tailwindcss/utilities');
 
 /* common */
-@import url("_common/color");
-@import url("_common/common");
-@import url("_common/framework");
-@import url("_common/layout");
-@import url("_modules/m-nav");
-@import url("_modules/m-btn");
-@import url("_modules/m-ft");
-@import url("_modules/m-loading");
-@import url("_modules/m-marquee");
-@import url("_modules/m-post");
-@import url("_modules/m-list");
-@import url("_modules/m-slider");
-@import url("_modules/m-n-sup");
+@import url('_common/color');
+@import url('_common/common');
+@import url('_common/framework');
+@import url('_common/layout');
+@import url('_modules/m-nav');
+@import url('_modules/m-btn');
+@import url('_modules/m-ft');
+@import url('_modules/m-loading');
+@import url('_modules/m-marquee');
+@import url('_modules/m-post');
+@import url('_modules/m-list');
+@import url('_modules/m-slider');
+@import url('_modules/m-n-sup');

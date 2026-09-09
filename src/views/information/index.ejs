@@ -2,11 +2,15 @@
   /* build 期讀取：地址、營業時間、環境照片說明全部進得了 HTML */
   const information = require('_data/information.js');
 -%>
-<section class="p:pt-[20px] text-[var(--white)] bg-[var(--black)] flex tm:flex-col items-center m:py-[30px] m:px-[20px]">
-  <div data-aos="fade-up" class="text-center p:w-1/4 t:py-[50px] t:w-full t:border-b-[1px] t:border-solid t:border-[var(--white)] m:sr-only">
-    <h1 class="inline-block p:rotate-[270deg] p:text-left leading-[1.2] font-black p:text-[40px] t:text-[52px]">交通資訊</h1>
+<section
+  class="p:pt-[20px] text-[var(--white)] bg-[var(--black)] flex tm:flex-col items-center m:py-[30px] m:px-[20px]">
+  <div data-aos="fade-up"
+    class="text-center p:w-1/4 t:py-[50px] t:w-full t:border-b-[1px] t:border-solid t:border-[var(--white)] m:sr-only">
+    <h1 class="inline-block p:rotate-[270deg] p:text-left leading-[1.2] font-black p:text-[40px] t:text-[52px]">交通資訊
+    </h1>
   </div>
-  <div class="p:flex p:items-center p:border-l-[1px] border-solid border-[var(--white)] p:mb-[20px] p:w-3/4 t:py-[30px]">
+  <div
+    class="p:flex p:items-center p:border-l-[1px] border-solid border-[var(--white)] p:mb-[20px] p:w-3/4 t:py-[30px]">
     <%- require('img.ejs')({
       /* 首屏圖片：立即載入並提高優先度 */
       eager: true,
@@ -18,7 +22,8 @@
       }
     }) %>
     <div data-aos="fade-in" class="p:ml-[20px] p:w-[454px] t:p-[30px]">
-      <h3 class="font-bold p:text-[26px] p:mb-[40px] tm:text-[24px] tm:mb-[20px]">FIRST CLASS FITNESS<br/>頭等倉運動空間 中山店</h3>
+      <h3 class="font-bold p:text-[26px] p:mb-[40px] tm:text-[24px] tm:mb-[20px]">FIRST CLASS FITNESS<br />頭等倉運動空間 中山店
+      </h3>
       <ul class="m-p:space-y-[36px] tm:space-y-[16px]">
         <% information.location.forEach((item) => { -%>
         <li>

@@ -23,7 +23,7 @@ window.PetiteVue.createApp({
           offset: 120,
           duration: 800,
           easing: 'ease-in-out',
-          once: true
+          once: true,
         });
 
         window.addEventListener('resize', this.debouncedResize);
@@ -45,16 +45,16 @@ window.PetiteVue.createApp({
       }
       return false;
     };
-  
+
     if (!fireLead()) {
       const t = setInterval(() => {
         if (fireLead()) clearInterval(t);
       }, 200);
-  
+
       // 最多等 5 秒，避免一直 interval
       setTimeout(() => clearInterval(t), 5000);
     }
-    
+
     store.load.finish();
   },
 

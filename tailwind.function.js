@@ -9,7 +9,7 @@ const setData = (start = 1, end = 1, Interval = 1) => {
 const setOpacity = (start = 1, end = 1, Interval = 1) => {
   const result = {};
   for (let i = start; i <= end; i += Interval) {
-    result[i] = (i / 100);
+    result[i] = i / 100;
   }
 
   return result;
@@ -26,5 +26,5 @@ const setWidth = (start = 1, end = 1) => {
 module.exports = {
   setData,
   setOpacity,
-  setWidth
+  setWidth,
 };

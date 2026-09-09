@@ -11,7 +11,7 @@
   white-space: nowrap;
 
   &:focus {
-    @apply bg-[var(--white)] text-[var(--black)] font-bold;
+    @apply bg-[var(--white)] font-bold text-[var(--black)];
 
     /* 蓋過 z-index:5 的固定式 header */
     z-index: 20;
@@ -31,36 +31,36 @@
 }
 
 .l-main.is-head {
-  @apply p:pt-[123px] t:pt-[168px] m:pt-[200px];
+  @apply m:pt-[200px] t:pt-[168px] p:pt-[123px];
 }
 
 @screen tm {
   .l-skip {
-  position: fixed;
-  top: 0;
-  left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
 
-  /* 視覺上隱藏，但仍在 tab 順序內（不能用 display:none 或 visibility:hidden） */
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  white-space: nowrap;
+    /* 視覺上隱藏，但仍在 tab 順序內（不能用 display:none 或 visibility:hidden） */
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    white-space: nowrap;
 
-  &:focus {
-    @apply bg-[var(--white)] text-[var(--black)] font-bold;
+    &:focus {
+      @apply bg-[var(--white)] font-bold text-[var(--black)];
 
-    /* 蓋過 z-index:5 的固定式 header */
-    z-index: 20;
-    clip: auto;
-    width: auto;
-    height: auto;
-    margin: 10px;
-    padding: 10px 16px;
+      /* 蓋過 z-index:5 的固定式 header */
+      z-index: 20;
+      clip: auto;
+      width: auto;
+      height: auto;
+      margin: 10px;
+      padding: 10px 16px;
+    }
   }
-}
 
-.l-hd {
+  .l-hd {
     &.\-\-hide {
       transform: translateY(-100%);
     }

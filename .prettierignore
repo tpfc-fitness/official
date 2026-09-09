@@ -1,0 +1,15 @@
+node_modules
+build
+dist
+package-lock.json
+
+# 第三方函式庫，不要重新排版
+src/static/scripts/plugin
+
+# .ejs 由 js-beautify 處理（Prettier 會把 <% %> 當成一般文字重新斷行，
+# 導致 JS 字串被從中間切斷）。見 npm run format:ejs
+*.ejs
+
+# 你自己維護的規格文件，不要被重新斷行
+*.md
+llms.txt

@@ -4,12 +4,12 @@
 
 @screen p {
   .m-marquee {
-    @apply text-[18px] py-[12px];
+    @apply py-[12px] text-[18px];
   }
 }
 
 @screen tm {
   .m-marquee {
-    @apply text-center text-[22px] p-[16px];
+    @apply p-[16px] text-center text-[22px];
   }
 }

@@ -13,5 +13,5 @@
       "mode": "auto"
     }
   ],
-  "eslint.validate": ["javascript", "ejs", "html", "js"],
+  "eslint.validate": ["javascript", "ejs", "html", "js"]
 }

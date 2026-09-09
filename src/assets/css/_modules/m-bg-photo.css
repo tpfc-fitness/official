@@ -1,24 +1,19 @@
 /*
- * 以照片為底的區塊（首頁的「想先了解更多？」與「學員推薦」共用）。
+ * 以照片為底的區塊。
  *
- * 兩塊用同一張圖，網址只寫在這裡一份。
- * 目前三個斷點共用 qa-bg.png（1536x1024 橫幅）。
- * 若之後要為平板與手機準備直幅裁切，把檔案放進同一個資料夾後，
- * 解開下面兩個 @screen 區塊即可 —— 背景圖用 media query 切換就夠，
- * 不需要動到 <picture>。
+ * 共用的只有「裁切方式 + 壓暗遮罩」，圖片本身由修飾子決定，
+ * 各區塊要換圖時互不影響。
+ *
+ * 用法：<section class="m-bg-photo --qa">
+ *
+ * 若之後要為平板與手機準備直幅裁切，在對應的修飾子裡加上
+ * @screen t / @screen m 覆寫 background-image 即可 ——
+ * 背景圖用 media query 切換就夠，不需要動到 <picture>。
  */
 .m-bg-photo {
-  background: url('@imgs/index/qa-bg.png') center center / cover no-repeat;
-
-  /*
-  @screen t {
-    background-image: url("@imgs/index/qa-bg_t.png");
-  }
-
-  @screen m {
-    background-image: url("@imgs/index/qa-bg_m.png");
-  }
-  */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   /* 壓暗背景，確保文字與面板可讀 */
   &::before {
@@ -27,5 +22,15 @@
     z-index: 0;
     inset: 0;
     background-color: rgb(10 12 14 / 72%);
+  }
+
+  /* 想先了解更多？ */
+  &.\-\-qa {
+    background-image: url('@imgs/index/qa-bg.png');
+  }
+
+  /* 學員推薦 */
+  &.\-\-comment {
+    background-image: url('@imgs/index/comment-bg.png');
   }
 }

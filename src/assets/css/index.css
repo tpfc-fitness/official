@@ -1,18 +1,65 @@
 @import url('_library');
 
 .kv {
-  background: rgb(21 35 45 / 85%);
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  transition: 0.3s ease-in-out all;
+  position: relative;
 
-  &:hover {
-    background: rgb(37 58 73 / 85%);
+  /* 建立堆疊環境，讓底下 z-index: -1 的兩層只作用在這個區塊內 */
+  isolation: isolate;
+  background: url('@imgs/index/kv.jpg') center center / cover no-repeat;
+
+  /*
+   * 深藍遮罩。
+   * 刻意放在 ::before 而不是直接寫在 .kv 的 background：
+   * background-image 無法做 transition，但 background-color 可以，
+   * 這樣 hover 變亮才會是漸變而不是瞬間跳色。
+   */
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-color: rgb(21 35 45 / 85%);
+    transition: background-color 0.4s ease-in-out;
+  }
+
+  &:hover::before {
+    background-color: rgb(37 58 73 / 85%);
+  }
+
+  /*
+   * 跟著滑鼠的玻璃亮點。
+   * 位置由 JS 寫入 --kv-x / --kv-y 兩個變數（見 _prototype.js 的 kvSpotlight），
+   * 只有這一層漸層需要重繪，不會觸發版面重排。
+   */
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(
+      circle 26rem at var(--kv-x, 50%) var(--kv-y, 50%),
+      rgb(255 255 255 / 13%),
+      rgb(255 255 255 / 4%) 45%,
+      transparent 70%
+    );
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: none;
+  }
+
+  /* 由 JS 加上，觸控裝置不會有這個 class */
+  &.is-spotlight::after {
+    opacity: 1;
   }
 }
 
 .kv-title {
-  animation: neon-effect 4s ease-in-out infinite alternate;
+  text-shadow:
+    0 0 4px rgb(202 228 225 / 65%),
+    0 0 12px rgb(30 132 242 / 30%),
+    0 0 20px rgb(30 132 242 / 15%);
+
+  /* animation: neon-effect 4s ease-in-out infinite alternate; */
 }
 
 @keyframes neon-effect {
@@ -38,13 +85,5 @@
   39.2% {
     text-shadow: none;
     box-shadow: none;
-  }
-}
-
-@screen tm {
-  .kv {
-    background: rgb(21 35 45 / 85%);
-    background-size: 100% auto;
-    background-repeat: no-repeat;
   }
 }

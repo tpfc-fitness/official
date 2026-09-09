@@ -1,4 +1,5 @@
 @import url('_library');
+@import url('_modules/m-coach');
 
 .kv {
   position: relative;

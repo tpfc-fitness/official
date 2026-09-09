@@ -1,0 +1,39 @@
+/*
+ * 首頁教練團隊卡片。
+ *
+ * 桌機與平板：照片鋪滿整張卡，文字疊在照片上方，
+ *   底部加一層由下而上的深色漸層確保文字可讀。
+ * 手機：改為左圖右文的橫向排列，照片縮成小方塊，
+ *   文字不再壓在照片上，因此不需要漸層。
+ */
+.m-coach-card {
+  border: 1px solid rgb(255 255 255 / 25%);
+  transition: border-color 0.3s ease-in-out;
+
+  &:hover {
+    border-color: rgb(255 255 255 / 75%);
+  }
+
+  /* 只有照片鋪滿時才需要遮罩，手機版照片與文字是分開的 */
+  @screen pt {
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 88%) 0%,
+        rgb(0 0 0 / 55%) 45%,
+        rgb(0 0 0 / 5%) 100%
+      );
+      pointer-events: none;
+    }
+  }
+}
+
+/* 標題列與頁尾那條裝飾線 */
+.m-coach-rule {
+  height: 1px;
+  background-color: rgb(255 255 255 / 30%);
+}

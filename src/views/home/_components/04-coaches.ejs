@@ -1,0 +1,81 @@
+<%/* 教練團隊摘要 */%>
+<% const coaches = require('_data/coach-preview.js'); -%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:px-[80px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[40px]">
+
+  <%/* 標題列：桌機為「大標｜說明｜裝飾線＋標語」三段；平板去掉標語；手機置中疊放 */%>
+  <div data-aos="fade-up" class="pt:flex pt:items-start p:mb-[36px] t:mb-[28px] m:mb-[24px]">
+    <h2
+      class="font-black tracking-[-0.05em] leading-none flex-shrink-0 p:text-[64px] t:text-[40px] m:text-[32px] m:text-center">
+      教練團隊</h2>
+    <div
+      class="t:border-l t:border-solid t:border-[rgb(255_255_255_/_30%)] p:ml-[60px] t:ml-[28px] t:pl-[28px] p:pt-[8px] m:mt-[10px]">
+      <p class="leading-[1.7] p:text-[15px] t:text-[14px] m:text-[14px] m:text-center">不同專長的教練，<br
+          class="m:hidden">陪你找到適合自己的訓練方式。</p>
+    </div>
+    <%/* 裝飾標語：僅桌機顯示 */%>
+    <div class="flex items-center flex-grow justify-end tm:hidden pt-[10px]">
+      <i class="m-coach-rule w-[140px] mr-[24px]"></i>
+      <p class="text-[11px] leading-[1.8] tracking-[0.18em] text-right text-[rgb(255_255_255_/_55%)]">MORE THAN A
+        GYM<br>A STRONGER YOU</p>
+    </div>
+  </div>
+
+  <%/* 卡片：桌機三欄；平板兩欄且第三張跨滿；手機單欄橫式 */%>
+  <ul class="p:grid p:grid-cols-3 p:gap-[20px] t:grid t:grid-cols-2 t:gap-[16px] m:space-y-[12px]">
+    <% coaches.forEach((coach, index) => { -%>
+    <li data-aos="fade-up"
+      class="m-coach-card relative overflow-hidden p:h-[240px] t:h-[210px] m:h-[100px]<%- index === 2 ? ' t:col-span-2' : '' %>">
+      <a href="./ourteam.html" class="flex items-center h-full pt:items-end p:p-[20px] t:p-[16px]">
+        <%- require('img.ejs')({
+          path: coach.img,
+          alt: `${coach.title.split('|').pop().trim()} ${coach.name}`,
+          /* 第一張在首屏附近，其餘延後載入 */
+          eager: index === 0,
+          style: {
+            main: 'pt:absolute pt:inset-0 pt:z-0 m:relative m:flex-shrink-0 m:w-[100px] m:h-full',
+            img: 'object-cover object-center'
+          }
+        }) %>
+        <div class="relative z-[2] flex items-center flex-grow pt:items-end m:px-[14px]">
+          <div class="flex-grow">
+            <p class="font-bold leading-tight p:text-[26px] t:text-[22px] m:text-[18px]"><%= coach.name %></p>
+            <p class="p:mt-[6px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
+              <%= coach.title %></p>
+            <p class="p:mt-[8px] tm:mt-[4px] p:text-[13px] tm:text-[12px]"><%= coach.skills.join(' × ') %></p>
+          </div>
+          <span class="flex-shrink-0 p:ml-[16px] tm:ml-[10px]">
+            <%- require('@component/svg.ejs')({
+              svgName: 'arrow',
+              style: {
+                main: 'p:w-[28px] p:h-[28px] tm:w-[22px] tm:h-[22px]'
+              }
+            }) %>
+          </span>
+        </div>
+      </a>
+    </li>
+    <% }); -%>
+  </ul>
+
+  <%- require('@component/mBtn.ejs')({
+    label: '查看完整教練團隊',
+    link: './ourteam.html',
+    style: {
+      main: '--border mx-auto p:mt-[36px] t:mt-[28px] m:mt-[24px] p:text-[16px] p:w-[292px] p:h-[52px] t:w-[392px] t:h-[52px] m:w-full m:h-[48px]',
+      icon: 'w-[40px]'
+    },
+    icon: {
+      name: 'arrow',
+      css: 'p:w-[18px] p:h-[18px] tm:w-[20px] tm:h-[20px]'
+    },
+    fadeType: 'fade-up'
+  }) %>
+
+  <%/* 頁尾裝飾：僅桌機顯示 */%>
+  <div class="flex items-center tm:hidden mt-[44px] text-[11px] tracking-[0.18em] text-[rgb(255_255_255_/_45%)]">
+    <span class="flex-shrink-0 mr-[20px]">TEAM</span>
+    <i class="m-coach-rule w-[420px]"></i>
+    <span class="flex-grow text-right">TRAIN&nbsp;&nbsp;/&nbsp;&nbsp;PROGRESS&nbsp;&nbsp;/&nbsp;&nbsp;TOGETHER</span>
+  </div>
+</section>

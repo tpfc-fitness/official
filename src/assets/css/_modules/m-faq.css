@@ -1,0 +1,122 @@
+/*
+ * FAQ 手風琴。
+ *
+ * 用原生的 <details> / <summary> 而不是自己寫開合邏輯：
+ * 不需要 JS、鍵盤可操作、螢幕閱讀器認得，而且收合中的內容一樣
+ * 存在於 DOM 裡，搜尋引擎讀得到。
+ */
+.m-faq {
+  > li {
+    border-top: 1px solid rgb(255 255 255 / 18%);
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+
+  summary {
+    cursor: pointer;
+
+    /* 移除瀏覽器預設的三角形標記 */
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+}
+
+/* 右側的 ＋／－ 指示，展開時直槓旋轉淡出，只留下橫槓 */
+.m-faq-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: currentcolor;
+  }
+
+  &::before {
+    width: 16px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    width: 1px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+  }
+}
+
+details[open] .m-faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+/* 步驟清單：圓框數字 */
+.m-faq-steps {
+  counter-reset: step;
+
+  > li {
+    position: relative;
+    counter-increment: step;
+    padding-left: 34px;
+
+    &::before {
+      content: counter(step);
+      position: absolute;
+      top: 1px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgb(255 255 255 / 45%);
+      border-radius: 50%;
+      font-size: 11px;
+      line-height: 1;
+    }
+  }
+}
+
+/*
+ * 區塊背景。
+ *
+ * 目前三個斷點共用同一張 qa-bg.png（1536x1024）。
+ * 若之後要為平板與手機準備直幅裁切，把檔案放進同一個資料夾後，
+ * 解開下面兩個 @screen 區塊即可 —— 背景圖用 media query 切換就夠，
+ * 不需要動到 <picture>。
+ */
+.m-learn-more {
+  background: url('@imgs/index/qa-bg.png') center center / cover no-repeat;
+
+  /*
+  @screen t {
+    background-image: url("@imgs/index/qa-bg_t.png");
+  }
+
+  @screen m {
+    background-image: url("@imgs/index/qa-bg_m.png");
+  }
+  */
+
+  /* 壓暗背景，確保文字與面板可讀 */
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background-color: rgb(10 12 14 / 72%);
+  }
+}

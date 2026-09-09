@@ -10,6 +10,6 @@
 
 @screen tm {
   .m-marquee {
-    @apply p-[16px] text-center text-[22px];
+    @apply p-[10px] text-center text-[16px] leading-[1.4];
   }
 }

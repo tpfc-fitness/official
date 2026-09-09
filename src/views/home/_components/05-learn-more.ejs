@@ -1,0 +1,60 @@
+<%/* 想先了解更多？常見問題手風琴 */%>
+<% const faq = require('_data/home-faq.js'); -%>
+<section class="m-learn-more relative overflow-hidden text-[var(--white)]">
+  <div
+    class="relative z-[1] p:flex p:items-center p:px-[80px] p:py-[90px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
+
+    <%/* 標題：桌機在左欄，平板與手機在上方 */%>
+    <div data-aos="fade-right" class="p:w-[34%] p:flex-shrink-0 p:pr-[50px] tm:mb-[30px]">
+      <h2 class="font-black leading-[1.2] tracking-[-0.03em] p:text-[58px] t:text-[38px] m:text-[30px]">想先<br
+          class="tm:hidden">了解更多？</h2>
+      <p class="leading-[1.8] p:mt-[26px] tm:mt-[12px] p:text-[15px] tm:text-[14px] text-[rgb(255_255_255_/_80%)]">
+        第一次來頭等倉之前，<br>你可能會想知道這些。</p>
+    </div>
+
+    <%/* 手風琴面板 */%>
+    <ul data-aos="fade-up"
+      class="m-faq p:flex-grow bg-[rgb(0_0_0_/_55%)] border border-solid border-[rgb(255_255_255_/_18%)]">
+      <% faq.forEach((item) => { -%>
+      <li>
+        <details<%- item.open ? ' open' : '' %> name="home-faq">
+          <summary class="flex items-center p:px-[28px] p:py-[24px] t:px-[22px] t:py-[20px] m:px-[16px] m:py-[16px]">
+            <span class="flex-shrink-0 text-[13px] tracking-[0.1em] text-[rgb(255_255_255_/_60%)]"><%= item.no %></span>
+            <i class="flex-shrink-0 w-[18px] h-px bg-[rgb(255_255_255_/_35%)] p:mx-[18px] tm:mx-[12px]"></i>
+            <h3 class="flex-grow font-bold p:text-[19px] t:text-[17px] m:text-[15px] leading-[1.5]"><%= item.question %>
+            </h3>
+            <span class="m-faq-icon p:ml-[20px] tm:ml-[12px]"></span>
+          </summary>
+
+          <div class="p:px-[28px] p:pb-[28px] t:px-[22px] t:pb-[24px] m:px-[16px] m:pb-[20px]">
+            <p class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[rgb(255_255_255_/_82%)]"><%- item.body %></p>
+
+            <% if (item.steps) { -%>
+            <ol class="m-faq-steps p:mt-[20px] tm:mt-[16px] p:space-y-[12px] tm:space-y-[10px]">
+              <% item.steps.forEach((step) => { -%>
+              <li class="leading-[1.6] p:text-[14px] tm:text-[13px]"><%= step %></li>
+              <% }); -%>
+            </ol>
+            <% } -%>
+
+            <% if (item.cta) { -%>
+            <%- require('@component/mBtn.ejs')({
+              label: item.cta.label,
+              link: item.cta.link,
+              style: {
+                main: '--border p:mt-[28px] tm:mt-[22px] p:w-[240px] p:h-[48px] tm:w-full tm:h-[46px] p:text-[15px] tm:text-[14px]',
+                icon: 'w-[40px]'
+              },
+              icon: {
+                name: 'arrow',
+                css: 'p:w-[18px] p:h-[18px] tm:w-[18px] tm:h-[18px]'
+              }
+            }) %>
+            <% } -%>
+          </div>
+          </details>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

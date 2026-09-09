@@ -21,4 +21,21 @@
       }
     }
   }
+
+  /*
+   * 每個 li 由「標題 + 說明」兩段組成時使用。
+   *
+   * 符號掛在標題上，而不是像 --list 那樣掛在 li 上：
+   * li::before 產生的是行內盒，後面接區塊元素（h3）時會自成一行，
+   * 符號會掉到標題上方。掛在標題上則屬於同一個行內流，
+   * 字級、行高與基線全部自動對齊，不需要 flex 或 align-items 校正。
+   */
+  &.\-\-heading {
+    list-style-type: none;
+
+    > li > :first-child::before {
+      content: '·';
+      margin-right: 0.25em;
+    }
+  }
 }

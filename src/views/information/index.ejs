@@ -11,16 +11,10 @@
   </div>
   <div
     class="p:flex p:items-center p:border-l-[1px] border-solid border-[var(--white)] p:mb-[20px] p:w-3/4 t:py-[30px]">
-    <%- require('img.ejs')({
-      /* 首屏圖片：立即載入並提高優先度 */
-      eager: true,
-      path: require('@imgs/information/map.jpg'),
-      alt : '頭等倉運動空間地圖位置',
-      style: {
-        main: 'p:ml-[20px] p:w-[363px] p:h-[500px] m:mb-[20px]',
-        img: 'object-cover object-center'
-      }
-    }) %>
+    <iframe title="頭等倉運動空間位置地圖"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002.179049137687!2d121.52289464682998!3d25.06259503770268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9738373e79f%3A0xe6b04fcd0b6f58f0!2z6aCt562J5YCJ6YGL5YuV56m66ZaTZmlyc3QgY2xhc3M!5e0!3m2!1szh-TW!2stw!4v1789045680512!5m2!1szh-TW!2stw"
+      loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+      class="border-0 p:ml-[20px] p:w-[363px] p:h-[500px] tm:w-full t:h-[420px] m:h-[300px] m:mb-[20px]"></iframe>
     <div data-aos="fade-in" class="p:ml-[20px] p:w-[454px] t:p-[30px]">
       <h3 class="font-bold p:text-[26px] p:mb-[40px] tm:text-[24px] tm:mb-[20px]">FIRST CLASS FITNESS<br />頭等倉運動空間 中山店
       </h3>
@@ -28,7 +22,7 @@
         <% information.location.forEach((item) => { -%>
         <li>
           <h3 class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]"><%- item.title %></h3>
-          <p class="p:text-[16px] tm:text-[14px]"><%- item.cnt %></p>
+          <p class="p:text-[15px] tm:text-[14px]"><%- item.cnt %></p>
         </li>
         <% }); -%>
       </ul>
@@ -36,9 +30,12 @@
   </div>
 </section>
 <section class="text-[var(--white)] bg-[var(--x15)] p:py-[60px] t:text-center tm:py-[20px]">
-  <div data-aos="fade-up" class="p:box-content p:pl-[12vw] p:w-[580px] p:mb-[60px] t:mb-[52px] m:mb-[16px] m:px-[20px]">
+  <div data-aos="fade-up" class="p:box-content p:pl-[12vw] p:w-[620px] p:mb-[60px] t:mb-[52px] m:mb-[16px] m:px-[20px]">
     <h3 class="font-bold p:text-[40px] tm:text-[32px] tm:mb-[4px]">頭等倉環境導覽</h3>
-    <p class="m:text-[14px]">全店共有訓練區、休息區、儲物飲水區、盥洗區及按摩室，坪數雖不大，<br class="m:hidden"> 但槓鈴、機械式或有氧器材皆有，設備齊全，打造全方位的運動空間。</p>
+    <p class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]">專注訓練，也保留讓人舒服使用的空間。</p>
+    <p class="p:text-[15px] tm:text-[14px]">
+      頭等倉以重量訓練為主要訓練內容，空間規劃以實際訓練需求為主，設有自由重量、固定式器材及有氧訓練設備，並提供休息、飲水、儲物與盥洗等基本機能。<br /><br />不論是教練課或自主訓練，都能在相對單純的環境中完成自己的訓練。
+    </p>
   </div>
   <div class="m-slider">
     <ul class="env-slider">

@@ -1,8 +1,8 @@
 /*
  * 以照片為底的區塊。
  *
- * 共用的只有「裁切方式 + 壓暗遮罩」，圖片本身由修飾子決定，
- * 各區塊要換圖時互不影響。
+ * 共用的只有「裁切方式 + 壓暗遮罩」，圖片與遮罩濃度都由修飾子決定，
+ * 各區塊要換圖或調整暗度時互不影響。
  *
  * 用法：<section class="m-bg-photo --qa">
  *
@@ -11,6 +11,9 @@
  * 背景圖用 media query 切換就夠，不需要動到 <picture>。
  */
 .m-bg-photo {
+  /* 遮罩濃度的預設值，各修飾子可自行覆寫 */
+  --bg-photo-scrim: rgb(10 12 14 / 72%);
+
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,7 +24,7 @@
     position: absolute;
     z-index: 0;
     inset: 0;
-    background-color: rgb(10 12 14 / 72%);
+    background-color: var(--bg-photo-scrim);
   }
 
   /* 想先了解更多？ */
@@ -32,5 +35,12 @@
   /* 學員推薦 */
   &.\-\-comment {
     background-image: url('@imgs/index/comment-bg.png');
+  }
+
+  /* 結尾行動呼籲：整段文字直接壓在照片上，遮罩需要更暗一點 */
+  &.\-\-cta {
+    --bg-photo-scrim: rgb(0 0 0 / 68%);
+
+    background-image: url('@imgs/index/firstclass_fitness_indoor2.jpg');
   }
 }

@@ -1,0 +1,24 @@
+<%/* 結尾行動呼籲 */%>
+<section class="m-bg-photo --cta relative overflow-hidden text-[var(--white)]">
+  <div
+    class="relative z-[1] flex flex-col items-center text-center p:px-[80px] p:py-[110px] t:px-[40px] t:py-[80px] m:px-[20px] m:py-[60px]">
+    <h2 data-aos="fade-up"
+      class="font-black leading-[1.3] tracking-[-0.03em] p:text-[46px] t:text-[34px] m:text-[26px]">不論你是否健身過——</h2>
+    <p data-aos="fade-up"
+      class="leading-[2] p:mt-[28px] t:mt-[22px] m:mt-[16px] p:max-w-[720px] t:max-w-[560px] p:text-[16px] tm:text-[14px] text-[rgb(255_255_255_/_85%)]">
+      不用害怕自己做錯，也不用把運動變成壓力。在你可以的節奏裡，好好完成今天的訓練，帶著比昨天更好一點的自己回家。</p>
+    <%- require('@component/mBtn.ejs')({
+      label: '來頭等倉 ‧ 試試',
+      link: './contact.html',
+      style: {
+        main: '--border p:mt-[44px] t:mt-[36px] m:mt-[28px] p:w-[268px] p:h-[54px] t:w-[268px] t:h-[52px] m:w-full m:h-[48px] p:text-[16px] tm:text-[15px]',
+        icon: 'w-[44px]'
+      },
+      icon: {
+        name: 'arrow',
+        css: 'p:w-[18px] p:h-[18px] tm:w-[18px] tm:h-[18px]'
+      },
+      fadeType: 'fade-up'
+    }) %>
+  </div>
+</section>

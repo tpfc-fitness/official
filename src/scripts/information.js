@@ -16,6 +16,18 @@ window.PetiteVue.createApp({
   store, // 加入 store
   data: '',
   slider: null,
+  /* 把計數器與說明文字同步到目前這一張 */
+  syncGallery(info) {
+    const index = info.displayIndex - 1;
+    const counter = document.querySelector('.jGalleryIndex');
+
+    if (counter) counter.textContent = String(info.displayIndex).padStart(2, '0');
+
+    document
+      .querySelectorAll('.m-gallery-caption > *')
+      .forEach((elem, i) => elem.classList.toggle('is-active', i === index));
+  },
+
   onInit() {
     const vm = this;
 
@@ -29,31 +41,23 @@ window.PetiteVue.createApp({
 
     setTimeout(() => {
       if (deviceType() !== 'p') hdScroll();
+      /*
+       * 環境導覽（設計規範 A 型）：以縮圖列當導覽，不使用左右箭頭。
+       * navContainer 指向縮圖列，tiny-slider 會自動幫當前縮圖
+       * 加上 tns-nav-active。
+       */
       vm.slider = tns({
         container: '.env-slider',
-        controlsContainer: '.m-slider-ctrl',
+        navContainer: '.env-thumbs',
+        navAsThumbnails: true,
         items: 1,
         slideBy: 1,
-        center: true,
         autoplay: false,
-        nav: false,
+        loop: false,
+        rewind: true,
+        controls: false,
+        nav: true,
         mouseDrag: true,
-        gutter: 10,
-        edgePadding: 50, // 較小的邊緣填充
-        responsive: {
-          640: {
-            items: 1,
-          },
-          700: {
-            edgePadding: 50, // 螢幕寬度介於700px至900px
-            items: 1,
-          },
-          900: {
-            edgePadding: 100, // 螢幕寬度大於900px時的設定
-            gutter: 34,
-            items: 1,
-          },
-        },
         onInit: () => {
           AOS.init({
             offset: 120,
@@ -63,6 +67,11 @@ window.PetiteVue.createApp({
           });
         },
       });
+
+      if (vm.slider) {
+        vm.slider.events.on('indexChanged', vm.syncGallery);
+        vm.syncGallery(vm.slider.getInfo());
+      }
     }, 300);
 
     store.load.finish();

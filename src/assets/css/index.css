@@ -4,6 +4,7 @@
 @import url('_modules/m-bg-photo');
 @import url('_modules/m-review');
 @import url('_modules/m-flow');
+@import url('_modules/m-gallery');
 
 .kv {
   position: relative;

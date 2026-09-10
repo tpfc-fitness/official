@@ -1,0 +1,84 @@
+/*
+ * 環境導覽型輪播（設計規範 A 型）。
+ *
+ * 大圖 + 縮圖列切換，沒有左右箭頭 —— 每一張都有明確主題，
+ * 使用者是「挑要看哪一個」而不是「一張一張翻」，所以用縮圖當導覽。
+ *
+ * 縮圖列本身就是 tiny-slider 的 navContainer，
+ * 當前項目會被自動加上 tns-nav-active。
+ */
+.m-gallery-counter {
+  color: var(--xc7);
+  letter-spacing: 0.1em;
+
+  > b {
+    color: var(--white);
+    font-weight: 700;
+  }
+}
+
+.m-gallery-thumbs {
+  display: flex;
+  gap: 10px;
+
+  /* 平板與手機縮圖列可橫向滑動，桌機則一次排完 */
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > li {
+    flex: 1 1 0;
+    min-width: 96px;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* 未選中的縮圖壓暗，被選中的才亮起來並帶主色外框 */
+  figure {
+    border: 2px solid transparent;
+    opacity: 0.45;
+    transition:
+      opacity 0.3s ease-in-out,
+      border-color 0.3s ease-in-out;
+  }
+
+  .tns-nav-active figure {
+    border-color: var(--xe120);
+    opacity: 1;
+  }
+
+  figcaption,
+  .m-gallery-thumb-label {
+    display: block;
+    margin-top: 8px;
+    color: var(--xc7);
+    font-size: 12px;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .tns-nav-active .m-gallery-thumb-label {
+    color: var(--white);
+  }
+}
+
+/*
+ * 說明文字。
+ * 五段說明全部都在 HTML 裡，只用 class 切換顯示，
+ * 收合中的內容一樣讀得到，不影響索引。
+ */
+.m-gallery-caption {
+  > * {
+    display: none;
+  }
+
+  > .is-active {
+    display: block;
+  }
+}

@@ -21,7 +21,7 @@
       <ul class="m-p:space-y-[36px] tm:space-y-[16px]">
         <% information.location.forEach((item) => { -%>
         <li>
-          <h3 class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]"><%- item.title %></h3>
+          <h3 class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]">📍<%- item.title %></h3>
           <p class="p:text-[15px] tm:text-[14px]"><%- item.cnt %></p>
         </li>
         <% }); -%>
@@ -38,32 +38,60 @@
     </p>
   </div>
   <div class="m-slider">
-    <ul class="env-slider">
+    <%/* 大圖：計數器放在不會被 tiny-slider 包住的外層 */%>
+    <div class="relative">
+      <ul class="env-slider">
+        <% information.env.forEach((item, index) => { -%>
+        <li>
+          <%- require('img.ejs')({
+            path: item.img,
+            alt: item.title,
+            eager: index === 0,
+            style: {
+              main: 'w-full p:h-[460px] t:h-[380px] m:h-[240px]',
+              img: 'object-cover object-center'
+            }
+          }) %>
+        </li>
+        <% }); -%>
+      </ul>
+      <p
+        class="m-gallery-counter absolute bottom-0 right-0 bg-[rgb(0_0_0_/_65%)] p:px-[16px] p:py-[10px] tm:px-[12px] tm:py-[8px] p:text-[14px] tm:text-[12px]">
+        <b class="jGalleryIndex">01</b> / <%= String(information.env.length).padStart(2, '0') %>
+      </p>
+    </div>
+
+    <%/* 縮圖列：同時是 tiny-slider 的 navContainer */%>
+    <ul class="m-gallery-thumbs env-thumbs p:mt-[20px] tm:mt-[14px]">
       <% information.env.forEach((item) => { -%>
-      <li class="slide">
-        <div class="relative">
+      <li>
+        <button type="button">
           <%- require('img.ejs')({
             path: item.img,
             alt: item.title,
             style: {
-              main: 'flex-shrink-0 m:h-[280px]',
-              img: 'object-cover object-right !w-full'
+              main: 'w-full p:h-[64px] tm:h-[54px]',
+              img: 'object-cover object-center'
             }
           }) %>
-          <div class="absolute bottom-0 left-0 w-full bg-[#000] bg-opacity-70 p:p-[24px] t:p-[16px] m:p-[12px]">
-            <p class="text-left pt:text-[16px] m:text-[14px]"><%= item.cnt %></p>
-          </div>
-        </div>
+          <span class="m-gallery-thumb-label"><%= item.title %></span>
+        </button>
       </li>
       <% }); -%>
     </ul>
-    <div class="m-slider-ctrl">
-      <button type="button" class="m-slider-prev">
-        <span class="sr-only">prev</span>
-      </button>
-      <button type="button" class="m-slider-next">
-        <span class="sr-only">next</span>
-      </button>
+
+    <%/* 說明：五段全部都在 HTML 裡，只切換顯示 */%>
+    <div class="m-gallery-caption p:mt-[30px] tm:mt-[22px] p:flex p:items-start">
+      <% information.env.forEach((item, index) => { -%>
+      <div class="<%- index === 0 ? 'is-active ' : '' %>p:flex p:items-start">
+        <p class="font-black leading-none text-[var(--xe120)] p:text-[34px] tm:text-[26px] p:mr-[24px] tm:mb-[10px]">
+          <%= String(index + 1).padStart(2, '0') %></p>
+        <div class="p:border-l p:border-solid p:border-[var(--x56)] p:pl-[24px]">
+          <h3 class="font-bold p:text-[18px] tm:text-[17px] p:mb-[8px] tm:mb-[6px]"><%= item.title %></h3>
+          <p class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)] p:max-w-[560px]"><%= item.cnt %></p>
+        </div>
+      </div>
+      <% }); -%>
     </div>
   </div>
 </section>

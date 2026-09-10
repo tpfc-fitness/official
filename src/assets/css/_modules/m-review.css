@@ -30,26 +30,15 @@
 }
 
 /*
- * 手機輪播的圓點。
- * 專案共用的 .tns-nav 是長橫槓，這裡只在本區塊內覆寫成圓點，
- * 不影響預約頁那幾個沿用長橫槓的輪播。
+ * 分頁橫條的位置調整。
+ * 樣式沿用 m-slider.css 的共用橫條（設計規範的分頁形式），
+ * 這裡只把預設「絕對定位貼齊底部」改成排在卡片下方。
  */
 .m-review-slider-wrap {
   .tns-nav {
     position: static;
     justify-content: center;
-    transform: none;
     margin-top: 20px;
-
-    > * {
-      width: 8px;
-      height: 8px;
-      border-radius: 9999px;
-      background-color: rgb(255 255 255 / 30%);
-    }
-
-    > .tns-nav-active {
-      background-color: var(--x7de9);
-    }
+    transform: none;
   }
 }

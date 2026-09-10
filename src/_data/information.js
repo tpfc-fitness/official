@@ -22,24 +22,34 @@ module.exports = {
     },
     {
       title: '營業時間: <br class="p:hidden"/>週一至週六 下午 01:00 至 晚上 10:00',
-      cnt: 'EMAIL: <a href="mailto:tpfc.fit@gmail.com" class="underline font-bold">tpfc.fit@gmail.com</a><br/>聯絡電話：<a class="underline font-bold" href="tel:+886-2-25222330">02-2522-2330</a>',
+      cnt: '✉️ EMAIL: <a href="mailto:tpfc.fit@gmail.com" class="underline font-bold">tpfc.fit@gmail.com</a><br/>☎️ 聯絡電話：<a class="underline font-bold" href="tel:+886-2-25222330">02-2522-2330</a>',
     },
   ],
   env: [
     {
-      title: '頭等倉運動空間外觀',
+      title: '店面與入口',
       img: require('common/firstclass_fitness_outdoor.jpg'),
-      cnt: '訓練區有自由重量、機械器材及啞鈴壺鈴。',
+      cnt: '從入口就能看到頭等倉的訓練空間，玻璃門面讓整體空間保持開闊，也能清楚看見館內的訓練環境。',
     },
     {
-      title: '內部訓練空間',
-      img: require('common/firstclass_fitness_outdoor.jpg'),
-      cnt: '訓練區有自由重量、機械器材及啞鈴壺鈴。',
+      title: '整體訓練空間',
+      img: require('common/firstclass_fitness_indoor.jpg'),
+      cnt: '空間以重量訓練為核心，從自由重量、槓鈴架到固定式器材，依照不同訓練需求配置，讓教練課與自主訓練都能使用。',
     },
     {
-      title: '內部訓練空間',
-      img: require('common/firstclass_fitness_outdoor.jpg'),
-      cnt: '訓練區有自由重量、機械器材及啞鈴壺鈴。',
+      title: '自由重量訓練區',
+      img: require('common/firstclass_fitness_indoor2.jpg'),
+      cnt: '提供不同重量的啞鈴與壺鈴，搭配訓練椅及其他自由重量設備，適合進行肌力、增肌與體態訓練。',
+    },
+    {
+      title: '固定式訓練器材',
+      img: require('common/firstclass_fitness_indoor5.jpg'),
+      cnt: '提供滑輪與固定式訓練器材，搭配自由重量訓練使用，依照不同訓練目標與動作需求安排適合的訓練方式。',
+    },
+    {
+      title: '盥洗空間',
+      img: require('common/firstclass_fitness_bathroom.jpg'),
+      cnt: '設有獨立盥洗空間，提供訓練後整理使用，讓你完成運動後可以直接整理再離開。',
     },
   ],
 };

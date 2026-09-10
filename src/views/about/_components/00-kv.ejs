@@ -1,7 +1,6 @@
-<%/* KV：關於頭等倉（依指示不放圖片） */%>
-<section
-  class="bg-[var(--x15)] text-[var(--white)] p:px-[80px] p:py-[90px] t:px-[40px] t:py-[60px] m:px-[20px] m:py-[44px]">
-  <div class="p:max-w-[1000px]">
+<%/* KV：關於頭等倉 */%>
+<section class="bg-[var(--x15)] text-[var(--white)] p:flex p:items-stretch">
+  <div class="p:w-[56%] p:flex-shrink-0 p:px-[80px] p:py-[90px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
     <p class="text-[11px] tracking-[0.24em] text-[rgb(255_255_255_/_55%)]">ABOUT US</p>
     <h1 data-aos="fade-up"
       class="font-black leading-[1.15] tracking-[-0.03em] p:mt-[18px] tm:mt-[12px] p:text-[62px] t:text-[40px] m:text-[30px]">
@@ -18,4 +17,15 @@
       而是一個<b class="font-bold text-[var(--white)]">讓你學會運動、理解自己的身體，最後能夠把運動留在生活裡的地方</b>。
     </p>
   </div>
+
+  <%- require('img.ejs')({
+    /* 首屏圖片：立即載入並提高優先度 */
+    eager: true,
+    path: require('@imgs/about/about_kv.jpg'),
+    alt: '頭等倉運動空間訓練環境',
+    style: {
+      main: 'p:flex-grow p:min-w-0 tm:order-first tm:w-full t:h-[260px] m:h-[180px]',
+      img: 'object-cover object-center'
+    }
+  }) %>
 </section>

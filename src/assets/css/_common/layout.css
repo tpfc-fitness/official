@@ -31,7 +31,7 @@
 }
 
 .l-main.is-head {
-  @apply m:pt-[200px] t:pt-[168px] p:pt-[123px];
+  @apply m:pt-[132px] t:pt-[168px] p:pt-[123px];
 }
 
 @screen tm {

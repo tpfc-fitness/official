@@ -1,0 +1,44 @@
+/*
+ * 直式流程：節點以圓點標示，節點之間用一條線相連。
+ *
+ * 線與圓點都由 CSS 產生，標記裡只要寫 <li>文字</li>，
+ * 增減步驟不必調整任何連接線，最後一項會自動不畫線。
+ */
+.m-flow {
+  > li {
+    position: relative;
+    padding-bottom: 20px;
+    padding-left: 26px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    /* 連接線：從本節點延伸到下一個節點 */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      bottom: 0;
+      left: 4px;
+      width: 1px;
+      background-color: rgb(255 255 255 / 28%);
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    /* 節點圓點 */
+    &::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 9999px;
+      background-color: var(--x7de9);
+    }
+  }
+}

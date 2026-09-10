@@ -1,25 +1,35 @@
-<%/* 品牌理念：用自由的心態打造完美的體態 */%>
+<%/* 品牌理念：不只是陪你運動，而是讓你學會運動 */%>
 <section class="flex tm:flex-col">
   <div
     class="tm:order-2 flex justify-center items-center p:w-1/2 text-[var(--white)] p:p-[60px] tm:p-[34px] bg-[var(--black)]">
     <div data-aos="fade-right" class="p:w-[400px]">
-      <h2 class="font-bold p:text-[48px] tm:text-[30px] tm:text-center leading-[1.2] tracking-[-0.03em]">
-        不只是陪你運動<br>還要讓你學會運動
+      <h2 class="font-bold p:text-[48px] tm:text-[30px] tm:text-center leading-[1.3] tracking-[-0.03em]">
+        不只是陪你運動，<br>而是讓你學會運動
       </h2>
-      <p class="p:mt-[30px] tm:mt-[24px] text-[14px]">我們重視教練與學員之間的互動，從動作學習、訓練安排到實際操作，教練會依照你的狀況提供即時回饋與調整。</p>
-      <p class="p:mt-[30px] tm:mt-[24px] text-[14px]">我們希望你不只是完成每一次訓練，而是逐漸了解自己的身體、學會正確訓練，最後即使沒有教練在身邊，也知道自己該怎麼練。</p>
+
+      <%/* 訓練歷程：由教練帶著做，到自己練得下去 */%>
+      <ol class="m-flow p:mt-[34px] tm:mt-[26px] tm:w-fit tm:mx-auto">
+        <li class="font-bold p:text-[16px] tm:text-[15px] leading-none">動作學習</li>
+        <li class="font-bold p:text-[16px] tm:text-[15px] leading-none">實際操作</li>
+        <li class="font-bold p:text-[16px] tm:text-[15px] leading-none">訓練安排</li>
+        <li class="font-bold p:text-[16px] tm:text-[15px] leading-none">自主訓練</li>
+      </ol>
+
+      <p class="p:mt-[34px] tm:mt-[26px] leading-[1.9] text-[14px]">
+        我們希望你不只是完成每一次訓練，而是逐漸了解自己的身體、學會正確訓練，最後即使沒有教練在身邊，也知道自己該怎麼練。</p>
+
       <%- require('@component/mBtn.ejs')({
-          label: '專業團隊',
-          link: './ourteam.html',
-          style: {
-            main: '--border order-4 p:text-[18px] p:w-[244px] mt-[30px] p:h-[45px] tm:w-[205px] tm:h-[45px] tm:mx-auto tm:mb-[20px]',
-            icon: 'w-[45px]'
-          },
-          icon: {
-            name: 'arrow',
-            css: 'p:w-[18px] p:h-[18px] tm:w-[24px] tm:h-[24px]'
-          }
-        }) %>
+        label: '了解頭等倉',
+        link: './about.html',
+        style: {
+          main: '--border p:text-[18px] p:w-[244px] mt-[30px] p:h-[45px] tm:w-[205px] tm:h-[45px] tm:mx-auto tm:mb-[20px]',
+          icon: 'w-[45px]'
+        },
+        icon: {
+          name: 'arrow',
+          css: 'p:w-[18px] p:h-[18px] tm:w-[24px] tm:h-[24px]'
+        }
+      }) %>
     </div>
   </div>
   <div class="tm:order-1 p:w-1/2">

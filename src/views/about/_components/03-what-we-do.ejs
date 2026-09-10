@@ -1,0 +1,29 @@
+<%/* 03 我們想做的事（依指示不放 STRONGER TOGETHER 等裝飾小字） */%>
+<section
+  class="bg-[var(--black)] text-[var(--white)] p:px-[80px] p:py-[80px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
+  <div class="p:max-w-[1240px] p:mx-auto p:flex p:items-start p:gap-[60px]">
+    <div class="p:flex-grow p:min-w-0">
+      <p class="flex items-center p:mb-[14px] tm:mb-[10px]">
+        <span class="font-black leading-none text-[var(--x7de9)] p:text-[40px] t:text-[32px] m:text-[28px]">03</span>
+        <i class="h-px bg-[rgb(255_255_255_/_35%)] p:w-[36px] p:ml-[18px] tm:w-[26px] tm:ml-[12px]"></i>
+      </p>
+      <h2 data-aos="fade-up"
+        class="font-bold leading-[1.4] p:text-[34px] t:text-[26px] m:text-[22px] p:mb-[34px] tm:mb-[22px]">我們想做的事</h2>
+
+      <div data-aos="fade-up"
+        class="space-y-[22px] leading-[2] p:text-[14px] tm:text-[13px] text-[rgb(255_255_255_/_85%)]">
+        <p>我們希望運動不是一件需要一直逼自己完成的任務，而是你理解它、找到適合自己的方式之後，願意一直做下去的事。</p>
+        <p><b class="font-bold text-[var(--white)]">學會訓練，享受運動</b>，讓運動成為生活裡的一件日常。</p>
+      </div>
+    </div>
+
+    <%- require('img.ejs')({
+      path: require('@imgs/about/about_03.jpg'),
+      alt: '頭等倉運動空間',
+      style: {
+        main: 'p:flex-shrink-0 p:w-[420px] p:h-[300px] t:w-full t:h-[280px] m:w-full m:h-[200px] tm:mt-[30px]',
+        img: 'object-cover object-center'
+      }
+    }) %>
+  </div>
+</section>

@@ -1,81 +1,10 @@
-<section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h1
-    class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">
-    About us<br />關於我們</h1>
-  <%- require('img.ejs')({
-    /* 首屏圖片：立即載入並提高優先度 */
-    eager: true,
-    path: require('@imgs/service/firstclass_fitness_indoor.jpg'),
-    alt : '室內環境',
-    style: {
-      main: 'p:w-full p:h-full t:hidden m:w-[375px] m:h-[180px]',
-      img: 'object-cover object-center'
-    }
-  }) %>
-</section>
-<section class="text-[var(--white)] bg-[var(--black)] p:p-[60px] t:pt-[30px] m:pt-[14px]">
-  <div class="p:mx-auto p:w-[900px]">
-    <h3 data-aos="fade-up" class="font-bold p:text-[38px] p:mb-[30px] tm:text-[30px] tm:px-[30px] tm:mb-[22px]">
-      關於頭等倉品牌<br />About First Class Fitness</h3>
-    <div class="p:flex">
-      <div data-aos="fade-up" class="p:w-1/2 p:text-[14px] t:pb-[30px] m:pb-[14px] tm:px-[30px]">
-        <p class="p:mb-[20px] tm:mb-[32px]">FIRST CLASS 的三角鐵，以『人』的字樣發跡，象徵健身創廠， 對於未來人類體適能進化所抱持的遠見與野心。三角點代表著，
-          從人體核心穩定，分支強化『肌力』『體力』『耐力』之意， 經過後天調整訓練，得到強健的基因，向上適應更高強度的外力。</p>
-        <p>The triangle of FIRST CLASS, with the word "human", symbolizes the vision and ambition of the fitness
-          industry and the future evolution of human fitness. The triangle point represents the stability of the core of
-          the human body, and the branches strengthen the meaning of "muscle strength", "physical strength" and
-          "endurance". After adjustment and training the day after tomorrow, you will get strong genes and adapt to
-          higher- intensity external forces.</p>
-      </div>
-      <%- require('img.ejs')({
-        path: require('@imgs/service/firstclass_fitness_equipment.jpeg'),
-        alt : '健身訓練器材',
-        style: {
-          main: 'p:ml-[70px] p:w-[363px] p:h-[363px]',
-          img: 'object-cover object-center'
-        }
-      }) %>
-    </div>
-  </div>
-</section>
-<section class="text-[var(--white)] bg-[var(--x15)] p:p-[60px] t:pt-[90px] m:pt-[30px]">
-  <div class="p:mx-auto p:max-w-[1100px]">
-    <div class="flex tm:flex-col-reverse">
-      <%- require('img.ejs')({
-        path: require('@imgs/service/firstclass_fitness_equipment.jpeg'),
-        alt : '健身訓練器材',
-        style: {
-          main: 'p:mr-[70px] p:w-[363px] p:h-[363px]',
-          img: 'object-cover object-center'
-        }
-      }) %>
-      <div data-aos="fade-up" class="p:w-2/3 tm:pb-[30px] t:px-[30px] m:px-[16px]">
-        <h3 class="font-bold p:text-[38px] p:mb-[20px] tm:text-[30px] tm:mb-[22px]">品牌理念<br />Philosophy of First Class
-          Fitness</h3>
-        <p class="p:w-2/3 p:text-[14px]">頭等倉運動空間自2022年11月開業以來，我們的目標始終是讓每一位來訪的學生不僅培養出運動的興趣，更能愛上每一次的運動體驗。
-          我們的專業教練們不僅技術精湛，更以無比的耐心和熱情指導每位學生。在這裡，我們提供一對一或一對二的個別訓練模式，確保每位學生都能在完全私密的環境中，獲得最專注的指導和訓練效果。
-          <br>
-          為了提供最專業的重訓教學，我們的課程設計純為重訓專屬，沒有提供皮拉提斯、瑜伽或其他團體課程。我們相信，專注能夠帶來最專業的成果。
-          此外，我們的設施只開放給學生使用，也歡迎自由教練租借場地。無論您是尋求一個靜謐的訓練空間，還是專業的個別指導，這裡都是您的最佳選擇。
-          <br><br>
-          加入我們，開啟你的健身之旅，一同體驗運動帶來的無限可能！
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<section
-  class="about-intro text-[var(--white)] tm:flex tm:flex-col tm:justify-center p:p-[60px] t:h-[500px] tm:p-[30px]">
-  <div data-aos="fade-in">
-    <h3 class="text-center font-bold p:text-[38px] p:mb-[30px] tm:text-[30px] tm:mb-[22px]">頭等倉與您<br
-        class="pt:hidden">一同成長修練</h3>
-    <p class="mx-auto p:w-[500px] p:text-[14px] t:text-[16px] m:text-[14px]">
-      在台北市都會區內，臨近捷運站的頭等倉運動空間，門口可停機車汽車，提供了最便利的交通選擇。<br>
-      這裡不對外開放，只有學員能夠進入，讓您在無需擔心旁人目光的環境中，專心鍛煉，遠離大型健身房的壓力與喧囂。
-      <br><br>
-      健身工作室的經營不僅是一份衝動，更是對於教學的熱忱、健身的熱愛與對台灣重訓未來發展的期待。我們的教練團隊由健美與健力選手組成，透過專業系統化的教學培訓，無論是運動指導還是健身知識，都能為您提供最有力的支持。
-      <br><br>
-      我們提供的不只是健身器材，更是一個充滿熱情與努力的「修練場」，在這裡，每一滴汗水都在證明你的進步與堅持，讓身邊的人們都驚訝於你的轉變！
-    </p>
-  </div>
-</section>
+<%/*
+ * 關於頭等倉
+ *
+ * 各區塊放在 ./_components/ 底下，檔名數字前綴＝頁面上的順序。
+ * 要改哪一段就開哪一個檔，這裡只負責決定區塊的排列。
+ */%>
+<%- require('./_components/00-kv.ejs')() %> <%/* KV：關於頭等倉 */%>
+<%- require('./_components/01-why.ejs')() %> <%/* 01 為什麼有了頭等倉？ */%>
+<%- require('./_components/02-coach-view.ejs')() %> <%/* 02 我們怎麼看待私人教練？ */%>
+<%- require('./_components/03-what-we-do.ejs')() %> <%/* 03 我們想做的事 */%>

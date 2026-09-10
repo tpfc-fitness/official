@@ -1,0 +1,33 @@
+<%/* 01 為什麼有了頭等倉？ */%>
+<section
+  class="bg-[var(--black)] text-[var(--white)] p:px-[80px] p:py-[80px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
+  <div class="p:max-w-[1240px] p:mx-auto">
+    <p class="flex items-center p:mb-[14px] tm:mb-[10px]">
+      <span class="font-black leading-none text-[var(--x7de9)] p:text-[40px] t:text-[32px] m:text-[28px]">01</span>
+      <i class="h-px bg-[rgb(255_255_255_/_35%)] p:w-[36px] p:ml-[18px] tm:w-[26px] tm:ml-[12px]"></i>
+    </p>
+    <h2 data-aos="fade-up"
+      class="font-bold leading-[1.4] p:text-[34px] t:text-[26px] m:text-[22px] p:mb-[34px] tm:mb-[22px]">為什麼有了頭等倉？</h2>
+
+    <div class="p:flex p:items-start p:gap-[60px]">
+      <div data-aos="fade-up"
+        class="p:flex-grow p:min-w-0 space-y-[22px] leading-[2] p:text-[14px] tm:text-[13px] text-[rgb(255_255_255_/_85%)]">
+        <p>頭等倉的開始，來自一個很單純的想法：<br class="m:hidden">運動應該是每個人都能慢慢學會，而不是只有依賴教練才能完成的事。</p>
+        <p>在創立頭等倉以前，創辦人曾在其他健身房工作。那時候看見一些很難認同的教學方式——教練不被鼓勵把完整的訓練知識教給學員，而是讓學員一直需要教練的協助。</p>
+        <p>但創辦人一直認為，如果一個人已經願意花時間開始運動，就應該有機會真正把這件事學會。不需要等到有人帶、不需要剛好有時間、不需要靠天時地利人和，才有辦法開始運動。</p>
+        <p>也因為這樣，頭等倉成立了。</p>
+        <p>我們想做的，是一個可以好好學習訓練的地方。<b
+            class="font-bold text-[var(--white)]">從不知道怎麼開始，到慢慢理解自己的身體、學會動作與訓練方法，讓運動最後真的能融入自己的生活。</b></p>
+      </div>
+
+      <%- require('img.ejs')({
+        path: require('@imgs/about/about_01.jpg'),
+        alt: '訓練器材',
+        style: {
+          main: 'p:flex-shrink-0 p:w-[380px] p:h-[420px] t:w-full t:h-[320px] m:w-full m:h-[220px] tm:mt-[30px]',
+          img: 'object-cover object-center'
+        }
+      }) %>
+    </div>
+  </div>
+</section>

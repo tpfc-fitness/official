@@ -1,19 +1,1 @@
 @import url('_library');
-
-.about-intro {
-  background:
-    linear-gradient(rgb(0 0 0 / 80%), rgb(0 0 0 / 80%)),
-    url('@imgs/common/firstclass_fitness_outdoor.jpg') 80% center;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-}
-
-@screen tm {
-  .about-intro {
-    background:
-      linear-gradient(rgb(0 0 0 / 80%), rgb(0 0 0 / 80%)),
-      url('@imgs/common/firstclass_fitness_outdoor.jpg') center center;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-  }
-}

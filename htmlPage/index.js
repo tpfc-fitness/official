@@ -16,14 +16,14 @@ module.exports = {
       chunks: ['index'],
     },
     {
-      title: '關於我們',
+      title: '關於頭等倉',
       filename: 'about.html',
       view: 'about',
       path: '/about.html',
       template: 'App.ejs',
       action: 'about',
       description:
-        'First Class 頭等倉運動空間，不受限於健身房和健身概念，我們的目標是讓每一位學生培養出運動的興趣，除了重訓，功能性訓練、增肌減脂、體態雕塑都是我們擅長的項目。',
+        '頭等倉運動空間成立於 2022 年，位於台北市中山區。我們希望提供的不只是一次訓練，而是讓你學會運動、理解自己的身體，最後能把運動留在生活裡——即使沒有教練在旁邊，也知道該怎麼練。',
       chunks: ['about'],
     },
     {

@@ -86,6 +86,23 @@
       KV 區（`01-kv.ejs`）是純圖片沒有文字，若那張圖上本來就有標題，
       標準做法是在該處放一個 `sr-only` 的 h1，並把表單那個降為 h2。
 
+## 四之二、圖片過大（影響很直接）
+
+預約頁的四張底圖沒有針對網頁最佳化，即使經過 build 壓縮後仍然很大：
+
+| 檔案 | 原始 | build 後 |
+|---|---|---|
+| `resevation/bg-02.png` | 14 MB | **3.9 MB** |
+| `resevation/kv.png` | 4.8 MB | **1.7 MB** |
+| `resevation/bg-04.jpg` | 984 KB | 984 KB |
+| `resevation/bg-03.png` | 2.7 MB | 732 KB |
+
+- [ ] **把這四張改存成 JPEG** —— 它們是照片，用 PNG 是錯的格式。
+      對照組：`index/qa-bg.png` 1.6MB 壓到 136KB，那張顏色單純所以
+      PNG 還撐得住；這四張撐不住。轉成品質 75 的 JPEG 大約會落在
+      200–400KB，也就是現在的十分之一。
+- [ ] 整個 `dist` 目前 24MB，其中 19MB 是圖片。
+
 ## 五、技術債
 
 - [ ] **jQuery 只為了一個函式而載入** — `_prototype.js` 的 `hdScroll()`

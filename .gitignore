@@ -1,1 +1,5 @@
 node_modules
+
+# 建置產物，由 GitHub Actions 重新產生，不進版控
+build
+dist

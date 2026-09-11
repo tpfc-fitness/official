@@ -1,0 +1,60 @@
+# 推送到 main 就自動建置並部署到 GitHub Pages。
+#
+# 啟用前請先到 repo 的 Settings → Pages，把 Source 設為「GitHub Actions」。
+# 設成別的（例如 Deploy from a branch）這個流程不會生效。
+#
+# ⚠️ config.js 的 siteUrl 與 rootDirectory 必須與 repo 的實際位置一致，
+#    否則 CSS、JS 與圖片的路徑會全部 404。
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # 也可以到 Actions 頁面手動觸發，不必為了重新部署而硬推一個 commit
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 連續推送時只保留最新的一次，避免兩個部署互相覆蓋。
+# 不取消進行中的部署，讓它跑完比較安全。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # 專案的 imagemin 相依套件在安裝時要下載原生 binary，
+          # 這類老套件在 LTS 版本上最穩定。
+          node-version: '20'
+          cache: npm
+
+      # 用 ci 而不是 install：完全依照 package-lock.json，不會自動升版
+      - run: npm ci
+
+      - run: npm run deploy
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # npm run deploy 的輸出目錄
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

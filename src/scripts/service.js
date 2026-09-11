@@ -1,6 +1,6 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import '@css/index.css';
+import '@css/service.css';
 
 import { svgRequire, lazyLoadFun, deviceType, hdScroll } from '_prototype.js';
 import store from '_store.js';
@@ -46,6 +46,9 @@ window.PetiteVue.createApp({
        */
       document.querySelectorAll('[class*="class-slider-"]').forEach((elem, idx) => {
         const slider = createSlider(`.class-slider-${idx}`, 'b', {
+          /* B 樣式本身不帶分頁，這一頁依設計稿再加上橫條 */
+          nav: true,
+          navPosition: 'bottom',
           controlsContainer: `.m-slider-ctrl-${idx}`,
           items: 1,
           slideBy: 'page',

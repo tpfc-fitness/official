@@ -1,0 +1,91 @@
+<%/* 三種課程：圖片輪播 + 說明 */%>
+<% const service = require('_data/service.js'); -%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:pb-[80px] t:px-[40px] t:pb-[56px] m:px-[20px] m:pb-[40px]">
+  <ul class="p:max-w-[1200px] p:mx-auto p:space-y-[24px] t:space-y-[20px] m:space-y-[16px]">
+    <% service.forEach((item, idx) => { -%>
+    <%/* 桌機左右交替，平板與手機一律圖在上、文字在下 */%>
+    <li data-aos="fade-up"
+      class="bg-[var(--x15)] overflow-hidden p:flex p:items-stretch<%- idx % 2 === 1 ? ' p:flex-row-reverse' : '' %>">
+
+      <%/* 圖片輪播：B 樣式（箭頭 + 分頁數字）並保留橫條分頁 */%>
+      <div class="m-slider relative p:w-1/2 p:flex-shrink-0">
+        <ul class="class-slider-<%= idx %>">
+          <% item.imgs.forEach((img, i) => { -%>
+          <li>
+            <%- require('img.ejs')({
+              path: img,
+              alt: `${item.title}訓練情境`,
+              eager: idx === 0 && i === 0,
+              style: {
+                main: 'w-full p:h-[420px] t:h-[300px] m:h-[210px]',
+                img: 'object-cover object-center'
+              }
+            }) %>
+          </li>
+          <% }); -%>
+        </ul>
+        <p
+          class="m-gallery-counter absolute bottom-[34px] right-0 z-[2] bg-[rgb(0_0_0_/_65%)] p:px-[14px] p:py-[8px] tm:px-[12px] tm:py-[6px] p:text-[13px] tm:text-[12px]">
+          <b class="jCounter-<%= idx %>">01</b> / <%= String(item.imgs.length).padStart(2, '0') %>
+        </p>
+        <div class="m-slider-ctrl-<%= idx %>">
+          <button type="button" class="m-slider-prev">
+            <span class="sr-only">上一張</span>
+          </button>
+          <button type="button" class="m-slider-next">
+            <span class="sr-only">下一張</span>
+          </button>
+        </div>
+      </div>
+
+      <%/* 說明 */%>
+      <div class="p:w-1/2 p:p-[44px] t:p-[32px] m:p-[20px]">
+        <p class="flex items-baseline p:mb-[10px] tm:mb-[8px]">
+          <b
+            class="font-black leading-none text-[var(--xe120)] p:text-[40px] t:text-[34px] m:text-[30px]"><%= item.no %></b>
+          <span class="p:ml-[18px] tm:ml-[12px] text-[11px] tracking-[0.18em] text-[var(--xc7)]"><%= item.en %></span>
+        </p>
+        <h3 class="font-bold leading-[1.3] p:text-[28px] t:text-[24px] m:text-[21px]"><%= item.title %></h3>
+
+        <% if (item.subtitle) { -%>
+        <p class="p:mt-[10px] tm:mt-[8px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= item.subtitle %></p>
+        <% } -%>
+
+        <% if (item.tabs) { -%>
+        <%/* 一對一／一對二：radio + CSS 切換，兩段內容都在 HTML 裡 */%>
+        <div class="m-tab p:mt-[22px] tm:mt-[16px]">
+          <% item.tabs.forEach((tab, tabIdx) => { -%>
+          <input type="radio" name="service-tab-<%= idx %>" id="service-tab-<%= idx %>-<%= tabIdx %>"
+            <%- tabIdx === 0 ? 'checked' : '' %>>
+          <% }); -%>
+          <div class="m-tab-nav">
+            <% item.tabs.forEach((tab, tabIdx) => { -%>
+            <label for="service-tab-<%= idx %>-<%= tabIdx %>"><%= tab.label %></label>
+            <% }); -%>
+          </div>
+          <div class="m-tab-panels p:mt-[20px] tm:mt-[16px]">
+            <% item.tabs.forEach((tab) => { -%>
+            <div>
+              <p class="font-bold leading-[1.6] p:text-[16px] tm:text-[15px]"><%= tab.lead %></p>
+              <i class="block h-px bg-[var(--x56)] p:my-[16px] tm:my-[12px]"></i>
+              <p class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= tab.body %></p>
+            </div>
+            <% }); -%>
+          </div>
+        </div>
+        <% } else { -%>
+        <p class="font-bold leading-[1.6] p:mt-[22px] tm:mt-[16px] p:text-[16px] tm:text-[15px]"><%= item.lead %></p>
+        <i class="block h-px bg-[var(--x56)] p:my-[16px] tm:my-[12px]"></i>
+        <p class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= item.body %></p>
+        <% } -%>
+
+        <p class="font-bold p:mt-[26px] tm:mt-[20px] p:text-[15px] tm:text-[14px]"><%= item.featureTitle %></p>
+        <p class="p:mt-[8px] tm:mt-[6px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
+          <%= item.features.join('　／　') %>
+        </p>
+      </div>
+    </li>
+    <% }); -%>
+  </ul>
+</section>

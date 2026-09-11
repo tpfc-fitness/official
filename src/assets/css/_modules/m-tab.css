@@ -1,0 +1,68 @@
+/*
+ * 分頁切換（私人教練課程的一對一／一對二）。
+ *
+ * 用隱藏的 radio 搭配兄弟選擇器，不寫任何 JS：
+ *   - 兩段內容都在 HTML 裡，未顯示的那段一樣被索引
+ *   - 鍵盤可用（radio 群組本來就能用方向鍵切換）
+ *   - 沒有 JS 就沒有「腳本壞掉整段消失」的風險
+ *
+ * radio 必須是 .m-tab 的直接子層，才能用 ~ 選到後面的標籤與內容。
+ */
+.m-tab {
+  position: relative;
+
+  > input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.m-tab-nav {
+  display: flex;
+  gap: 10px;
+
+  label {
+    border: 1px solid var(--x56);
+    color: var(--xc7);
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out,
+      color 0.3s ease-in-out;
+
+    @apply inline-flex items-center justify-center m:h-[34px] m:w-[96px] m:text-[13px] pt:h-[38px] pt:w-[110px] pt:text-[14px];
+
+    &:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+  }
+}
+
+/* 被選中的分頁：主色實心。這裡是 14px 白字壓在紅底上，不是紅字壓在深色底 */
+.m-tab > input:nth-of-type(1):checked ~ .m-tab-nav label:nth-of-type(1),
+.m-tab > input:nth-of-type(2):checked ~ .m-tab-nav label:nth-of-type(2) {
+  border-color: var(--xe120);
+  background-color: var(--xe120);
+  color: var(--white);
+  font-weight: 700;
+}
+
+/* radio 視覺上藏起來了，焦點狀態要標在對應的標籤上 */
+.m-tab > input:nth-of-type(1):focus-visible ~ .m-tab-nav label:nth-of-type(1),
+.m-tab > input:nth-of-type(2):focus-visible ~ .m-tab-nav label:nth-of-type(2) {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
+.m-tab-panels > * {
+  display: none;
+}
+
+.m-tab > input:nth-of-type(1):checked ~ .m-tab-panels > :nth-child(1),
+.m-tab > input:nth-of-type(2):checked ~ .m-tab-panels > :nth-child(2) {
+  display: block;
+}

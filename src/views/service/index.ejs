@@ -1,78 +1,9 @@
-<%
-  /* build 期讀取：三種課程的說明文字與圖片全部進得了 HTML */
-  const service = require('_data/service.js');
--%>
-<section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h1
-    class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">
-    service<br />課程項目</h1>
-  <%- require('img.ejs')({
-    /* 首屏圖片：立即載入並提高優先度 */
-    eager: true,
-    path: require('@imgs/service/firstclass_fitness_indoor.jpg'),
-    alt : '室內環境',
-    style: {
-      main: 'p:w-full p:h-full t:hidden m:w-[375px] m:h-[180px]',
-      img: 'object-cover object-center'
-    }
-  }) %>
-</section>
-<section class="text-[var(--white)] bg-[var(--black)] p:p-[60px] t:w-[550px] t:mx-auto t:pt-[30px] m:pt-[14px]">
-  <div class="p:mx-auto p:w-[900px]">
-    <h3 data-aos="fade-up" class="font-bold p:text-[38px] p:mb-[20px] tm:text-[30px] tm:px-[30px] tm:mb-[16px]">
-      為您量身打造最佳計畫</h3>
-    <div class="p:flex">
-      <div data-aos="fade-up" class="p:w-1/2 p:text-[14px] tm:px-[30px]">
-        <p class="p:mb-[20px]">每個人的理想體態不同，<br>
-          我們致力於了解你的個人需求，為你定制一套最合適的訓練計劃。<br>
-          根據你的進展隨時調整課程與強度，不單只是幫助你達到目標，更希望你能夠享受健身的過程，培養持續運動的好習慣！</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section
-  class="text-[var(--white)] bg-[var(--black)] p:px-[60px] pt:pb-[60px] t:w-[550px] t:mx-auto t:p-[30px] m:p-[20px] m:pb-[30px]">
-  <ul class="mx-auto p:max-w-[1120px] p:space-y-[32px] t:space-y-[24px] m:space-y-[18px]">
-    <% service.forEach((item, idx) => { -%>
-    <li>
-      <div data-aos="fade-in" class="p:flex p:items-center bg-[var(--x15)] p:max-h-[360px] overflow-hidden">
-        <div class="m-slider relative p:w-1/2">
-          <ul class="class-slider-<%= idx %>">
-            <% item.imgs.forEach((img, index) => { -%>
-            <li>
-              <%- require('img.ejs')({
-                path: img,
-                alt: item.title,
-                /* 第一組課程的第一張圖在首屏內 */
-                eager: idx === 0 && index === 0,
-                style: {
-                  main: 'p:h-[360px]',
-                  img: 'object-cover object-right !w-full'
-                }
-              }) %>
-            </li>
-            <% }); -%>
-          </ul>
-          <p
-            class="m-gallery-counter absolute bottom-0 right-0 z-[2] bg-[rgb(0_0_0_/_65%)] px-[12px] py-[8px] text-[12px]">
-            <b class="jCounter-<%= idx %>">01</b> / <%= String(item.imgs.length).padStart(2, '0') %>
-          </p>
-          <div class="m-slider-ctrl-<%= idx %> m:hidden">
-            <button type="button" class="m-slider-prev">
-              <span class="sr-only">上一張</span>
-            </button>
-            <button type="button" class="m-slider-next">
-              <span class="sr-only">下一張</span>
-            </button>
-          </div>
-        </div>
-        <div class="p:w-1/2 p:p-[42px] t:p-[32px] m:px-[14px] m:pt-[20px] m:pb-[14px]">
-          <h3 class="font-bold p:text-[38px] p:mb-[30px] t:text-[30px] m:text-[28px] t:mb-[22px] m:mb-[8px]">
-            <%= item.title %> </h3>
-          <p class="p:text-[14px] t:text-[16px] m:text-[14px]"><%- item.cnt %></p>
-        </div>
-      </div>
-    </li>
-    <% }); -%>
-  </ul>
-</section>
+<%/*
+ * 課程項目
+ *
+ * 各區塊放在 ./_components/ 底下，檔名數字前綴＝頁面上的順序。
+ * 要改哪一段就開哪一個檔，這裡只負責決定區塊的排列。
+ */%>
+<%- require('./_components/01-kv.ejs')() %> <%/* KV：課程項目 */%>
+<%- require('./_components/02-intro.ejs')() %> <%/* 為您量身打造最佳計畫 */%>
+<%- require('./_components/03-courses.ejs')() %> <%/* 三種課程 */%>

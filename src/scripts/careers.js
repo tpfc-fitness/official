@@ -1,6 +1,6 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import '@css/index.css';
+import '@css/careers.css';
 
 import { svgRequire, lazyLoadFun, deviceType, hdScroll } from '_prototype.js';
 import store from '_store.js';

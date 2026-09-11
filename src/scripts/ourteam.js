@@ -26,16 +26,19 @@ window.PetiteVue.createApp({
     store.load.init();
 
     setTimeout(() => {
-      if (deviceType() === 'p') {
-        AOS.init({
-          offset: 120,
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-        });
-      } else {
-        hdScroll();
-      }
+      if (deviceType() !== 'p') hdScroll();
+      /*
+       * AOS 必須無條件初始化。
+       * 帶 data-aos 的元素在 aos.css 裡預設 opacity: 0，
+       * 沒跑 init 就整片看不見 —— 因此不能掛在輪播的 onInit 裡，
+       * 那等於「輪播不存在就整頁消失」。
+       */
+      AOS.init({
+        offset: 120,
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+      });
       vm.windowResize();
       window.addEventListener('resize', vm.windowResize);
     }, 300);
@@ -60,14 +63,6 @@ window.PetiteVue.createApp({
               edgePadding: 60,
               gutter: 40,
             },
-          },
-          onInit: () => {
-            AOS.init({
-              offset: 120,
-              duration: 800,
-              easing: 'ease-in-out',
-              once: true,
-            });
           },
         });
       }

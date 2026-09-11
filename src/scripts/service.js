@@ -28,6 +28,19 @@ window.PetiteVue.createApp({
     setTimeout(() => {
       if (deviceType() !== 'p') hdScroll();
       /*
+       * AOS 必須無條件初始化。
+       * 帶 data-aos 的元素在 aos.css 裡預設 opacity: 0，
+       * 沒跑 init 就整片看不見 —— 因此不能掛在輪播的 onInit 裡，
+       * 那等於「輪播不存在就整頁消失」。
+       */
+      AOS.init({
+        offset: 120,
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+      });
+
+      /*
        * 課程圖片走 B 樣式：大圖 + 左右箭頭 + 分頁數字，不用橫條分頁。
        * 三組課程各有自己的輪播與計數器，用索引區分。
        */

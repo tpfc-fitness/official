@@ -85,6 +85,19 @@ window.PetiteVue.createApp({
     setTimeout(() => {
       if (deviceType() !== 'p') hdScroll();
       /*
+       * AOS 必須無條件初始化。
+       * 帶 data-aos 的元素在 aos.css 裡預設 opacity: 0，
+       * 沒跑 init 就整片看不見 —— 因此不能掛在輪播的 onInit 裡，
+       * 那等於「輪播不存在就整頁消失」。
+       */
+      AOS.init({
+        offset: 120,
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+      });
+
+      /*
        * 環境導覽（設計規範 A 型）：以縮圖列當導覽，不使用左右箭頭。
        * navContainer 指向縮圖列，tiny-slider 會自動幫當前縮圖
        * 加上 tns-nav-active。
@@ -99,14 +112,6 @@ window.PetiteVue.createApp({
           0: { items: 1, center: false, edgePadding: 0, gutter: 0 },
           740: { items: 1, center: true, edgePadding: 40, gutter: 12 },
           1001: { items: 1, center: true, edgePadding: 226, gutter: 16 },
-        },
-        onInit: () => {
-          AOS.init({
-            offset: 120,
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-          });
         },
       });
 

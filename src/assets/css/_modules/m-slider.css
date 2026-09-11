@@ -21,7 +21,7 @@
   background-color: rgb(0 0 0 / 45%);
   transition: background-color 0.3s ease-in-out;
 
-  @apply relative flex items-center justify-center rounded-full m:h-[36px] m:w-[36px] pt:h-[44px] pt:w-[44px];
+  @apply relative flex items-center justify-center m:h-[56px] m:w-[36px] pt:h-[64px] pt:w-[44px];
 
   &:hover {
     background-color: rgb(0 0 0 / 75%);
@@ -38,7 +38,7 @@
     border-top: 2px solid currentcolor;
     border-right: 2px solid currentcolor;
 
-    @apply block m:h-[9px] m:w-[9px] pt:h-[11px] pt:w-[11px];
+    @apply block m:h-[12px] m:w-[12px] pt:h-[16px] pt:w-[16px];
   }
 }
 

@@ -1,0 +1,72 @@
+<%/* 頭等倉環境導覽 */%>
+<% const information = require('_data/information.js'); -%>
+<section
+  class="text-[var(--white)] bg-[var(--x15)] p:py-[60px] tm:py-[20px] p:px-[60px] t:px-[40px] m:px-[20px] t:text-center">
+  <div data-aos="fade-up" class="p:box-content p:w-[620px] p:mb-[60px] t:mb-[52px] m:mb-[16px]">
+    <h3 class="font-bold p:text-[40px] tm:text-[32px] tm:mb-[4px]">頭等倉環境導覽</h3>
+    <p class="font-bold p:mb-[4px] p:text-[18px] tm:text-[20px]">專注訓練，也保留讓人舒服使用的空間。</p>
+    <p class="p:text-[15px] tm:text-[14px]">
+      頭等倉以重量訓練為主要訓練內容，空間規劃以實際訓練需求為主，設有自由重量、固定式器材及有氧訓練設備，並提供休息、飲水、儲物與盥洗等基本機能。<br /><br />不論是教練課或自主訓練，都能在相對單純的環境中完成自己的訓練。
+    </p>
+  </div>
+  <div class="m-slider p:max-w-[1200px] p:mx-auto">
+    <%/* 大圖：計數器放在不會被 tiny-slider 包住的外層 */%>
+    <div class="relative">
+      <ul class="env-slider">
+        <% information.env.forEach((item, index) => { -%>
+        <li>
+          <%- require('img.ejs')({
+            path: item.img,
+            alt: item.title,
+            eager: index === 0,
+            style: {
+              main: 'w-full p:h-[380px] t:h-[240px] m:h-[240px]',
+              img: 'object-cover object-center'
+            }
+          }) %>
+        </li>
+        <% }); -%>
+      </ul>
+      <p
+        class="m-gallery-counter absolute bottom-0 right-0 bg-[rgb(0_0_0_/_65%)] p:px-[16px] p:py-[10px] tm:px-[12px] tm:py-[8px] p:text-[14px] tm:text-[12px]">
+        <b class="jGalleryIndex">01</b> / <%= String(information.env.length).padStart(2, '0') %>
+      </p>
+    </div>
+
+    <%/* 縮圖列：同時是 tiny-slider 的 navContainer */%>
+    <ul class="m-gallery-thumbs env-thumbs p:mt-[20px] tm:mt-[14px]">
+      <% information.env.forEach((item) => { -%>
+      <li>
+        <button type="button">
+          <%/* 桌機隱藏縮圖照片，只留文字標籤；平板與手機保留照片 */%>
+          <span class="m-gallery-thumb-img p:hidden">
+            <%- require('img.ejs')({
+              path: item.img,
+              alt: item.title,
+              style: {
+                main: 'w-full tm:h-[54px]',
+                img: 'object-cover object-center'
+              }
+            }) %>
+          </span>
+          <span class="m-gallery-thumb-label"><%= item.title %></span>
+        </button>
+      </li>
+      <% }); -%>
+    </ul>
+
+    <%/* 說明：五段全部都在 HTML 裡，只切換顯示 */%>
+    <div class="m-gallery-caption p:mt-[30px] tm:mt-[22px]">
+      <% information.env.forEach((item, index) => { -%>
+      <div class="<%- index === 0 ? 'is-active' : '' %>">
+        <p class="font-black leading-none text-[var(--xe120)] p:text-[34px] tm:text-[26px] p:mr-[24px] tm:mb-[10px]">
+          <%= String(index + 1).padStart(2, '0') %></p>
+        <div class="p:border-l p:border-solid p:border-[var(--x56)] p:pl-[24px]">
+          <h3 class="font-bold p:text-[18px] tm:text-[17px] p:mb-[8px] tm:mb-[6px]"><%= item.title %></h3>
+          <p class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)] p:max-w-[560px]"><%= item.cnt %></p>
+        </div>
+      </div>
+      <% }); -%>
+    </div>
+  </div>
+</section>

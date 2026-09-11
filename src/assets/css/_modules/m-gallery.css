@@ -78,7 +78,38 @@
     display: none;
   }
 
+  /*
+   * 版面切換寫在這裡而不是用 Tailwind 的 p:flex：
+   * .is-active 與 p:flex 的權重相同，誰後出現誰贏，
+   * 寫在標記上會被這裡的 display 蓋掉，反過來也一樣。
+   */
   > .is-active {
     display: block;
+  }
+
+  @screen p {
+    > .is-active {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+}
+
+/*
+ * 三張並排時，只有置中那一張是選中的。
+ * 未選中的兩張壓暗，避免三張一樣亮、看不出說明文字在講哪一張。
+ */
+.env-slider {
+  .tns-item {
+    opacity: 0.35;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  /*
+   * 不能用 tns-slide-active —— tiny-slider 會把三張可見的都標上，
+   * 分不出哪一張是置中的那一張。is-current 由 syncGallery 自己標。
+   */
+  .is-current {
+    opacity: 1;
   }
 }

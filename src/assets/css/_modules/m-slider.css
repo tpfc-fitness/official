@@ -6,29 +6,54 @@
   @apply absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-between m:px-[8px] pt:px-[10px];
 }
 
+/*
+ * 輪播箭頭。
+ *
+ * 箭頭本體是用兩條邊框轉 45 度畫出來的 chevron，不用 icon 檔：
+ * 顏色跟著 currentColor 走、放大不會糊、粗細與大小都是參數，
+ * 也不必為了它去動 svg sprite。
+ *
+ * 箭頭會疊在照片上，因此給一層半透明深色底確保在亮部也看得見。
+ */
 .m-slider-prev,
 .m-slider-next {
-  background-color: rgba(#fff, 0.3);
+  color: var(--white);
+  background-color: rgb(0 0 0 / 45%);
+  transition: background-color 0.3s ease-in-out;
 
-  @apply relative flex items-center justify-center rounded-full border border-solid border-[#c9c9c9] m:h-[40px] m:w-[40px] pt:h-[50px] pt:w-[50px];
+  @apply relative flex items-center justify-center rounded-full m:h-[36px] m:w-[36px] pt:h-[44px] pt:w-[44px];
+
+  &:hover {
+    background-color: rgb(0 0 0 / 75%);
+  }
+
+  /* 到頭或到尾時 tiny-slider 會加上 disabled */
+  &[disabled] {
+    opacity: 0.35;
+    cursor: default;
+  }
 
   &::before {
     content: '';
-    width: 20px; /* 水平线的长度 */
-    height: 2px; /* 水平线的厚度 */
+    border-top: 2px solid currentcolor;
+    border-right: 2px solid currentcolor;
 
-    @apply absolute left-1/2 top-1/2 h-[1px] -translate-x-1/2 -translate-y-1/2 bg-[#c9c9c9] m:w-[16px] pt:w-[20px];
-  }
-
-  &::after {
-    content: '';
-
-    @apply absolute top-1/2 -translate-x-full -translate-y-1/2 border-[4px] border-solid border-transparent border-l-[#c9c9c9] m:left-[34px] pt:left-[40px];
+    @apply block m:h-[9px] m:w-[9px] pt:h-[11px] pt:w-[11px];
   }
 }
 
-.m-slider-prev {
-  @apply rotate-[-180deg];
+/*
+ * chevron 的視覺重心偏向尖端，置中後看起來會偏一邊，
+ * 因此各自往回推 2px 修正。
+ */
+.m-slider-next::before {
+  transform: rotate(45deg);
+  margin-left: -2px;
+}
+
+.m-slider-prev::before {
+  transform: rotate(-135deg);
+  margin-left: 2px;
 }
 
 .tns-outer {

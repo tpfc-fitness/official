@@ -136,9 +136,14 @@
  * 未選中的兩張壓暗，避免三張一樣亮、看不出說明文字在講哪一張。
  */
 .env-slider {
-  /* 側邊的圖可以點擊切換到那一張，游標要反映出來 */
-  .tns-item:not(.is-current) {
-    cursor: pointer;
+  /*
+   * 只有桌機能點擊切換，所以游標提示也限定在桌機。
+   * 平板與手機只用滑動，不該暗示可以點。
+   */
+  @screen p {
+    .tns-item:not(.is-current) {
+      cursor: pointer;
+    }
   }
 
   .tns-item {

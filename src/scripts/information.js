@@ -36,11 +36,17 @@ window.PetiteVue.createApp({
   },
 
   /*
-   * 點擊側邊的大圖即可切換到那一張。
-   * 這個輪播開著 mouseDrag，拖曳結束時也會觸發 click，
-   * 所以比對按下與放開的位移，超過門檻就視為拖曳、不做切換。
+   * 操作方式依裝置分開：
+   *   桌機   關閉滑鼠拖曳，改為點擊側邊大圖切換
+   *   平板／手機  只用滑動，不接受點擊，避免輕觸誤觸
    *
-   * 鍵盤操作由下方的縮圖／標籤按鈕負責，這裡純粹是滑鼠的便利性。
+   * 判斷寫在點擊當下而不是綁定時，縮放視窗跨越斷點也會跟著改變，
+   * 不需要重新初始化整個輪播。
+   *
+   * 位移門檻仍然保留：即使關閉了拖曳，滑鼠按住拉一段再放開一樣會
+   * 送出 click，不擋的話會變成不小心就切換。
+   *
+   * 鍵盤操作由下方的標籤按鈕負責，這裡純粹是滑鼠的便利性。
    */
   bindSlideClick() {
     const DRAG_THRESHOLD = 8;
@@ -57,6 +63,7 @@ window.PetiteVue.createApp({
       });
 
       elem.addEventListener('click', (event) => {
+        if (deviceType() !== 'p') return;
         if (Math.abs(event.clientX - startX) > DRAG_THRESHOLD) return;
         if (index === this.slider.getInfo().index) return;
 
@@ -107,7 +114,7 @@ window.PetiteVue.createApp({
         rewind: true,
         controls: false,
         nav: true,
-        mouseDrag: true,
+        mouseDrag: false,
         onInit: () => {
           AOS.init({
             offset: 120,

@@ -36,7 +36,7 @@
     <% service.forEach((item, idx) => { -%>
     <li>
       <div data-aos="fade-in" class="p:flex p:items-center bg-[var(--x15)] p:max-h-[360px] overflow-hidden">
-        <div class="m-slider p:w-1/2">
+        <div class="m-slider relative p:w-1/2">
           <ul class="class-slider-<%= idx %>">
             <% item.imgs.forEach((img, index) => { -%>
             <li>
@@ -53,12 +53,16 @@
             </li>
             <% }); -%>
           </ul>
+          <p
+            class="m-gallery-counter absolute bottom-0 right-0 z-[2] bg-[rgb(0_0_0_/_65%)] px-[12px] py-[8px] text-[12px]">
+            <b class="jCounter-<%= idx %>">01</b> / <%= String(item.imgs.length).padStart(2, '0') %>
+          </p>
           <div class="m-slider-ctrl-<%= idx %> m:hidden">
             <button type="button" class="m-slider-prev">
-              <span class="sr-only">prev</span>
+              <span class="sr-only">上一張</span>
             </button>
             <button type="button" class="m-slider-next">
-              <span class="sr-only">next</span>
+              <span class="sr-only">下一張</span>
             </button>
           </div>
         </div>

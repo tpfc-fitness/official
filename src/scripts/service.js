@@ -1,11 +1,10 @@
-import { tns } from 'tiny-slider/src/tiny-slider';
-import 'tiny-slider/dist/tiny-slider.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '@css/index.css';
 
 import { svgRequire, lazyLoadFun, deviceType, hdScroll } from '_prototype.js';
 import store from '_store.js';
+import { createSlider, bindCounter } from '_slider.js';
 
 // const $ = window.jQuery;
 
@@ -28,27 +27,20 @@ window.PetiteVue.createApp({
 
     setTimeout(() => {
       if (deviceType() !== 'p') hdScroll();
+      /*
+       * 課程圖片走 B 樣式：大圖 + 左右箭頭 + 分頁數字，不用橫條分頁。
+       * 三組課程各有自己的輪播與計數器，用索引區分。
+       */
       document.querySelectorAll('[class*="class-slider-"]').forEach((elem, idx) => {
-        tns({
-          container: `.class-slider-${idx}`,
+        const slider = createSlider(`.class-slider-${idx}`, 'b', {
           controlsContainer: `.m-slider-ctrl-${idx}`,
           items: 1,
           slideBy: 'page',
-          autoplay: false,
           edgePadding: 0,
           gutter: 0,
-          nav: true,
-          navPosition: 'bottom',
-          mouseDrag: true,
-          onInit: () => {
-            AOS.init({
-              offset: 120,
-              duration: 800,
-              easing: 'ease-in-out',
-              once: true,
-            });
-          },
         });
+
+        bindCounter(slider, `.jCounter-${idx}`);
       });
     }, 300);
 

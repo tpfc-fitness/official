@@ -1,5 +1,3 @@
-import { tns } from 'tiny-slider/src/tiny-slider';
-import 'tiny-slider/dist/tiny-slider.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '@css/index.css';
@@ -7,6 +5,7 @@ import '@css/index.css';
 import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
 import kvSpotlight from '_kvSpotlight.js';
+import { createSlider } from '_slider.js';
 
 // const $ = window.jQuery;
 
@@ -54,17 +53,11 @@ window.PetiteVue.createApp({
       if (shouldSlide && !this.testimonialSlider) {
         if (!document.querySelector('.testimonial-slider')) return;
 
-        this.testimonialSlider = tns({
-          container: '.testimonial-slider',
+        /* 學員推薦走 D 樣式（橫條分頁），這一區沒有箭頭標記，因此關閉 controls */
+        this.testimonialSlider = createSlider('.testimonial-slider', 'd', {
+          controls: false,
           items: 1,
           slideBy: 'page',
-          autoplay: false,
-          loop: false,
-          rewind: true,
-          controls: false,
-          nav: true,
-          navPosition: 'bottom',
-          mouseDrag: true,
           gutter: 12,
         });
       } else if (!shouldSlide && this.testimonialSlider) {

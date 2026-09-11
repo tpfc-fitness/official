@@ -1,11 +1,10 @@
-import { tns } from 'tiny-slider/src/tiny-slider';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import 'tiny-slider/dist/tiny-slider.css';
 import '@css/index.css';
 
 import { svgRequire, lazyLoadFun, deviceType, hdScroll } from '_prototype.js';
 import store from '_store.js';
+import { createSlider } from '_slider.js';
 
 // const $ = window.jQuery;
 
@@ -90,16 +89,8 @@ window.PetiteVue.createApp({
        * navContainer 指向縮圖列，tiny-slider 會自動幫當前縮圖
        * 加上 tns-nav-active。
        */
-      vm.slider = tns({
-        container: '.env-slider',
+      vm.slider = createSlider('.env-slider', 'a', {
         navContainer: '.env-thumbs',
-        navAsThumbnails: true,
-        /*
-         * 桌機與平板一次並排三張，置中的那一張才是「目前選中」，
-         * 計數器與說明文字都跟著它走。
-         * 平板另外給 edgePadding，讓左右兩側各露出一角，
-         * 暗示前後還有內容。手機維持單張。
-         */
         items: 1,
         center: true,
         gutter: 12,
@@ -109,12 +100,6 @@ window.PetiteVue.createApp({
           740: { items: 1, center: true, edgePadding: 40, gutter: 12 },
           1001: { items: 1, center: true, edgePadding: 226, gutter: 16 },
         },
-        autoplay: false,
-        loop: false,
-        rewind: true,
-        controls: false,
-        nav: true,
-        mouseDrag: false,
         onInit: () => {
           AOS.init({
             offset: 120,

@@ -5,13 +5,12 @@
  * slider 初始化與 AOS 設定。各頁的 entry 只負責載入自己的 CSS
  * 後呼叫這裡的 init()。
  */
-import { tns } from 'tiny-slider/src/tiny-slider';
-import 'tiny-slider/dist/tiny-slider.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
+import { createSlider } from '_slider.js';
 
 export default function initReservationPage() {
   /* 一次載入使用到的 svg */
@@ -63,13 +62,12 @@ export default function initReservationPage() {
 
         // 📱 平板 / 手機 only
         if (deviceType() !== 'p') {
-          this.slider = this.createSlider('.training-rules-slider', {
+          this.slider = createSlider('.training-rules-slider', 'd', {
+            controlsContainer: '.training-rules-slider-ctrl',
             items: 1,
             slideBy: 'page',
             edgePadding: 40,
             gutter: 20,
-            nav: false,
-            controls: false,
             responsive: {
               740: {
                 items: 2,
@@ -79,14 +77,12 @@ export default function initReservationPage() {
             },
           });
 
-          this.commentSlider = this.createSlider('.comments-slider', {
+          this.commentSlider = createSlider('.comments-slider', 'd', {
+            controlsContainer: '.comments-slider-ctrl',
             slideBy: 'page',
             items: 1,
             edgePadding: 40,
             gutter: 10,
-            nav: false,
-            controls: true,
-            controlsContainer: '.comments-slider-ctrl',
             responsive: {
               740: {
                 items: 2,
@@ -97,41 +93,20 @@ export default function initReservationPage() {
         }
 
         // 💬 評價區輪播（全裝置都用）
-        this.inbodySlider = this.createSlider('.inbody-slider', {
+        this.inbodySlider = createSlider('.inbody-slider', 'd', {
           controlsContainer: '.inbody-slider-ctrl',
           items: 1,
           slideBy: 1,
           center: true,
-          autoplay: false,
-          nav: true,
-          navPosition: 'bottom',
-          mouseDrag: true,
           gutter: 10,
         });
-        this.bodyShapeSlider = this.createSlider('.body-shape-slider', {
+        this.bodyShapeSlider = createSlider('.body-shape-slider', 'd', {
           controlsContainer: '.body-shape-slider-ctrl',
           items: 1,
           slideBy: 1,
           center: true,
-          autoplay: false,
-          nav: true,
-          navPosition: 'bottom',
-          mouseDrag: true,
           gutter: 10,
         });
-      });
-    },
-
-    createSlider(containerSelector, options) {
-      const el = document.querySelector(containerSelector);
-      if (!el) return null;
-
-      return tns({
-        container: containerSelector,
-        autoplay: false,
-        loop: false,
-        rewind: true,
-        ...options,
       });
     },
 

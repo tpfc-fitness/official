@@ -120,6 +120,12 @@ window.PetiteVue.createApp({
         vm.syncGallery(vm.slider.getInfo());
         vm.bindSlideClick();
       }
+
+      /*
+       * 輪播初始化會改變版面高度，AOS 先前算好的座標因此失效，
+       * 位在輪播之後的區塊會永遠不觸發、停在 opacity: 0。重算一次。
+       */
+      AOS.refreshHard();
     }, 300);
 
     store.load.finish();

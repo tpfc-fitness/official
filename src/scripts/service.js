@@ -41,7 +41,7 @@ window.PetiteVue.createApp({
       });
 
       /*
-       * 課程圖片走 B 樣式：大圖 + 左右箭頭 + 分頁數字，不用橫條分頁。
+       * 課程圖片走 B 樣式：大圖 + 左右箭頭 + 分頁數字，並依設計稿加上橫條分頁。
        * 三組課程各有自己的輪播與計數器，用索引區分。
        */
       document.querySelectorAll('[class*="class-slider-"]').forEach((elem, idx) => {
@@ -58,6 +58,12 @@ window.PetiteVue.createApp({
 
         bindCounter(slider, `.jCounter-${idx}`);
       });
+
+      /*
+       * 輪播初始化會改變版面高度，AOS 先前算好的座標因此失效，
+       * 位在輪播之後的區塊會永遠不觸發、停在 opacity: 0。重算一次。
+       */
+      AOS.refreshHard();
     }, 300);
 
     store.load.finish();

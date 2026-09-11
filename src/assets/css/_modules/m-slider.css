@@ -80,6 +80,10 @@
   }
 }
 
-.tns-nav-active {
+/*
+ * 權重要和上面的 > * 對齊，否則會被未選中的灰色蓋掉。
+ * 限定在分頁容器內，也避免 A 樣式的縮圖列吃到這個底色。
+ */
+.tns-nav:not(.m-gallery-thumbs) > .tns-nav-active {
   @apply bg-[var(--xe120)];
 }

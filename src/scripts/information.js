@@ -106,7 +106,7 @@ window.PetiteVue.createApp({
         slideBy: 1,
         responsive: {
           0: { items: 1, center: false, edgePadding: 0, gutter: 0 },
-          740: { items: 3, center: true, edgePadding: 48, gutter: 12 },
+          740: { items: 1, center: true, edgePadding: 40, gutter: 12 },
           1001: { items: 3, center: true, edgePadding: 60, gutter: 16 },
         },
         autoplay: false,

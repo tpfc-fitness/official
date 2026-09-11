@@ -97,8 +97,14 @@
       border-top-color: var(--xe120);
     }
 
+    /*
+     * 選中的標籤用白色加粗，不用主色。
+     * 這裡是 13px 的內文尺寸，主色紅在 --x15 底上只有 3.85:1，
+     * 達不到 4.5 的門檻，字會糊進背景裡。
+     * 「選中」的視覺訊號交給上方那條主色線負責。
+     */
     .tns-nav-active .m-gallery-thumb-label {
-      color: var(--xe120);
+      color: var(--white);
       font-weight: 700;
     }
   }

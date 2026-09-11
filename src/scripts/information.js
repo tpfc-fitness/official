@@ -100,14 +100,14 @@ window.PetiteVue.createApp({
          * 平板另外給 edgePadding，讓左右兩側各露出一角，
          * 暗示前後還有內容。手機維持單張。
          */
-        items: 3,
+        items: 1,
         center: true,
         gutter: 12,
         slideBy: 1,
         responsive: {
           0: { items: 1, center: false, edgePadding: 0, gutter: 0 },
           740: { items: 1, center: true, edgePadding: 40, gutter: 12 },
-          1001: { items: 3, center: true, edgePadding: 60, gutter: 16 },
+          1001: { items: 1, center: true, edgePadding: 226, gutter: 16 },
         },
         autoplay: false,
         loop: false,

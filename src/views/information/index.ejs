@@ -38,7 +38,7 @@
       頭等倉以重量訓練為主要訓練內容，空間規劃以實際訓練需求為主，設有自由重量、固定式器材及有氧訓練設備，並提供休息、飲水、儲物與盥洗等基本機能。<br /><br />不論是教練課或自主訓練，都能在相對單純的環境中完成自己的訓練。
     </p>
   </div>
-  <div class="m-slider">
+  <div class="m-slider p:max-w-[1200px] p:mx-auto">
     <%/* 大圖：計數器放在不會被 tiny-slider 包住的外層 */%>
     <div class="relative">
       <ul class="env-slider">
@@ -67,14 +67,17 @@
       <% information.env.forEach((item) => { -%>
       <li>
         <button type="button">
-          <%- require('img.ejs')({
-            path: item.img,
-            alt: item.title,
-            style: {
-              main: 'w-full p:h-[64px] tm:h-[54px]',
-              img: 'object-cover object-center'
-            }
-          }) %>
+          <%/* 桌機隱藏縮圖照片，只留文字標籤；平板與手機保留照片 */%>
+          <span class="m-gallery-thumb-img p:hidden">
+            <%- require('img.ejs')({
+              path: item.img,
+              alt: item.title,
+              style: {
+                main: 'w-full tm:h-[54px]',
+                img: 'object-cover object-center'
+              }
+            }) %>
+          </span>
           <span class="m-gallery-thumb-label"><%= item.title %></span>
         </button>
       </li>

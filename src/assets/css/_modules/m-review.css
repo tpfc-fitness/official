@@ -29,16 +29,4 @@
   background-color: rgb(255 255 255 / 55%);
 }
 
-/*
- * 分頁橫條的位置調整。
- * 樣式沿用 m-slider.css 的共用橫條（設計規範的分頁形式），
- * 這裡只把預設「絕對定位貼齊底部」改成排在卡片下方。
- */
-.m-review-slider-wrap {
-  .tns-nav {
-    position: static;
-    justify-content: center;
-    margin-top: 20px;
-    transform: none;
-  }
-}
+/* 分頁橫條的樣式與位置都由 m-slider.css 統一負責 */

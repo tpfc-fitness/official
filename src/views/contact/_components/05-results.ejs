@@ -5,7 +5,7 @@
   class="p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] m:pt-[40px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
   <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員成績 & 評價</h2>
   <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[50px] m:mb-[42px]">
-    <ul class="comments-slider p:flex p:flex-wrap tm:pb-[34px]">
+    <ul class="comments-slider p:flex p:flex-wrap">
       <% resevation.comments.forEach((item) => { -%>
       <li class="p:w-1/3 p:my-[10px] p:h-[258px] t:h-[200px] m:h-[170px]">
         <%- require('img.ejs')({
@@ -75,7 +75,7 @@
   </div>
   <div class="p:flex p:w-[1220px] p:mx-auto p:space-x-[20px]">
     <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
-      <ul class="inbody-slider pb-[30px]">
+      <ul class="inbody-slider">
         <% resevation.inbody.forEach((item) => { -%>
         <li>
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
@@ -103,7 +103,7 @@
       </div>
     </div>
     <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
-      <ul class="body-shape-slider pb-[30px]">
+      <ul class="body-shape-slider">
         <% resevation.bodyShape.forEach((item) => { -%>
         <li>
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">

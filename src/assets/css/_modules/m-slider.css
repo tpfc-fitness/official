@@ -60,8 +60,18 @@
   @apply relative;
 }
 
-.tns-nav {
-  @apply absolute bottom-0 left-1/2 flex -translate-x-1/2 space-x-[6px];
+/*
+ * 分頁橫條。
+ *
+ * 排在內容下方，不用絕對定位疊上去 ——
+ * 疊上去的話每個輪播都得自己補 padding 把內容頂開，
+ * 補多少全靠猜，而且漏掉一個就會壓到卡片。
+ *
+ * 排除 m-gallery-thumbs：那是 A 樣式自訂的縮圖導覽容器，
+ * 版面由 m-gallery.css 負責。
+ */
+.tns-nav:not(.m-gallery-thumbs) {
+  @apply flex justify-center space-x-[6px] m:mt-[18px] pt:mt-[24px];
 
   & > * {
     transition: background-color 0.3s ease-in-out;

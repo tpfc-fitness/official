@@ -1,0 +1,105 @@
+/*
+ * 教練團隊：卡片網格 + 展開面板。
+ *
+ * 用 Grid 而不是 flex wrap，關鍵在展開的面板要橫跨整行 ——
+ * flex 沒辦法讓某個項目「插在某一列下方並佔滿寬度」。
+ *
+ * 收合的面板是 display: none，完全不參與 Grid 的自動排版，
+ * 所以三個斷點會自然得到正確結果，不需要任何 JS 計算列數：
+ *   桌機三欄：六位教練兩列，面板落在所屬卡片那一列下方
+ *   平板兩欄：三列，同上
+ *   手機一欄：自然變成「卡片 → 面板 → 卡片 → 面板」的手風琴
+ *
+ * 切換用隱藏的 radio，不寫 JS：所有面板的內容都在 HTML 裡，
+ * 收合中的一樣被索引；鍵盤也能用方向鍵在教練之間切換。
+ */
+.m-coach-grid {
+  position: relative;
+  display: grid;
+  gap: 16px;
+
+  @apply m:grid-cols-1 t:grid-cols-2 p:grid-cols-3;
+
+  /*
+   * radio 要能被鍵盤聚焦，所以不能用 display: none。
+   * 改為絕對定位移出版面流 —— 絕對定位的 grid 子層不佔格子。
+   */
+  > input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* 卡片：照片鋪滿，文字壓在下方的漸層上 */
+.m-coach-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 20%);
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+
+  @apply m:h-[260px] t:h-[300px] p:h-[340px];
+
+  &:hover {
+    border-color: rgb(255 255 255 / 70%);
+  }
+
+  /* 文字底下的漸層，確保壓在照片上仍然讀得到 */
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 90%) 0%,
+      rgb(0 0 0 / 55%) 42%,
+      rgb(0 0 0 / 5%) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+.m-coach-card-body {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  @apply m:p-[16px] pt:p-[20px];
+}
+
+/* 展開面板：橫跨整行 */
+.m-coach-panel {
+  display: none;
+  grid-column: 1 / -1;
+  border: 1px solid rgb(255 255 255 / 20%);
+  background-color: var(--x15);
+
+  @apply m:p-[20px] t:p-[28px] p:p-[36px];
+}
+
+/*
+ * 被選中的那一位：卡片外框轉主色，對應的面板展開。
+ * 用 postcss-for 產生，教練人數改變時只要調上限。
+ */
+@for $i from 1 to 6 {
+  .m-coach-grid > input:nth-of-type($(i)):checked ~ label:nth-of-type($(i)) {
+    border-color: var(--xe120);
+  }
+
+  .m-coach-grid > input:nth-of-type($(i)):checked ~ div:nth-of-type($(i)) {
+    display: block;
+  }
+
+  /* radio 視覺上藏起來了，焦點要標示在卡片上 */
+  .m-coach-grid > input:nth-of-type($(i)):focus-visible ~ label:nth-of-type($(i)) {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
+}

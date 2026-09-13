@@ -66,3 +66,37 @@
 .m-tab > input:nth-of-type(2):checked ~ .m-tab-panels > :nth-child(2) {
   display: block;
 }
+
+/*
+ * 手機把分頁攤平成長文（加 --stack-m 才生效）。
+ *
+ * 內容多的時候，手機上捲動比反覆點擊便宜太多：
+ * 分頁列很快就捲出畫面，想切下一個還得往回捲。
+ * 攤平之後每一段都有自己的小標，直接當錨點用。
+ *
+ * 分頁是「二選一」的情境（例如一對一／一對二）就不要加這個修飾子，
+ * 兩段並列會讓人以為要同時成立。
+ */
+.m-tab-panel-title {
+  display: none;
+}
+
+@screen m {
+  .m-tab.\-\-stack-m {
+    .m-tab-nav {
+      display: none;
+    }
+
+    .m-tab-panels > * {
+      display: block;
+    }
+
+    .m-tab-panels > * + * {
+      margin-top: 26px;
+    }
+
+    .m-tab-panel-title {
+      display: block;
+    }
+  }
+}

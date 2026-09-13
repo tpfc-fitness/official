@@ -1,0 +1,81 @@
+<%/* 教練列表：卡片網格，點開展開該位教練的詳細內容 */%>
+<%
+  const coach = require('_data/coach.js');
+  /* 三個分頁的標題與對應的資料欄位 */
+  const TABS = [
+    { label: '研習 & 證照', key: 'certificates' },
+    { label: '適合學生', key: 'suitableFor' },
+    { label: '專長 & 訓練方式', key: 'approach' },
+  ];
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[36px]">
+  <div class="p:max-w-[1200px] p:mx-auto">
+
+    <div class="m-coach-grid">
+      <%/* 切換用的 radio 全部放前面，CSS 才能用 ~ 選到後面的卡片與面板 */%>
+      <% coach.forEach((item, idx) => { -%>
+      <input type="radio" name="coach" id="coach-<%= idx %>" <%- idx === 0 ? 'checked' : '' %>>
+      <% }); -%>
+
+      <% coach.forEach((item, idx) => { -%>
+      <%/* 卡片 */%>
+      <label class="m-coach-card" for="coach-<%= idx %>">
+        <%- require('img.ejs')({
+          path: item.img,
+          alt: `${item.job} ${item.name}`,
+          eager: idx < 3,
+          style: {
+            main: 'absolute inset-0 z-0',
+            img: 'object-cover object-top'
+          }
+        }) %>
+        <div class="m-coach-card-body">
+          <p class="font-bold leading-tight p:text-[24px] tm:text-[21px]"><%= item.name %></p>
+          <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]"><%= item.job %>
+          </p>
+          <p class="p:mt-[8px] tm:mt-[6px] p:text-[13px] tm:text-[12px]"><%= item.tagline %></p>
+        </div>
+      </label>
+
+      <%/* 展開面板：橫跨整行 */%>
+      <div class="m-coach-panel">
+        <div class="p:flex p:items-baseline p:mb-[24px] tm:mb-[18px]">
+          <h3 class="font-bold p:text-[26px] tm:text-[22px]"><%= item.name %></h3>
+          <p class="p:ml-[16px] tm:mt-[4px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
+            <%= item.job %>　<%= item.tagline %>
+          </p>
+        </div>
+
+        <div class="m-tab --stack-m">
+          <% TABS.forEach((tab, tabIdx) => { -%>
+          <input type="radio" name="coach-tab-<%= idx %>" id="coach-tab-<%= idx %>-<%= tabIdx %>"
+            <%- tabIdx === 0 ? 'checked' : '' %>>
+          <% }); -%>
+          <div class="m-tab-nav">
+            <% TABS.forEach((tab, tabIdx) => { -%>
+            <label for="coach-tab-<%= idx %>-<%= tabIdx %>"><%= tab.label %></label>
+            <% }); -%>
+          </div>
+          <div class="m-tab-panels p:mt-[24px] tm:mt-[18px]">
+            <% TABS.forEach((tab) => { -%>
+            <div>
+              <h4 class="m-tab-panel-title font-bold text-[var(--x7de9)] mb-[10px] text-[15px]"><%= tab.label %></h4>
+              <% if (item[tab.key].length) { -%>
+              <ul class="m-list --list p:space-y-[10px] tm:space-y-[8px]">
+                <% item[tab.key].forEach((line) => { -%>
+                <li class="leading-[1.8] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
+                <% }); -%>
+              </ul>
+              <% } else { -%>
+              <p class="p:text-[14px] tm:text-[13px] text-[var(--x6)]">內容整理中。</p>
+              <% } -%>
+            </div>
+            <% }); -%>
+          </div>
+        </div>
+      </div>
+      <% }); -%>
+    </div>
+  </div>
+</section>

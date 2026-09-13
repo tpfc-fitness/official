@@ -1,93 +1,83 @@
 /*
- * 教練團隊
+ * 教練團隊。
  *
- * 這份資料在 build 期由 EJS 直接讀取並渲染成靜態 HTML，
- * 讓文字與圖片（含 alt）都能被搜尋引擎索引。
+ * 每位教練有三組內容，對應頁面上的三個分頁：
+ *   certificates  研習 & 證照
+ *   suitableFor   適合學生
+ *   approach      專長 & 訓練方式
+ *
+ * ⚠️ 目前只有 Benson 的內容是完整的，其餘五位待補。
+ *    三個陣列留空時，頁面會顯示「內容整理中」而不是空白區塊。
  *
  * ⚠️ 不可以依賴 window / document，否則 build 期 require 會壞掉。
  */
 module.exports = [
   {
     name: 'Benson',
-    job: '創辦人/體能教練',
-    certificate: [
-      'NASM Certified Personal Trainer',
+    job: '創辦人',
+    tagline: '耐心魔 × 全能型',
+    img: require('ourteam/coach_benson.jpg'),
+    certificates: [
+      'NASM-CPT',
       '美國國家運動醫學會認證私人教練',
-      '體適能C級證照',
+      '中華民國C級體適能指導員',
       '運動按摩技術員研習證書',
       '壺鈴教學技巧KTS1研習證書',
       'CPR+AED心肺復甦術',
+      'FPS功能性運動表現專家L1',
+      '運動科學訓練專家Lv1',
     ],
-    skill: [
-      '重量訓練指導',
-      '體態評估調整',
-      '健力式訓練',
-      '個人運動週期規劃',
-      '肌肉筋膜放鬆',
-      '功能性訓練',
-      '銀髮族肌力訓練',
-      '身體活動度改善',
-      '動作控制',
-      'OPT模組週期課表規劃',
-      '運動表現強化',
+    suitableFor: ['新手、中手、老人', '想要培養運動習慣、學習動作與訓練方法、有特殊身體疾病者'],
+    approach: [
+      '10分鐘內絕對讓你學會動作',
+      '「你的身體結構沒辦法做這個動作」，這種說法絕對不存在',
+      '從最基礎的徒手，慢慢進步到器械，最後自由重量',
+      '讓你把訓練的動作應用到日常生活中，不只練體態，還要提升生活品質',
     ],
-    img: require('ourteam/coach_benson.jpg'),
   },
   {
-    name: 'Allen',
-    job: '儲備經理/體能教練',
-    certificate: [
-      'NASM Certified Personal Trainer',
-      '美國國家運動醫學會認證私人教練',
-      '體適能C級證照',
-      'CPR+AED心肺復甦術',
-    ],
-    skill: [
-      '重量訓練指導',
-      '體態評估及雕塑',
-      '健美式訓練',
-      '減脂規劃',
-      '體態雕塑規劃',
-      '個人週期化肌力訓練',
-      '肌力與肌耐力訓練',
-      '客製化週期訓練',
-    ],
-    img: require('ourteam/coach_allen.jpg'),
-  },
-  {
-    name: 'Alex',
-    job: '體能教練',
-    certificate: ['體適能C級證照', 'CPR+AED心肺復甦術'],
-    skill: [
-      '重量訓練指導',
-      '增肌減脂客製化訓練',
-      '肌肥大週期性訓練',
-      '體態評估調整',
-      '健美式訓練',
-      '超負荷肌力訓練',
-      '肌力與肌耐力訓練',
-    ],
-    img: require('ourteam/coach_alex.jpg'),
+    name: 'Jeffery',
+    job: '店長',
+    tagline: '誇誇魔 × 全能型',
+    img: require('ourteam/coach_jeffery.jpg'),
+    certificates: [],
+    suitableFor: [],
+    approach: [],
   },
   {
     name: 'Roy',
-    job: '體能教練',
-    certificate: [
-      'NASM Certified Personal Trainer',
-      '美國國家運動醫學會認證私人教練',
-      '體適能C級證照',
-      'CPR+AED心肺復甦術',
-    ],
-    skill: [
-      '一對一阻力訓練',
-      '體態評估調整',
-      '肌肉筋膜放鬆',
-      '身體活動度改善',
-      '核心訓練',
-      '個人運動規劃課程',
-      '徒手肌力訓練',
-      '肌力訓練規劃',
-    ],
+    job: '私人教練',
+    tagline: '調整魔 × 功能型',
     img: require('ourteam/coach_roy.jpg'),
+    certificates: [],
+    suitableFor: [],
+    approach: [],
+  },
+  {
+    name: 'Elain',
+    job: '私人教練',
+    tagline: '健美魔 × 體態型',
+    img: require('ourteam/coach_elain.jpg'),
+    certificates: [],
+    suitableFor: [],
+    approach: [],
+  },
+  {
+    name: '阿圓',
+    job: '私人教練',
+    tagline: '肌肉魔 × 體態型',
+    img: require('ourteam/coach_ayuan.jpg'),
+    certificates: [],
+    suitableFor: [],
+    approach: [],
+  },
+  {
+    name: 'Runa',
+    job: '私人教練',
+    tagline: '調整魔 × 功能型',
+    img: require('ourteam/coach_runa.jpg'),
+    certificates: [],
+    suitableFor: [],
+    approach: [],
   },
 ];

@@ -1,0 +1,21 @@
+<%/* KV：教練團隊與訓練流程 */%>
+<% const training = require('_data/training.js'); -%>
+<section
+  class="border-b-[1px] border-solid p:border-[var(--white)] tm:border-[var(--x6)] text-[var(--white)] bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
+  <div class="text-center p:w-2/3">
+    <h1 data-aos="fade-right"
+      class="inline-block p:text-left leading-[1.2] font-black p:text-[50px] tm:text-[32px] tm:py-[24px]">
+      教練團隊<br />TRAINER <br class="pt:hidden" />GROUP</h1>
+  </div>
+  <div
+    class="p:border-l-[1px] border-solid border-[var(--white)] p:w-1/3 p:py-[40px] p:px-[20px] tm:border-t-[1px] tm:py-[28px] tm:px-[20px]">
+    <ul data-aos="fade-in" class="w-fit mx-auto p:space-y-[16px] tm:space-y-[16px]">
+      <% training.forEach((item) => { -%>
+      <li>
+        <h3 class="font-bold p:text-[18px] tm:text-[20px]"><%= item.title %></h3>
+        <p class="p:text-[12px] tm:text-[14px]"><%- item.cnt %></p>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

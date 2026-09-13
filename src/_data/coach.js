@@ -73,7 +73,7 @@ module.exports = [
     name: 'Elain',
     job: '私人教練',
     tagline: '健美魔 × 體態型',
-    img: require('ourteam/coach_elain.png'),
+    img: require('ourteam/coach_elain.jpg'),
     /* ⚠️ 尚未提供證照清單 */
     certificates: [],
     suitableFor: ['女孩、新手', '想要瘦卻有線條的人'],

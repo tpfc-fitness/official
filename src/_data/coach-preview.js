@@ -17,7 +17,7 @@ module.exports = [
     name: 'Elain',
     title: '私人教練 | 激勵魔人',
     skills: ['熱情嚴謹', '肌力提升', '體態雕塑'],
-    img: require('ourteam/coach_elain.png'),
+    img: require('ourteam/coach_elain.jpg'),
   },
   {
     name: '阿圓',

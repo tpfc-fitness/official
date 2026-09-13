@@ -42,29 +42,33 @@
   }
 }
 
-/* 被選中的分頁：主色實心。這裡是 14px 白字壓在紅底上，不是紅字壓在深色底 */
-.m-tab > input:nth-of-type(1):checked ~ .m-tab-nav label:nth-of-type(1),
-.m-tab > input:nth-of-type(2):checked ~ .m-tab-nav label:nth-of-type(2) {
-  border-color: var(--xe120);
-  background-color: var(--xe120);
-  color: var(--white);
-  font-weight: 700;
-}
-
-/* radio 視覺上藏起來了，焦點狀態要標在對應的標籤上 */
-.m-tab > input:nth-of-type(1):focus-visible ~ .m-tab-nav label:nth-of-type(1),
-.m-tab > input:nth-of-type(2):focus-visible ~ .m-tab-nav label:nth-of-type(2) {
-  outline: 2px solid var(--white);
-  outline-offset: 2px;
-}
-
 .m-tab-panels > * {
   display: none;
 }
 
-.m-tab > input:nth-of-type(1):checked ~ .m-tab-panels > :nth-child(1),
-.m-tab > input:nth-of-type(2):checked ~ .m-tab-panels > :nth-child(2) {
-  display: block;
+/*
+ * 用 postcss-for 產生每一個分頁的規則，上限設為 6。
+ * 先前是手寫的兩條，只夠兩個分頁用 —— 第三個分頁沒有對應規則，
+ * 內容就永遠不會顯示。改成迴圈後，增減分頁不必再改 CSS。
+ */
+@for $i from 1 to 6 {
+  /* 被選中的分頁：主色實心。這裡是白字壓在紅底上，不是紅字壓在深色底 */
+  .m-tab > input:nth-of-type($(i)):checked ~ .m-tab-nav label:nth-of-type($(i)) {
+    border-color: var(--xe120);
+    background-color: var(--xe120);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  /* radio 視覺上藏起來了，焦點狀態要標在對應的標籤上 */
+  .m-tab > input:nth-of-type($(i)):focus-visible ~ .m-tab-nav label:nth-of-type($(i)) {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
+
+  .m-tab > input:nth-of-type($(i)):checked ~ .m-tab-panels > :nth-child($(i)) {
+    display: block;
+  }
 }
 
 /*

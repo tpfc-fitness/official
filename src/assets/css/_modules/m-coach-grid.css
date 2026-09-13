@@ -1,22 +1,26 @@
 /*
  * 教練團隊：卡片網格 + 展開面板。
  *
- * 用 Grid 而不是 flex wrap，關鍵在展開的面板要橫跨整行 ——
- * flex 沒辦法讓某個項目「插在某一列下方並佔滿寬度」。
+ * 每張卡片與它的面板都由標記上的 --row-* 明確指定列號，
+ * 不依賴 Grid 的自動排版。原因是自動排版會讓面板插在「它自己的
+ * 卡片之後」，等於卡在一列中間，把同列後面的卡片擠到下一列；
+ * 明確指定之後，展開任何一張卡片，其他卡片的位置都不會變。
  *
- * 收合的面板是 display: none，完全不參與 Grid 的自動排版，
- * 所以三個斷點會自然得到正確結果，不需要任何 JS 計算列數：
- *   桌機三欄：六位教練兩列，面板落在所屬卡片那一列下方
- *   平板兩欄：三列，同上
- *   手機一欄：自然變成「卡片 → 面板 → 卡片 → 面板」的手風琴
+ *   桌機三欄  卡片列 1、3          面板列 2、4
+ *   平板兩欄  卡片列 1、3、5       面板列 2、4、6
+ *   手機一欄  卡片列 1、3、5…      面板列 2、4、6…
  *
- * 切換用隱藏的 radio，不寫 JS：所有面板的內容都在 HTML 裡，
- * 收合中的一樣被索引；鍵盤也能用方向鍵在教練之間切換。
+ * 列間距不用 row-gap —— 沒有展開面板的那幾列高度為 0，但 gap 仍會
+ * 佔位，會多出好幾段空白。改成由項目自己的 margin-bottom 負責。
+ *
+ * 切換用隱藏的 radio，不寫 JS：所有面板內容都在 HTML 裡，收合中的
+ * 一樣被索引；鍵盤也能用方向鍵在教練之間切換。
  */
 .m-coach-grid {
   position: relative;
   display: grid;
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 0;
 
   @apply m:grid-cols-1 t:grid-cols-2 p:grid-cols-3;
 
@@ -38,6 +42,7 @@
   position: relative;
   display: block;
   overflow: hidden;
+  margin-bottom: 16px;
   border: 1px solid rgb(255 255 255 / 20%);
   cursor: pointer;
   transition: border-color 0.3s ease-in-out;
@@ -76,19 +81,75 @@
 
 /* 展開面板：橫跨整行 */
 .m-coach-panel {
+  position: relative;
   display: none;
   grid-column: 1 / -1;
-  border: 1px solid rgb(255 255 255 / 20%);
+  margin-bottom: 16px;
+  border: 1px solid var(--xe120);
   background-color: var(--x15);
 
   @apply m:p-[20px] t:p-[28px] p:p-[36px];
+
+  /*
+   * 指向來源卡片的小三角。
+   * 位置由標記上的 --caret-* 決定（EJS 依欄數算出該卡片的水平中心），
+   * 沒有這個指示的話，面板橫跨整行時看不出是哪一張卡片展開的。
+   */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    width: 0;
+    height: 0;
+    margin-left: -9px;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid var(--xe120);
+    border-left: 9px solid transparent;
+  }
+}
+
+/* 列號與三角位置：三個斷點各自對應標記上不同的變數 */
+@screen m {
+  .m-coach-card {
+    grid-row: var(--row-m);
+  }
+  .m-coach-panel {
+    grid-row: var(--prow-m);
+  }
+  .m-coach-panel::before {
+    left: var(--caret-m);
+  }
+}
+
+@screen t {
+  .m-coach-card {
+    grid-row: var(--row-t);
+  }
+  .m-coach-panel {
+    grid-row: var(--prow-t);
+  }
+  .m-coach-panel::before {
+    left: var(--caret-t);
+  }
+}
+
+@screen p {
+  .m-coach-card {
+    grid-row: var(--row-p);
+  }
+  .m-coach-panel {
+    grid-row: var(--prow-p);
+  }
+  .m-coach-panel::before {
+    left: var(--caret-p);
+  }
 }
 
 /*
  * 被選中的那一位：卡片外框轉主色，對應的面板展開。
  * 用 postcss-for 產生，教練人數改變時只要調上限。
  */
-@for $i from 1 to 6 {
+@for $i from 1 to 12 {
   .m-coach-grid > input:nth-of-type($(i)):checked ~ label:nth-of-type($(i)) {
     border-color: var(--xe120);
   }

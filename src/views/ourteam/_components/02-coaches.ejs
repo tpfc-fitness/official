@@ -3,10 +3,28 @@
   const coach = require('_data/coach.js');
   /* 三個分頁的標題與對應的資料欄位 */
   const TABS = [
-    { label: '研習 & 證照', key: 'certificates' },
-    { label: '適合學生', key: 'suitableFor' },
-    { label: '專長 & 訓練方式', key: 'approach' },
+    { label: '領域/比賽', key: 'certificates' },
+    { label: '適合人群', key: 'suitableFor' },
+    { label: '訓練風格', key: 'approach' },
   ];
+
+  /*
+   * 卡片與面板的列號由這裡算出來，寫成 CSS 變數交給樣式表。
+   * 不讓 Grid 自動排版的原因：面板會插在自己的卡片之後、卡在一列
+   * 中間，把同列後面的卡片擠到下一列。明確指定列號就不會。
+   *
+   * 三角形的水平位置＝該卡片在自己那一列的中心，用來指出面板是從
+   * 哪一張卡片展開的。
+   */
+  const COLS = { p: 3, t: 2, m: 1 };
+  const rowVars = (index) =>
+    Object.entries(COLS)
+      .map(([key, cols]) => {
+        const row = Math.floor(index / cols) * 2 + 1;
+        const caret = Number(((((index % cols) + 0.5) / cols) * 100).toFixed(2));
+        return `--row-${key}:${row};--prow-${key}:${row + 1};--caret-${key}:${caret}%`;
+      })
+      .join(';');
 -%>
 <section
   class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[36px]">
@@ -20,7 +38,7 @@
 
       <% coach.forEach((item, idx) => { -%>
       <%/* 卡片 */%>
-      <label class="m-coach-card" for="coach-<%= idx %>">
+      <label class="m-coach-card" for="coach-<%= idx %>" style="<%= rowVars(idx) %>">
         <%- require('img.ejs')({
           path: item.img,
           alt: `${item.job} ${item.name}`,
@@ -39,7 +57,7 @@
       </label>
 
       <%/* 展開面板：橫跨整行 */%>
-      <div class="m-coach-panel">
+      <div class="m-coach-panel" style="<%= rowVars(idx) %>">
         <div class="p:flex p:items-baseline p:mb-[24px] tm:mb-[18px]">
           <h3 class="font-bold p:text-[26px] tm:text-[22px]"><%= item.name %></h3>
           <p class="p:ml-[16px] tm:mt-[4px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">

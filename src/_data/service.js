@@ -27,10 +27,10 @@ module.exports = [
     featureTitle: '個人化訓練安排',
     features: ['動作指導', '重量調整', '訓練規劃'],
     imgs: [
-      require('@imgs/service/pt_01.jpg'),
-      require('@imgs/service/pt_02.jpg'),
-      require('@imgs/service/pt_03.jpg'),
-      require('@imgs/service/pt_04.jpg'),
+      require('@imgs/service/pt_01.PNG'),
+      require('@imgs/service/pt_02.PNG'),
+      require('@imgs/service/pt_03.PNG'),
+      require('@imgs/service/pt_04.PNG'),
     ],
   },
   {
@@ -42,10 +42,10 @@ module.exports = [
     featureTitle: '重量訓練 × 心肺體能',
     features: ['重量訓練', '心肺訓練', '體能挑戰'],
     imgs: [
-      require('@imgs/service/group_01.jpg'),
-      require('@imgs/service/group_02.jpg'),
-      require('@imgs/service/group_03.jpg'),
-      require('@imgs/service/group_04.jpg'),
+      require('@imgs/service/group_01.PNG'),
+      require('@imgs/service/group_02.PNG'),
+      require('@imgs/service/group_03.PNG'),
+      require('@imgs/service/group_04.PNG'),
     ],
   },
   {
@@ -57,10 +57,9 @@ module.exports = [
     featureTitle: '自主訓練支援',
     features: ['課後自主訓練', '器材自由使用', '巡場教練協助'],
     imgs: [
-      require('@imgs/service/self_01.jpg'),
-      require('@imgs/service/self_02.jpg'),
-      require('@imgs/service/self_03.jpg'),
-      require('@imgs/service/self_04.jpg'),
+      require('@imgs/service/self_01.png'),
+      require('@imgs/service/self_02.PNG'),
+      require('@imgs/service/self_03.PNG'),
     ],
   },
 ];

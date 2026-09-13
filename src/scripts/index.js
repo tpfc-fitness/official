@@ -4,7 +4,6 @@ import '@css/index.css';
 
 import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
-import kvSpotlight from '_kvSpotlight.js';
 import { createSlider } from '_slider.js';
 
 // const $ = window.jQuery;
@@ -21,7 +20,6 @@ window.PetiteVue.createApp({
   async mounted() {
     const vm = this;
     lazyLoadFun();
-    kvSpotlight();
     this.syncTestimonialSlider();
     window.addEventListener('resize', this.debouncedResize);
     vm.onInit();

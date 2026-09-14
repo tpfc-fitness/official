@@ -58,9 +58,6 @@
           <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]"><%= item.job %>
           </p>
           <p class="p:mt-[8px] tm:mt-[6px] p:text-[13px] tm:text-[12px] text-[var(--x7de9)]"><%= item.tagline %></p>
-          <% if (item.certificates.length) { -%>
-          <p class="m-coach-card-badge"><%= item.certificates.length %> 項專業認證</p>
-          <% } -%>
         </div>
       </label>
 
@@ -76,13 +73,9 @@
         <div class="m-coach-panel-body">
           <%/* 左欄：領域 / 比賽。這是唯一客觀可驗證的專業訊號，不藏在分頁後面 */%>
           <div class="m-coach-credentials">
-            <p class="flex items-baseline p:mb-[16px] tm:mb-[12px]">
-              <b
-                class="font-black leading-none text-[var(--xe120)] p:text-[32px] tm:text-[26px]"><%= item.certificates.length %></b>
-              <span class="p:ml-[10px] tm:ml-[8px] font-bold p:text-[15px] tm:text-[14px]">項領域 / 比賽</span>
-            </p>
+            <p class="m-coach-credentials-title">領域 / 比賽</p>
             <% if (item.certificates.length) { -%>
-            <ul class="m-coach-credentials-list">
+            <ul class="m-coach-credentials-list m-list --list">
               <% item.certificates.forEach((line) => { -%>
               <li class="leading-[1.7] p:text-[13px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
               <% }); -%>

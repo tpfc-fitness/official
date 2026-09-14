@@ -18,6 +18,9 @@
     > li {
       &::before {
         content: '·';
+
+        /* 與 --heading 一致：沒有間距的話符號會黏在文字上 */
+        margin-right: 0.25em;
       }
     }
   }

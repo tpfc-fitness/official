@@ -142,16 +142,21 @@
   }
 }
 
-/* 卡片上的認證數量：不必點開就看得到份量 */
-.m-coach-card-badge {
-  display: inline-block;
-  margin-top: 10px;
-  border: 1px solid var(--xe120);
+/*
+ * 左欄標題。
+ * 原本這裡放的是證照數量，但那會變成教練之間的比較 ——
+ * 項數多寡不代表專業程度，而且會把比賽成績跟證照混為一談。
+ * 改由標題本身的字級與分隔線做視覺重量。
+ */
+.m-coach-credentials-title {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--xe120);
   color: var(--white);
-  font-size: 11px;
-  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 
-  @apply px-[8px] py-[5px];
+  @apply m:text-[15px] pt:text-[16px];
 }
 
 /* 列號與三角位置：三個斷點各自對應標記上不同的變數 */

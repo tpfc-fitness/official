@@ -108,6 +108,52 @@
   }
 }
 
+/*
+ * 面板內容：左欄常駐「領域 / 比賽」，右欄是兩個分頁。
+ *
+ * 面板橫跨整行（桌機 1200px），只放一欄短句的話右邊會空一大片，
+ * 內容再多都顯得單薄。證照是這頁唯一客觀可驗證的專業訊號，
+ * 放在常駐的左欄，不必點開分頁才看得到。
+ */
+.m-coach-panel-body {
+  display: grid;
+  gap: 32px;
+
+  @apply m:grid-cols-1 t:grid-cols-1 p:grid-cols-[minmax(0,38fr)_minmax(0,62fr)];
+}
+
+.m-coach-credentials {
+  @apply p:border-r p:border-solid p:border-[var(--x56)] p:pr-[32px];
+}
+
+/*
+ * 證照清單。桌機左欄仍然偏窄，多數項目是短字串，
+ * 排成兩欄可以把高度收斂、也把左欄填滿。
+ */
+.m-coach-credentials-list {
+  columns: 2;
+  column-gap: 20px;
+
+  @apply m:columns-1 t:columns-2 p:columns-2;
+
+  > li {
+    break-inside: avoid;
+    padding-bottom: 8px;
+  }
+}
+
+/* 卡片上的認證數量：不必點開就看得到份量 */
+.m-coach-card-badge {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid var(--xe120);
+  color: var(--white);
+  font-size: 11px;
+  line-height: 1;
+
+  @apply px-[8px] py-[5px];
+}
+
 /* 列號與三角位置：三個斷點各自對應標記上不同的變數 */
 @screen m {
   .m-coach-grid > input {

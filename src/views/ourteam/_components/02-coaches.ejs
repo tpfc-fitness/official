@@ -1,9 +1,9 @@
 <%/* 教練列表：卡片網格，點開展開該位教練的詳細內容 */%>
 <%
   const coach = require('_data/coach.js');
-  /* 三個分頁的標題與對應的資料欄位 */
+
+  /* 面板右欄的兩個分頁。證照不在這裡 —— 它常駐在左欄 */
   const TABS = [
-    { label: '領域/比賽', key: 'certificates' },
     { label: '適合人群', key: 'suitableFor' },
     { label: '訓練風格', key: 'approach' },
   ];
@@ -12,6 +12,9 @@
    * 卡片與面板的列號由這裡算出來，寫成 CSS 變數交給樣式表。
    * 不讓 Grid 自動排版的原因：面板會插在自己的卡片之後、卡在一列
    * 中間，把同列後面的卡片擠到下一列。明確指定列號就不會。
+   *
+   * 欄號給 radio 用：點 label 時瀏覽器會 focus radio 並把它捲進畫面，
+   * 沒有定位的話畫面會跳回網格頂端。
    *
    * 三角形的水平位置＝該卡片在自己那一列的中心，用來指出面板是從
    * 哪一張卡片展開的。
@@ -47,51 +50,75 @@
           eager: idx < 3,
           style: {
             main: 'absolute inset-0 z-0',
-            img: 'object-cover object-top'
+            img: 'object-cover object-[center_25%]'
           }
         }) %>
         <div class="m-coach-card-body">
           <p class="font-bold leading-tight p:text-[24px] tm:text-[21px]"><%= item.name %></p>
           <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]"><%= item.job %>
           </p>
-          <p class="p:mt-[8px] tm:mt-[6px] p:text-[13px] tm:text-[12px]"><%= item.tagline %></p>
+          <p class="p:mt-[8px] tm:mt-[6px] p:text-[13px] tm:text-[12px] text-[var(--x7de9)]"><%= item.tagline %></p>
+          <% if (item.certificates.length) { -%>
+          <p class="m-coach-card-badge"><%= item.certificates.length %> 項專業認證</p>
+          <% } -%>
         </div>
       </label>
 
-      <%/* 展開面板：橫跨整行 */%>
+      <%/* 展開面板：橫跨整行，左欄常駐證照、右欄分頁 */%>
       <div class="m-coach-panel" style="<%= rowVars(idx) %>">
-        <div class="p:flex p:items-baseline p:mb-[24px] tm:mb-[18px]">
+        <div class="p:flex p:items-baseline p:mb-[26px] tm:mb-[20px]">
           <h3 class="font-bold p:text-[26px] tm:text-[22px]"><%= item.name %></h3>
           <p class="p:ml-[16px] tm:mt-[4px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
             <%= item.job %>　<%= item.tagline %>
           </p>
         </div>
 
-        <div class="m-tab --stack-m">
-          <% TABS.forEach((tab, tabIdx) => { -%>
-          <input type="radio" name="coach-tab-<%= idx %>" id="coach-tab-<%= idx %>-<%= tabIdx %>"
-            <%- tabIdx === 0 ? 'checked' : '' %>>
-          <% }); -%>
-          <div class="m-tab-nav">
-            <% TABS.forEach((tab, tabIdx) => { -%>
-            <label for="coach-tab-<%= idx %>-<%= tabIdx %>"><%= tab.label %></label>
-            <% }); -%>
+        <div class="m-coach-panel-body">
+          <%/* 左欄：領域 / 比賽。這是唯一客觀可驗證的專業訊號，不藏在分頁後面 */%>
+          <div class="m-coach-credentials">
+            <p class="flex items-baseline p:mb-[16px] tm:mb-[12px]">
+              <b
+                class="font-black leading-none text-[var(--xe120)] p:text-[32px] tm:text-[26px]"><%= item.certificates.length %></b>
+              <span class="p:ml-[10px] tm:ml-[8px] font-bold p:text-[15px] tm:text-[14px]">項領域 / 比賽</span>
+            </p>
+            <% if (item.certificates.length) { -%>
+            <ul class="m-coach-credentials-list">
+              <% item.certificates.forEach((line) => { -%>
+              <li class="leading-[1.7] p:text-[13px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
+              <% }); -%>
+            </ul>
+            <% } else { -%>
+            <p class="p:text-[13px] tm:text-[13px] text-[var(--x6)]">內容整理中。</p>
+            <% } -%>
           </div>
-          <div class="m-tab-panels p:mt-[24px] tm:mt-[18px]">
-            <% TABS.forEach((tab) => { -%>
-            <div>
-              <h4 class="m-tab-panel-title font-bold text-[var(--x7de9)] mb-[10px] text-[15px]"><%= tab.label %></h4>
-              <% if (item[tab.key].length) { -%>
-              <ul class="m-list --list p:space-y-[10px] tm:space-y-[8px]">
-                <% item[tab.key].forEach((line) => { -%>
-                <li class="leading-[1.8] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
-                <% }); -%>
-              </ul>
-              <% } else { -%>
-              <p class="p:text-[14px] tm:text-[13px] text-[var(--x6)]">內容整理中。</p>
-              <% } -%>
-            </div>
+
+          <%/* 右欄：兩個分頁 */%>
+          <div class="m-tab --stack-m">
+            <% TABS.forEach((tab, tabIdx) => { -%>
+            <input type="radio" name="coach-tab-<%= idx %>" id="coach-tab-<%= idx %>-<%= tabIdx %>"
+              <%- tabIdx === 0 ? 'checked' : '' %>>
             <% }); -%>
+            <div class="m-tab-nav">
+              <% TABS.forEach((tab, tabIdx) => { -%>
+              <label for="coach-tab-<%= idx %>-<%= tabIdx %>"><%= tab.label %></label>
+              <% }); -%>
+            </div>
+            <div class="m-tab-panels p:mt-[22px] tm:mt-[16px]">
+              <% TABS.forEach((tab) => { -%>
+              <div>
+                <h4 class="m-tab-panel-title font-bold text-[var(--x7de9)] mb-[10px] text-[15px]"><%= tab.label %></h4>
+                <% if (item[tab.key].length) { -%>
+                <ul class="m-list --list p:space-y-[12px] tm:space-y-[10px]">
+                  <% item[tab.key].forEach((line) => { -%>
+                  <li class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
+                  <% }); -%>
+                </ul>
+                <% } else { -%>
+                <p class="p:text-[14px] tm:text-[13px] text-[var(--x6)]">內容整理中。</p>
+                <% } -%>
+              </div>
+              <% }); -%>
+            </div>
           </div>
         </div>
       </div>

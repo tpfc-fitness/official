@@ -21,8 +21,9 @@
     Object.entries(COLS)
       .map(([key, cols]) => {
         const row = Math.floor(index / cols) * 2 + 1;
+        const col = (index % cols) + 1;
         const caret = Number(((((index % cols) + 0.5) / cols) * 100).toFixed(2));
-        return `--row-${key}:${row};--prow-${key}:${row + 1};--caret-${key}:${caret}%`;
+        return `--row-${key}:${row};--prow-${key}:${row + 1};--col-${key}:${col};--caret-${key}:${caret}%`;
       })
       .join(';');
 -%>
@@ -33,7 +34,8 @@
     <div class="m-coach-grid">
       <%/* 切換用的 radio 全部放前面，CSS 才能用 ~ 選到後面的卡片與面板 */%>
       <% coach.forEach((item, idx) => { -%>
-      <input type="radio" name="coach" id="coach-<%= idx %>" <%- idx === 0 ? 'checked' : '' %>>
+      <input type="radio" name="coach" id="coach-<%= idx %>" style="<%= rowVars(idx) %>"
+        <%- idx === 0 ? 'checked' : '' %>>
       <% }); -%>
 
       <% coach.forEach((item, idx) => { -%>

@@ -110,6 +110,11 @@
 
 /* 列號與三角位置：三個斷點各自對應標記上不同的變數 */
 @screen m {
+  .m-coach-grid > input {
+    grid-row: var(--row-m);
+    grid-column: var(--col-m);
+  }
+
   .m-coach-card {
     grid-row: var(--row-m);
   }
@@ -122,6 +127,11 @@
 }
 
 @screen t {
+  .m-coach-grid > input {
+    grid-row: var(--row-t);
+    grid-column: var(--col-t);
+  }
+
   .m-coach-card {
     grid-row: var(--row-t);
   }
@@ -134,6 +144,11 @@
 }
 
 @screen p {
+  .m-coach-grid > input {
+    grid-row: var(--row-p);
+    grid-column: var(--col-p);
+  }
+
   .m-coach-card {
     grid-row: var(--row-p);
   }

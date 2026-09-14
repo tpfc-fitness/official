@@ -136,9 +136,15 @@
 
   @apply m:columns-1 t:columns-2 p:columns-2;
 
+  /*
+   * 行高收緊、項目間距加大。
+   * 原本行高 1.7、間距 8px —— 間距比行高還小，
+   * 換行的項目會跟下一項糊在一起，一眼分不出是幾項。
+   */
   > li {
     break-inside: avoid;
-    padding-bottom: 8px;
+    padding-bottom: 16px;
+    line-height: 1.45;
   }
 }
 

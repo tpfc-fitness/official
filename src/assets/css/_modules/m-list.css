@@ -16,8 +16,15 @@
     list-style-type: none;
 
     > li {
+      /*
+       * 用 flex 讓文字自成一塊：符號是行內元素的話，
+       * 文字換行會退回最左邊，對不齊第一行。
+       */
+      display: flex;
+
       &::before {
         content: '·';
+        flex-shrink: 0;
 
         /* 與 --heading 一致：沒有間距的話符號會黏在文字上 */
         margin-right: 0.25em;

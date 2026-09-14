@@ -77,7 +77,7 @@
             <% if (item.certificates.length) { -%>
             <ul class="m-coach-credentials-list m-list --list">
               <% item.certificates.forEach((line) => { -%>
-              <li class="leading-[1.7] p:text-[13px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
+              <li class="p:text-[13px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
               <% }); -%>
             </ul>
             <% } else { -%>
@@ -101,9 +101,9 @@
               <div>
                 <h4 class="m-tab-panel-title font-bold text-[var(--x7de9)] mb-[10px] text-[15px]"><%= tab.label %></h4>
                 <% if (item[tab.key].length) { -%>
-                <ul class="m-list --list p:space-y-[12px] tm:space-y-[10px]">
+                <ul class="m-list --list p:space-y-[18px] tm:space-y-[16px]">
                   <% item[tab.key].forEach((line) => { -%>
-                  <li class="leading-[1.9] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
+                  <li class="leading-[1.7] p:text-[14px] tm:text-[13px] text-[var(--xc7)]"><%= line %></li>
                   <% }); -%>
                 </ul>
                 <% } else { -%>

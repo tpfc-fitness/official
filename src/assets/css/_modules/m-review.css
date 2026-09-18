@@ -9,8 +9,22 @@
  */
 .m-review {
   @screen p {
+    /*
+     * 分隔線畫在每一欄的左邊，但每一列的第一欄要排除 ——
+     * 六則會排成兩列，用 li + li 的話第 4 則（第二列開頭）
+     * 也會被畫上左框，看起來像斷掉。
+     */
     > li + li {
       border-left: 1px solid rgb(255 255 255 / 18%);
+    }
+
+    > li:nth-child(3n + 1) {
+      border-left: 0;
+    }
+
+    /* 兩列之間留出間距 */
+    > li:nth-child(n + 4) {
+      margin-top: 40px;
     }
   }
 

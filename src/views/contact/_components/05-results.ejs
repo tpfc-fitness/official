@@ -2,13 +2,12 @@
 <% const resevation = require('_data/resevation.js'); -%>
 <% const site = require('_data/site.js'); -%>
 <!-- 學員評價&成績 -->
-<section data-aos="fade-in"
-  class="p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] m:pt-[40px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
+<section data-aos="fade-in" class="p:pb-[120px] t:pb-[105px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
   <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員評價</h2>
-  <div class="p:max-w-[1220px] pt:mx-auto pt:mb-[50px] m:mb-[42px] tm:px-[20px]">
+  <div class="p:max-w-[1220px] pt:mx-auto">
     <%- require('@component/mReviewList.ejs')() %>
 
-    <p class="text-center p:mt-[30px] tm:mt-[24px]">
+    <p class="text-center p:mt-[50px] tm:mt-[42px]">
       <a href="<%= site.hasMap %>" target="_blank" rel="noopener"
         class="inline-flex items-center border-b border-solid border-[rgb(255_255_255_/_45%)] pb-[6px] p:text-[15px] tm:text-[14px] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">
         查看所有 Google 評論
@@ -19,16 +18,4 @@
       </a>
     </p>
   </div>
-  <p class="text-center pt:mb-[50px] m:mb-[20px] m:px-[12px]">
-    或許你已經努力過了好幾次<br>但有可能只是方式不對<br><br>我們已經幫助百位學員成功蛻變、重拾自信<br>他們也和你一樣<br>只是一般的上班族，有家庭要顧、有工作要忙、也有吃美食的慾望<br>卻都在這裡找到了適合自己的訓練方式<br>輕鬆養成習慣、穩定看見成果<br><br>如果他們都能做到，你也一定可以！
-  </p>
-  <%- require('@component/mBtn.ejs')({
-    label: '預約免費體驗課',
-    link: undefined,
-    type: 'button',
-    func: 'scrollToResevation()',
-    style: {
-      main: '--highlight mx-auto p:text-[18px] text-[var(--white)] p:w-[270px] p:h-[50px] t:w-[216px] t:h-[60px] m:w-[220px] m:h-[56px]'
-    }
-  }) %>
 </section>

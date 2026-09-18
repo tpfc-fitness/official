@@ -1,5 +1,4 @@
 <%/* 教練團隊摘要 */%>
-<% const coaches = require('_data/coach-preview.js'); -%>
 <section
   class="text-[var(--white)] bg-[var(--black)] p:px-[80px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[40px]">
 
@@ -21,56 +20,7 @@
     </div>
   </div>
 
-  <%/* 卡片：桌機三欄；平板兩欄且第三張跨滿；手機單欄橫式 */%>
-  <ul class="p:grid p:grid-cols-3 p:gap-[20px] t:grid t:grid-cols-2 t:gap-[16px] m:space-y-[12px]">
-    <% coaches.forEach((coach, index) => { -%>
-    <li data-aos="fade-up"
-      class="m-coach-card relative overflow-hidden p:h-[240px] t:h-[210px] m:h-[100px]<%- index === 2 ? ' t:col-span-2' : '' %>">
-      <a href="./ourteam.html" class="flex items-center h-full pt:items-end p:p-[20px] t:p-[16px]">
-        <%- require('img.ejs')({
-          path: coach.img,
-          alt: `${coach.title.split('|').pop().trim()} ${coach.name}`,
-          /* 第一張在首屏附近，其餘延後載入 */
-          eager: index === 0,
-          style: {
-            main: 'pt:absolute pt:inset-0 pt:z-0 m:relative m:flex-shrink-0 m:w-[100px] m:h-full',
-            img: 'object-cover object-[center_25%]'
-          }
-        }) %>
-        <div class="relative z-[2] flex items-center flex-grow pt:items-end m:px-[14px]">
-          <div class="flex-grow">
-            <p class="font-bold leading-tight p:text-[26px] t:text-[22px] m:text-[18px]"><%= coach.name %></p>
-            <p class="p:mt-[6px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
-              <%= coach.title %></p>
-            <p class="p:mt-[4px] p:text-[18px] tm:text-[14px]"><%= coach.skills.join(' × ') %></p>
-          </div>
-          <span class="flex-shrink-0 p:ml-[16px] tm:ml-[10px]">
-            <%- require('@component/svg.ejs')({
-              svgName: 'arrow',
-              style: {
-                main: 'p:w-[28px] p:h-[28px] tm:w-[22px] tm:h-[22px]'
-              }
-            }) %>
-          </span>
-        </div>
-      </a>
-    </li>
-    <% }); -%>
-  </ul>
-
-  <%- require('@component/mBtn.ejs')({
-    label: '查看完整教練團隊',
-    link: './ourteam.html',
-    style: {
-      main: '--border mx-auto p:mt-[36px] t:mt-[28px] m:mt-[24px] p:text-[16px] p:w-[292px] p:h-[52px] t:w-[392px] t:h-[52px] m:w-full m:h-[48px]',
-      icon: 'w-[40px]'
-    },
-    icon: {
-      name: 'arrow',
-      css: 'p:w-[18px] p:h-[18px] tm:w-[20px] tm:h-[20px]'
-    },
-    fadeType: 'fade-up'
-  }) %>
+  <%- require('@component/mCoachPreview.ejs')() %>
 
   <%/* 頁尾裝飾：僅桌機顯示 */%>
   <div class="flex items-center tm:hidden mt-[44px] text-[11px] tracking-[0.18em] text-[rgb(255_255_255_/_45%)]">

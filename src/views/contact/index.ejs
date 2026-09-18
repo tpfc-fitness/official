@@ -6,16 +6,17 @@
  *
  * 同一組區塊也被 views/resevation/ 使用 —— 那是投廣告用的版本，
  * 拿掉了導覽以減少出口。改文案只需要改這裡的區塊檔，兩頁會同步。
- *
- * 09-price-compare.ejs（學習渠道比價）目前停用，檔案保留在 _components/。
  */%>
 <%- require('./_components/01-kv.ejs')() %> <%/* KV 主視覺 */%>
 <%- require('./_components/02-pain-points.ejs')() %> <%/* 目標族群痛點：你是不是也有過這些狀況 */%>
 <%- require('./_components/03-training-rules.ejs')() %> <%/* 頭等倉教練的訓練方針 */%>
 <%- require('./_components/04-student-stories.ejs')() %> <%/* 學員成果分享 */%>
-<%- require('./_components/05-results.ejs')() %> <%/* 學員成績與評價：五星好評、InBody、體態改善 */%>
-<%- require('./_components/06-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
-<%- require('./_components/07-form.ejs')() %> <%/* 預約表單 */%>
-<%- require('./_components/08-coach-stories.ejs')() %> <%/* 教練故事：Before / After */%>
-<%- require('./_components/10-newbie-plan.ejs')() %> <%/* 新生優惠方案介紹 */%>
-<%- require('./_components/11-faq.ejs')() %> <%/* 課程 FAQ */%>
+<%- require('./_components/05-results.ejs')() %> <%/* 學員評價 */%>
+<%- require('./_components/06-coaches.ejs')() %> <%/* 教練團隊摘要 */%>
+<%- require('./_components/07-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
+<%- require('./_components/08-form.ejs')() %> <%/* 預約表單 */%>
+<%- require('./_components/09-coach-stories.ejs')() %> <%/* 教練故事：Before / After */%>
+<%- require('./_components/11-newbie-plan.ejs')() %> <%/* 新生優惠方案介紹 */%>
+<%- require('./_components/12-faq.ejs')() %> <%/* 課程 FAQ */%>
+<%/* 10-price-compare.ejs（學習渠道比價）目前停用。 */%>
+<%/* 檔案保留在 _components/ 底下，要重新啟用就照上下行的寫法把它 require 回來。 */%>

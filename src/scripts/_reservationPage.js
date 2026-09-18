@@ -11,10 +11,14 @@ import 'aos/dist/aos.css';
 import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
 import { createSlider } from '_slider.js';
+import kvVariant from '_kvVariant.js';
 
 export default function initReservationPage() {
   /* 一次載入使用到的 svg */
   svgRequire();
+
+  /* 在掛載之前換好 KV 標題，載入遮罩還蓋著，不會看到文字跳動 */
+  kvVariant();
 
   window.PetiteVue.createApp({
     store,

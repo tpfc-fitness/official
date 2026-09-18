@@ -1,0 +1,44 @@
+/*
+ * 免費體驗頁的 KV。
+ *
+ * 照片鋪滿整塊，左側疊一層由左至右的漸層 ——
+ * 文字都靠左，右側保留照片本身的細節，不要整片壓暗。
+ */
+.m-kv {
+  background-color: var(--x15);
+
+  @apply m:min-h-[420px] t:min-h-[440px] p:min-h-[560px];
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 88%) 0%,
+      rgb(0 0 0 / 72%) 42%,
+      rgb(0 0 0 / 25%) 100%
+    );
+  }
+
+  /* 手機的文字區較窄，改為由下往上壓暗才讀得到 */
+  @screen m {
+    &::before {
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 92%) 0%,
+        rgb(0 0 0 / 78%) 55%,
+        rgb(0 0 0 / 45%) 100%
+      );
+    }
+  }
+}
+
+.m-kv-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @apply m:min-h-[420px] t:min-h-[440px] p:min-h-[560px];
+}

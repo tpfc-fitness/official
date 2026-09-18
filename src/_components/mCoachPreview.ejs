@@ -7,17 +7,26 @@
    * ⚠️ 使用這個元件的頁面，其樣式表必須引入 _modules/m-coach，
    *    否則卡片的外框與漸層都不會出現（元件本身不會報錯）。
    */
-  const coaches = require('_data/coach-preview.js');
+  /*
+   * 直接讀教練團隊頁的同一份資料，不另外維護一份摘要 ——
+   * 兩份資料一定會走鐘。先前確實有過一份獨立的摘要資料，
+   * 結果定位文字停在舊版、也漏掉後來加入的教練。
+   *
+   * 首頁與免費體驗頁只露出其中三位，順序由 PREVIEW 決定。
+   */
+  const coach = require('_data/coach.js');
+  const PREVIEW = ['Benson', 'Elain', '阿圓'];
+  const coaches = PREVIEW.map((name) => coach.find((item) => item.name === name)).filter(Boolean);
 -%>
 <%/* 卡片：桌機三欄；平板兩欄且第三張跨滿；手機單欄橫式 */%>
 <ul class="p:grid p:grid-cols-3 p:gap-[20px] t:grid t:grid-cols-2 t:gap-[16px] m:space-y-[12px]">
-  <% coaches.forEach((coach, index) => { -%>
+  <% coaches.forEach((item, index) => { -%>
   <li data-aos="fade-up"
     class="m-coach-card relative overflow-hidden p:h-[240px] t:h-[210px] m:h-[100px]<%- index === 2 ? ' t:col-span-2' : '' %>">
     <a href="./ourteam.html" class="flex items-center h-full pt:items-end p:p-[20px] t:p-[16px]">
       <%- require('img.ejs')({
-        path: coach.img,
-        alt: `${coach.title.split('|').pop().trim()} ${coach.name}`,
+        path: item.img,
+        alt: `${item.job} ${item.name}`,
         style: {
           main: 'pt:absolute pt:inset-0 pt:z-0 m:relative m:flex-shrink-0 m:w-[100px] m:h-full',
           img: 'object-cover object-[center_25%]'
@@ -25,10 +34,10 @@
       }) %>
       <div class="relative z-[2] flex items-center flex-grow pt:items-end m:px-[14px]">
         <div class="flex-grow">
-          <p class="font-bold leading-tight p:text-[26px] t:text-[22px] m:text-[18px]"><%= coach.name %></p>
+          <p class="font-bold leading-tight p:text-[26px] t:text-[22px] m:text-[18px]"><%= item.name %></p>
           <p class="p:mt-[6px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
-            <%= coach.title %></p>
-          <p class="p:mt-[4px] p:text-[18px] tm:text-[14px]"><%= coach.skills.join(' × ') %></p>
+            <%= item.job %></p>
+          <p class="p:mt-[6px] tm:mt-[4px] p:text-[15px] tm:text-[13px] text-[var(--x7de9)]"><%= item.tagline %></p>
         </div>
         <span class="flex-shrink-0 p:ml-[16px] tm:ml-[10px]">
           <%- require('@component/svg.ejs')({

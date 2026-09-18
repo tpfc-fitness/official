@@ -81,18 +81,12 @@ export default function initReservationPage() {
             },
           });
 
-          this.commentSlider = createSlider('.comments-slider', 'd', {
-            controlsContainer: '.comments-slider-ctrl',
-            slideBy: 'page',
+          /* 評論清單只在手機輪播，桌機與平板是並排的三欄 */
+          this.commentSlider = createSlider('.testimonial-slider', 'd', {
+            controls: false,
             items: 1,
-            edgePadding: 40,
-            gutter: 10,
-            responsive: {
-              740: {
-                items: 2,
-                edgePadding: 20,
-              },
-            },
+            slideBy: 'page',
+            gutter: 12,
           });
         }
 

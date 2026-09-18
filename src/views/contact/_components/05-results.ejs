@@ -1,77 +1,23 @@
 <%/* 學員成績與評價：五星好評、InBody、體態改善 */%>
 <% const resevation = require('_data/resevation.js'); -%>
+<% const site = require('_data/site.js'); -%>
 <!-- 學員評價&成績 -->
 <section data-aos="fade-in"
   class="p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] m:pt-[40px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
   <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員成績 & 評價</h2>
-  <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[50px] m:mb-[42px]">
-    <ul class="comments-slider p:flex p:flex-wrap">
-      <% resevation.comments.forEach((item) => { -%>
-      <li class="p:w-1/3 p:my-[10px] p:h-[258px] t:h-[200px] m:h-[170px]">
-        <%- require('img.ejs')({
-          path: item,
-          alt: '頭等倉運動空間五星好評',
-          style: {
-            main: ' p:py-[32px] p:px-[24px] p:mx-[10px] tm:p-[16px]',
-            img: 'w-full h-auto'
-          }
+  <div class="p:max-w-[1220px] pt:mx-auto pt:mb-[50px] m:mb-[42px] tm:px-[20px]">
+    <%- require('@component/mReviewList.ejs')() %>
+
+    <p class="text-center p:mt-[30px] tm:mt-[24px]">
+      <a href="<%= site.hasMap %>" target="_blank" rel="noopener"
+        class="inline-flex items-center border-b border-solid border-[rgb(255_255_255_/_45%)] pb-[6px] p:text-[15px] tm:text-[14px] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">
+        查看所有 Google 評論
+        <%- require('@component/svg.ejs')({
+          svgName: 'arrow',
+          style: { main: 'w-[18px] h-[18px] ml-[16px]' }
         }) %>
-        <!-- <div class="h-full bg-[var(--x56)] p:py-[32px] p:px-[24px] p:mx-[10px] tm:p-[16px]">
-          <ul class="flex space-x-[6px] p:mb-[20px] t:mb-[16px] m:mb-[8px]">
-            <li>
-              <%- require('@component/svg.ejs')({
-                svgName: 'icon_star',
-                style: {
-                  main: 'w-[18px] h-[18px]'
-                }
-              }) %>
-            </li>
-            <li>
-              <%- require('@component/svg.ejs')({
-                svgName: 'icon_star',
-                style: {
-                  main: 'w-[18px] h-[18px]'
-                }
-              }) %>
-            </li>
-            <li>
-              <%- require('@component/svg.ejs')({
-                svgName: 'icon_star',
-                style: {
-                  main: 'w-[18px] h-[18px]'
-                }
-              }) %>
-            </li>
-            <li>
-              <%- require('@component/svg.ejs')({
-                svgName: 'icon_star',
-                style: {
-                  main: 'w-[18px] h-[18px]'
-                }
-              }) %>
-            </li>
-            <li>
-              <%- require('@component/svg.ejs')({
-                svgName: 'icon_star',
-                style: {
-                  main: 'w-[18px] h-[18px]'
-                }
-              }) %>
-            </li>
-          </ul>
-          <p class="resevation-p" v-html="item"/>
-        </div> -->
-      </li>
-      <% }); -%>
-    </ul>
-    <div class="m-slider-ctrl comments-slider-ctrl p:hidden">
-      <button type="button" class="m-slider-prev">
-        <span class="sr-only">上一張</span>
-      </button>
-      <button type="button" class="m-slider-next">
-        <span class="sr-only">下一張</span>
-      </button>
-    </div>
+      </a>
+    </p>
   </div>
   <div class="p:flex p:w-[1220px] p:mx-auto p:space-x-[20px]">
     <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">

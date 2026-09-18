@@ -4,7 +4,7 @@
 <!-- 學員評價&成績 -->
 <section data-aos="fade-in"
   class="p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] m:pt-[40px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
-  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員成績 & 評價</h2>
+  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員評價</h2>
   <div class="p:max-w-[1220px] pt:mx-auto pt:mb-[50px] m:mb-[42px] tm:px-[20px]">
     <%- require('@component/mReviewList.ejs')() %>
 
@@ -18,74 +18,6 @@
         }) %>
       </a>
     </p>
-  </div>
-  <div class="p:flex p:w-[1220px] p:mx-auto p:space-x-[20px]">
-    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
-      <ul class="inbody-slider">
-        <% resevation.inbody.forEach((item) => { -%>
-        <li>
-          <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
-            <%- require('img.ejs')({
-              path: item.img,
-              alt: item.alt,
-              style: {
-                main: 'p:w-[510px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[315px] m:h-[183px]',
-                img: 'object-cover object-right !w-full'
-              }
-            }) %>
-            <p class="resevation-p text-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
-          </div>
-        </li>
-        <% }); -%>
-      </ul>
-      <div class="m-slider-ctrl inbody-slider-ctrl">
-        <button type="button" class="m-slider-prev">
-          <span class="sr-only">上一張</span>
-        </button>
-        <button type="button" class="m-slider-next">
-          <span class="sr-only">下一張</span>
-        </button>
-      </div>
-    </div>
-    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
-      <ul class="body-shape-slider">
-        <% resevation.bodyShape.forEach((item) => { -%>
-        <li>
-          <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">改善</span></h3>
-            <div class="flex pt:space-x-[20px] m:space-x-[10px]">
-              <%- require('img.ejs')({
-                path: item.before.img,
-                alt: item.before.alt,
-                style: {
-                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
-                  img: 'object-cover object-right !w-full'
-                }
-              }) %>
-              <%- require('img.ejs')({
-                path: item.after.img,
-                alt: item.after.alt,
-                style: {
-                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
-                  img: 'object-cover object-right !w-full'
-                }
-              }) %>
-            </div>
-            <p class="resevation-p tetx-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
-          </div>
-        </li>
-        <% }); -%>
-      </ul>
-      <div class="m-slider-ctrl body-shape-slider-ctrl">
-        <button type="button" class="m-slider-prev">
-          <span class="sr-only">上一張</span>
-        </button>
-        <button type="button" class="m-slider-next">
-          <span class="sr-only">下一張</span>
-        </button>
-      </div>
-    </div>
   </div>
   <p class="text-center pt:mb-[50px] m:mb-[20px] m:px-[12px]">
     或許你已經努力過了好幾次<br>但有可能只是方式不對<br><br>我們已經幫助百位學員成功蛻變、重拾自信<br>他們也和你一樣<br>只是一般的上班族，有家庭要顧、有工作要忙、也有吃美食的慾望<br>卻都在這裡找到了適合自己的訓練方式<br>輕鬆養成習慣、穩定看見成果<br><br>如果他們都能做到，你也一定可以！

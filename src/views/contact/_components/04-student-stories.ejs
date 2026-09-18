@@ -1,3 +1,4 @@
+<% const resevation = require('_data/resevation.js'); -%>
 <%/* 學員成果分享 */%>
 <!-- 學員故事 -->
 <section data-aos="fade-in"
@@ -39,6 +40,76 @@
       </p>
       <p class="resevation-p">我花了3個月從基礎肌力開始，搭配一對一教練訓練，三個月後整個人緊實到不行⚡️<br />
         現在運動不會再愛去不去的，是會想一直做下去的那種爽🔥</p>
+    </div>
+  </div>
+
+  <%/* 從 05-results 移過來：InBody 與體態改善的實際數據 */%>
+  <div class="p:flex p:w-[1220px] p:mx-auto p:space-x-[20px]">
+    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
+      <ul class="inbody-slider">
+        <% resevation.inbody.forEach((item) => { -%>
+        <li>
+          <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
+            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
+            <%- require('img.ejs')({
+              path: item.img,
+              alt: item.alt,
+              style: {
+                main: 'p:w-[510px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[315px] m:h-[183px]',
+                img: 'object-cover object-right !w-full'
+              }
+            }) %>
+            <p class="resevation-p text-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
+          </div>
+        </li>
+        <% }); -%>
+      </ul>
+      <div class="m-slider-ctrl inbody-slider-ctrl">
+        <button type="button" class="m-slider-prev">
+          <span class="sr-only">上一張</span>
+        </button>
+        <button type="button" class="m-slider-next">
+          <span class="sr-only">下一張</span>
+        </button>
+      </div>
+    </div>
+    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
+      <ul class="body-shape-slider">
+        <% resevation.bodyShape.forEach((item) => { -%>
+        <li>
+          <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
+            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">改善</span></h3>
+            <div class="flex pt:space-x-[20px] m:space-x-[10px]">
+              <%- require('img.ejs')({
+                path: item.before.img,
+                alt: item.before.alt,
+                style: {
+                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
+                  img: 'object-cover object-right !w-full'
+                }
+              }) %>
+              <%- require('img.ejs')({
+                path: item.after.img,
+                alt: item.after.alt,
+                style: {
+                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
+                  img: 'object-cover object-right !w-full'
+                }
+              }) %>
+            </div>
+            <p class="resevation-p tetx-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
+          </div>
+        </li>
+        <% }); -%>
+      </ul>
+      <div class="m-slider-ctrl body-shape-slider-ctrl">
+        <button type="button" class="m-slider-prev">
+          <span class="sr-only">上一張</span>
+        </button>
+        <button type="button" class="m-slider-next">
+          <span class="sr-only">下一張</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>

@@ -1,24 +1,45 @@
+/*
+ * 按鈕。
+ *
+ * 底色上在 .m-btn 本身而不是內層的 .m-btn-cnt ——
+ * 箭頭是 .m-btn-cnt 的兄弟節點，底色上在內層的話箭頭那塊會露白。
+ */
 .m-btn {
   @apply flex justify-between border border-solid border-[var(--white)] text-center font-bold;
 
   &.\-\-contain {
-    @apply text-[var(--black)];
-
-    .m-btn-cnt {
-      @apply bg-[#fff] bg-opacity-100;
-    }
+    @apply bg-[#fff] text-[var(--black)];
   }
 
   &.\-\-highlight {
-    @apply border-none text-[var(--white)];
-
-    .m-btn-cnt {
-      @apply bg-[#E12020] bg-opacity-100;
-    }
+    @apply border-none bg-[#E12020] text-[var(--white)];
   }
 
   &.\-\-border {
     @apply text-[var(--white)];
+  }
+
+  /*
+   * 實心按鈕不畫分隔線：整塊都是同一個色，
+   * 中間一條白線看起來像把按鈕切成兩半，而不是一個按鈕。
+   * 沒有線之後改成「文字＋箭頭」當成一組置中，
+   * 箭頭的固定寬度也跟著取消，否則兩者之間會空一大段。
+   */
+  &.\-\-contain,
+  &.\-\-highlight {
+    @apply justify-center;
+
+    .m-btn-cnt {
+      @apply flex-grow-0;
+    }
+
+    .m-btn-icon {
+      @apply ml-[8px] w-auto;
+
+      &::before {
+        @apply hidden;
+      }
+    }
   }
 }
 
@@ -26,6 +47,7 @@
   @apply flex flex-grow items-center justify-center;
 }
 
+/* 空心按鈕保留分隔線：外框本來就是方塊，線是這個樣式的一部分 */
 .m-btn-icon {
   @apply relative flex flex-shrink-0 items-center justify-center;
 
@@ -38,11 +60,9 @@
 }
 
 @screen p {
-  .m-btn-cnt {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
   .m-btn {
+    @apply transition-colors duration-300 ease-in-out;
+
     &:hover {
       &.\-\-border {
         .m-btn-cnt {
@@ -51,21 +71,16 @@
       }
 
       &.\-\-contain {
-        @apply bg-opacity-0 text-[var(--white)];
-
-        .m-btn-cnt {
-          @apply bg-opacity-0 text-[var(--white)];
-        }
+        @apply bg-transparent text-[var(--white)];
       }
 
       &.\-\-highlight {
-        .m-btn-cnt {
-          @apply bg-[#C40000];
-        }
+        @apply bg-[#C40000];
       }
     }
   }
-}
 
-@screen tm {
+  .m-btn-cnt {
+    @apply transition-colors duration-300 ease-in-out;
+  }
 }

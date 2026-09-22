@@ -1,7 +1,10 @@
 <%/* 教練團隊摘要 */%>
 <section data-aos="fade-in" class="p:pb-[120px] t:pb-[105px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
-  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">教練團隊</h2>
-  <p class="resevation-p text-center">不同專長的教練，<br />陪你找到適合自己的訓練方式。</p>
+  <%/* 標頭沿用 07-trial-class 的寫法：置中大標＋下方一行說明，不加裝飾線 */%>
+  <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px]">
+    <h2 class="resevation-h1">教練團隊</h2>
+    <p class="resevation-p p:mt-[18px] tm:mt-[12px]">不同專長的教練，<br class="pt:hidden" />陪你找到適合自己的訓練方式。</p>
+  </header>
   <div class="p:max-w-[1220px] pt:mx-auto tm:px-[20px]">
     <%- require('@component/mCoachPreview.ejs')() %>
   </div>

@@ -44,8 +44,8 @@
   </div>
 
   <%/* 從 05-results 移過來：InBody 與體態改善的實際數據 */%>
-  <div class="p:flex p:w-[1220px] p:mx-auto p:space-x-[20px]">
-    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
+  <div class="w-full p:flex p:max-w-[1220px] p:mx-auto p:space-x-[20px]">
+    <div class="m-slider tm:w-full pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px]">
       <ul class="inbody-slider">
         <% resevation.inbody.forEach((item) => { -%>
         <li>
@@ -55,7 +55,7 @@
               path: item.img,
               alt: item.alt,
               style: {
-                main: 'p:w-[510px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[315px] m:h-[183px]',
+                main: 'w-full p:h-[296px] t:h-[315px] m:h-[183px]',
                 img: 'object-cover object-right !w-full'
               }
             }) %>
@@ -73,7 +73,7 @@
         </button>
       </div>
     </div>
-    <div class="m-slider pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px] m:mx-[12px]">
+    <div class="m-slider tm:w-full pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px]">
       <ul class="body-shape-slider">
         <% resevation.bodyShape.forEach((item) => { -%>
         <li>
@@ -84,7 +84,7 @@
                 path: item.before.img,
                 alt: item.before.alt,
                 style: {
-                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
+                  main: 'flex-1 min-w-0 p:h-[296px] t:h-[315px] m:h-[183px]',
                   img: 'object-cover object-right !w-full'
                 }
               }) %>
@@ -92,7 +92,7 @@
                 path: item.after.img,
                 alt: item.after.alt,
                 style: {
-                  main: 'p:w-[244px] p:h-[296px] t:w-[486px] t:h-[315px] m:w-[150px] m:h-[183px]',
+                  main: 'flex-1 min-w-0 p:h-[296px] t:h-[315px] m:h-[183px]',
                   img: 'object-cover object-right !w-full'
                 }
               }) %>

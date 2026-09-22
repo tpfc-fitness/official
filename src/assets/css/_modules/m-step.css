@@ -1,0 +1,67 @@
+/*
+ * 直式步驟。
+ *
+ * 編號本身就是節點，節點之間以一條線相連，
+ * 線與編號都由 CSS 產生，標記裡只要寫內容。
+ * 增減步驟不必調整任何連接線，最後一項會自動不畫線。
+ */
+.m-step {
+  > li {
+    position: relative;
+
+    @apply m:pb-[36px] m:pl-[52px] t:pb-[44px] t:pl-[68px] p:pb-[52px] p:pl-[84px];
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    /* 連接線：從編號下緣延伸到下一個節點 */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 46px;
+      bottom: 0;
+      width: 1px;
+      background-color: rgb(255 255 255 / 20%);
+
+      @apply m:left-[19px] t:left-[23px] p:left-[27px];
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+  }
+}
+
+/*
+ * 編號。
+ * 用主色的大字當節點，外面不加圓框 —— 圓框會讓五個步驟
+ * 看起來像五個按鈕，而這裡要傳達的是「順序」而不是「選項」。
+ */
+.m-step-no {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--xe120);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[26px] t:text-[32px] p:text-[38px];
+}
+
+/* 04 的那幾個常見問題：獨立排版，當成可掃視的重點 */
+.m-step-questions {
+  display: grid;
+  gap: 8px;
+
+  @apply m:grid-cols-1 t:grid-cols-2 p:grid-cols-2;
+
+  > li {
+    border-left: 2px solid var(--xe120);
+    color: var(--white);
+    font-weight: 700;
+
+    @apply m:pl-[12px] m:text-[13px] pt:pl-[14px] pt:text-[14px];
+  }
+}

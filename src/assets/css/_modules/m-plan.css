@@ -1,0 +1,129 @@
+/*
+ * 新生 10 堂訓練計畫。
+ *
+ * 這一區有三種層級的內容：方案價格（要一眼看到）、
+ * 四種能力（要讀得完）、課堂之外（掃過去就好）。
+ * 三者刻意用不同的容器樣式，讓讀者知道哪一塊需要停下來看。
+ */
+
+/* ── 方案與價格 ───────────────────────────────── */
+
+.m-plan-price {
+  border: 1px solid rgb(255 255 255 / 18%);
+  background-color: var(--x1f1d);
+
+  @apply grid items-center m:gap-[24px] m:p-[24px] t:gap-[28px] t:p-[32px] p:gap-[40px] p:p-[40px];
+
+  /* 桌機把價格與四項能力並排：價格固定寬，剩下的給能力標籤 */
+  @apply p:grid-cols-[minmax(0,300px)_1fr];
+}
+
+.m-plan-amount {
+  color: var(--x7de9);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[40px] t:text-[48px] p:text-[52px];
+}
+
+.m-plan-currency {
+  font-weight: 700;
+
+  @apply m:text-[20px] pt:text-[24px];
+}
+
+/*
+ * 四項能力標籤。
+ * 原文是用「×」串起來的，排成格狀之後「×」就沒必要了 ——
+ * 格線本身已經在表達「這是並列的四件事」。
+ */
+.m-plan-tags {
+  @apply grid m:grid-cols-2 m:gap-[8px] t:grid-cols-4 t:gap-[10px] p:grid-cols-4 p:gap-[12px];
+
+  > li {
+    border: 1px solid rgb(255 255 255 / 18%);
+    text-align: center;
+    font-weight: 700;
+
+    @apply m:px-[8px] m:py-[14px] m:text-[13px] pt:px-[10px] pt:py-[18px] pt:text-[15px];
+  }
+}
+
+/* ── 四種能力 ─────────────────────────────────── */
+
+.m-plan-grid {
+  /*
+   * 桌機兩欄而不是四欄：每張卡片的內文超過一百字，
+   * 四欄會把行寬壓到十來個字，關鍵字清單會被切得很碎。
+   */
+  @apply grid m:gap-[16px] t:grid-cols-2 t:gap-[20px] p:grid-cols-2 p:gap-[28px];
+}
+
+.m-plan-card {
+  border: 1px solid rgb(255 255 255 / 12%);
+  background-color: var(--x1f1d);
+
+  @apply m:p-[20px] t:p-[26px] p:p-[36px];
+}
+
+.m-plan-no {
+  color: var(--xe120);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[28px] t:text-[32px] p:text-[40px];
+}
+
+/* 「從 A 到 B」那句轉折：整張卡片的重點，用主色拉出來 */
+.m-plan-turn {
+  color: var(--x7de9);
+  font-weight: 700;
+  line-height: 1.6;
+
+  @apply m:text-[14px] t:text-[15px] p:text-[17px];
+}
+
+/*
+ * 關鍵字清單。
+ * 用 flex 讓符號與文字自成一塊，換行時文字不會退回符號左邊。
+ */
+.m-plan-keys {
+  @apply flex flex-wrap m:gap-x-[14px] m:gap-y-[4px] pt:gap-x-[18px] pt:gap-y-[6px];
+
+  > li {
+    display: flex;
+    color: var(--white);
+    font-weight: 700;
+
+    @apply m:text-[13px] pt:text-[15px];
+
+    &::before {
+      content: '·';
+      flex-shrink: 0;
+      color: var(--xe120);
+
+      @apply mr-[0.25em];
+    }
+  }
+}
+
+/* ── 課堂之外 ─────────────────────────────────── */
+
+.m-plan-bonus {
+  @apply grid m:gap-[12px] t:grid-cols-3 t:gap-[16px] p:grid-cols-3 p:gap-[24px];
+
+  > li {
+    border: 1px solid rgb(255 255 255 / 12%);
+
+    @apply m:p-[20px] t:p-[24px] p:p-[32px];
+  }
+}
+
+.m-plan-icon {
+  border: 1px solid rgb(255 255 255 / 18%);
+  line-height: 1;
+
+  @apply flex items-center justify-center m:h-[40px] m:w-[40px] m:text-[18px] pt:h-[48px] pt:w-[48px] pt:text-[22px];
+}

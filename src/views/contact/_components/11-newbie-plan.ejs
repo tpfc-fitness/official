@@ -1,4 +1,10 @@
 <%/* 新生優惠方案介紹 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-plan，使用的頁面樣式表必須引入它。
+   */
+  const plan = require('_data/newbie-plan.js');
+-%>
 <!-- 過度 -->
 <div class="resevation-bg-03 text-center pt:py-[90px] m:py-[60px] m:px-[20px]">
   <p class="resevation-p text-[var(--black)]">
@@ -11,72 +17,126 @@
   </p>
 </div>
 
-<!-- 新生優惠方案介紹 -->
+<!-- 新生 10 堂訓練計畫：方案與價格 -->
 <section data-aos="fade-in"
-  class="flex flex-col justify-center items-center text-center text-[var(--white)] bg-[var(--black)] p:pt-[90px] p:pb-[60px] t:pt-[75px] t:pb-[45px] m:pt-[40px] m:pb-[20px] m:px-[12px]">
-  <header class="p:pb-[70px] t:pb-[56px] m:pb-[40px]">
-    <h2 class="resevation-h1 pb-[12px]">🔥新生10堂優惠課程規劃🔥</h2>
-    <p class="resevation-p">
-      我們知道，一對一教練課對新手來說<br>
-      最大的壓力不是訓練，是價格。<br>
-      頭等倉推出新生前10堂8000元優惠課程，<br>
-      我們沒辦法陪伴你訓練一輩子，<br class="pt:hidden" />但我們能幫助你打好訓練的基礎</p>
-  </header>
-  <ul class="p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
-    <li class="pt:space-y-[12px] m:space-y-[6px]">
-      <h3 class="resevation-h2">10大基礎動作學習</h3>
-      <p class="resevation-p text-[var(--x56)]">*動作將依照個人需求與身體狀況調整</p>
-      <p class="resevation-p">包含新手最害怕的深蹲、硬舉、臥推，<br>
-        還有引體向上、滑輪下拉、啞鈴划船、坐姿划船、<br class="pt:hidden" />肩推、羅馬尼亞硬舉、蝴蝶肌夾胸<br>
-        一堂課2個新動作2個舊動作，溫故又知新</p>
-    </li>
-    <li class="space-y-[12px]">
+  class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[80px] t:pt-[75px] t:pb-[60px] m:pt-[50px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[1220px] pt:mx-auto">
+    <h2 class="resevation-h1"><%= plan.title %></h2>
+    <p class="resevation-h4 text-[var(--x7de9)] p:mt-[14px] tm:mt-[10px]"><%= plan.lead %></p>
+
+    <div class="p:mt-[30px] tm:mt-[20px] p:max-w-[760px] p:space-y-[12px] tm:space-y-[10px]">
+      <% plan.intro.forEach((line) => { -%>
+      <p class="leading-[1.9] p:text-[16px] tm:text-[14px] text-[var(--xc7)]"><%- line %></p>
+      <% }); -%>
+    </div>
+
+    <div class="m-plan-price p:mt-[50px] tm:mt-[32px]">
       <div>
-        <h3 class="resevation-h2 pb-[4px]">健身房生態與<br class="pt:hidden" />器械操作養成</h3>
+        <p class="font-bold p:text-[18px] tm:text-[16px]"><%= plan.price.name %></p>
+        <p class="flex items-baseline p:mt-[8px] tm:mt-[6px] p:gap-[8px] tm:gap-[6px]">
+          <span class="m-plan-currency"><%= plan.price.currency %></span>
+          <span class="m-plan-amount"><%= plan.price.amount %></span>
+        </p>
+        <p class="text-[var(--xc7)] p:mt-[8px] tm:mt-[6px] p:text-[15px] tm:text-[13px]"><%= plan.price.average %></p>
+
+        <%- require('@component/mBtn.ejs')({
+          label: plan.cta.label,
+          link: plan.cta.link,
+          style: {
+            main: '--highlight p:mt-[24px] tm:mt-[18px] p:w-[236px] p:h-[52px] tm:w-full tm:h-[48px] p:text-[16px] tm:text-[15px]',
+            icon: 'w-[40px]'
+          },
+          icon: {
+            name: 'arrow',
+            css: 'w-[18px] h-[18px]'
+          }
+        }) %>
       </div>
-      <p class="resevation-p">每次孤身一人進到健身房，<br class="pt:hidden" />看到一堆器材就嚇到去有氧區慢跑嗎?<br>
-        通過10堂課慢慢讓你熟悉健身房氛圍及器械的調整<br>
-        讓你以後進出健身房<br class="pt:hidden" />就像進出自家後院一樣怡然又自得</p>
-    </li>
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">健身與飲食觀念培養</h3>
-      <p class="resevation-p">俗話說，三分練七分吃<br>
-        那你知道要怎麼正確的吃和正確的練嗎?<br>
-        透過10堂課淺移默化核心觀念<br>
-        讓你永遠不復胖又能保持健康作息，活出自信人生</p>
-    </li>
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">訓練觀念建立</h3>
-      <p class="resevation-p">就算最後沒有選擇我們，<br class="pt:hidden" />我們也希望你在未來的訓練之路上能一路順遂<br>
-        包括新手最容易犯的錯、肌肉長不大、<br class="pt:hidden" />減脂減不下來的觀念誤區<br>
-        在這一小時內，<br class="pt:hidden" />我們會盡量將所有必要的健身知識傳授給你
-      </p>
-    </li>
-  </ul>
+
+      <ul class="m-plan-tags">
+        <% plan.price.tags.forEach((tag) => { -%>
+        <li><%= tag %></li>
+        <% }); -%>
+      </ul>
+    </div>
+  </div>
 </section>
+
+<!-- 10 堂課會帶走的四種能力 -->
 <section data-aos="fade-in"
-  class="flex flex-col justify-center items-center text-center text-[var(--white)] bg-[var(--black)] p:pt-[60px] p:pb-[120px] t:pt-[75px] t:pb-[45px] m:pt-[40px] m:pb-[20px] m:px-[12px]">
-  <header class="p:pb-[30px]">
-    <h2 class="resevation-h1">🔥BONUS🔥</h2>
-  </header>
-  <ul class="p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">隨時提問&隨時關心</h3>
-      <p class="resevation-p">課後自主練習有任何問題都可以拍攝動作詢問教練<br>
-        絕對不會愛理不理💪🏻💪🏻💪🏻</p>
-    </li>
-    <li class="space-y-[12px]">
-      <div>
-        <h3 class="resevation-h2 pb-[4px]">課堂回顧</h3>
-      </div>
-      <p class="resevation-p">每次課堂結束後，總結課堂學習重點<br>
-        紀錄學生課堂上的動作以便學生事後翻閱回憶動作</p>
-    </li>
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">回家作業</h3>
-      <p class="resevation-p">如果你想要~可以跟教練要回家作業<br>
-        不來健身房的時候也可以在家裡持續鍛鍊身體<br>
-        畢竟增肌減脂沒有休息的一天!</p>
-    </li>
-  </ul>
+  class="text-[var(--white)] bg-[var(--x15)] p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[1220px] pt:mx-auto">
+    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]"><%= plan.abilitiesTitle %></h2>
+
+    <ul class="m-plan-grid">
+      <% plan.abilities.forEach((item) => { -%>
+      <li class="m-plan-card" data-aos="fade-up">
+        <p class="m-plan-no"><%= item.no %></p>
+        <h3 class="font-bold leading-[1.4] p:mt-[10px] tm:mt-[6px] p:text-[24px] t:text-[20px] m:text-[18px]">
+          <%= item.title %>
+        </h3>
+        <p class="m-plan-turn p:mt-[12px] tm:mt-[8px]"><%= item.turn %></p>
+
+        <p class="leading-[1.9] p:mt-[20px] tm:mt-[14px] p:text-[15px] tm:text-[13px] text-[var(--xc7)]">
+          <%= item.lead %>
+        </p>
+
+        <ul class="m-plan-keys p:mt-[14px] tm:mt-[10px]">
+          <% item.keywords.forEach((key) => { -%>
+          <li><%= key %></li>
+          <% }); -%>
+        </ul>
+
+        <div class="p:mt-[20px] tm:mt-[14px] p:space-y-[10px] tm:space-y-[8px]">
+          <% item.after.forEach((line) => { -%>
+          <p class="leading-[1.9] p:text-[15px] tm:text-[13px] text-[var(--xc7)]"><%- line %></p>
+          <% }); -%>
+        </div>
+
+        <% if (item.note) { -%>
+        <p class="p:mt-[16px] tm:mt-[12px] p:text-[13px] tm:text-[12px] text-[var(--x6)]"><%= item.note %></p>
+        <% } -%>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>
+
+<!-- 課堂之外 -->
+<section data-aos="fade-in"
+  class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[1220px] pt:mx-auto">
+    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]"><%= plan.bonusTitle %></h2>
+
+    <ul class="m-plan-bonus">
+      <% plan.bonus.forEach((item) => { -%>
+      <li data-aos="fade-up">
+        <p class="m-plan-icon" aria-hidden="true"><%= item.icon %></p>
+        <h3 class="font-bold leading-[1.4] p:mt-[18px] tm:mt-[14px] p:text-[18px] tm:text-[16px]"><%= item.title %></h3>
+        <p class="leading-[1.9] p:mt-[10px] tm:mt-[8px] p:text-[15px] tm:text-[13px] text-[var(--xc7)]">
+          <%= item.body %>
+        </p>
+      </li>
+      <% }); -%>
+    </ul>
+
+    <div
+      class="text-center p:mt-[90px] t:mt-[70px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px] border-t border-solid border-[#fff] border-opacity-[0.12]">
+      <p class="resevation-h3"><%= plan.closing.title %></p>
+      <p class="text-[var(--xc7)] p:mt-[10px] tm:mt-[8px] p:text-[16px] tm:text-[14px]"><%= plan.closing.body %></p>
+
+      <%- require('@component/mBtn.ejs')({
+        label: plan.cta.label,
+        link: plan.cta.link,
+        style: {
+          main: '--highlight mx-auto p:mt-[30px] tm:mt-[24px] p:w-[260px] p:h-[54px] t:w-[260px] t:h-[52px] m:w-full m:h-[48px] p:text-[17px] tm:text-[15px]',
+          icon: 'w-[40px]'
+        },
+        icon: {
+          name: 'arrow',
+          css: 'w-[18px] h-[18px]'
+        }
+      }) %>
+    </div>
+  </div>
 </section>

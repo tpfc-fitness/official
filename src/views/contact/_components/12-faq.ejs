@@ -1,30 +1,56 @@
 <%/* 課程 FAQ */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-faq，使用的頁面樣式表必須引入它。
+   *
+   * 手風琴外觀與首頁「想先了解更多？」共用同一個模組，
+   * 差別只在外框：首頁是左標題右面板的兩欄配圖版面，
+   * 這裡沿用 contact 頁其他區塊的置中標頭。
+   */
+  const faq = require('_data/contact-faq.js');
+-%>
 <!-- QA -->
 <section data-aos="fade-in"
-  class="flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:pt-[80px] p:pb-[120px] t:pt-[75px] t:pb-[45px] t:px-[32px] m:pt-[40px] m:pb-[80px] m:px-[20px]">
-  <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px]">
-    <h2 class="resevation-h1">常見Q&A</h2>
-  </header>
-  <ul class="p:w-[840px] p:space-y-[70px] t:space-y-[60px] m:space-y-[40px]">
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">Q1: <br class="pt:hidden" />免費體驗課會推銷嗎?</h3>
-      <p class="resevation-p">我們<b>不會硬性推銷</b>也不會硬是把你留下，<br class="pt:hidden" />運動不能強迫，<br />更重要的是我們希望你可以開心運動、愛上運動💗</p>
+  class="text-[var(--white)] bg-[var(--x15)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">常見 Q&amp;A</h2>
+
+  <ul data-aos="fade-up"
+    class="m-faq p:max-w-[900px] pt:mx-auto bg-[rgb(0_0_0_/_40%)] border border-solid border-[rgb(255_255_255_/_18%)]">
+    <% faq.forEach((item) => { -%>
+    <li>
+      <details<%- item.open ? ' open' : '' %> name="contact-faq">
+        <summary class="flex items-center p:px-[28px] p:py-[24px] t:px-[22px] t:py-[20px] m:px-[16px] m:py-[16px]">
+          <span class="flex-shrink-0 font-bold text-[13px] tracking-[0.1em] text-[var(--xe120)]"><%= item.no %></span>
+          <i class="flex-shrink-0 w-[18px] h-px bg-[rgb(255_255_255_/_35%)] p:mx-[18px] tm:mx-[12px]"></i>
+          <h3 class="flex-grow font-bold leading-[1.5] p:text-[19px] t:text-[17px] m:text-[15px]"><%= item.question %>
+          </h3>
+          <span class="m-faq-icon p:ml-[20px] tm:ml-[12px]"></span>
+        </summary>
+
+        <div class="p:px-[28px] p:pb-[28px] t:px-[22px] t:pb-[24px] m:px-[16px] m:pb-[20px]">
+          <div class="p:space-y-[10px] tm:space-y-[8px]">
+            <% item.body.forEach((line) => { -%>
+            <p class="leading-[1.9] p:text-[15px] tm:text-[13px] text-[rgb(255_255_255_/_82%)]"><%- line %></p>
+            <% }); -%>
+          </div>
+
+          <% if (item.cta) { -%>
+          <%- require('@component/mBtn.ejs')({
+            label: item.cta.label,
+            link: item.cta.link,
+            style: {
+              main: '--border p:mt-[24px] tm:mt-[20px] p:w-[240px] p:h-[48px] tm:w-full tm:h-[46px] p:text-[15px] tm:text-[14px]',
+              icon: 'w-[40px]'
+            },
+            icon: {
+              name: 'arrow',
+              css: 'w-[18px] h-[18px]'
+            }
+          }) %>
+          <% } -%>
+        </div>
+        </details>
     </li>
-    <li class="space-y-[12px]">
-      <div>
-        <h3 class="resevation-h2 pb-[4px]">Q2: <br class="pt:hidden" />新生優惠有上課期限嗎?</h3>
-      </div>
-      <p class="resevation-p">為了保持你的運動頻率以達到最佳的雕塑效果，<br>務必於<b>三個月內</b>銷課完畢喔！</p>
-    </li>
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">Q3: <br class="pt:hidden" />有一對二或團課嗎?</h3>
-      <p class="resevation-p">我們有提供一對二的私人教練課程，<br class="pt:hidden" />也開放團課囉！<br>團課內容請<a class="font-bold underline"
-          target="_blank" rel="noopener" href="https://www.fit-book.com.tw/tpfcfitness/534">點擊此處瀏覽</a></p>
-    </li>
-    <li class="space-y-[12px]">
-      <h3 class="resevation-h2">Q4: <br class="pt:hidden" />新生優惠結束後的價格?</h3>
-      <p class="resevation-p">課程價格會依照購買堂數而有所不同，一對一的價格區間會落在<b>1400~1600元</b>之間，當下還會有<b>其他優惠</b>可以合併使用<br
-          class="pt:hidden" />建議可以先來體驗一次課程，教練會根據你的需求與生活作息，設計一套專屬的訓練計畫，幫助你找到最適合、也最有效率的運動方式唷🔥</p>
-    </li>
+    <% }); -%>
   </ul>
 </section>

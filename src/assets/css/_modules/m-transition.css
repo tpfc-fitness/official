@@ -20,15 +20,36 @@
   }
 }
 
-.m-transition-line {
+/*
+ * 開場。比內文大一級：接縫要讀得到，但不能跟區塊標題打架。
+ *
+ * 不設最大寬度 —— 斷行是文案自己決定的（見 _data/contact-transitions.js），
+ * 再壓一個字數上限只會在中間多切一刀，切點還不一定在逗號上。
+ */
+.m-transition-lead {
   line-height: 1.9;
   color: var(--xc7);
 
-  /*
-   * 比內文大一級：接縫要讀得到，但不能跟區塊標題打架。
-   *
-   * 不設最大寬度 —— 斷行是文案自己決定的（見 _data/contact-transitions.js），
-   * 再壓一個字數上限只會在中間多切一刀，切點還不一定在逗號上。
-   */
   @apply m:text-[15px] t:text-[17px] p:text-[19px];
+}
+
+/*
+ * 開場之後的段落。
+ *
+ * 字級與顏色都比開場退一級 —— 長的那一段如果整段都用開場的字級，
+ * 會比它上下的區塊標題還搶眼，接縫就變成主角了。
+ */
+.m-transition-body {
+  line-height: 2;
+  color: rgb(255 255 255 / 58%);
+
+  @apply m:text-[13px] t:text-[15px] p:text-[16px];
+
+  &:first-of-type {
+    @apply m:mt-[24px] t:mt-[30px] p:mt-[36px];
+  }
+
+  & + & {
+    @apply m:mt-[16px] t:mt-[20px] p:mt-[24px];
+  }
 }

@@ -15,7 +15,15 @@
   if (!item) throw new Error(`找不到過渡文案：${key}`);
 -%>
 <div class="m-transition text-[var(--white)] bg-[var(--black)]">
-  <% item.lines.forEach((line) => { -%>
-  <p class="m-transition-line"><%= line %></p>
+  <% item.lead.forEach((line) => { -%>
+  <p class="m-transition-lead"><%= line %></p>
+  <% }); -%>
+
+  <% (item.body || []).forEach((paragraph) => { -%>
+  <p class="m-transition-body">
+    <% paragraph.forEach((line, i) => { -%>
+    <%- i ? '<br />' : '' %><%= line %>
+    <% }); -%>
+  </p>
   <% }); -%>
 </div>

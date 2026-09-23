@@ -1,31 +1,22 @@
 <%/* 頭等倉教練的訓練方針 */%>
-<% const resevation = require('_data/resevation.js'); -%>
+<% const rules = require('_data/training-rules.js'); -%>
 <!-- 訓練方針 -->
-<section data-aos="fade-in" class="p:pt-[90px] p:pb-[120px] t:py-[75px] m:py-[40px]">
-  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px] text-[#fff]">頭等倉教練的訓練方針</h2>
+<section data-aos="fade-in" class="text-[var(--white)] p:pt-[90px] p:pb-[120px] t:py-[75px] m:py-[40px]">
+  <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
+    <h2 class="resevation-h1"><%= rules.title %></h2>
+    <p class="resevation-p p:mt-[18px] tm:mt-[12px] p:max-w-[56ch] pt:mx-auto"><%= rules.lead %></p>
+  </header>
   <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[40px] m:mb-[28px]">
     <ul class="training-rules-slider pt:flex">
-      <% resevation.trainingRules.forEach((item) => { -%>
-      <li class="p:w-1/4 m:h-[320px]">
+      <% rules.items.forEach((item) => { -%>
+      <li class="p:w-1/4 tm:min-h-[340px]">
         <div
-          class="bg-[#fff] space-y-[12px] h-full p:mx-[10px] p:px-[24px] p:py-[32px] t:px-[20px] t:py-[28px] m:px-[24px] m:py-[32px]">
-          <p class="resevation-h4 flex items-center">
-            <%- require('@component/svg.ejs')({
-              svgName: 'icon_bow',
-              style: {
-                main: 'w-[32px] h-[32px] mr-[8px]'
-              }
-            }) %>
-            <%= item.subTitle %>
-          </p>
-          <h3 class="resevation-h3 deco-line"><%= item.title %></h3>
-          <ul>
-            <% item.content.forEach((li) => { -%>
-            <li>
-              ✅ <span class="resevation-p"><%- li %></span>
-            </li>
-            <% }); -%>
-          </ul>
+          class="bg-[#fff] text-[var(--black)] h-full p:mx-[10px] p:px-[24px] p:py-[32px] t:px-[20px] t:py-[28px] m:px-[24px] m:py-[32px]">
+          <p class="training-rule-no"><%= item.no %></p>
+          <h3 class="resevation-h3 deco-line p:mt-[14px] tm:mt-[12px]"><%= item.title %></h3>
+          <%/* 反話要和正面敘述分開，不然會被連著讀成同一句 */%>
+          <p class="training-rule-contrast p:mt-[22px] tm:mt-[18px]"><%= item.contrast %></p>
+          <p class="resevation-p p:mt-[10px] tm:mt-[8px]"><%= item.body %></p>
         </div>
       </li>
       <% }); -%>

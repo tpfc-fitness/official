@@ -1,0 +1,21 @@
+<%
+  /*
+   * 段落之間的過渡句。
+   *
+   * ⚠️ 這個元件用到 _modules/m-transition，使用的頁面樣式表必須引入它。
+   *
+   * 檔名不帶數字前綴：它在頁面上出現多次，不對應單一位置，
+   * 出現順序由 index.ejs 決定。
+   *
+   * 用法：require('./_components/_transition.ejs')({ key: 'after-rules' })
+   */
+  const all = require('_data/contact-transitions.js');
+  const item = all[key];
+
+  if (!item) throw new Error(`找不到過渡文案：${key}`);
+-%>
+<div class="m-transition text-[var(--white)] bg-[var(--black)]">
+  <% item.lines.forEach((line) => { -%>
+  <p class="m-transition-line"><%= line %></p>
+  <% }); -%>
+</div>

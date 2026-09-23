@@ -195,3 +195,32 @@
   background-position: center center;
   background-size: cover;
 }
+
+/*
+ * 訓練方針卡片。
+ *
+ * 編號用主色的大字，和卡片裡其他字拉開兩級 ——
+ * 四張卡在手機是一次看一張，沒有編號就看不出自己在第幾張。
+ */
+.training-rule-no {
+  color: var(--xe120);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[26px] t:text-[28px] p:text-[32px];
+}
+
+/*
+ * 「不是⋯⋯」那一句。
+ *
+ * 這是讀者心裡本來就有的壞印象，不是我們在做的事。
+ * 用灰字加左側短線把它推遠一點，避免和下面的正面敘述連成同一句讀。
+ */
+.training-rule-contrast {
+  border-left: 2px solid var(--xc7);
+  color: var(--x56);
+  line-height: 170%;
+
+  @apply pl-[10px] m:text-[13px] t:text-[14px] p:text-[15px];
+}

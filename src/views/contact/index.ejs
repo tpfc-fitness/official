@@ -2,21 +2,26 @@
  * 免費體驗／預約（正式頁）
  *
  * 內容區塊放在 ./_components/ 底下，檔名數字前綴＝頁面上的順序。
+ * 不帶數字前綴的（_transition / _price-compare）不對應固定位置：
+ * 前者在頁面上出現多次，後者目前停用。
+ *
  * 這一頁保有網站的 header、選單與完整 footer。
  *
  * 同一組區塊也被 views/resevation/ 使用 —— 那是投廣告用的版本，
  * 拿掉了導覽以減少出口。改文案只需要改這裡的區塊檔，兩頁會同步。
  */%>
 <%- require('./_components/01-kv.ejs')() %> <%/* KV 主視覺 */%>
-<%- require('./_components/02-pain-points.ejs')() %> <%/* 目標族群痛點：你是不是也有過這些狀況 */%>
-<%- require('./_components/03-training-rules.ejs')() %> <%/* 頭等倉教練的訓練方針 */%>
+<%- require('./_components/02-pain-points.ejs')() %> <%/* 新手痛點：你是不是也有過這些狀況 */%>
+<%- require('./_components/03-training-rules.ejs')() %> <%/* 第一次開始訓練，我們會怎麼帶你 */%>
+<%- require('./_components/_transition.ejs')({ key: 'after-rules' }) %>
 <%- require('./_components/04-student-stories.ejs')() %> <%/* 學員成果分享 */%>
-<%- require('./_components/05-results.ejs')() %> <%/* 學員評價 */%>
+<%- require('./_components/05-results.ejs')() %> <%/* 學員評價（Google 評論） */%>
+<%- require('./_components/_transition.ejs')({ key: 'after-results' }) %>
 <%- require('./_components/06-coaches.ejs')() %> <%/* 教練團隊摘要 */%>
-<%- require('./_components/07-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
-<%- require('./_components/09-coach-stories.ejs')() %> <%/* 教練故事：Before / After */%>
-<%- require('./_components/11-newbie-plan.ejs')() %> <%/* 新生優惠方案介紹 */%>
+<%- require('./_components/09-coach-stories.ejs')() %> <%/* 教練故事：Before / After（檔案開頭自帶過渡段） */%>
+<%- require('./_components/_transition.ejs')({ key: 'after-story' }) %>
+<%- require('./_components/10-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
+<%- require('./_components/11-newbie-plan.ejs')() %> <%/* 新生 10 堂訓練計畫（檔案開頭自帶過渡段） */%>
 <%- require('./_components/12-faq.ejs')() %> <%/* 課程 FAQ */%>
 <%- require('./_components/13-form.ejs')() %> <%/* 預約表單：放在最後，前面所有說明都看完才是填表的時機 */%>
-<%/* 10-price-compare.ejs（學習渠道比價）目前停用。 */%>
-<%/* 檔案保留在 _components/ 底下，要重新啟用就照上下行的寫法把它 require 回來。 */%>
+<%/* _price-compare.ejs（學習渠道比價）目前停用，檔名不帶數字前綴代表它不在頁面順序裡。 */%>

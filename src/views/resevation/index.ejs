@@ -8,15 +8,17 @@
  * 內容的單一來源在 views/contact/_components/，不要在這裡另外複製一份。
  */%>
 <%- require('../contact/_components/01-kv.ejs')() %> <%/* KV 主視覺 */%>
-<%- require('../contact/_components/02-pain-points.ejs')() %> <%/* 目標族群痛點：你是不是也有過這些狀況 */%>
-<%- require('../contact/_components/03-training-rules.ejs')() %> <%/* 頭等倉教練的訓練方針 */%>
+<%- require('../contact/_components/02-pain-points.ejs')() %> <%/* 新手痛點：你是不是也有過這些狀況 */%>
+<%- require('../contact/_components/03-training-rules.ejs')() %> <%/* 第一次開始訓練，我們會怎麼帶你 */%>
+<%- require('../contact/_components/_transition.ejs')({ key: 'after-rules' }) %>
 <%- require('../contact/_components/04-student-stories.ejs')() %> <%/* 學員成果分享 */%>
-<%- require('../contact/_components/05-results.ejs')() %> <%/* 學員評價 */%>
+<%- require('../contact/_components/05-results.ejs')() %> <%/* 學員評價（Google 評論） */%>
+<%- require('../contact/_components/_transition.ejs')({ key: 'after-results' }) %>
 <%- require('../contact/_components/06-coaches.ejs')() %> <%/* 教練團隊摘要 */%>
-<%- require('../contact/_components/07-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
-<%- require('../contact/_components/09-coach-stories.ejs')() %> <%/* 教練故事：Before / After */%>
-<%- require('../contact/_components/11-newbie-plan.ejs')() %> <%/* 新生優惠方案介紹 */%>
+<%- require('../contact/_components/09-coach-stories.ejs')() %> <%/* 教練故事：Before / After（檔案開頭自帶過渡段） */%>
+<%- require('../contact/_components/_transition.ejs')({ key: 'after-story' }) %>
+<%- require('../contact/_components/10-trial-class.ejs')() %> <%/* 免費體驗課內容 */%>
+<%- require('../contact/_components/11-newbie-plan.ejs')() %> <%/* 新生 10 堂訓練計畫（檔案開頭自帶過渡段） */%>
 <%- require('../contact/_components/12-faq.ejs')() %> <%/* 課程 FAQ */%>
 <%- require('../contact/_components/13-form.ejs')() %> <%/* 預約表單：放在最後，前面所有說明都看完才是填表的時機 */%>
-<%/* 10-price-compare.ejs（學習渠道比價）目前停用。 */%>
-<%/* 檔案保留在 _components/ 底下，要重新啟用就照上下行的寫法把它 require 回來。 */%>
+<%/* _price-compare.ejs（學習渠道比價）目前停用，檔名不帶數字前綴代表它不在頁面順序裡。 */%>

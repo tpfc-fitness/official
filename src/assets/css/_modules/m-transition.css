@@ -1,0 +1,29 @@
+/*
+ * 段落之間的過渡句。
+ *
+ * 這是接縫不是區塊，所以刻意做得比區塊安靜：沒有標題、沒有照片底。
+ * 上方一條往下漸濃的細線當作停頓記號 —— 它同時在說「還沒結束，
+ * 往下看」，比再放一顆裝飾符號更省事也更明確。
+ */
+.m-transition {
+  text-align: center;
+
+  @apply m:px-[20px] m:py-[44px] t:px-[40px] t:py-[64px] p:px-[60px] p:py-[80px];
+
+  &::before {
+    content: '';
+    display: block;
+    width: 1px;
+    background-image: linear-gradient(to bottom, transparent, rgb(255 255 255 / 40%));
+
+    @apply mx-auto m:mb-[22px] m:h-[32px] pt:mb-[28px] pt:h-[44px];
+  }
+}
+
+.m-transition-line {
+  line-height: 1.9;
+  color: var(--xc7);
+
+  /* 比內文大一級：接縫要讀得到，但不能跟區塊標題打架 */
+  @apply mx-auto m:max-w-[26ch] m:text-[15px] t:max-w-[34ch] t:text-[17px] p:max-w-[42ch] p:text-[19px];
+}

@@ -89,3 +89,60 @@ details[open] .m-faq-icon::after {
     }
   }
 }
+
+/*
+ * 場租價目。
+ *
+ * 用 dl 不是 ul —— 每一列都是「方案名稱 → 價格」的配對，
+ * 而不是四個並列的項目。
+ *
+ * 價格用 tabular-nums：預設的數字寬度不一致，
+ * 三千和一萬的位數對不齊，掃視時會覺得歪。
+ */
+.m-faq-plans {
+  > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid rgb(255 255 255 / 14%);
+
+    @apply m:py-[10px] pt:py-[12px];
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  dt {
+    font-weight: 700;
+
+    @apply m:text-[14px] pt:text-[15px];
+  }
+
+  dd {
+    flex-shrink: 0;
+    color: var(--x7de9);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+
+    @apply m:text-[15px] pt:text-[17px];
+  }
+}
+
+/* 月租的附帶條件：跟在名稱後面，但份量要退一級 */
+.m-faq-plan-term {
+  display: block;
+  color: rgb(255 255 255 / 55%);
+  font-weight: 400;
+
+  @apply mt-[2px] m:text-[12px] pt:text-[13px];
+}
+
+.m-faq-note {
+  color: rgb(255 255 255 / 55%);
+  line-height: 1.7;
+
+  @apply m:text-[12px] pt:text-[13px];
+}

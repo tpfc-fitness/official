@@ -37,6 +37,31 @@
             </ol>
             <% } -%>
 
+            <%/* 場租價目：名稱與價格成對，所以用 dl 不是 ul */%>
+            <% if (item.plans) { -%>
+            <dl class="m-faq-plans p:mt-[20px] tm:mt-[16px]">
+              <% item.plans.forEach((plan) => { -%>
+              <div>
+                <dt>
+                  <%= plan.name %>
+                  <% if (plan.term) { -%>
+                  <span class="m-faq-plan-term"><%= plan.term %></span>
+                  <% } -%>
+                </dt>
+                <dd><%= plan.price %></dd>
+              </div>
+              <% }); -%>
+            </dl>
+            <% } -%>
+
+            <% if (item.notes) { -%>
+            <ul class="p:mt-[14px] tm:mt-[12px] p:space-y-[4px] tm:space-y-[3px]">
+              <% item.notes.forEach((note) => { -%>
+              <li class="m-faq-note">＊<%= note %></li>
+              <% }); -%>
+            </ul>
+            <% } -%>
+
             <% if (item.cta) { -%>
             <%- require('@component/mBtn.ejs')({
               label: item.cta.label,

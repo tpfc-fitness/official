@@ -167,11 +167,5 @@ export default function initReservationPage() {
       this.inbodySlider = null;
       this.bodyShapeSlider = null;
     },
-
-    scrollToResevation() {
-      document.querySelector('#resevation').scrollIntoView({
-        behavior: 'smooth', // 平滑滾動
-      });
-    },
   }).mount('.jWrap');
 }

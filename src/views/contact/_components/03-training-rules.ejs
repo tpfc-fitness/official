@@ -13,7 +13,11 @@
         <div
           class="bg-[#fff] text-[var(--black)] h-full p:mx-[10px] p:px-[24px] p:py-[32px] t:px-[20px] t:py-[28px] m:px-[24px] m:py-[32px]">
           <p class="training-rule-no"><%= item.no %></p>
-          <h3 class="resevation-h3 deco-line p:mt-[14px] tm:mt-[12px]"><%= item.title %></h3>
+          <h3 class="resevation-h3 deco-line p:mt-[14px] tm:mt-[12px]">
+            <% item.title.forEach((line, i) => { -%>
+            <%- i ? '<br />' : '' %><%= line %>
+            <% }); -%>
+          </h3>
           <%/* 反話要和正面敘述分開，不然會被連著讀成同一句 */%>
           <p class="training-rule-contrast p:mt-[22px] tm:mt-[18px]"><%= item.contrast %></p>
           <p class="resevation-p p:mt-[10px] tm:mt-[8px]"><%= item.body %></p>
@@ -30,16 +34,4 @@
       </button>
     </div>
   </div>
-  <p class="text-[#fff] text-center pt:mb-[50px] m:mb-[20px] m:px-[12px]">
-    或許你已經努力過了好幾次<br>但有可能只是方式不對<br><br>我們已經幫助百位學員成功蛻變、重拾自信<br>他們也和你一樣<br>只是一般的上班族，有家庭要顧、有工作要忙、也有吃美食的慾望<br>卻都在這裡找到了適合自己的訓練方式<br>輕鬆養成習慣、穩定看見成果<br><br>如果他們都能做到，你也一定可以！
-  </p>
-  <%- require('@component/mBtn.ejs')({
-    label: '預約免費體驗課',
-    link: undefined,
-    type: 'button',
-    func: 'scrollToResevation()',
-    style: {
-      main: '--highlight mx-auto p:text-[18px] text-[var(--white)] p:w-[270px] p:h-[50px] t:w-[216px] t:h-[60px] m:w-[220px] m:h-[56px]'
-    }
-  }) %>
 </section>

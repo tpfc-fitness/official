@@ -11,7 +11,7 @@
  * 必須在 petite-vue 掛載之前執行：載入遮罩會蓋住畫面直到掛載完成，
  * 在那之前換完字就不會看到文字跳動。
  */
-import { VARIANTS, DEFAULT } from '_data/contact-kv.js';
+import { VARIANTS, DEFAULT, splitTitle } from '_data/contact-kv.js';
 
 const STORAGE_KEY = 'tpfc-kv-type';
 

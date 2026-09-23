@@ -92,7 +92,8 @@
     "format": "npm run format:code && npm run format:ejs",
     "format:code": "prettier --write .",
     "format:ejs": "node tools/format-ejs.js",
-    "format:check": "prettier --check . && node tools/format-ejs.js --check"
+    "format:check": "prettier --check . && node tools/format-ejs.js --check",
+    "lint": "eslint src/scripts --ext .js"
   },
   "browserslist": {
     "production": [

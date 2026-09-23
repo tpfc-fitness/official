@@ -100,6 +100,13 @@ details[open] .m-faq-icon::after {
  * 三千和一萬的位數對不齊，掃視時會覺得歪。
  */
 .m-faq-plans {
+  /*
+   * 限寬 —— 這一列是「名稱靠左、價格靠右」，容器有多寬就拉多開。
+   * 桌機的面板本來就佔版面三分之二，不限的話在寬螢幕上
+   * 「月租」和「NT$10,000」會遠到看不出是同一列。
+   */
+  max-width: 420px;
+
   > div {
     display: flex;
     align-items: baseline;
@@ -116,14 +123,19 @@ details[open] .m-faq-icon::after {
   }
 
   dt {
-    font-weight: 700;
+    color: rgb(255 255 255 / 78%);
 
     @apply m:text-[14px] pt:text-[15px];
   }
 
+  /*
+   * 價格不用主色。薄荷色是留給大數字的（新生方案那顆 52px 的
+   * NT$8,000），縮到 17px 塞進問答裡只會顯得刺眼、還像個連結。
+   * 這裡靠字重與字級就夠拉出層級了。
+   */
   dd {
     flex-shrink: 0;
-    color: var(--x7de9);
+    color: var(--white);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 

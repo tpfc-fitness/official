@@ -37,6 +37,16 @@
     background-image: url('@imgs/index/comment-bg.png');
   }
 
+  /*
+   * 課堂之外：照片只當氛圍，上面壓的是一整排卡片與文字，
+   * 遮罩比 --qa 再暗一點，卡片的細邊框才不會被照片的亮部吃掉。
+   */
+  &.\-\-bonus {
+    --bg-photo-scrim: rgb(8 10 12 / 82%);
+
+    background-image: url('@imgs/index/firstclass_fitness_indoor3.jpg');
+  }
+
   /* 結尾行動呼籲：整段文字直接壓在照片上，遮罩需要更暗一點 */
   &.\-\-cta {
     --bg-photo-scrim: rgb(0 0 0 / 68%);

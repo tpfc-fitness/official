@@ -53,3 +53,21 @@
 }
 
 /* 分頁橫條的樣式與位置都由 m-slider.css 統一負責 */
+
+/*
+ * 手機輪播的左右箭頭。
+ *
+ * 箭頭是絕對定位，所以外層要當定位基準。
+ * 桌機與平板不是輪播，箭頭要收起來 —— 用兩層選擇器蓋過
+ * m-slider.css 的 [class^='m-slider-ctrl']，那條的權重同樣是
+ * 單一類別，只靠載入順序決勝負太脆弱。
+ */
+.m-review-slider-wrap {
+  position: relative;
+}
+
+@screen pt {
+  .m-review-slider-wrap > .m-review-ctrl {
+    display: none;
+  }
+}

@@ -5,7 +5,7 @@
 <section data-aos="fade-in" class="p:pb-[120px] t:pb-[105px] m:pb-[80px] bg-[var(--x15)] text-[var(--white)]">
   <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員評價</h2>
   <div class="p:max-w-[1220px] pt:mx-auto">
-    <%- require('@component/mReviewList.ejs')() %>
+    <%- require('@component/mReviewList.ejs')({ controls: true }) %>
 
     <p class="text-center p:mt-[50px] tm:mt-[42px]">
       <a href="<%= site.hasMap %>" target="_blank" rel="noopener"

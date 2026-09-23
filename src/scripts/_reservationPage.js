@@ -41,6 +41,7 @@ export default function initReservationPage() {
           if (deviceType() !== 'p') hdScroll();
 
           this.initSliders();
+          this._lastWidth = window.innerWidth;
           window.addEventListener('resize', this.debouncedResize);
 
           setTimeout(() => {
@@ -52,8 +53,18 @@ export default function initReservationPage() {
       store.load.finish();
     },
 
-    // 📌 debounce for resize
+    /*
+     * resize 只在「寬度」真的變了才重建輪播。
+     *
+     * 手機瀏覽器捲動時網址列會收合，這會觸發 resize，但變的只有高度。
+     * 不擋掉的話輪播每捲一下就被 destroy 再 create，正在看的那一張
+     * 會跳回第一張。
+     */
     debouncedResize() {
+      if (window.innerWidth === this._lastWidth) return;
+
+      this._lastWidth = window.innerWidth;
+
       clearTimeout(this._resizeTimer);
       this._resizeTimer = setTimeout(() => {
         this.initSliders();
@@ -81,12 +92,19 @@ export default function initReservationPage() {
             },
           });
 
-          /* 評論清單只在手機輪播，桌機與平板是並排的三欄 */
+          /*
+           * 評論清單只在手機輪播，桌機與平板是並排的三欄。
+           *
+           * preventScrollOnTouch: 'auto' 讓 tiny-slider 判定是橫向滑動時
+           * 擋掉頁面捲動 —— 預設是 false，手指稍微斜一點就會同時帶動
+           * 上下捲動，卡片跟著頁面一起晃，很難切換。
+           */
           this.commentSlider = createSlider('.testimonial-slider', 'd', {
-            controls: false,
+            controlsContainer: '.testimonial-slider-ctrl',
             items: 1,
             slideBy: 'page',
             gutter: 12,
+            preventScrollOnTouch: 'auto',
           });
         }
 

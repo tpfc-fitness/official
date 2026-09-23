@@ -29,4 +29,19 @@ const VARIANTS = {
   },
 };
 
-module.exports = { DEFAULT, VARIANTS };
+/*
+ * 標題在第一個全形逗號之後斷行。
+ *
+ * 斷行規則放在資料這一層，是因為它有兩個消費者：build 期的 EJS
+ * 與瀏覽器端抽換文字的 _kvVariant.js。規則寫在任何一邊，
+ * 另一邊都會漏掉，標題就會在不同情境下斷在不同地方。
+ *
+ * 找不到逗號時回傳整句與空字串，呼叫端不必各自判斷。
+ */
+const splitTitle = (text) => {
+  const i = text.indexOf('，');
+
+  return i < 0 ? [text, ''] : [text.slice(0, i + 1), text.slice(i + 1)];
+};
+
+module.exports = { DEFAULT, VARIANTS, splitTitle };

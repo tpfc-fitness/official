@@ -19,7 +19,13 @@ module.exports = {
     currency: 'NT$',
     amount: '8,000',
     average: '平均 NT$800／堂',
-    tags: ['基礎動作', '器材操作', '訓練觀念', '自主訓練'],
+    /* icon 對應 src/_svg/ 底下的檔名（不含副檔名） */
+    tags: [
+      { icon: 'icon_exercise', label: '基礎動作' },
+      { icon: 'icon_settings', label: '器材操作' },
+      { icon: 'icon_brain', label: '訓練觀念' },
+      { icon: 'icon_run', label: '自主訓練' },
+    ],
   },
 
   cta: { label: '預約免費體驗', link: '#resevation' },
@@ -83,17 +89,17 @@ module.exports = {
   bonusTitle: '課堂之外，你還會得到什麼？',
   bonus: [
     {
-      icon: '💬',
+      icon: 'icon_chat',
       title: '課後問題可以問',
       body: '自主訓練時遇到問題，可以拍下動作詢問教練，不需要等到下一堂課才知道自己哪裡需要調整。',
     },
     {
-      icon: '📝',
+      icon: 'icon_note',
       title: '每堂課都有回顧',
       body: '課程結束後整理本堂課的訓練內容與動作重點，方便你之後回頭複習。',
     },
     {
-      icon: '🏠',
+      icon: 'icon_home',
       title: '想在家也能練',
       body: '如果你希望在非上課日維持運動習慣，可以向教練索取適合自己的居家訓練內容。',
     },

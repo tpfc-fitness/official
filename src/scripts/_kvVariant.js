@@ -51,6 +51,15 @@ export default function kvVariant() {
   /* 已經是預設那一組就不用動 DOM */
   if (type === DEFAULT) return;
 
-  title.textContent = VARIANTS[type].title;
+  /*
+   * 標題要在逗號後斷行，所以用節點組回去而不是 textContent。
+   * 不用 innerHTML：文案雖然是自己人寫的，但沒有必要為了一個 <br>
+   * 開一條會解析字串的路。
+   */
+  const [head, tail] = splitTitle(VARIANTS[type].title);
+
+  title.textContent = '';
+  title.append(head, document.createElement('br'), tail);
+
   lead.textContent = VARIANTS[type].lead;
 }

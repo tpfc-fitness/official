@@ -55,7 +55,13 @@
 
       <ul class="m-plan-tags">
         <% plan.price.tags.forEach((tag) => { -%>
-        <li><%= tag %></li>
+        <li>
+          <%- require('@component/svg.ejs')({
+            svgName: tag.icon,
+            style: { main: 'm-plan-tag-icon' }
+          }) %>
+          <span><%= tag.label %></span>
+        </li>
         <% }); -%>
       </ul>
     </div>
@@ -103,15 +109,21 @@
 </section>
 
 <!-- 課堂之外 -->
+<%/* 場館照當底，壓暗與裁切由 _modules/m-bg-photo 的 --bonus 負責 */%>
 <section data-aos="fade-in"
-  class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
-  <div class="p:max-w-[1220px] pt:mx-auto">
+  class="m-bg-photo --bonus relative overflow-hidden text-[var(--white)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="relative z-[1] p:max-w-[1220px] pt:mx-auto">
     <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]"><%= plan.bonusTitle %></h2>
 
     <ul class="m-plan-bonus">
       <% plan.bonus.forEach((item) => { -%>
       <li data-aos="fade-up">
-        <p class="m-plan-icon" aria-hidden="true"><%= item.icon %></p>
+        <p class="m-plan-icon">
+          <%- require('@component/svg.ejs')({
+            svgName: item.icon,
+            style: { main: 'm:w-[20px] m:h-[20px] pt:w-[24px] pt:h-[24px]' }
+          }) %>
+        </p>
         <h3 class="font-bold leading-[1.4] p:mt-[18px] tm:mt-[14px] p:text-[18px] tm:text-[16px]"><%= item.title %></h3>
         <p class="leading-[1.9] p:mt-[10px] tm:mt-[8px] p:text-[15px] tm:text-[13px] text-[var(--xc7)]">
           <%= item.body %>

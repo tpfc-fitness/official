@@ -15,6 +15,8 @@
    * 邊框畫在 li 上會被推到 padding 外面，看起來像跑到下一張去了。
    */
   const comment = require('_data/comment.js');
+  /* controls: true 時輸出左右箭頭的容器，只有手機輪播時才看得到 */
+  const hasControls = typeof controls !== 'undefined' && controls;
 -%>
 <div class="m-review-slider-wrap">
   <ul class="m-review testimonial-slider p:flex">
@@ -47,4 +49,15 @@
     </li>
     <% }); -%>
   </ul>
+
+  <% if (hasControls) { -%>
+  <div class="m-slider-ctrl m-review-ctrl testimonial-slider-ctrl">
+    <button type="button" class="m-slider-prev">
+      <span class="sr-only">上一則評論</span>
+    </button>
+    <button type="button" class="m-slider-next">
+      <span class="sr-only">下一則評論</span>
+    </button>
+  </div>
+  <% } -%>
 </div>

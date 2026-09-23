@@ -30,16 +30,16 @@ module.exports = {
     },
   ],
   comments: [
-    require('@imgs/resevation/comment_1.png'),
-    require('@imgs/resevation/comment_2.png'),
-    require('@imgs/resevation/comment_3.png'),
-    require('@imgs/resevation/comment_4.png'),
-    require('@imgs/resevation/comment_5.png'),
-    require('@imgs/resevation/comment_6.png'),
+    require('@imgs/resevation/comment_1.jpg'),
+    require('@imgs/resevation/comment_2.jpg'),
+    require('@imgs/resevation/comment_3.jpg'),
+    require('@imgs/resevation/comment_4.jpg'),
+    require('@imgs/resevation/comment_5.jpg'),
+    require('@imgs/resevation/comment_6.jpg'),
   ],
   inbody: [
     {
-      img: require('resevation/inbody_1.png'),
+      img: require('resevation/inbody_1.jpg'),
       alt: '3個月內體脂下降4%',
       text: '3個月內體脂下降4％、肌肉量上升1公斤',
     },
@@ -57,11 +57,11 @@ module.exports = {
   bodyShape: [
     {
       before: {
-        img: require('resevation/body_shape_before_1.png'),
+        img: require('resevation/body_shape_before_1.jpg'),
         alt: '翼狀肩胛調整前',
       },
       after: {
-        img: require('resevation/body_shape_after_1.png'),
+        img: require('resevation/body_shape_after_1.jpg'),
         alt: '翼狀肩胛調整後',
       },
       text: '體驗課結束後翼狀肩胛就消失了',

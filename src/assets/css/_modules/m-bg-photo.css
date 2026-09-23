@@ -29,12 +29,12 @@
 
   /* 想先了解更多？ */
   &.\-\-qa {
-    background-image: url('@imgs/index/qa-bg.png');
+    background-image: url('@imgs/index/qa-bg.jpg');
   }
 
   /* 學員推薦 */
   &.\-\-comment {
-    background-image: url('@imgs/index/comment-bg.png');
+    background-image: url('@imgs/index/comment-bg.jpg');
   }
 
   /*

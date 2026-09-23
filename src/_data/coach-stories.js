@@ -13,7 +13,7 @@ module.exports = [
     coach: 'Benson 教練',
     title: '竹竿人的逆襲',
     before: {
-      img: require('@imgs/resevation/before_benson.png'),
+      img: require('@imgs/resevation/before_benson.jpg'),
       alt: 'Benson 教練體態改善前',
       paragraphs: [
         '從小我就是個怎麼吃都吃不胖的竹竿人。<br>\n        女同學總是說我看起來弱不禁風，男同學也很愛嘲笑我、覺得我好欺負。 24 歲的時候，我終於決定閉關健身房，想辦法練出跟網路上巨巨一樣的身材。',
@@ -21,7 +21,7 @@ module.exports = [
       ],
     },
     after: {
-      img: require('@imgs/resevation/after_benson.png'),
+      img: require('@imgs/resevation/after_benson.jpg'),
       alt: 'Benson 教練體態改善後',
       paragraphs: [
         '在無數次的挫折和重來之後，我才發現我的訓練重點不該是衝重，而是動作品質，搭配正確的週期化訓練菜單和良好的生活作息，我看見自己強烈的改變：體態不再乾癟沒精神，手臂不再骨感、像竹竿，整個身形變的越來越倒三角🤩',
@@ -39,7 +39,7 @@ module.exports = [
   //   coach: 'Allen 教練',
   //   title: '米其林寶寶剷油奮鬥記',
   //   before: {
-  //     img: require('@imgs/resevation/before_allen.png'),
+  //     img: require('@imgs/resevation/before_allen.jpg'),
   //     alt: 'Allen 教練體態改善前',
   //     paragraphs: [
   //       '我一直以來都是個大食怪，大學畢業之後身材越來越變形，等回過神已經肥的跟米其林寶寶一樣了。',
@@ -47,7 +47,7 @@ module.exports = [
   //     ],
   //   },
   //   after: {
-  //     img: require('@imgs/resevation/after_allen.png'),
+  //     img: require('@imgs/resevation/after_allen.jpg'),
   //     alt: 'Allen 教練體態改善後',
   //     paragraphs: [
   //       '我開始每周健身，只吃原型食物，調味簡單，偶爾放縱大吃一餐，一不小心竟然瘦下來了<span class="m:hidden">，而且還養成了「健康飲食」的習慣，再也不需要刻意節食，維持起來超簡單，現在一天沒動就全身不對勁。</span>',

@@ -446,17 +446,27 @@ module.exports = {
                   optimizationLevel: 3,
                 },
               ],
+              /*
+               * jpegtran 是無損最佳化，只會重排編碼、不會重新壓縮，
+               * 所以這裡的 quality 其實沒有作用。JPEG 的畫質由原始檔決定
+               * （目前照片一律以品質 85 匯出，帶文字的截圖 92）。
+               */
               [
                 'jpegtran',
                 {
                   progressive: true,
-                  quality: 75,
                 },
               ],
+              /*
+               * pngquant 會把 PNG 降成 256 色調色盤 —— 那是給圖形用的，
+               * 拿來壓照片會壓出色帶與雜點。照片一律存成 JPEG，
+               * 這裡剩下的 PNG 只有瀏覽器 icon 之類的平色圖形，
+               * 品質範圍因此拉高，避免哪天有人放了照片進來又被磨掉。
+               */
               [
                 'pngquant',
                 {
-                  quality: [0.6, 0.75],
+                  quality: [0.85, 0.95],
                   speed: 4,
                 },
               ],

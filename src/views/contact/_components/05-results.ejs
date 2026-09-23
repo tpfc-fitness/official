@@ -2,9 +2,14 @@
 <% const resevation = require('_data/resevation.js'); -%>
 <% const site = require('_data/site.js'); -%>
 <!-- 學員評價&成績 -->
-<section data-aos="fade-in" class="p:pb-[90px] t:pb-[75px] m:pb-[50px] bg-[var(--x15)] text-[var(--white)]">
-  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員評價</h2>
-  <div class="p:max-w-[1220px] pt:mx-auto">
+<%/*
+  淡入掛在內容上，不掛在 section 上。
+  這一塊沿用上一塊的底色、而且刻意沒有 padding-top，
+  底色若跟著淡入，半透明時會比上一塊暗，就在標題正上方切出一條橫邊。
+*/%>
+<section class="p:pb-[90px] t:pb-[75px] m:pb-[50px] bg-[var(--x15)] text-[var(--white)]">
+  <h2 data-aos="fade-in" class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員評價</h2>
+  <div data-aos="fade-in" class="p:max-w-[1220px] pt:mx-auto">
     <%- require('@component/mReviewList.ejs')({ controls: true }) %>
 
     <p class="text-center p:mt-[50px] tm:mt-[42px]">

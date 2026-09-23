@@ -21,35 +21,43 @@
 }
 
 /*
- * 開場。比內文大一級：接縫要讀得到，但不能跟區塊標題打架。
+ * 開場。
  *
  * 不設最大寬度 —— 斷行是文案自己決定的（見 _data/contact-transitions.js），
  * 再壓一個字數上限只會在中間多切一刀，切點還不一定在逗號上。
  */
 .m-transition-lead {
-  line-height: 1.9;
-  color: var(--xc7);
+  color: rgb(255 255 255 / 90%);
 
-  @apply m:text-[15px] t:text-[17px] p:text-[19px];
+  /* 行高壓在 1.7：太鬆的話開場自己的兩行就會散成兩段 */
+  line-height: 1.7;
+
+  @apply m:text-[17px] t:text-[19px] p:text-[22px];
 }
 
 /*
  * 開場之後的段落。
  *
- * 字級與顏色都比開場退一級 —— 長的那一段如果整段都用開場的字級，
- * 會比它上下的區塊標題還搶眼，接縫就變成主角了。
+ * 這裡有三個間距要同時分得開，不然讀者看不出哪個是層級、哪個是段落：
+ *
+ *   段內的行距   25px  （字級 15 × 行高 1.7）
+ *   段與段之間   36px  （約 1.4 倍行距）
+ *   開場與內文   72px  （兩倍段距）
+ *
+ * 字級與顏色也一起拉開：22 對 15、90% 對 52%。
+ * 三個訊號都只差一點的話，就會變成「看得出不一樣，但說不出差在哪」。
  */
 .m-transition-body {
-  line-height: 2;
-  color: rgb(255 255 255 / 58%);
+  color: rgb(255 255 255 / 52%);
+  line-height: 1.7;
 
-  @apply m:text-[13px] t:text-[15px] p:text-[16px];
+  @apply m:text-[13px] t:text-[14px] p:text-[15px];
 
   &:first-of-type {
-    @apply m:mt-[24px] t:mt-[30px] p:mt-[36px];
+    @apply m:mt-[40px] t:mt-[56px] p:mt-[72px];
   }
 
   & + & {
-    @apply m:mt-[16px] t:mt-[20px] p:mt-[24px];
+    @apply m:mt-[24px] t:mt-[30px] p:mt-[36px];
   }
 }

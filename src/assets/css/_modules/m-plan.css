@@ -131,19 +131,19 @@
   }
 }
 
+/* 圖示不加外框：外框會讓它看起來像個按鈕，而它只是個標記 */
 .m-plan-icon {
-  border: 1px solid rgb(255 255 255 / 18%);
   color: var(--x7de9);
   line-height: 1;
 
-  @apply flex flex-shrink-0 items-center justify-center m:h-[40px] m:w-[40px] pt:h-[48px] pt:w-[48px];
+  @apply flex flex-shrink-0 items-center justify-center;
 }
 
 /*
  * 三個斷點三種排法：
- *   桌機  圖示在上、文字左切齊
+ *   桌機  圖示在左、標題在右，說明文字在下方
  *   平板  圖示在上、整張置中
- *   手機  圖示與標題同一列，右邊是展開箭頭
+ *   手機  同桌機的橫排，右邊多一個展開箭頭
  */
 .m-plan-bonus-head {
   cursor: pointer;
@@ -151,18 +151,15 @@
   /* 拿掉瀏覽器預設的三角形標記 */
   list-style: none;
 
-  @apply flex items-center m:gap-[12px];
+  @apply flex items-center m:gap-[12px] pt:gap-[14px];
 
   &::-webkit-details-marker {
     display: none;
   }
 
+  /* 平板的卡片最窄，圖示與標題並排會把標題擠成兩三行，改成直排置中 */
   @screen t {
-    @apply flex-col gap-[16px];
-  }
-
-  @screen p {
-    @apply flex-col items-start gap-[18px];
+    @apply flex-col gap-[14px];
   }
 }
 

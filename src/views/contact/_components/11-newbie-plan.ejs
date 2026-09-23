@@ -128,7 +128,7 @@
             <span class="m-plan-icon">
               <%- require('@component/svg.ejs')({
                 svgName: item.icon,
-                style: { main: 'm:w-[20px] m:h-[20px] pt:w-[24px] pt:h-[24px]' }
+                style: { main: 'm:w-[26px] m:h-[26px] pt:w-[30px] pt:h-[30px]' }
               }) %>
             </span>
             <h3 class="flex-grow font-bold leading-[1.4] p:text-[18px] tm:text-[16px]"><%= item.title %></h3>
@@ -140,9 +140,9 @@
       <% }); -%>
     </ul>
 
-    <%/* 桌機把文字與按鈕並排，平板與手機維持置中堆疊 */%>
+    <%/* 桌機把文字與按鈕並排置中，平板與手機改成置中堆疊 */%>
     <div
-      class="p:flex p:items-center p:justify-between p:text-left tm:text-center p:mt-[90px] t:mt-[70px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px] border-t border-solid border-[#fff] border-opacity-[0.12]">
+      class="text-center p:flex p:items-center p:justify-center p:gap-[40px] p:mt-[90px] t:mt-[70px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px] border-t border-solid border-[#fff] border-opacity-[0.12]">
       <div>
         <p class="resevation-h3"><%= plan.closing.title %></p>
         <p class="text-[var(--xc7)] p:mt-[10px] tm:mt-[8px] p:text-[16px] tm:text-[14px]"><%= plan.closing.body %></p>
@@ -152,7 +152,7 @@
         label: plan.cta.label,
         link: plan.cta.link,
         style: {
-          main: '--highlight tm:mx-auto p:flex-shrink-0 p:ml-[40px] tm:mt-[24px] p:w-[260px] p:h-[54px] t:w-[260px] t:h-[52px] m:w-full m:h-[48px] p:text-[17px] tm:text-[15px]',
+          main: '--highlight tm:mx-auto p:flex-shrink-0 tm:mt-[24px] p:w-[260px] p:h-[54px] t:w-[260px] t:h-[52px] m:w-full m:h-[48px] p:text-[17px] tm:text-[15px]',
           icon: 'w-[40px]'
         },
         icon: {

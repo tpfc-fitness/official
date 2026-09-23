@@ -16,19 +16,18 @@ export const svgRequire = (req) => {
   });
 };
 
-export const lazyLoadFun = () => {
-  return new LazyLoad({
+export const lazyLoadFun = () =>
+  new LazyLoad({
     elements_selector: '.lazy',
     use_native: true,
   });
-};
 
 /* device */
 export const deviceType = () => {
   const angle = window.screen.orientation ? window.screen.orientation.angle : 0;
   const PCMinWidth = 1024;
   const mobileWidth = 740;
-  const userAgent = navigator.userAgent;
+  const { userAgent } = navigator;
   const isPCPad = angle === 0 && window.innerWidth > mobileWidth && window.innerWidth < PCMinWidth; // 在桌機時 resize 模擬 Pad 的尺寸
   const isAndroidPad = /Android|webOS|BlackBerry/i.test(userAgent);
   const is16BelowPad = /iPad/i.test(userAgent); // ios 16 以下的系統
@@ -50,20 +49,19 @@ export const deviceType = () => {
 
 export const hdScroll = () => {
   const $hd = $('.jHd');
-  let saveScroll = [0, 0];
+
+  /* 往上捲就顯示、往下捲就收起，所以只需要記住上一次的位置 */
+  let lastScroll = 0;
 
   $(window).on('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    saveScroll[0] = scrollTop;
-    if (saveScroll[0] < saveScroll[1] && $hd.hasClass('--hide')) {
+
+    if (scrollTop < lastScroll && $hd.hasClass('--hide')) {
       $hd.removeClass('--hide');
-    } else if (
-      $hd.height() < scrollTop &&
-      saveScroll[0] > saveScroll[1] &&
-      !$hd.hasClass('--hide')
-    ) {
+    } else if ($hd.height() < scrollTop && scrollTop > lastScroll && !$hd.hasClass('--hide')) {
       $hd.addClass('--hide');
     }
-    saveScroll[1] = saveScroll[0];
+
+    lastScroll = scrollTop;
   });
 };

@@ -2,19 +2,14 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '@css/thankyou.css';
 
-import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
+import { svgRequire, lazyLoadFun } from '_prototype.js';
 import store from '_store.js';
-
-// const $ = window.jQuery;
 
 /* 一次載入使用到的 svg */
 svgRequire();
 
 window.PetiteVue.createApp({
   store,
-  slider: null,
-  commentSlider: null,
-  memberResultSlider: null,
   mounted() {
     lazyLoadFun();
     this.$nextTick(() => {
@@ -25,8 +20,6 @@ window.PetiteVue.createApp({
           easing: 'ease-in-out',
           once: true,
         });
-
-        window.addEventListener('resize', this.debouncedResize);
 
         setTimeout(() => {
           AOS.refreshHard();
@@ -56,13 +49,5 @@ window.PetiteVue.createApp({
     }
 
     store.load.finish();
-  },
-
-  // 📌 debounce for resize
-  debouncedResize() {
-    clearTimeout(this._resizeTimer);
-    this._resizeTimer = setTimeout(() => {
-      this.initSliders();
-    }, 150);
   },
 }).mount('.jWrap');

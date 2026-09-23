@@ -6,23 +6,16 @@ import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
 import { createSlider } from '_slider.js';
 
-// const $ = window.jQuery;
-
 /* 一次載入使用到的 svg */
 svgRequire();
 
 window.PetiteVue.createApp({
   store, // 加入 store
   testimonialSlider: null,
-  onInit() {
-    const vm = this;
-  },
   async mounted() {
-    const vm = this;
     lazyLoadFun();
     this.syncTestimonialSlider();
     window.addEventListener('resize', this.debouncedResize);
-    vm.onInit();
     // loading 開始
     store.load.init();
 

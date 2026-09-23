@@ -9,9 +9,9 @@
 
 ## 一、需要你提供素材（我無法自己產生）
 
-- [ ] **首頁 KV 背景照** — `src/assets/img/index/kv.jpg` 目前是佔位圖
-      （複製自 `firstclass_fitness_indoor4.jpg`）。
-      建議寬 1600–1920px、JPEG 品質 75、300KB 以內。
+- [ ] **首頁 KV 背景照解析度偏低** — 2026-09-23 已換成實拍（教練指導深蹲），
+      但只有 1115x590，在 1920 寬的桌機會被放大 1.7 倍。
+      有原始檔的話重新匯出 1920 寬會更銳利。
 
 - [ ] **Elain 的照片** — `src/assets/img/ourteam/coach_elain.jpg` 目前是佔位圖
       （複製自 `coach_allen.jpg`）。

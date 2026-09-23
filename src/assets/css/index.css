@@ -9,35 +9,78 @@
 .kv {
   position: relative;
 
-  /* 建立堆疊環境，讓遮罩的 z-index: -1 只作用在這個區塊內 */
+  /* 建立堆疊環境，讓遮罩的負 z-index 只作用在這個區塊內 */
   isolation: isolate;
-  background: url('@imgs/index/kv.jpg') center center / cover no-repeat;
+  overflow: hidden;
+  background-color: var(--black);
+}
 
-  /*
-   * 深藍遮罩。
-   * 刻意放在 ::before 而不是直接寫在 .kv 的 background：
-   * background-image 無法做 transition，但 background-color 可以，
-   * 這樣 hover 變亮才會是漸變而不是瞬間跳色。
-   */
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    background-color: rgb(21 35 45 / 85%);
-    transition: background-color 0.4s ease-in-out;
+/*
+ * 照片單獨一層。
+ *
+ * 跟遮罩分開是為了只縮放照片 —— 兩者疊在同一層的話，
+ * 縮放時遮罩也會跟著放大，文字的對比會在動畫過程中飄移。
+ */
+.kv::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: url('@imgs/index/kv.jpg') center center / cover no-repeat;
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * 遮罩。
+ *
+ * 原本是一整片 85% 的深藍灰 —— 這張照片本身就暗（中位數亮度 0.098），
+ * 再壓 85% 等於只剩 15% 透得出來，看起來就是一塊糊掉的色塊。
+ * 改成上下重、中間輕：上緣壓住固定的 header，下緣接住下一個區塊，
+ * 中間放到 56% 讓照片真的看得見。量過白字在最亮處仍有 5.1:1。
+ *
+ * 顏色也從深藍灰改回純黑 —— 那個藍灰不在這個網站的色票裡，
+ * 夾在其他純黑區塊之間會像蒙了一層髒。
+ */
+.kv::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 80%) 0%,
+    rgb(0 0 0 / 56%) 38%,
+    rgb(0 0 0 / 56%) 62%,
+    rgb(0 0 0 / 84%) 100%
+  );
+}
+
+/*
+ * 滑過時只讓照片慢慢推近。
+ *
+ * 原本是整塊換底色 —— 整個視窗的顏色為了一次滑鼠經過而改變，
+ * 動靜太大，而且這一塊不是連結，變色等於在說謊。
+ * 改成照片本身輕微推進，遮罩不動，文字的對比從頭到尾一樣。
+ */
+.kv:hover::before {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kv::before {
+    transition: none;
   }
 
-  &:hover::before {
-    background-color: rgb(37 58 73 / 85%);
+  .kv:hover::before {
+    transform: none;
   }
 }
 
 .kv-title {
   text-shadow:
     0 0 4px rgb(202 228 225 / 65%),
-    0 0 12px rgb(30 132 242 / 30%),
-    0 0 20px rgb(30 132 242 / 15%);
+    0 0 12px rgb(125 233 225 / 28%),
+    0 0 22px rgb(125 233 225 / 14%);
 
   /* animation: neon-effect 4s ease-in-out infinite alternate; */
 }
@@ -54,10 +97,10 @@
     text-shadow:
       0 0 6px rgb(202 228 225 / 92%),
       0 0 30px rgb(202 228 225 / 34%),
-      0 0 12px rgb(30 132 242 / 52%),
-      0 0 21px rgb(30 132 242 / 92%),
-      0 0 34px rgb(30 132 242 / 78%),
-      0 0 54px rgb(30 132 242 / 92%);
+      0 0 12px rgb(125 233 225 / 52%),
+      0 0 21px rgb(125 233 225 / 92%),
+      0 0 34px rgb(125 233 225 / 78%),
+      0 0 54px rgb(125 233 225 / 92%);
   }
 
   14.2%,

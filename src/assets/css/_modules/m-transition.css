@@ -8,7 +8,7 @@
 .m-transition {
   text-align: center;
 
-  @apply m:px-[20px] m:py-[44px] t:px-[40px] t:py-[64px] p:px-[60px] p:py-[80px];
+  @apply m:px-[20px] m:py-[36px] t:px-[40px] t:py-[52px] p:px-[60px] p:py-[64px];
 
   &::before {
     content: '';
@@ -24,6 +24,11 @@
   line-height: 1.9;
   color: var(--xc7);
 
-  /* 比內文大一級：接縫要讀得到，但不能跟區塊標題打架 */
-  @apply mx-auto m:max-w-[26ch] m:text-[15px] t:max-w-[34ch] t:text-[17px] p:max-w-[42ch] p:text-[19px];
+  /*
+   * 比內文大一級：接縫要讀得到，但不能跟區塊標題打架。
+   *
+   * 不設最大寬度 —— 斷行是文案自己決定的（見 _data/contact-transitions.js），
+   * 再壓一個字數上限只會在中間多切一刀，切點還不一定在逗號上。
+   */
+  @apply m:text-[15px] t:text-[17px] p:text-[19px];
 }

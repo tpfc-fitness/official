@@ -1,12 +1,13 @@
 <%/* 頭等倉教練的訓練方針 */%>
 <% const rules = require('_data/training-rules.js'); -%>
 <!-- 訓練方針 -->
-<section data-aos="fade-in" class="text-[var(--white)] p:pt-[90px] p:pb-[120px] t:py-[75px] m:py-[40px]">
+<section data-aos="fade-in" class="text-[var(--white)] p:pt-[90px] p:pb-[90px] t:py-[75px] m:py-[40px]">
   <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
     <h2 class="resevation-h1"><%= rules.title %></h2>
     <p class="resevation-p p:mt-[18px] tm:mt-[12px] p:max-w-[56ch] pt:mx-auto"><%= rules.lead %></p>
   </header>
-  <div class="m-slider pt:mx-auto p:max-w-[1220px] pt:mb-[40px] m:mb-[28px]">
+  <%/* 輪播下面已經沒有東西了，留白交給 section 自己的 padding */%>
+  <div class="m-slider pt:mx-auto p:max-w-[1220px]">
     <ul class="training-rules-slider pt:flex">
       <% rules.items.forEach((item) => { -%>
       <li class="p:w-1/4 tm:min-h-[340px]">

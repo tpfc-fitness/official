@@ -1,5 +1,5 @@
 /*
- * contact／resevation 頁的常見問題。
+ * contact 頁的常見問題。
  *
  * 與首頁的 _data/home-faq.js 是同一種結構，共用 _modules/m-faq
  * 的手風琴外觀；兩份內容不同，刻意分開放 ——

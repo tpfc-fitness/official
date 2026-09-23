@@ -1,9 +1,8 @@
 /*
  * 免費體驗／預約頁的共用行為。
  *
- * contact 與 resevation 兩頁渲染同一組區塊，因此共用同一套
- * slider 初始化與 AOS 設定。各頁的 entry 只負責載入自己的 CSS
- * 後呼叫這裡的 init()。
+ * 免費體驗頁的 slider 初始化與 AOS 設定。
+ * contact.js 只負責載入自己的 CSS 後呼叫這裡的 init()。
  */
 import AOS from 'aos';
 import 'aos/dist/aos.css';

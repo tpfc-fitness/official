@@ -6,7 +6,7 @@
  *   A 環境導覽型  大圖 + 縮圖切換（無箭頭）      information
  *   B 焦點展示型  大圖 + 箭頭 + 分頁數字          service
  *   C 多圖預覽型  多張卡片 + 箭頭（無分頁）        ourteam
- *   D 極簡輪播型  大圖 + 橫條分頁（＋箭頭）        contact / resevation
+ *   D 極簡輪播型  大圖 + 橫條分頁（＋箭頭）        contact
  *
  * 其餘設定（items、edgePadding、gutter、responsive）由各處自行決定，
  * 這裡只負責把四種樣式的差異與共通行為收在一個地方。

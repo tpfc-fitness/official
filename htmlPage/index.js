@@ -82,22 +82,6 @@ module.exports = {
       chunks: ['information'],
     },
     {
-      title: '教練課預約體驗',
-      filename: 'resevation.html',
-      view: 'resevation',
-      path: '/resevation.html',
-      // 廣告專用落地頁：刻意不參與自然搜尋。
-      // 內容與 contact 高度重疊，若兩頁都被收錄會互相搶同一組關鍵字，
-      // 而這頁沒有網站導覽，不適合當搜尋結果的落地點。
-      // noindex 不影響 Google Ads / Meta 投放。
-      noindex: true,
-      template: 'App.ejs',
-      action: 'resevation',
-      description:
-        'First Class 頭等倉運動空間目前推出免費體驗課與新生優惠前10堂8000元活動，幫助想要打好重訓基礎的人用最少的投資換到最大的效益，本店位於民權西路捷運站四號出口步行約三分鐘處，位處台北市中心，方便的交通讓您不再因距離因素而放棄健身的熱情。',
-      chunks: ['resevation'],
-    },
-    {
       title: '感謝您的預約!',
       filename: 'thankyou.html',
       view: 'thankyou',
@@ -105,7 +89,8 @@ module.exports = {
       // 轉換完成頁沒有搜尋價值：不進索引、也不進 sitemap
       noindex: true,
       template: 'App.ejs',
-      action: 'resevation',
+      // 不輸出 header／選單／完整 footer，只有內容本身
+      action: 'bare',
       description: '感謝您預約 First Class 頭等倉運動空間免費體驗課程',
       chunks: ['thankyou'],
     },

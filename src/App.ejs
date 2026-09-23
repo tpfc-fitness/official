@@ -100,7 +100,7 @@
   <a href="#main" class="l-skip">跳到主要內容</a>
   <div class="l-wrap relative flex flex-col min-h-screen bg-[var(--black)] jWrap" @vue:mounted="mounted">
     <!-- Header Start -->
-    <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
+    <% if (htmlWebpackPlugin.options.action !== 'bare') { -%>
     <div class="l-hd flex-shrink-0 top-0 fixed w-full jHd">
       <%- require('@component/mHd.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
       <%- require('@component/mMarquee.ejs')({
@@ -111,7 +111,7 @@
     <!-- Header End -->
     <!-- Content Start -->
     <div data-aos="fade-in"
-      class="l-main flex flex-grow<%- htmlWebpackPlugin.options.action !== 'resevation' ? ` is-head` : '' %>">
+      class="l-main flex flex-grow<%- htmlWebpackPlugin.options.action !== 'bare' ? ` is-head` : '' %>">
       <main id="main" tabindex="-1" class="l-content flex-grow overflow-hidden relative bg-[var(--black)]">
         <%- reqFile %>
       </main>
@@ -124,7 +124,7 @@
     <!-- Content End -->
     <!-- Footer Start -->
     <div class="l-ft flex-shrink-0 relative bg-[var(--x15)] text-[var(--white)]">
-      <% if (htmlWebpackPlugin.options.action !== 'resevation') { -%>
+      <% if (htmlWebpackPlugin.options.action !== 'bare') { -%>
       <%- require('@component/mFt.ejs')({ filename: htmlWebpackPlugin.options.filename }) %>
       <% } else {-%>
       <small class="m-ft-copyright block py-[24px] text-center text-[13px] bg-[#000] m:px-[20px]">

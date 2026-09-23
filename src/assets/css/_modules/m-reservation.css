@@ -173,8 +173,16 @@
   }
 }
 
+/*
+ * 痛點區塊。
+ *
+ * 遮罩比另外兩段淡（60% 對 76%），讓照片透出來多一點。
+ * 沒辦法再更淡：這張照片有大片過曝的包裝紙，量過之後
+ * 60% 時白字對最亮處是 4.57:1，剛好站在 WCAG AA 的線上，
+ * 55% 就掉到 3.88:1 了。
+ */
 .resevation-bg-01 {
-  background-image: linear-gradient(#000000c2, #333333c2), linear-gradient(#0000001a, #0000001a),
+  background-image: linear-gradient(#00000099, #1a1a1a99), linear-gradient(#0000001a, #0000001a),
     url('@imgs/contact/pain-points-bg.jpg');
   background-repeat: no-repeat;
   background-position: center center;

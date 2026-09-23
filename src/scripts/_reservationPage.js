@@ -41,6 +41,7 @@ export default function initReservationPage() {
           if (deviceType() !== 'p') hdScroll();
 
           this.initSliders();
+          this.syncBonusAccordion();
           this._lastWidth = window.innerWidth;
           window.addEventListener('resize', this.debouncedResize);
 
@@ -68,6 +69,7 @@ export default function initReservationPage() {
       clearTimeout(this._resizeTimer);
       this._resizeTimer = setTimeout(() => {
         this.initSliders();
+        this.syncBonusAccordion();
       }, 150);
     },
 
@@ -123,6 +125,34 @@ export default function initReservationPage() {
           center: true,
           gutter: 10,
         });
+      });
+    },
+
+    /*
+     * 課堂之外：手機收合成一列一項，桌機與平板一律展開。
+     *
+     * 標記裡預設帶 open，所以沒有 JS 也讀得到全部內容，
+     * 這裡只負責在手機把它收起來。
+     *
+     * 另外擋掉在桌機用鍵盤按 Enter 把區塊收掉 —— 那裡的 summary
+     * 看起來就不是可以點的東西，收掉了使用者也不知道怎麼還原。
+     */
+    syncBonusAccordion() {
+      const items = document.querySelectorAll('[data-bonus-item]');
+
+      if (!items.length) return;
+
+      const expanded = deviceType() !== 'm';
+
+      items.forEach((el) => {
+        if (!el.dataset.bonusBound) {
+          el.dataset.bonusBound = '1';
+          el.addEventListener('toggle', () => {
+            if (deviceType() !== 'm' && !el.open) el.open = true;
+          });
+        }
+
+        el.open = expanded;
       });
     },
 

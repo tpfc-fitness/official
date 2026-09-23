@@ -133,7 +133,79 @@
 
 .m-plan-icon {
   border: 1px solid rgb(255 255 255 / 18%);
+  color: var(--x7de9);
   line-height: 1;
 
-  @apply flex items-center justify-center m:h-[40px] m:w-[40px] m:text-[18px] pt:h-[48px] pt:w-[48px] pt:text-[22px];
+  @apply flex flex-shrink-0 items-center justify-center m:h-[40px] m:w-[40px] pt:h-[48px] pt:w-[48px];
+}
+
+/*
+ * 三個斷點三種排法：
+ *   桌機  圖示在上、文字左切齊
+ *   平板  圖示在上、整張置中
+ *   手機  圖示與標題同一列，右邊是展開箭頭
+ */
+.m-plan-bonus-head {
+  cursor: pointer;
+
+  /* 拿掉瀏覽器預設的三角形標記 */
+  list-style: none;
+
+  @apply flex items-center m:gap-[12px];
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  @screen t {
+    @apply flex-col gap-[16px];
+  }
+
+  @screen p {
+    @apply flex-col items-start gap-[18px];
+  }
+}
+
+.m-plan-bonus-body {
+  line-height: 1.9;
+  color: var(--xc7);
+
+  @apply m:mt-[14px] m:text-[13px] t:mt-[12px] t:text-[13px] p:mt-[14px] p:text-[15px];
+
+  @screen t {
+    text-align: center;
+  }
+}
+
+/*
+ * 展開箭頭只有手機需要 —— 桌機與平板一律展開，
+ * 那裡的 summary 也不該看起來可以點。
+ */
+.m-plan-bonus-chevron {
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid currentcolor;
+    border-bottom: 1.5px solid currentcolor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+details[open] > .m-plan-bonus-head > .m-plan-bonus-chevron::before {
+  transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+@screen pt {
+  .m-plan-bonus-head {
+    cursor: default;
+  }
+
+  .m-plan-bonus-chevron {
+    display: none;
+  }
 }

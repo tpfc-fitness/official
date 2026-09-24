@@ -72,7 +72,9 @@
 <section data-aos="fade-in"
   class="text-[var(--white)] bg-[var(--x15)] p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
   <div class="p:max-w-[1220px] pt:mx-auto">
-    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]"><%= plan.abilitiesTitle %></h2>
+    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">
+      <% plan.abilitiesTitle.forEach((line, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= line %><% }); %>
+    </h2>
 
     <ul class="m-plan-grid">
       <% plan.abilities.forEach((item) => { -%>
@@ -113,7 +115,8 @@
 <section data-aos="fade-in"
   class="m-bg-photo --bonus relative overflow-hidden text-[var(--white)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
   <div class="relative z-[1] p:max-w-[1220px] pt:mx-auto">
-    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]"><%= plan.bonusTitle %></h2>
+    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">
+      <% plan.bonusTitle.forEach((line, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= line %><% }); %></h2>
 
     <%/*
       手機收合成一列一項，桌機與平板一律展開。

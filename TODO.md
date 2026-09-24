@@ -3,7 +3,7 @@
 未完成、被擱置、或需要外部素材的事項。
 問「我們還有什麼事沒做嗎？」時請讀這個檔。
 
-最後更新：2026-09-23
+最後更新：2026-09-24
 
 ---
 
@@ -12,9 +12,6 @@
 - [ ] **首頁 KV 背景照解析度偏低** — 2026-09-23 已換成實拍（教練指導深蹲），
       但只有 1115x590，在 1920 寬的桌機會被放大 1.7 倍。
       有原始檔的話重新匯出 1920 寬會更銳利。
-
-- [ ] **Elain 的照片** — `src/assets/img/ourteam/coach_elain.jpg` 目前是佔位圖
-      （複製自 `coach_allen.jpg`）。
 
 - [ ] **阿圓的照片** — `src/assets/img/ourteam/coach_ayuan.jpg` 目前是佔位圖
       （複製自 `coach_alex.jpg`）。
@@ -39,17 +36,11 @@
       建議寬 720px、橫幅比例（約 4:3），JPEG 品質 75。
       放進去之後告訴我，我再接上 `_data/newbie-plan.js` 的 img 欄位。
 
-## 二、教練名單需要整批更新（有兩位教練已離職）
+## 二、教練名單（已完成）
 
-首頁的教練團隊區塊已改為 Benson / Elain / 阿圓，但其他兩處還是舊名單，
-使用者從首頁點進去會看到不同的人：
-
-- [ ] `src/_data/coach.js`（**教練團隊頁**）仍列 Benson / Allen / Alex / Roy。
-      需要 Elain 與阿圓的**證照清單**與**專長清單**才能更新。
-- [ ] `src/_data/coach-stories.js`（**contact / resevation 頁**的 Before/After
-      故事）仍有 Allen 的段落，需確認是否移除或替換。
-- [ ] 離職教練的照片檔（`coach_allen.jpg` / `coach_alex.jpg` / `coach_roy.jpg`）
-      在名單更新後可一併清掉。
+2026-09-24 確認：`coach.js` 已是現行六人名單（Benson / Jeffery / Roy /
+Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
+離職教練的照片檔也都清掉了。Elain 的比賽成績同日補齊。
 
 ## 三、上線前必做
 

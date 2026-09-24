@@ -91,7 +91,6 @@ module.exports = [
     job: '私人教練',
     tagline: '健美魔 × 體態型',
     img: require('ourteam/coach_elain.jpg'),
-    /* 比賽成績 2026-09-24 由本人提供；證照清單是否完整尚未確認 */
     certificates: [
       '中華民國C級體適能指導員',
       'CPR+AED心肺復甦術',

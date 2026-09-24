@@ -28,6 +28,14 @@
   inset: 0;
   background: url('@imgs/index/kv.jpg') center center / cover no-repeat;
   transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * 照片的人在右側三分之一。手機的框又窄又高，置中裁切只會留下
+   * 中間的空架子，人被切在框外。往右挪到 72%。
+   */
+  @screen m {
+    background-position: 72% center;
+  }
 }
 
 /*

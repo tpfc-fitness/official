@@ -30,7 +30,11 @@ module.exports = {
 
   cta: { label: '預約免費體驗', link: '#resevation' },
 
-  abilitiesTitle: '10 堂課，你會帶走 4 種能力',
+  /*
+   * 大標寫成行陣列：手機在逗號後斷行，桌機與平板接成一行。
+   * 不斷的話手機會斷在「帶走 4 ／ 種能力」，把數字和單位拆開。
+   */
+  abilitiesTitle: ['10 堂課，', '你會帶走 4 種能力'],
   abilities: [
     {
       no: '01',
@@ -86,7 +90,7 @@ module.exports = {
     },
   ],
 
-  bonusTitle: '課堂之外，你還會得到什麼？',
+  bonusTitle: ['課堂之外，', '你還會得到什麼？'],
   bonus: [
     {
       icon: 'icon_chat',

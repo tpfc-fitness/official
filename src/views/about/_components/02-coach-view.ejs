@@ -8,7 +8,12 @@
       alt: '教練指導學員訓練',
       style: {
         main: 'p:flex-shrink-0 p:w-[420px] p:h-[520px] t:w-full t:h-[320px] m:w-full m:h-[220px] tm:order-2 tm:mb-[30px]',
-        img: 'object-cover object-top'
+        /*
+         * 手機與平板的框又寬又扁，object-top 會把畫面停在上緣的
+         * 器材，人反而被切掉。往下挪到 35%，讓兩個人進到框裡。
+         * 桌機的框幾乎與原圖同比例，沒有裁切問題，維持 top。
+         */
+        img: 'object-cover object-top tm:object-[center_35%]'
       }
     }) %>
 

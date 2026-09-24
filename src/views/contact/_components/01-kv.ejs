@@ -15,10 +15,17 @@
     style: {
       main: 'absolute inset-0 z-0',
       /*
-       * 照片的人在右側三分之一，手機的框很窄，
-       * 置中裁切只會切到人的邊緣。往右挪到 75%。
+       * 照片裡的兩個人落在 54%～99%，而手機的框只看得到 46% 的寬度，
+       * 置中會停在 27%～73%，兩個人幾乎都在框外。靠右對齊剛好是
+       * 54%～100%，把兩個人整個收進來。
+       *
+       * 用內建的 object-right 而不是任意值：先前寫成
+       * object-[75%_center] 時，class 有出現在 HTML 上，對應的規則
+       * 卻沒進到產出的 CSS（清掉 build 與 node_modules/.cache 重跑
+       * 仍然如此），原因尚未查明。right 剛好就是要的位置，
+       * 用內建的就不必賭。
        */
-      img: 'object-cover object-center m:object-[75%_center]'
+      img: 'object-cover object-center m:object-right'
     }
   }) %>
 

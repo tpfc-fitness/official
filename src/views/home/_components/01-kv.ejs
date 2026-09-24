@@ -2,7 +2,11 @@
 <section class="kv w-full text-center flex flex-col items-center p:p-[80px] tm:p-[30px]">
   <h1 data-aos="fade-up"
     class="kv-title text-[var(--white)] p:font-black tm:font-bold tracking-[-0.05em] p:text-[62px] tm:text-[40px] order-2">
-    頭等倉運動空間｜台北中山私人教練</h1>
+    <%/*
+      手機把「｜」換成換行。只藏分隔線的話兩段會黏成一句，
+      而且斷在哪裡由容器寬度決定，通常會斷在詞中間。
+    */%>
+    頭等倉運動空間<span class="m:hidden">｜</span><br class="pt:hidden" />台北中山私人教練</h1>
   <%- require('@component/svg.ejs')({
       svgName: 'logo',
       style: {
@@ -11,14 +15,14 @@
     }) %>
   <h2 data-aos="fade-up"
     class="text-[var(--white)] p:font-black tm:font-bold tracking-[-0.05em] p:text-[30px] tm:text-[24px] tm:mt-[10px] order-3">
-    一對一・一對二私人教練<br>學會正確訓練，建立屬於自己的運動能力
+    一對一・一對二教學<br />學會正確訓練，<br class="pt:hidden" />建立屬於自己的運動能力
   </h2>
   <p data-aos="fade-up"
     class="text-[var(--white)] text-center p:text-[18px] tm:text-[15px] p:mt-[16px] tm:mt-[12px] order-4">
     台北市中山區・捷運民權西路站步行 3 分鐘</p>
   <p data-aos="fade-up"
     class="text-[var(--white)] text-center p:text-[18px] tm:text-[15px] p:mt-[16px] tm:mt-[12px] order-4">
-    私人教練｜自主訓練<br />肌力訓練｜改善不良體態｜增肌減脂｜功能性訓練</p>
+    私人教練｜自主訓練｜團課<br />肌力｜改善體態｜增肌減脂｜功能性訓練</p>
   <%- require('@component/mBtn.ejs')({
       label: '即刻預約',
       link: './contact.html',

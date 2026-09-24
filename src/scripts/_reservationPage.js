@@ -96,16 +96,12 @@ export default function initReservationPage() {
           /*
            * 評論清單只在手機輪播，桌機與平板是並排的三欄。
            *
-           * preventScrollOnTouch: 'auto' 讓 tiny-slider 判定是橫向滑動時
-           * 擋掉頁面捲動 —— 預設是 false，手指稍微斜一點就會同時帶動
-           * 上下捲動，卡片跟著頁面一起晃，很難切換。
            */
           this.commentSlider = createSlider('.testimonial-slider', 'd', {
             controlsContainer: '.testimonial-slider-ctrl',
             items: 1,
             slideBy: 'page',
             gutter: 12,
-            preventScrollOnTouch: 'auto',
           });
         }
 

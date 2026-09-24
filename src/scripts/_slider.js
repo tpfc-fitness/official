@@ -16,14 +16,21 @@ import 'tiny-slider/dist/tiny-slider.css';
 
 /*
  * 共通行為。
+ *
  * mouseDrag 一律關閉：桌機以箭頭或縮圖操作，拖曳只會跟點擊互相干擾；
  * 觸控滑動由 tiny-slider 的 touch 選項負責，預設就是開啟的。
+ *
+ * preventScrollOnTouch: 'auto' 讓 tiny-slider 判定是橫向滑動時擋掉
+ * 頁面捲動。預設是 false —— 手指稍微斜一點就會同時帶動上下捲動，
+ * 卡片跟著頁面一起晃，在手機上很難切換。放在這裡而不是各處自己設，
+ * 是因為每一個輪播都需要，漏掉一個就會有一塊手感不一樣。
  */
 const BASE = {
   autoplay: false,
   loop: false,
   rewind: true,
   mouseDrag: false,
+  preventScrollOnTouch: 'auto',
 };
 
 /* 四種樣式在導覽方式上的差異 */

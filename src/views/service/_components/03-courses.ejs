@@ -2,7 +2,12 @@
 <% const service = require('_data/service.js'); -%>
 <section
   class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:pb-[80px] t:px-[40px] t:pb-[56px] m:px-[20px] m:pb-[40px]">
-  <ul class="p:max-w-[1200px] p:mx-auto p:space-y-[24px] t:space-y-[20px] m:space-y-[16px]">
+  <%/*
+    手機三個項目要拉得比桌機更開：桌機是圖文左右並排，項目的邊界
+    一眼看得出來；手機是圖上文下，間距只有 16px 的話，上一項的說明
+    和下一項的圖幾乎連在一起，會看不出哪張圖配哪段字。
+  */%>
+  <ul class="p:max-w-[1200px] p:mx-auto p:space-y-[24px] t:space-y-[20px] m:space-y-[48px]">
     <% service.forEach((item, idx) => { -%>
     <%/* 桌機左右交替，平板與手機一律圖在上、文字在下 */%>
     <li data-aos="fade-up"

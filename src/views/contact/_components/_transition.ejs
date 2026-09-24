@@ -15,8 +15,10 @@
   if (!item) throw new Error(`找不到過渡文案：${key}`);
 -%>
 <div class="m-transition text-[var(--white)] bg-[var(--black)]">
+  <%/* 一行寫成陣列時，段與段之間只在手機斷行 */%>
   <% item.lead.forEach((line) => { -%>
-  <p class="m-transition-lead"><%= line %></p>
+  <p class="m-transition-lead">
+    <% [].concat(line).forEach((part, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= part %><% }); %></p>
   <% }); -%>
 
   <% (item.body || []).forEach((paragraph) => { -%>

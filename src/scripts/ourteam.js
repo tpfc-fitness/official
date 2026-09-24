@@ -48,6 +48,7 @@ window.PetiteVue.createApp({
        */
       AOS.refreshHard();
       vm.openCoachFromHash();
+      vm.bindCoachScroll();
       window.addEventListener('hashchange', vm.openCoachFromHash);
     }, 300);
 
@@ -72,6 +73,40 @@ window.PetiteVue.createApp({
 
     /* 捲到卡片而不是 input —— input 只有 1px，捲過去會偏掉 */
     document.querySelector(`label[for="${CSS.escape(id)}"]`)?.scrollIntoView({ block: 'center' });
+  },
+
+  /*
+   * 手機展開某位教練時，把那張卡捲到畫面上緣。
+   *
+   * 不捲的話展開的面板是長在卡片下面的，而卡片可能已經在畫面中段，
+   * 內容一出來就有一半在視窗外，得再自己往下找。
+   *
+   * 扣掉固定 header 的高度再留 20px —— 直接對齊視窗頂端的話，
+   * 卡片會被 header 蓋住。header 被 hdScroll() 收起來時就不用扣。
+   */
+  scrollCoachToTop(input) {
+    const card = document.querySelector(`label[for="${CSS.escape(input.id)}"]`);
+
+    if (!card) return;
+
+    const hd = document.querySelector('.jHd');
+    const hdHeight = hd && !hd.classList.contains('--hide') ? hd.offsetHeight : 0;
+
+    /* 等面板撐開、版面定下來再量位置 */
+    window.requestAnimationFrame(() => {
+      window.scrollTo({
+        top: window.pageYOffset + card.getBoundingClientRect().top - hdHeight - 20,
+        behavior: 'smooth',
+      });
+    });
+  },
+
+  bindCoachScroll() {
+    document.querySelectorAll('.m-coach-grid > input').forEach((input) => {
+      input.addEventListener('change', () => {
+        if (input.checked && deviceType() === 'm') this.scrollCoachToTop(input);
+      });
+    });
   },
 
   windowResize() {

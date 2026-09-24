@@ -8,7 +8,7 @@
 <section
   class="text-[var(--white)] bg-[var(--black)] p:pt-[90px] p:pb-[120px] t:pt-[75px] t:pb-[105px] m:pt-[40px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
   <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px]">
-    <h2 class="resevation-h1"><%= trial.title %></h2>
+    <h2 class="resevation-h1"><% trial.title.forEach((line, i) => { %><%- i ? '<br />' : '' %><%= line %><% }); %></h2>
     <p class="resevation-p p:mt-[18px] tm:mt-[12px]"><%= trial.lead %></p>
   </header>
 

@@ -13,8 +13,11 @@
  * 列間距不用 row-gap —— 沒有展開面板的那幾列高度為 0，但 gap 仍會
  * 佔位，會多出好幾段空白。改成由項目自己的 margin-bottom 負責。
  *
- * 切換用隱藏的 radio，不寫 JS：所有面板內容都在 HTML 裡，收合中的
- * 一樣被索引；鍵盤也能用方向鍵在教練之間切換。
+ * 切換用隱藏的 checkbox，不寫 JS：所有面板內容都在 HTML 裡，
+ * 收合中的一樣被索引，鍵盤也能操作。
+ *
+ * 用 checkbox 不用 radio —— radio 選了就取消不掉，一定得有一位是
+ * 展開的，進頁面時第一位就被迫攤開。checkbox 可以全部收合。
  */
 .m-coach-grid {
   position: relative;
@@ -38,45 +41,104 @@
 }
 
 /* 卡片：照片鋪滿，文字壓在下方的漸層上 */
+/*
+ * 卡片。
+ *
+ * 桌機與平板：照片鋪滿，文字壓在下方的漸層上。
+ * 手機：改成橫式一列，照片縮成左側縮圖 ——
+ * 直式卡在手機一張就佔 260px，六位要捲三個畫面才看得完，
+ * 而這一頁的重點是「一眼看到有哪些教練」。
+ */
 .m-coach-card {
   position: relative;
   display: block;
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   border: 1px solid rgb(255 255 255 / 20%);
   cursor: pointer;
   transition: border-color 0.3s ease-in-out;
 
-  @apply m:h-[260px] t:h-[300px] p:h-[340px];
+  @apply m:h-[96px] t:h-[300px] p:h-[340px];
 
   &:hover {
     border-color: rgb(255 255 255 / 70%);
   }
 
-  /* 文字底下的漸層，確保壓在照片上仍然讀得到 */
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgb(0 0 0 / 90%) 0%,
-      rgb(0 0 0 / 55%) 42%,
-      rgb(0 0 0 / 5%) 100%
-    );
-    pointer-events: none;
+  @screen m {
+    display: flex;
+    align-items: center;
+    background-color: var(--x15);
+  }
+
+  /*
+   * 文字底下的漸層，確保壓在照片上仍然讀得到。
+   * 手機不需要 —— 那裡文字在照片旁邊，不是疊在上面。
+   */
+  @screen pt {
+    margin-bottom: 16px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 90%) 0%,
+        rgb(0 0 0 / 55%) 42%,
+        rgb(0 0 0 / 5%) 100%
+      );
+      pointer-events: none;
+    }
   }
 }
 
 .m-coach-card-body {
-  position: absolute;
   z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  align-items: flex-end;
 
-  @apply m:p-[16px] pt:p-[20px];
+  @screen m {
+    position: relative;
+    flex-grow: 1;
+    align-items: center;
+    min-width: 0;
+
+    @apply px-[14px];
+  }
+
+  @screen pt {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    @apply p-[20px];
+  }
+}
+
+/*
+ * 展開指示。
+ *
+ * 卡片看起來就只是一張照片，沒有這個記號不會有人知道可以點開。
+ * 用邊框轉 45 度畫箭頭，不另外開 icon 檔。
+ */
+.m-coach-caret {
+  flex-shrink: 0;
+  align-self: center;
+
+  @apply m:ml-[10px] pt:ml-[16px];
+
+  &::before {
+    content: '';
+    display: block;
+    border-right: 2px solid currentcolor;
+    border-bottom: 2px solid currentcolor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.3s ease-in-out;
+
+    @apply m:h-[8px] m:w-[8px] pt:h-[10px] pt:w-[10px];
+  }
 }
 
 /* 展開面板：橫跨整行 */
@@ -84,7 +146,8 @@
   position: relative;
   display: none;
   grid-column: 1 / -1;
-  margin-bottom: 16px;
+
+  @apply m:mb-[12px] pt:mb-[16px];
   border: 1px solid var(--xe120);
   background-color: var(--x15);
 
@@ -230,7 +293,11 @@
     display: block;
   }
 
-  /* radio 視覺上藏起來了，焦點要標示在卡片上 */
+  .m-coach-grid > input:nth-of-type($(i)):checked ~ label:nth-of-type($(i)) .m-coach-caret::before {
+    transform: rotate(-135deg) translate(-2px, -2px);
+  }
+
+  /* checkbox 視覺上藏起來了，焦點要標示在卡片上 */
   .m-coach-grid > input:nth-of-type($(i)):focus-visible ~ label:nth-of-type($(i)) {
     outline: 2px solid var(--white);
     outline-offset: 2px;

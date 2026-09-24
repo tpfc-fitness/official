@@ -35,29 +35,46 @@
   <div class="p:max-w-[1200px] p:mx-auto">
 
     <div class="m-coach-grid">
-      <%/* 切換用的 radio 全部放前面，CSS 才能用 ~ 選到後面的卡片與面板 */%>
+      <%/*
+        切換用的 checkbox 全部放前面，CSS 才能用 ~ 選到後面的卡片與面板。
+
+        用 checkbox 不用 radio：radio 選了就取消不掉，一定得有一位
+        是展開的，進頁面時第一位就被迫攤開，其他人被推到下面。
+        checkbox 可以全部收合，也可以同時開兩位對照。
+
+        id 用 slug 不用索引 —— 它是對外的錨點（#coach-benson），
+        首頁的摘要卡片靠它連過來。順序調動時錨點不該跟著變。
+      */%>
       <% coach.forEach((item, idx) => { -%>
-      <input type="radio" name="coach" id="coach-<%= idx %>" style="<%= rowVars(idx) %>"
-        <%- idx === 0 ? 'checked' : '' %>>
+      <input type="checkbox" id="coach-<%= item.slug %>" style="<%= rowVars(idx) %>">
       <% }); -%>
 
       <% coach.forEach((item, idx) => { -%>
       <%/* 卡片 */%>
-      <label class="m-coach-card" for="coach-<%= idx %>" style="<%= rowVars(idx) %>">
+      <%/*
+        卡片。桌機與平板是照片鋪滿的直式卡，手機改成橫式一列 ——
+        直式卡在手機一張就佔 260px，六位要捲三個畫面才看得完，
+        而這一頁的重點是「一眼看到有哪些教練」。
+      */%>
+      <label class="m-coach-card" for="coach-<%= item.slug %>" style="<%= rowVars(idx) %>">
         <%- require('img.ejs')({
           path: item.img,
           alt: `${item.job} ${item.name}`,
           eager: idx < 3,
           style: {
-            main: 'absolute inset-0 z-0',
+            main: 'pt:absolute pt:inset-0 pt:z-0 m:relative m:flex-shrink-0 m:w-[96px] m:h-full',
             img: 'object-cover object-[center_25%]'
           }
         }) %>
         <div class="m-coach-card-body">
-          <p class="font-bold leading-tight p:text-[24px] tm:text-[21px]"><%= item.name %></p>
-          <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]"><%= item.job %>
-          </p>
-          <p class="p:mt-[8px] tm:mt-[6px] p:text-[13px] tm:text-[12px] text-[var(--x7de9)]"><%= item.tagline %></p>
+          <div class="flex-grow min-w-0">
+            <p class="font-bold leading-tight p:text-[24px] t:text-[21px] m:text-[18px]"><%= item.name %></p>
+            <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
+              <%= item.job %>
+            </p>
+            <p class="p:mt-[8px] tm:mt-[4px] p:text-[13px] tm:text-[12px] text-[var(--x7de9)]"><%= item.tagline %></p>
+          </div>
+          <span class="m-coach-caret" aria-hidden="true"></span>
         </div>
       </label>
 
@@ -88,12 +105,12 @@
           <%/* 右欄：兩個分頁 */%>
           <div class="m-tab --stack-m">
             <% TABS.forEach((tab, tabIdx) => { -%>
-            <input type="radio" name="coach-tab-<%= idx %>" id="coach-tab-<%= idx %>-<%= tabIdx %>"
+            <input type="radio" name="coach-tab-<%= item.slug %>" id="coach-tab-<%= item.slug %>-<%= tabIdx %>"
               <%- tabIdx === 0 ? 'checked' : '' %>>
             <% }); -%>
             <div class="m-tab-nav">
               <% TABS.forEach((tab, tabIdx) => { -%>
-              <label for="coach-tab-<%= idx %>-<%= tabIdx %>"><%= tab.label %></label>
+              <label for="coach-tab-<%= item.slug %>-<%= tabIdx %>"><%= tab.label %></label>
               <% }); -%>
             </div>
             <div class="m-tab-panels p:mt-[22px] tm:mt-[16px]">

@@ -23,7 +23,8 @@
   <% coaches.forEach((item, index) => { -%>
   <li data-aos="fade-up"
     class="m-coach-card relative overflow-hidden p:h-[240px] t:h-[210px] m:h-[100px]<%- index === 2 ? ' t:col-span-2' : '' %>">
-    <a href="./ourteam.html" class="flex items-center h-full pt:items-end p:p-[20px] t:p-[16px]">
+    <%/* 連到教練團隊頁的那一位，落地後由 ourteam.js 直接展開 */%>
+    <a href="./ourteam.html#coach-<%= item.slug %>" class="flex items-center h-full pt:items-end p:p-[20px] t:p-[16px]">
       <%- require('img.ejs')({
         path: item.img,
         alt: `${item.job} ${item.name}`,

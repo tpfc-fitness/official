@@ -47,10 +47,33 @@ window.PetiteVue.createApp({
        * 位在輪播之後的區塊會永遠不觸發、停在 opacity: 0。重算一次。
        */
       AOS.refreshHard();
+      vm.openCoachFromHash();
+      window.addEventListener('hashchange', vm.openCoachFromHash);
     }, 300);
 
     store.load.finish();
   },
+  /*
+   * 從首頁／免費體驗頁點某一位教練過來時，直接展開那一位。
+   *
+   * 用 JS 而不是 CSS 的 :target —— :target 一旦成立就一直成立，
+   * 那張卡之後就再也關不掉，等於把手風琴鎖死一格。
+   */
+  openCoachFromHash() {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+
+    if (!id.startsWith('coach-')) return;
+
+    const input = document.getElementById(id);
+
+    if (!input || input.type !== 'checkbox') return;
+
+    input.checked = true;
+
+    /* 捲到卡片而不是 input —— input 只有 1px，捲過去會偏掉 */
+    document.querySelector(`label[for="${CSS.escape(id)}"]`)?.scrollIntoView({ block: 'center' });
+  },
+
   windowResize() {
     const vm = this;
     this.$nextTick(() => {

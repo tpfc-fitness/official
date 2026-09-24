@@ -8,11 +8,16 @@
  *
  * 任一陣列留空時，該分頁會顯示「內容整理中」而不是空白區塊。
  *
+ * slug 是這位教練在教練團隊頁的錨點（#coach-<slug>）。
+ * 首頁與免費體驗頁的摘要卡片靠它連到對應的那一位並直接展開，
+ * 所以改動 slug 等於改動外部連結，不要隨手換。
+ *
  * ⚠️ 不可以依賴 window / document，否則 build 期 require 會壞掉。
  */
 module.exports = [
   {
     name: 'Benson',
+    slug: 'benson',
     job: '創辦人',
     tagline: '耐心魔 × 全能型',
     img: require('ourteam/coach_benson.jpg'),
@@ -39,6 +44,7 @@ module.exports = [
   },
   {
     name: 'Jeffery',
+    slug: 'jeffery',
     job: '店長',
     tagline: '誇誇魔 × 全能型',
     img: require('ourteam/coach_jeffery.jpg'),
@@ -64,6 +70,7 @@ module.exports = [
   },
   {
     name: 'Roy',
+    slug: 'roy',
     job: '私人教練',
     tagline: '調整魔 × 功能型',
     img: require('ourteam/coach_roy.jpg'),
@@ -88,6 +95,7 @@ module.exports = [
   },
   {
     name: 'Elain',
+    slug: 'elain',
     job: '私人教練',
     tagline: '健美魔 × 體態型',
     img: require('ourteam/coach_elain.jpg'),
@@ -109,6 +117,7 @@ module.exports = [
   },
   {
     name: '阿圓',
+    slug: 'ayuan',
     job: '私人教練',
     tagline: '肌肉魔 × 體態型',
     img: require('ourteam/coach_ayuan.jpg'),
@@ -130,6 +139,7 @@ module.exports = [
   },
   {
     name: 'Runa',
+    slug: 'runa',
     job: '私人教練',
     tagline: '調整魔 × 功能型',
     img: require('ourteam/coach_runa.jpg'),

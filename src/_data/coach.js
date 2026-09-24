@@ -19,7 +19,7 @@ module.exports = [
     name: 'Benson',
     slug: 'benson',
     job: '創辦人',
-    tagline: '耐心魔 × 全能型',
+    tagline: '耐心魔 × 健力型',
     img: require('ourteam/coach_benson.jpg'),
     certificates: [
       'NASM-CPT',
@@ -30,6 +30,7 @@ module.exports = [
       'CPR+AED心肺復甦術',
       'FPS功能性運動表現專家L1',
       '運動科學訓練專家Lv1',
+      '2025/2026年黑馬盃健力比賽'
     ],
     suitableFor: [
       '不知道怎麼開始重量訓練，或動作學了很久還是覺得哪裡不對。',

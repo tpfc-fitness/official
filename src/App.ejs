@@ -75,6 +75,37 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=420754771004769&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
+  <!-- 記下這次工作階段的廣告來源 -->
+  <script>
+    /*
+     * 廣告參數只出現在落地那一次的網址上，表單送出後導向感謝頁時
+     * 就掉光了。先存起來，感謝頁才知道這筆名單是哪一則廣告帶來的。
+     *
+     * 寫在這裡而不是各頁的 bundle 裡：每一頁都可能是落地頁，
+     * 而且這段要比 bundle 更早跑 —— 使用者秒退的話 bundle 還沒載完。
+     *
+     * 只記第一次：同一個工作階段裡之後的頁面不會覆蓋掉來源。
+     */
+    (function() {
+      var KEY = 'tpfc-campaign';
+      try {
+        if (sessionStorage.getItem(KEY)) return;
+        var q = new URLSearchParams(location.search);
+        var KEEP = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+        var data = {};
+        KEEP.forEach(function(k) {
+          if (q.get(k)) data[k] = q.get(k);
+        });
+        if (Object.keys(data).length) {
+          data.landing = location.pathname;
+          sessionStorage.setItem(KEY, JSON.stringify(data));
+        }
+      } catch (err) {
+        /* 無痕模式或封鎖儲存時會拋錯，忽略即可 */
+      }
+    })();
+
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTM8FLSD1Z"></script>
   <script>

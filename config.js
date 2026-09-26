@@ -5,7 +5,6 @@ module.exports = {
   ieVersion: 10, // 10 或 0
   // 全站唯一的正式網址來源：canonical / og:url / og:image / sitemap 都由這裡組出來。
   // ⚠️ 結尾「不要」加斜線 —— 組法是 siteUrl + path，而 path 已經以 / 開頭。
-  // 之後若接上自訂網域，改成 'https://tpfc.fitness' 並把下面 rootDirectory 改回 '/'。
   siteUrl: 'https://tpfc-fitness.github.io/official',
   projectName: 'first class 頭等倉運動空間',
   copyright: 'FIRST CLASS FITNESS © 2022 ALL RIGHT RESERVED.',

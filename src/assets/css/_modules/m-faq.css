@@ -163,24 +163,38 @@ details[open] .m-faq-icon::after {
  * 常見問題頁的分組標題。
  *
  * 十二題排成一長條會看不出結構，分組之後讀者能先挑自己那一類。
- * 用左側短線而不是置中裝飾線 —— 這是清單的小標，不是區塊標題，
- * 份量要比 resevation-h1 輕一級。
+ * 純靠字級與留白做層級，不加裝飾線 —— 這是清單的小標，
+ * 旁邊再掛一條色線只會跟底下每一題的 Q01 紅字打架。
  */
 .m-faq-group {
-  display: flex;
-  align-items: center;
-  color: var(--x7de9);
+  color: var(--white);
   font-weight: 700;
   letter-spacing: 0.02em;
 
-  @apply m:mb-[14px] m:text-[15px] pt:mb-[18px] pt:text-[17px];
+  @apply m:mb-[16px] m:text-[19px] t:mb-[20px] t:text-[21px] p:mb-[22px] p:text-[24px];
+}
 
-  &::before {
-    content: '';
-    flex-shrink: 0;
-    height: 2px;
-    background-color: var(--xe120);
+/*
+ * 答案裡的清單。
+ *
+ * 只有內容本來就並列時才用（價格級距、交通方式），
+ * 需要說理的段落維持文字。
+ *
+ * 符號用 flex 掛在項目外側，換行的文字才會對齊第一行，
+ * 不會退回符號左邊。
+ */
+.m-faq-answer-list {
+  > li {
+    display: flex;
+    line-height: 1.9;
+    color: rgb(255 255 255 / 82%);
 
-    @apply m:mr-[10px] m:w-[20px] pt:mr-[14px] pt:w-[28px];
+    @apply m:text-[13px] pt:text-[15px];
+
+    &::before {
+      content: '・';
+      flex-shrink: 0;
+      color: var(--xe120);
+    }
   }
 }

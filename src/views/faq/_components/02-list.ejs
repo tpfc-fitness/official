@@ -36,7 +36,15 @@
             <div class="p:px-[28px] p:pb-[28px] t:px-[22px] t:pb-[24px] m:px-[16px] m:pb-[20px]">
               <div class="p:space-y-[12px] tm:space-y-[10px]">
                 <% item.a.forEach((line) => { -%>
+                <% if (line.list) { -%>
+                <ul class="m-faq-answer-list">
+                  <% line.list.forEach((li) => { -%>
+                  <li><%- li %></li>
+                  <% }); -%>
+                </ul>
+                <% } else { -%>
                 <p class="leading-[1.9] p:text-[15px] tm:text-[13px] text-[rgb(255_255_255_/_82%)]"><%- line %></p>
+                <% } -%>
                 <% }); -%>
               </div>
             </div>

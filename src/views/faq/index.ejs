@@ -1,0 +1,12 @@
+<%/*
+ * 常見問題
+ *
+ * 這一頁是給搜尋進來的陌生人看的：先回答「我適合嗎、你們怎麼教、
+ * 多少錢、在哪裡」，再把人帶去 contact 預約。
+ *
+ * 與 contact 頁那八題刻意不重疊 —— 那八題的對象是已經要填表的人。
+ * FAQPage 結構化資料也只有這一頁輸出，見 _components/mJsonLd.ejs。
+ */%>
+<%- require('./_components/01-kv.ejs')() %> <%/* 頁首 */%>
+<%- require('./_components/02-list.ejs')() %> <%/* 問答清單 */%>
+<%- require('./_components/03-cta.ejs')() %> <%/* 導去預約 */%>

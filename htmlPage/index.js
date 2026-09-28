@@ -82,6 +82,17 @@ module.exports = {
       chunks: ['information'],
     },
     {
+      title: '常見問題',
+      filename: 'faq.html',
+      view: 'faq',
+      path: '/faq.html',
+      template: 'App.ejs',
+      action: 'faq',
+      description:
+        '第一次找私人教練會想問的問題：沒經驗可以嗎、很久沒運動適合嗎、台北中山區私人教練課多少錢、民權西路附近好停車嗎。頭等倉運動空間位於捷運民權西路站四號出口步行 3 分鐘，提供免費體驗課。',
+      chunks: ['faq'],
+    },
+    {
       title: '感謝您的預約!',
       filename: 'thankyou.html',
       view: 'thankyou',

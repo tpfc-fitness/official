@@ -1,0 +1,25 @@
+<%/* 導去預約 */%>
+<%/* 這一頁的流量是自然搜尋來的，出口只有一個：把人帶去 contact 填表 */%>
+<section data-aos="fade-in"
+  class="m-bg-photo --cta relative overflow-hidden text-[var(--white)] text-center p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="relative z-[1] p:max-w-[760px] pt:mx-auto">
+    <h2 class="resevation-h1">還是想直接問問看？</h2>
+    <p class="resevation-p p:mt-[18px] tm:mt-[12px] text-[var(--xc7)]">
+      免費體驗課 60 分鐘，包含 InBody 測量、身體狀況評估與基礎動作教學。<br class="pt:hidden" />
+      不需要當場購買課程，先來看看這樣的訓練方式適不適合你。
+    </p>
+
+    <%- require('@component/mBtn.ejs')({
+      label: '預約免費體驗',
+      link: './contact.html',
+      style: {
+        main: '--highlight mx-auto p:mt-[34px] tm:mt-[24px] p:w-[260px] p:h-[54px] t:w-[260px] t:h-[52px] m:w-full m:h-[48px] p:text-[17px] tm:text-[15px]',
+        icon: 'w-[40px]'
+      },
+      icon: {
+        name: 'arrow',
+        css: 'w-[18px] h-[18px]'
+      }
+    }) %>
+  </div>
+</section>

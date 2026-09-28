@@ -158,3 +158,29 @@ details[open] .m-faq-icon::after {
 
   @apply m:text-[12px] pt:text-[13px];
 }
+
+/*
+ * 常見問題頁的分組標題。
+ *
+ * 十二題排成一長條會看不出結構，分組之後讀者能先挑自己那一類。
+ * 用左側短線而不是置中裝飾線 —— 這是清單的小標，不是區塊標題，
+ * 份量要比 resevation-h1 輕一級。
+ */
+.m-faq-group {
+  display: flex;
+  align-items: center;
+  color: var(--x7de9);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+
+  @apply m:mb-[14px] m:text-[15px] pt:mb-[18px] pt:text-[17px];
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    height: 2px;
+    background-color: var(--xe120);
+
+    @apply m:mr-[10px] m:w-[20px] pt:mr-[14px] pt:w-[28px];
+  }
+}

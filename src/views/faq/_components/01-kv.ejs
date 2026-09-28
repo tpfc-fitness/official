@@ -1,0 +1,20 @@
+<%/* 頁首 */%>
+<% const site = require('_data/site.js'); -%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[70px] t:pt-[75px] t:pb-[56px] m:pt-[50px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[900px] pt:mx-auto text-center">
+    <h1 class="resevation-h1">常見問題</h1>
+    <p class="resevation-p p:mt-[18px] tm:mt-[12px] text-[var(--xc7)]">
+      第一次找私人教練，通常會想先知道這些。<br class="pt:hidden" />找不到答案的話，也歡迎直接問我們。
+    </p>
+    <p class="flex items-center justify-center p:mt-[24px] tm:mt-[18px] p:text-[14px] tm:text-[12px]">
+      <%- require('@component/svg.ejs')({
+        svgName: 'icon_pin',
+        style: {
+          main: 'flex-shrink-0 text-[var(--xe120)] p:w-[14px] p:h-[18px] tm:w-[12px] tm:h-[15px] mr-[8px]'
+        }
+      }) %>
+      <%= site.address.addressRegion %><%= site.address.addressLocality %>｜民權西路站步行約 3 分鐘
+    </p>
+  </div>
+</section>

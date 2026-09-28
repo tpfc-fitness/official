@@ -1,0 +1,50 @@
+<%/* 問答清單 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-faq，使用的頁面樣式表必須引入它。
+   *
+   * 手風琴用原生的 <details>：不需要 JS、鍵盤可操作，而且收合中的
+   * 內容一樣在 DOM 裡 —— 這一頁的整個重點就是被搜尋引擎與 LLM 讀到，
+   * 內容藏在 JS 後面就白做了。
+   *
+   * 這裡不加 name 屬性（不互斥）：搜尋進來的人常常想比對好幾題，
+   * 開一題就關掉上一題會很煩。
+   */
+  const faq = require('_data/faq.js');
+  let no = 0;
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--x15)] p:pb-[100px] t:pb-[75px] m:pb-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[900px] pt:mx-auto">
+    <% faq.forEach((group, groupIdx) => { -%>
+    <div class="<%= groupIdx ? 'p:mt-[70px] t:mt-[56px] m:mt-[40px]' : 'p:pt-[70px] t:pt-[56px] m:pt-[40px]' %>">
+      <h2 class="m-faq-group"><%= group.group %></h2>
+
+      <ul data-aos="fade-up" class="m-faq bg-[rgb(0_0_0_/_40%)] border border-solid border-[rgb(255_255_255_/_18%)]">
+        <% group.items.forEach((item) => { no += 1; -%>
+        <li>
+          <details>
+            <summary class="flex items-center p:px-[28px] p:py-[24px] t:px-[22px] t:py-[20px] m:px-[16px] m:py-[16px]">
+              <span class="flex-shrink-0 font-bold text-[13px] tracking-[0.1em] text-[var(--xe120)]">
+                Q<%= String(no).padStart(2, '0') %>
+              </span>
+              <i class="flex-shrink-0 w-[18px] h-px bg-[rgb(255_255_255_/_35%)] p:mx-[18px] tm:mx-[12px]"></i>
+              <h3 class="flex-grow font-bold leading-[1.5] p:text-[18px] t:text-[17px] m:text-[15px]"><%= item.q %></h3>
+              <span class="m-faq-icon p:ml-[20px] tm:ml-[12px]"></span>
+            </summary>
+
+            <div class="p:px-[28px] p:pb-[28px] t:px-[22px] t:pb-[24px] m:px-[16px] m:pb-[20px]">
+              <div class="p:space-y-[12px] tm:space-y-[10px]">
+                <% item.a.forEach((line) => { -%>
+                <p class="leading-[1.9] p:text-[15px] tm:text-[13px] text-[rgb(255_255_255_/_82%)]"><%- line %></p>
+                <% }); -%>
+              </div>
+            </div>
+          </details>
+        </li>
+        <% }); -%>
+      </ul>
+    </div>
+    <% }); -%>
+  </div>
+</section>

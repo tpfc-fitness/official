@@ -39,6 +39,11 @@ module.exports = [
     navShow: true,
   },
   {
+    label: '常見問題',
+    url: './faq.html',
+    navShow: true,
+  },
+  {
     label: '人才招募',
     url: './careers.html',
     navShow: true,

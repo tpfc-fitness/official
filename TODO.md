@@ -43,6 +43,10 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
 
 網站這邊已經做完，設定方式與報表看法寫在 `docs/tracking.md`。
 
+- [ ] **常見問題頁的成效要追蹤** —— faq.html 是衝自然搜尋與 AI 推薦用的，
+      上線後在 Search Console 看它的曝光與查詢字詞，決定要不要再補題目。
+      真正影響 AI 推薦最大的仍然是 Google 商家檔案（評論數、回覆、照片），
+      詳見 docs/tracking.md 的討論。
 - [ ] **Meta 廣告管理員**：每則廣告勾「網站事件」並選 Pixel，
       網址參數填 utm 樣板＋該則廣告的 `type`
 - [ ] **廣告到達網址改成 contact.html** —— resevation.html 已刪除，

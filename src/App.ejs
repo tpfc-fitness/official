@@ -16,6 +16,7 @@
   const OG_IMAGE_URL = `${SITE_URL}/static/img/FB_share.png`;
   const NOINDEX = !!htmlWebpackPlugin.options.noindex;
   const IS_HOME = PAGE_PATH === '/';
+  const IS_FAQ = htmlWebpackPlugin.options.view === 'faq';
   const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
 -%>
 <!DOCTYPE html>
@@ -123,7 +124,8 @@
       SITE_URL,
       PAGE_URL,
       PAGE_TITLE,
-      IS_HOME
+      IS_HOME,
+      IS_FAQ
     }) %>
   <% } -%>
 </head>

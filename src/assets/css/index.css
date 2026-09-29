@@ -20,21 +20,32 @@
  *
  * 跟遮罩分開是為了只縮放照片 —— 兩者疊在同一層的話，
  * 縮放時遮罩也會跟著放大，文字的對比會在動畫過程中飄移。
+ *
+ * ⚠️ 這裡刻意用真正的 <img>（img.ejs 輸出的 <figure class="kv-photo">），
+ * 不要為了少幾行 CSS 改回 background-image ——
+ * 背景圖的網址藏在 CSS 裡，preload scanner 掃不到，
+ * 這張圖又剛好是本頁的 LCP 元素，改回去會讓 LCP 直接掉到 15 秒。
  */
-.kv::before {
-  content: '';
+.kv-photo {
   position: absolute;
   z-index: -2;
   inset: 0;
-  background: url('@imgs/index/kv.jpg') center center / cover no-repeat;
+  pointer-events: none;
   transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kv-photo img {
+  width: 100%;
+  height: 100%;
 
   /*
    * 照片的人在右側三分之一。手機的框又窄又高，置中裁切只會留下
    * 中間的空架子，人被切在框外。往右挪到 72%。
    */
+  object-position: center center;
+
   @screen m {
-    background-position: 72% center;
+    object-position: 72% center;
   }
 }
 
@@ -70,16 +81,16 @@
  * 動靜太大，而且這一塊不是連結，變色等於在說謊。
  * 改成照片本身輕微推進，遮罩不動，文字的對比從頭到尾一樣。
  */
-.kv:hover::before {
+.kv:hover .kv-photo {
   transform: scale(1.05);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kv::before {
+  .kv-photo {
     transition: none;
   }
 
-  .kv:hover::before {
+  .kv:hover .kv-photo {
     transform: none;
   }
 }

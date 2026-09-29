@@ -13,6 +13,7 @@ const COPYWEBPACKPLUGIN = require('copy-webpack-plugin');
 const IMAGEMINPLUGIN = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const SEOASSETSPLUGIN = require('./htmlPage/SeoAssetsPlugin.js');
+const WEBPASSETSPLUGIN = require('./htmlPage/WebpAssetsPlugin.js');
 const { VueLoaderPlugin } = require('vue-loader');
 const REMOVEPLUGIN = require('remove-files-webpack-plugin');
 // const { extendDefaultPlugins } = require('svgo');
@@ -173,6 +174,8 @@ const extendPlugins = () => {
         pages: CONFIG.plugins(),
       }),
     ],
+    /* 每張 jpg / png 旁邊再產一份 .webp，供 img.ejs 的 <picture> 使用 */
+    [new WEBPASSETSPLUGIN()],
     [new VueLoaderPlugin()],
     [
       new IMAGEMINPLUGIN({

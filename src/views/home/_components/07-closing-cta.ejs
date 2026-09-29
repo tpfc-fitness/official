@@ -1,5 +1,14 @@
 <%/* 結尾行動呼籲 */%>
 <section class="m-bg-photo --cta relative overflow-hidden text-[var(--white)]">
+  <%/* 底圖：純裝飾，alt 留空；延遲載入由 img.ejs 預設帶 loading="lazy" */%>
+  <%- require("img.ejs")({
+      decorative: true,
+      path: require("index/firstclass_fitness_indoor2.jpg"),
+      style: {
+        main: "m-bg-photo-img",
+        img: "object-cover object-center"
+      }
+    }) %>
   <div
     class="relative z-[1] flex flex-col items-center text-center p:px-[80px] p:py-[110px] t:px-[40px] t:py-[80px] m:px-[20px] m:py-[60px]">
     <h2 data-aos="fade-up"

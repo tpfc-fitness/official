@@ -2,6 +2,15 @@
 <%/* 這一頁的流量是自然搜尋來的，出口只有一個：把人帶去 contact 填表 */%>
 <section data-aos="fade-in"
   class="m-bg-photo --cta relative overflow-hidden text-[var(--white)] text-center p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <%/* 底圖：純裝飾，alt 留空；延遲載入由 img.ejs 預設帶 loading="lazy" */%>
+  <%- require("img.ejs")({
+      decorative: true,
+      path: require("index/firstclass_fitness_indoor2.jpg"),
+      style: {
+        main: "m-bg-photo-img",
+        img: "object-cover object-center"
+      }
+    }) %>
   <div class="relative z-[1] p:max-w-[760px] pt:mx-auto">
     <h2 class="resevation-h1">還是想直接問問看？</h2>
     <p class="resevation-p p:mt-[18px] tm:mt-[12px] text-[var(--xc7)]">

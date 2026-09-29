@@ -9,6 +9,13 @@
   </div>
   <div
     class="p:border-l-[1px] border-solid border-[var(--white)] p:w-1/3 p:py-[40px] p:px-[20px] tm:border-t-[1px] tm:py-[28px] tm:px-[20px]">
+    <%/*
+      這串流程原本直接掛 h3，頁面就從 h1 跳到 h3。
+      這一區在視覺上不需要標題（三個項目自己說明了自己），
+      所以用 sr-only 補一個 h2：畫面完全不變，
+      但螢幕閱讀器與爬蟲拿到的層級是連續的。
+    */%>
+    <h2 class="sr-only">訓練流程</h2>
     <ul data-aos="fade-in" class="w-fit mx-auto p:space-y-[16px] tm:space-y-[16px]">
       <% training.forEach((item) => { -%>
       <li>

@@ -22,58 +22,41 @@
       return null;
     }
   };
-  const newPath = {
-    p: typeof path === 'object' ? path.p : path,
-    m: typeof path === 'object'
-          ? typeof path.m !== 'undefined'
-              ? path.m
-              : null
-          : /(\?|\&)(mobile)(\&|$)/.test(path)
-              ? path
-              : null
-  };
+
   const hash = length => {
     const btoa = crypto.createHash('md5').update((+new Date() + '')).digest('hex');
     return btoa.split('').reverse().slice(0, length).join('');
   };
-  const img = {
-        p : {
-            path: /.*(?=\?.*$)/.test(newPath.p) ? /.*(?=\?.*$)/.exec(newPath.p)[0] : newPath.p,
-            webpPath: newPath.p ? /^.*(?=\.)/.exec(newPath.p)[0] : null,
-            webp: newPath.p ? /(\?|\&)(webp)(\&|$)/.test(newPath.p) : null
-        },
-        m : {
-            path: newPath.m
-                  ? /(\?|\&)(mobile)(\&|$)/.test(newPath.m)
-                    ? newPath.m
-                      ? /.*(?=\?.*$)/.exec(newPath.m)[0].replace(/\./, '_m.')
-                      : null
-                    : newPath.m
-                      ? /.*(?=\?.*$)/.exec(newPath.m)[0]
-                      : null
-                  : null,
-            webpPath: newPath.m
-                      ? /(\?|\&)(mobile)(\&|$)/.test(newPath.m)
-                          ? newPath.m
-                            ? (/^.*(?=\.)/.exec(newPath.m)[0] + '_m')
-                            : null
-                          : newPath.m
-                            ? /^.*(?=\.)/.exec(newPath.m)[0]
-                            : null
-                      : null,
-            webp: newPath.m
-                  ? newPath.m
-                    ? /(\?|\&)(webp|mobile)\&(webp|mobile)$/.test(newPath.m)
-                    : null
-                  : newPath.m
-                    ? /\?webp$/.test(newPath.m)
-                    : null
-                    
-        }
-    };
+
+  /* 傳進來的可能已經帶 ?hash，先切掉再自己接 */
+  const rawPath = typeof path === 'object' ? path.p : path;
+  const basePath = /.*(?=\?.*$)/.test(rawPath) ? /.*(?=\?.*$)/.exec(rawPath)[0] : rawPath;
+
+  /*
+   * WebpAssetsPlugin 會替每張 jpg / png 在同一層產出同名的 .webp，
+   * 所以這裡不需要問「有沒有 webp」，換副檔名就是它的網址。
+   *
+   * ⚠️ 用的是 srcset 不是 data-srcset。
+   * 原本那版寫 data-srcset，要等 vanilla-lazyload 在瀏覽器端換掉才生效 ——
+   * 等於爬蟲、關掉 JS 的人、還有 eager 的首屏圖都吃不到 webp。
+   * 靜態 srcset 由瀏覽器自己選，不需要 JS。
+   */
+  const isConvertible = /\.(jpe?g|png)$/i.test(basePath);
+  const webpPath = isConvertible ? basePath.replace(/\.(jpe?g|png)$/i, '.webp') : null;
 
   /* 首屏圖片請傳 eager: true —— 立即載入並提高優先度，改善 LCP */
   const isEager = typeof eager !== 'undefined' && !!eager;
+
+  /*
+   * 純裝飾用的底圖請傳 decorative: true，輸出 alt=""。
+   * 這類圖原本是 CSS background-image，對螢幕閱讀器來說一直是不存在的；
+   * 改成 <img> 之後若給了描述性 alt，等於平白多念一句與內容無關的話。
+   * 空 alt 才是正確做法：圖片被略過，該區塊的意義仍由文字承擔。
+   */
+  const isDecorative = typeof decorative !== 'undefined' && !!decorative;
+  const altAttr = isDecorative
+    ? 'alt=""'
+    : `alt="${alt} | ${process.env.PROJECT_NAME}"`;
 
   /*
    * w-full h-full 取代原本 width="100%" height="100%" 這組 presentational hint。
@@ -88,29 +71,22 @@
     .filter(Boolean)
     .join(' ');
 
-  const size = readSize(img.p.path);
+  const size = readSize(basePath);
   const sizeAttr = size ? ` width="${size.width}" height="${size.height}"` : '';
   const loadAttr = isEager
     ? ' loading="eager" fetchpriority="high"'
     : ' loading="lazy"';
+  const stamp = hash(8);
 -%>
 <figure<%- typeof style !== 'undefined' && style.main !== 'undefined' ? ` class="${ style.main }"` : '' %>>
-  <%  %>
-  <% if ( img.m.path || img.p.webp || img.m.webp ) { -%>
+  <% if ( webpPath ) { -%>
   <picture>
-    <% if ( img.m.webp ) { -%>
-    <source data-srcset="<%= img.m.webpPath %>.webp?<%= hash(8) %>" type="image/webp" media="(max-width: 428px)">
-    <% } -%>
-    <% if ( img.m.path ) { -%>
-    <source data-srcset="<%= img.m.path %>" media="(max-width: 428px)">
-    <% } -%>
-    <% if ( img.p.webp ) { -%>
-    <source data-srcset="<%= img.p.webpPath %>.webp?<%= hash(8) %>" type="image/webp">
-    <% } -%>
-    <% } -%>
-    <img class="<%- imgClass %>" alt="<%- alt %> | <%- process.env.PROJECT_NAME %>" <%- sizeAttr %><%- loadAttr %>
-      decoding="async" src="<%= img.p.path %>?<%= hash(8) %>">
-    <% if ( img.m.path || img.p.webp || img.m.webp ) { -%>
+    <source srcset="<%= webpPath %>?<%= stamp %>" type="image/webp">
+    <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %>
+      decoding="async" src="<%= basePath %>?<%= stamp %>">
   </picture>
+  <% } else { -%>
+  <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %>
+    decoding="async" src="<%= basePath %>?<%= stamp %>">
   <% } -%>
-  </figure>
+</figure>

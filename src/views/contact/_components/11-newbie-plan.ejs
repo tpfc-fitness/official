@@ -114,6 +114,15 @@
 <%/* 場館照當底，壓暗與裁切由 _modules/m-bg-photo 的 --bonus 負責 */%>
 <section data-aos="fade-in"
   class="m-bg-photo --bonus relative overflow-hidden text-[var(--white)] p:pt-[100px] p:pb-[120px] t:pt-[75px] t:pb-[90px] m:pt-[50px] m:pb-[60px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <%/* 底圖：純裝飾，alt 留空；延遲載入由 img.ejs 預設帶 loading="lazy" */%>
+  <%- require("img.ejs")({
+      decorative: true,
+      path: require("index/firstclass_fitness_indoor3.jpg"),
+      style: {
+        main: "m-bg-photo-img",
+        img: "object-cover object-center"
+      }
+    }) %>
   <div class="relative z-[1] p:max-w-[1220px] pt:mx-auto">
     <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">
       <% plan.bonusTitle.forEach((line, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= line %><% }); %></h2>

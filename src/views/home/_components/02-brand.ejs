@@ -34,8 +34,11 @@
   </div>
   <div class="tm:order-1 p:w-1/2">
     <%- require('img.ejs')({
-        /* 首屏圖片：立即載入並提高優先度 */
-        eager: true,
+        /*
+         * 這張在 KV 下面，不是首屏、也不是 LCP 元素。
+         * 之前設 eager 會帶出 fetchpriority="high"，
+         * 等於跟真正的 LCP 圖（KV）搶頻寬 —— 所以改回延遲載入。
+         */
         path: require('index/firstclass_fitness_indoor.jpg'),
         alt : '室內訓練環境',
         style: {

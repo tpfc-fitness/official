@@ -33,6 +33,12 @@
 <section
   class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:py-[70px] t:px-[40px] t:py-[50px] m:px-[20px] m:py-[36px]">
   <div class="p:max-w-[1200px] p:mx-auto">
+    <%/*
+      教練卡自己就是這一區的內容，視覺上不需要再加一行標題，
+      但少了它，每位教練的 h3 會直接接在 h1 底下。
+      用 sr-only 補 h2，畫面不變，層級補回 h1 → h2 → h3 → h4。
+    */%>
+    <h2 class="sr-only">教練介紹</h2>
 
     <div class="m-coach-grid">
       <%/*

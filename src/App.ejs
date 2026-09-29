@@ -47,8 +47,32 @@
   <title><%- TITLE %></title>
   <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
   <link rel="canonical" href="<%= PAGE_URL %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap" rel="stylesheet">
+  <%/*
+    字型表改為非阻斷載入。
+
+    原本這支 <link rel="stylesheet"> 會擋住首次繪製 —— 實測在模擬 4G 下
+    是 1028ms，而它擋的是「整頁渲染」，不只是文字。
+    因為已經有 display=swap，文字本來就會先用後備字型畫出來再換，
+    所以改成非阻斷之後視覺行為完全一樣，只是不再卡住第一次繪製。
+
+    media="print" 讓瀏覽器以低優先度、非阻斷的方式載入，
+    onload 再把它切回 all 套用。noscript 是關掉 JS 時的後備。
+
+    ⚠️ 字重維持 400..900 的可變範圍，不要改成 400;700;900。
+    Noto Sans TC 是中文字型，Google 會依 unicode-range 切成約 105 個子集，
+    離散字重會變成每個字重各一份 —— 實測 @font-face 從 105 條變成 315 條、
+    CSS 從 121KB 變成 362KB。可變範圍在這裡才是小的那個。
+  */%>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap">
+  <link rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=swap">
+  </noscript>
   <!-- Meta Pixel Code -->
   <script>
     ! function(f, b, e, v, n, t, s) {

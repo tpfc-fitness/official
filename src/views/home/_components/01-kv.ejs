@@ -1,5 +1,25 @@
 <%/* KV：品牌名與即刻預約 */%>
 <section class="kv w-full text-center flex flex-col items-center p:p-[80px] tm:p-[30px]">
+  <%/*
+    KV 照片以真正的 <img> 輸出，不要改回 CSS background-image。
+
+    背景圖的網址只存在於 CSS 裡，瀏覽器的 preload scanner 掃不到，
+    必須等 HTML → CSS 下載解析完才會發現這張圖，再開始下載。
+    這張圖是本頁的 LCP 元素，實測模擬 4G 下 LCP 被拖到 15.2 秒，
+    Lighthouse 的 lcp-discovery 直接標 requestDiscoverable: false。
+
+    改成 <img> 之後它出現在初始 HTML 中，能被提前發現，
+    也才吃得到 fetchpriority="high"（由 img.ejs 的 eager 帶出）。
+  */%>
+  <%- require('img.ejs')({
+      eager: true,
+      path: require('index/kv.jpg'),
+      alt: '教練指導學員重量訓練',
+      style: {
+        main: 'kv-photo',
+        img: 'object-cover'
+      }
+    }) %>
   <h1 data-aos="fade-up"
     class="kv-title text-[var(--white)] p:font-black tm:font-bold tracking-[-0.05em] p:text-[62px] tm:text-[40px] order-2">
     <%/*

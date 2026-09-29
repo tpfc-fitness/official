@@ -4,19 +4,30 @@
  * 共用的只有「裁切方式 + 壓暗遮罩」，圖片與遮罩濃度都由修飾子決定，
  * 各區塊要換圖或調整暗度時互不影響。
  *
- * 用法：<section class="m-bg-photo --qa">
+ * 用法：
+ *   <section class="m-bg-photo --qa">
+ *     <%- require('img.ejs')({ decorative: true, path: …,
+ *           style: { main: 'm-bg-photo-img', img: 'object-cover object-center' } }) %>
+ *     <div class="relative z-[1]">…內容…</div>
+ *   </section>
  *
- * 若之後要為平板與手機準備直幅裁切，在對應的修飾子裡加上
- * @screen t / @screen m 覆寫 background-image 即可 ——
- * 背景圖用 media query 切換就夠，不需要動到 <picture>。
+ * ⚠️ 照片是 <img>，不是 background-image。
+ *
+ * 背景圖的網址只存在於 CSS，瀏覽器要等 CSS 下載解析完才會發現它，
+ * 而且吃不到 loading="lazy"，也接不上建置期產出的 .webp
+ * （webp 檔只存在於輸出目錄，CSS 的 url() 在建置期解析不到）。
+ * 這幾張是 227～336KB 的大圖又都在首屏以下，改成 <img> 之後
+ * 一次拿到 webp 與延遲載入兩件事。
+ *
+ * 層次：照片 z-index -1、遮罩 0、內容 1。
+ * 照片用負值是為了不必替內容再加 z-index，
+ * isolation 則把這個負值關在本區塊內，不會掉到 section 背後。
  */
 .m-bg-photo {
   /* 遮罩濃度的預設值，各修飾子可自行覆寫 */
   --bg-photo-scrim: rgb(10 12 14 / 72%);
 
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  isolation: isolate;
 
   /* 壓暗背景，確保文字與面板可讀 */
   &::before {
@@ -27,14 +38,16 @@
     background-color: var(--bg-photo-scrim);
   }
 
-  /* 想先了解更多？ */
-  &.\-\-qa {
-    background-image: url('@imgs/index/qa-bg.jpg');
-  }
-
-  /* 學員推薦 */
-  &.\-\-comment {
-    background-image: url('@imgs/index/comment-bg.jpg');
+  /*
+   * 照片層。
+   * 圖片本身由各頁的 img.ejs 指定 —— 修飾子只剩遮罩濃度要調，
+   * 所以 --qa / --comment 現在沒有自己的規則了。
+   */
+  & .m-bg-photo-img {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
   }
 
   /*
@@ -43,14 +56,10 @@
    */
   &.\-\-bonus {
     --bg-photo-scrim: rgb(8 10 12 / 82%);
-
-    background-image: url('@imgs/index/firstclass_fitness_indoor3.jpg');
   }
 
   /* 結尾行動呼籲：整段文字直接壓在照片上，遮罩需要更暗一點 */
   &.\-\-cta {
     --bg-photo-scrim: rgb(0 0 0 / 68%);
-
-    background-image: url('@imgs/index/firstclass_fitness_indoor2.jpg');
   }
 }

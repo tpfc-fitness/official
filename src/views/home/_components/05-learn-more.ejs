@@ -1,6 +1,15 @@
 <%/* 想先了解更多？常見問題手風琴 */%>
 <% const faq = require('_data/home-faq.js'); -%>
 <section class="m-bg-photo --qa relative overflow-hidden text-[var(--white)]">
+  <%/* 底圖：純裝飾，alt 留空；延遲載入由 img.ejs 預設帶 loading="lazy" */%>
+  <%- require("img.ejs")({
+      decorative: true,
+      path: require("index/qa-bg.jpg"),
+      style: {
+        main: "m-bg-photo-img",
+        img: "object-cover object-center"
+      }
+    }) %>
   <div
     class="relative z-[1] p:flex p:items-center p:px-[80px] p:py-[90px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
 

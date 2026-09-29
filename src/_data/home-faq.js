@@ -6,8 +6,6 @@
  *
  * ⚠️ 不可以依賴 window / document，否則 build 期 require 會壞掉。
  */
-const rental = require('_data/rental.js');
-
 module.exports = [
   {
     no: '01',
@@ -32,13 +30,5 @@ module.exports = [
     question: '新生 10 堂 8,000 元方案',
     /* ⚠️ 草稿：改寫自跑馬燈的既有文案，請確認或改寫 */
     body: '凡首次購買，一對一私人教練課 10 堂 8,000 元。完課期間到館自主訓練免費，適合想先把基礎打好、再決定長期訓練方向的人。',
-  },
-  {
-    no: '03',
-    question: '場租方案怎麼算？',
-    /* 價目與服務項目頁共用同一份，見 _data/rental.js */
-    body: `${rental.lead}詳細費用如下：`,
-    plans: rental.plans,
-    notes: rental.notes,
   },
 ];

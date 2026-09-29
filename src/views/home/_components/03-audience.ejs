@@ -1,0 +1,61 @@
+<%/* 適合什麼樣的人報名 */%>
+<%
+  /*
+   * 四種人，四張卡。編號用主色的大字當標記 ——
+   * 讀者會在裡面找自己，編號讓「有四種」這件事一眼看得出來。
+   */
+  const AUDIENCE = [
+    {
+      no: '01',
+      title: '健身新手',
+      body: '第一次接觸重量訓練，不知道器材怎麼用、動作怎麼做，也擔心自己練會受傷。',
+    },
+    {
+      no: '02',
+      title: '已經有訓練經驗',
+      body: '練了一段時間，卻常常不知道動作對不對、訓練怎麼安排，體態也沒有明顯進步。',
+    },
+    {
+      no: '03',
+      title: '想改善體態',
+      body: '希望透過重量訓練增肌、減脂或改善體態，卻不知道該如何開始。',
+    },
+    {
+      no: '04',
+      title: '想逐漸能自己訓練',
+      body: '希望不只是跟著教練做，而是理解訓練方法，未來也能自己到健身房訓練。',
+    },
+  ];
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--x15)] p:px-[80px] p:py-[90px] t:px-[40px] t:py-[60px] m:px-[20px] m:py-[42px]">
+  <div class="p:max-w-[1240px] pt:mx-auto">
+    <header data-aos="fade-up" class="text-center">
+      <h2 class="leading-[1.4] tracking-[-0.05em] font-black p:text-[48px] t:text-[36px] m:text-[28px]">
+        適合什麼樣的人報名？
+      </h2>
+      <p class="leading-[1.9] p:mt-[18px] tm:mt-[12px] p:text-[16px] tm:text-[14px] text-[var(--xc7)]">
+        不管你是剛開始接觸重量訓練，還是已經練了一段時間，<br class="pt:hidden" />都可以從適合自己的方式開始。
+      </p>
+    </header>
+
+    <%/* 桌機四欄。每段說明都在四十字以內，壓到 300px 寬仍讀得順 */%>
+    <ul
+      class="grid p:mt-[60px] t:mt-[44px] m:mt-[32px] p:grid-cols-4 p:gap-[28px] t:grid-cols-2 t:gap-[24px] m:grid-cols-1 m:gap-[20px]">
+      <% AUDIENCE.forEach((item) => { -%>
+      <li data-aos="fade-up">
+        <p
+          class="font-black leading-none tracking-[-0.02em] text-[var(--xe120)] p:text-[36px] t:text-[32px] m:text-[26px]">
+          <%= item.no %>
+        </p>
+        <h3 class="font-bold leading-[1.4] p:mt-[12px] tm:mt-[8px] p:text-[20px] t:text-[19px] m:text-[17px]">
+          <%= item.title %>
+        </h3>
+        <p class="leading-[1.9] p:mt-[10px] tm:mt-[6px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
+          <%= item.body %>
+        </p>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

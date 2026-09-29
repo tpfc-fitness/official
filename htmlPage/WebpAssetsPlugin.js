@@ -51,7 +51,8 @@ class WebpAssetsPlugin {
    * 屬性值裡不會出現沒被括號包住的分號。
    */
   rewriteCss(compilation, RawSource) {
-    const URL_RE = /url\((['"]?)([^'")]*?assets\/img\/[^'")]+?\.(?:jpe?g|png))((?:\?[^'")]*)?)\1\)/gi;
+    const URL_RE =
+      /url\((['"]?)([^'")]*?assets\/img\/[^'")]+?\.(?:jpe?g|png))((?:\?[^'")]*)?)\1\)/gi;
     let count = 0;
 
     compilation
@@ -71,7 +72,9 @@ class WebpAssetsPlugin {
           /* 只有真的產出 webp 的圖才改寫 */
           const exists = compilation
             .getAssets()
-            .some(({ name: n }) => stripQuery(n) === webpAsset.replace(/^.*?(assets\/img\/)/, '$1'));
+            .some(
+              ({ name: n }) => stripQuery(n) === webpAsset.replace(/^.*?(assets\/img\/)/, '$1')
+            );
 
           if (exists) {
             let start = match.index;
@@ -135,9 +138,7 @@ class WebpAssetsPlugin {
         const out = html.replace(SOURCE_RE, (tag, url) => {
           /* HTML 裡是含 publicPath 的網址，資產名稱則是相對的 assets/… */
           const assetName = url.replace(/^.*?(assets\/img\/)/, '$1');
-          const exists = compilation
-            .getAssets()
-            .some(({ name: n }) => stripQuery(n) === assetName);
+          const exists = compilation.getAssets().some(({ name: n }) => stripQuery(n) === assetName);
 
           if (exists) return tag;
           removed += 1;
@@ -175,8 +176,7 @@ class WebpAssetsPlugin {
             targets.map(async ({ name, source }) => {
               /* 保留原本的 ?hash，webp 才會跟原圖一起失效 */
               const [file, query] = name.split('?');
-              const webpName =
-                file.replace(IMAGE_RE, '.webp') + (query ? `?${query}` : '');
+              const webpName = file.replace(IMAGE_RE, '.webp') + (query ? `?${query}` : '');
 
               /* 已經有人放了同名的 .webp 就不要覆蓋 */
               if (compilation.getAsset(webpName)) return;
@@ -198,7 +198,9 @@ class WebpAssetsPlugin {
                  * 沒有 webp 的那張就只是回頭用原圖，頁面仍然正常。
                  */
                 compilation.warnings.push(
-                  new webpack.WebpackError(`${NAME}: ${webpName} 轉檔失敗，改用原圖。${err.message}`)
+                  new webpack.WebpackError(
+                    `${NAME}: ${webpName} 轉檔失敗，改用原圖。${err.message}`
+                  )
                 );
               }
             })

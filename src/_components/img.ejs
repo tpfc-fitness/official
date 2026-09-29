@@ -82,11 +82,11 @@
   <% if ( webpPath ) { -%>
   <picture>
     <source srcset="<%= webpPath %>?<%= stamp %>" type="image/webp">
-    <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %>
-      decoding="async" src="<%= basePath %>?<%= stamp %>">
+    <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %> decoding="async"
+      src="<%= basePath %>?<%= stamp %>">
   </picture>
   <% } else { -%>
-  <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %>
-    decoding="async" src="<%= basePath %>?<%= stamp %>">
+  <img class="<%- imgClass %>" <%- altAttr %><%- sizeAttr %><%- loadAttr %> decoding="async"
+    src="<%= basePath %>?<%= stamp %>">
   <% } -%>
-</figure>
+  </figure>

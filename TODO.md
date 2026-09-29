@@ -47,8 +47,9 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
       llms.txt 的 Section 8 把它列在「尚未公布」。那一頁做好之後，
       llms.txt 與 contact FAQ Q6 的連結都要指過去。
 
-- [ ] **改價格時有五個地方要一起改** —— `_data/offers.js`（結構化資料）、
-      `newbie-plan.js`、`faq.js` Q10、`contact-faq.js` Q5、`home-faq.js` Q03。
+- [ ] **改價格時有幾個地方要一起改** —— `_data/offers.js`（結構化資料）、
+      `newbie-plan.js`、`faq.js` Q11、`contact-faq.js` Q5、
+      `rental.js`（場租，首頁 FAQ 與服務項目頁共用）。
       offers.js 的檔頭有列出清單。之後若覺得容易漏，可以把顯示用的
       文案改成從 offers.js 組出來。
 - [ ] **常見問題頁的成效要追蹤** —— faq.html 是衝自然搜尋與 AI 推薦用的，

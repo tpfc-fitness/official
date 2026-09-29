@@ -64,7 +64,7 @@ module.exports = [
       '團體課程有 TRX、心肺耐力與基礎／進階重訓，單堂 6 至 8 人，由 Benson 教練帶課，單堂 NT$428～500。開課時間與報名請透過 LINE 官方帳號洽詢。',
     ],
     cta: {
-      label: '查看課程項目',
+      label: '查看服務項目',
       link: './service.html',
     },
   },

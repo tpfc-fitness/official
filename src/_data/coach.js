@@ -19,7 +19,7 @@ module.exports = [
     name: 'Benson',
     slug: 'benson',
     job: '創辦人',
-    tagline: '耐心魔 × 健力型',
+    tagline: '耐心魔 × 健力 × 動作教學',
     img: require('ourteam/coach_benson.jpg'),
     certificates: [
       'NASM-CPT',
@@ -47,7 +47,7 @@ module.exports = [
     name: 'Jeffery',
     slug: 'jeffery',
     job: '店長',
-    tagline: '誇誇魔 × 全能型',
+    tagline: '誇誇魔 × 新手友善 × 動作教學',
     img: require('ourteam/coach_jeffery.jpg'),
     certificates: [
       'CPR-AED',
@@ -73,7 +73,7 @@ module.exports = [
     name: 'Roy',
     slug: 'roy',
     job: '私人教練',
-    tagline: '調整魔 × 功能型',
+    tagline: '調整魔 × 體態調整 × 功能訓練',
     img: require('ourteam/coach_roy.jpg'),
     certificates: [
       'NASM-CPT',
@@ -98,7 +98,7 @@ module.exports = [
     name: 'Elain',
     slug: 'elain',
     job: '私人教練',
-    tagline: '健美魔 × 體態型',
+    tagline: '健美魔 × 雕塑 × 增肌減脂',
     img: require('ourteam/coach_elain.jpg'),
     certificates: [
       '中華民國C級體適能指導員',
@@ -120,7 +120,7 @@ module.exports = [
     name: '阿圓',
     slug: 'ayuan',
     job: '私人教練',
-    tagline: '肌肉魔 × 體態型',
+    tagline: '肌肉魔 × 雕塑 × 增肌減脂',
     img: require('ourteam/coach_ayuan.jpg'),
     certificates: [
       'FISAF TAIWAN 培育體適能指導員',
@@ -142,7 +142,7 @@ module.exports = [
     name: 'Runa',
     slug: 'runa',
     job: '私人教練',
-    tagline: '調整魔 × 功能型',
+    tagline: '調整魔 × 體態調整 × 功能訓練',
     img: require('ourteam/coach_runa.jpg'),
     certificates: [
       'NASM-CPT',

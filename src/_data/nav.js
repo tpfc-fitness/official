@@ -24,7 +24,7 @@ module.exports = [
     navShow: true,
   },
   {
-    label: '課程項目',
+    label: '服務項目',
     url: './service.html',
     navShow: true,
   },

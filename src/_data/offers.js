@@ -8,7 +8,7 @@
  *      _data/newbie-plan.js   新生 10 堂（首頁 CTA 與方案區塊）
  *      _data/faq.js           Q10 的價格級距
  *      _data/contact-faq.js   Q5 一對一單堂
- *      _data/home-faq.js      Q03 場租價目
+ *      _data/rental.js        場租價目（首頁 FAQ 與服務項目頁共用）
  *      _data/faq.js           Q11 也列了團體課程單堂價
  *
  * price 是定價；minPrice / maxPrice 是級距（搭配當期優惠會落在區間內）。

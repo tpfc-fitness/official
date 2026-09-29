@@ -9,6 +9,7 @@
  *      _data/faq.js           Q10 的價格級距
  *      _data/contact-faq.js   Q5 一對一單堂
  *      _data/home-faq.js      Q03 場租價目
+ *      _data/faq.js           Q11 也列了團體課程單堂價
  *
  * price 是定價；minPrice / maxPrice 是級距（搭配當期優惠會落在區間內）。
  *
@@ -39,6 +40,13 @@ module.exports = [
     description: '兩人一起訓練，適合程度與目標相近的人；依購買堂數與當期優惠而不同。',
     minPrice: 1700,
     maxPrice: 2100,
+    unitText: '堂',
+  },
+  {
+    name: '團體課程',
+    description: 'TRX、心肺耐力、基礎與進階重訓，單堂 6 至 8 人，由 Benson 教練帶課。',
+    minPrice: 428,
+    maxPrice: 500,
     unitText: '堂',
   },
   {

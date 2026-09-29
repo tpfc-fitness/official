@@ -3,7 +3,7 @@
 未完成、被擱置、或需要外部素材的事項。
 問「我們還有什麼事沒做嗎？」時請讀這個檔。
 
-最後更新：2026-09-28
+最後更新：2026-09-29
 
 ---
 
@@ -42,6 +42,14 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
 ## 二之二、轉換追蹤（等你設定）
 
 網站這邊已經做完，設定方式與報表看法寫在 `docs/tracking.md`。
+
+- [ ] **團課獨立介紹頁** —— 開課時間與課表目前沒有對外說法，
+      llms.txt 的 Section 8 把它列在「尚未公布」。那一頁做好之後，
+      llms.txt 與 contact FAQ Q6 的連結都要指過去。
+
+- [ ] **頁尾缺 LINE 圖示** —— LINE 官方帳號已經加進結構化資料的 sameAs，
+      但 `_data/social.js` 沒加，因為 `src/_svg/` 裡沒有 LINE 的圖示檔。
+      要在頁尾露出的話需要一個 `logo_line.svg`（用官方品牌素材，不要自己畫）。
 
 - [ ] **改價格時有五個地方要一起改** —— `_data/offers.js`（結構化資料）、
       `newbie-plan.js`、`faq.js` Q10、`contact-faq.js` Q5、`home-faq.js` Q03。

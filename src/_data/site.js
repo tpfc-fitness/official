@@ -44,5 +44,6 @@ module.exports = {
     'https://www.instagram.com/tpfc.fitness/',
     /* TikTok 帳號當初註冊時就是 tpcf（非 tpfc），這不是筆誤，請勿「訂正」 */
     'https://www.tiktok.com/@tpcf.fit',
+    'https://line.me/R/ti/p/@936ccniz',
   ],
 };

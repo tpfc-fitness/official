@@ -1,0 +1,102 @@
+/*
+ * 「適合什麼樣的人報名？」的四張卡。
+ *
+ * 桌機與手機的排法不同，但用同一份標記 —— 靠 flex 的 order 與
+ * 換行切換，不複製兩套 DOM（複製的那一套遲早會有一邊改漏）。
+ *
+ *   桌機／平板   第一列：編號靠左、圖示靠右
+ *               第二列：標題（w-full 逼它換行）
+ *               標題下一條短線，然後是說明
+ *
+ *   手機        一列排完：編號、標題、圖示
+ *               說明在下方，項目之間用分隔線
+ */
+.m-audience-head {
+  display: flex;
+  align-items: center;
+
+  @screen pt {
+    flex-wrap: wrap;
+  }
+}
+
+.m-audience-no {
+  order: 1;
+  color: var(--xe120);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[22px] t:text-[32px] p:text-[36px];
+}
+
+.m-audience-icon {
+  flex-shrink: 0;
+  color: var(--white);
+
+  @apply m:h-[34px] m:w-[34px] t:h-[44px] t:w-[44px] p:h-[48px] p:w-[48px];
+
+  /* 桌機與編號同一列、推到最右；手機排在標題後面 */
+  @screen pt {
+    order: 2;
+    margin-left: auto;
+  }
+
+  @screen m {
+    order: 3;
+    margin-left: 12px;
+  }
+}
+
+.m-audience-title {
+  font-weight: 700;
+  line-height: 1.4;
+
+  @apply m:text-[17px] t:text-[19px] p:text-[20px];
+
+  /* w-full 讓它自己佔滿一列，把圖示留在上一列 */
+  @screen pt {
+    order: 3;
+    width: 100%;
+
+    @apply t:mt-[10px] p:mt-[14px];
+  }
+
+  @screen m {
+    order: 2;
+    flex-grow: 1;
+    margin-left: 14px;
+  }
+}
+
+/*
+ * 標題與說明之間的短線。只有桌機與平板需要 ——
+ * 手機那邊的分界是項目之間的分隔線，再加一條會太碎。
+ */
+.m-audience-rule {
+  display: block;
+  height: 1px;
+  background-color: rgb(255 255 255 / 30%);
+
+  @apply t:my-[14px] t:w-[22px] p:my-[18px] p:w-[26px];
+
+  @screen m {
+    display: none;
+  }
+}
+
+.m-audience-body {
+  line-height: 1.9;
+  color: var(--xc7);
+
+  @apply m:mt-[10px] m:text-[13px] t:text-[13px] p:text-[14px];
+}
+
+/* 手機一欄到底，用分隔線區隔；桌機是並排的欄，不需要 */
+@screen m {
+  .m-audience > li + li {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(255 255 255 / 14%);
+  }
+}

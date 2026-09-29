@@ -9,17 +9,17 @@
       <h2 class="resevation-title p:mb-[20px] t:mb-[14px]">
         預約免費體驗
       </h2>
-      <%/* 不想填表的人也要有路可走，LINE 是唯一的替代管道 */%>
+      <%/*
+        不想填表的人也要有路可走，LINE 是唯一的替代管道。
+
+        不放 LINE 的圖示：這裡是一句話裡的行內連結，塞一個品牌標進去
+        會變成句子中間卡一塊圖。滑過去也不換字色 —— 沿用站上其他
+        行內連結的作法，只讓底線由半透明變實心。
+      */%>
       <p class="resevation-p p:mb-[10px] tm:mb-[12px]">
         請填寫送出下方表單，<br class="pt:hidden" />或
         <a href="<%= site.line %>" target="_blank" rel="noopener"
-          class="inline-flex items-center font-bold underline underline-offset-4 hover:text-[var(--x7de9)] transition-colors duration-300 ease-in-out">
-          <%- require('@component/svg.ejs')({
-            svgName: 'logo_line',
-            style: { main: 'inline-block flex-shrink-0 w-[18px] h-[18px] mr-[6px]' }
-          }) %>
-          點擊此處
-        </a>
+          class="font-bold border-b border-solid border-[rgb(255_255_255_/_45%)] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">點擊此處</a>
         使用 LINE 官方帳號預約
       </p>
       <i

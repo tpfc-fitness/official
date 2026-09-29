@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="76 70 522 384">
+  <g style="fill:none;stroke:currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <!-- dumbbell bar -->
+    <path d="M204 254 H269"/>
+    <path d="M204 302 H237"/>
+    <path d="M421 254 H463"/>
+    <path d="M421 302 H463"/>
+
+    <!-- weights -->
+    <rect x="84" y="190" width="57" height="160" rx="17"/>
+    <rect x="133" y="142" width="64" height="256" rx="17"/>
+    <rect x="469" y="142" width="64" height="256" rx="17"/>
+    <rect x="533" y="190" width="57" height="160" rx="17"/>
+
+    <!-- fist -->
+    <path d="M237 302 H269 V232
+             C269 221 277 213 288 213
+             C299 213 307 221 307 232 V245
+             V232 C307 221 315 213 326 213
+             C337 213 345 221 345 232 V245
+             V232 C345 221 353 213 364 213
+             C375 213 383 221 383 232 V245
+             V232 C383 221 391 213 402 213
+             C413 213 421 221 421 232
+             V302 L413 336 V446"/>
+    <path d="M237 302 V327
+             C237 337 241 346 247 354
+             L277 398 V446"/>
+
+    <!-- emphasis rays -->
+    <path d="M333 78 V142"/>
+    <path d="M237 118 L269 150"/>
+    <path d="M429 118 L397 150"/>
+  </g>
+</svg>

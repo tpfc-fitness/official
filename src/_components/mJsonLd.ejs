@@ -1,7 +1,8 @@
 <%
   /*
    * 結構化資料（JSON-LD）
-   * - HealthClub：本地商家實體，讓 Google 認得地址、電話、營業時間、社群帳號
+   * - HealthClub：本地商家實體（LocalBusiness 的子型別），
+   *   讓 Google 認得地址、電話、營業時間、價格與課程方案
    * - WebSite：網站實體，與商家實體以 @id 互相關聯
    * - BreadcrumbList：內頁麵包屑，改善搜尋結果的路徑顯示
    * - FAQPage：只有 faq 頁輸出。Google 從 2023 起不再給一般網站
@@ -14,6 +15,7 @@
    * 三者以 @id 錨定，Google 會跨頁去重，所以可以每頁都輸出。
    */
   const site = require('_data/site.js');
+  const offers = require('_data/offers.js');
   const siteUrl = typeof SITE_URL !== 'undefined' ? SITE_URL : '';
   const pageUrl = typeof PAGE_URL !== 'undefined' ? PAGE_URL : siteUrl;
   const pageTitle = typeof PAGE_TITLE !== 'undefined' ? PAGE_TITLE : '';
@@ -33,7 +35,14 @@
       telephone: site.telephone,
       email: site.email,
       image: `${siteUrl}/static/img/FB_share.png`,
+      /* 品牌標是白色的，透明底在搜尋結果的白底上會整個看不見，所以保留深色底 */
+      logo: `${siteUrl}/static/img/logo.png`,
       hasMap: site.hasMap,
+      priceRange: site.priceRange,
+      areaServed: {
+        '@type': 'City',
+        name: site.address.addressRegion,
+      },
       address: {
         '@type': 'PostalAddress',
         streetAddress: site.address.streetAddress,
@@ -54,6 +63,36 @@
         longitude: site.geo.longitude,
       },
       sameAs: site.sameAs,
+      /*
+       * 課程與價格。把價格變成機器讀得懂的資料 —— 生成式搜尋回答
+       * 「台北中山區私人教練多少錢」時才引用得到，而不是只能從
+       * 內文猜。有級距的用 UnitPriceSpecification 標出上下限。
+       */
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: '課程與方案',
+        itemListElement: offers.map((offer) => ({
+          '@type': 'Offer',
+          name: offer.name,
+          description: offer.description,
+          itemOffered: {
+            '@type': 'Service',
+            name: offer.name,
+            provider: { '@id': orgId },
+          },
+          ...(offer.price !== undefined
+            ? { price: String(offer.price), priceCurrency: 'TWD' }
+            : {
+                priceSpecification: {
+                  '@type': 'UnitPriceSpecification',
+                  priceCurrency: 'TWD',
+                  minPrice: offer.minPrice,
+                  maxPrice: offer.maxPrice,
+                  unitText: offer.unitText,
+                },
+              }),
+        })),
+      },
     },
     {
       '@type': 'WebSite',

@@ -43,6 +43,10 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
 
 網站這邊已經做完，設定方式與報表看法寫在 `docs/tracking.md`。
 
+- [ ] **改價格時有五個地方要一起改** —— `_data/offers.js`（結構化資料）、
+      `newbie-plan.js`、`faq.js` Q10、`contact-faq.js` Q5、`home-faq.js` Q03。
+      offers.js 的檔頭有列出清單。之後若覺得容易漏，可以把顯示用的
+      文案改成從 offers.js 組出來。
 - [ ] **常見問題頁的成效要追蹤** —— faq.html 是衝自然搜尋與 AI 推薦用的，
       上線後在 Search Console 看它的曝光與查詢字詞，決定要不要再補題目。
       真正影響 AI 推薦最大的仍然是 Google 商家檔案（評論數、回覆、照片），

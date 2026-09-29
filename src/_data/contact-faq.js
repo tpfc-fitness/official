@@ -63,8 +63,8 @@ module.exports = [
       '除了 1 對 1 私人教練課，我們也提供 1 對 2 私人教練課程，並有團體課程可以選擇。',
     ],
     cta: {
-      label: '查看團體課程',
-      link: 'https://www.fit-book.com.tw/tpfcfitness/534',
+      label: '查看課程項目',
+      link: './service.html',
     },
   },
   {

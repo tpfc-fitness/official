@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       title: '營業時間: <br class="p:hidden"/>週一至週六 下午 01:00 至 晚上 10:00',
-      cnt: '✉️ EMAIL: <a href="mailto:tpfc.fit@gmail.com" class="underline font-bold">tpfc.fit@gmail.com</a><br/>☎️ 聯絡電話：<a class="underline font-bold" href="tel:+886-2-25222330">02-2522-2330</a>',
+      cnt: '✉️ EMAIL: <a href="mailto:tpfc.fit@gmail.com" class="underline font-bold">tpfc.fit@gmail.com</a><br/>☎️ 聯絡電話：<a class="underline font-bold" href="tel:+886-2-25222330">02-2522-2330</a><br/>💬 LINE：<a class="underline font-bold" target="_blank" rel="noopener" href="https://line.me/R/ti/p/@936ccniz">官方帳號</a>',
     },
   ],
   env: [

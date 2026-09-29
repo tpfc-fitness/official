@@ -47,10 +47,6 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
       llms.txt 的 Section 8 把它列在「尚未公布」。那一頁做好之後，
       llms.txt 與 contact FAQ Q6 的連結都要指過去。
 
-- [ ] **頁尾缺 LINE 圖示** —— LINE 官方帳號已經加進結構化資料的 sameAs，
-      但 `_data/social.js` 沒加，因為 `src/_svg/` 裡沒有 LINE 的圖示檔。
-      要在頁尾露出的話需要一個 `logo_line.svg`（用官方品牌素材，不要自己畫）。
-
 - [ ] **改價格時有五個地方要一起改** —— `_data/offers.js`（結構化資料）、
       `newbie-plan.js`、`faq.js` Q10、`contact-faq.js` Q5、`home-faq.js` Q03。
       offers.js 的檔頭有列出清單。之後若覺得容易漏，可以把顯示用的

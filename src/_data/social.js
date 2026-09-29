@@ -18,6 +18,11 @@ module.exports = [
     url: 'https://www.instagram.com/tpfc.fitness/',
   },
   {
+    icon: 'logo_line',
+    label: 'LINE',
+    url: 'https://line.me/R/ti/p/@936ccniz',
+  },
+  {
     icon: 'logo_tiktok',
     label: 'TikTok',
     url: 'https://www.tiktok.com/@tpcf.fit',

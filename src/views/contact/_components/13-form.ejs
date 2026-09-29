@@ -1,4 +1,5 @@
 <%/* 預約表單 */%>
+<% const site = require('_data/site.js'); -%>
 <!-- 預約表單 -->
 <section id="resevation"
   class="contact-bd flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[60px] t:px-[20px] t:py-[40px] m:pb-[20px]">
@@ -8,7 +9,19 @@
       <h2 class="resevation-title p:mb-[20px] t:mb-[14px]">
         預約免費體驗
       </h2>
-      <p class="resevation-p p:mb-[10px] tm:mb-[12px]">▼ 請填寫送出下方表單 ▼</p>
+      <%/* 不想填表的人也要有路可走，LINE 是唯一的替代管道 */%>
+      <p class="resevation-p p:mb-[10px] tm:mb-[12px]">
+        請填寫送出下方表單，<br class="pt:hidden" />或
+        <a href="<%= site.line %>" target="_blank" rel="noopener"
+          class="inline-flex items-center font-bold underline underline-offset-4 hover:text-[var(--x7de9)] transition-colors duration-300 ease-in-out">
+          <%- require('@component/svg.ejs')({
+            svgName: 'logo_line',
+            style: { main: 'inline-block flex-shrink-0 w-[18px] h-[18px] mr-[6px]' }
+          }) %>
+          點擊此處
+        </a>
+        使用 LINE 官方帳號預約
+      </p>
       <i
         class="block border-[1px] border-solid border-[var(--white)] p:mt-[10px] p:mb-[20px] tm:mt-[16px] t:mb-[20px]"></i>
     </div>

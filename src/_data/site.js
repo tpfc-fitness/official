@@ -7,6 +7,9 @@
  *
  * ⚠️ 不可以依賴 window / document（build 期會被 EJS require）。
  */
+/* 兩個地方會用到：具名的 line 欄位（版面上的連結）與 sameAs（結構化資料） */
+const LINE = 'https://line.me/R/ti/p/@936ccniz';
+
 module.exports = {
   name: '頭等倉運動空間',
   alternateName: 'First Class 頭等倉運動空間',
@@ -39,11 +42,12 @@ module.exports = {
     },
   ],
   /* 官方社群帳號，用來讓 Google 把網站與社群綁成同一個實體 */
+  line: LINE,
   sameAs: [
     'https://www.facebook.com/profile.php?id=61558998428490',
     'https://www.instagram.com/tpfc.fitness/',
     /* TikTok 帳號當初註冊時就是 tpcf（非 tpfc），這不是筆誤，請勿「訂正」 */
     'https://www.tiktok.com/@tpcf.fit',
-    'https://line.me/R/ti/p/@936ccniz',
+    LINE,
   ],
 };

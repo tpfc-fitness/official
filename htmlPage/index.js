@@ -56,7 +56,7 @@ module.exports = {
       template: 'App.ejs',
       action: 'ourteam',
       description:
-        'First Class 頭等倉運動空間目前有四位教練，對於增肌減脂、體態雕塑、肌力訓練、健美、健力都保持著專業知識，不斷精進自我能力，只為了提供學生更安全有效率的健身教學內容。',
+        'First Class 頭等倉運動空間的教練團隊，對於增肌減脂、體態雕塑、肌力訓練、健美、健力都保持著專業知識，不斷精進自我能力，只為了提供學生更安全有效率的健身教學內容。',
       chunks: ['ourteam'],
     },
     {

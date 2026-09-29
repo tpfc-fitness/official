@@ -10,7 +10,7 @@
 module.exports = [
   {
     label: '首頁',
-    url: './index.html',
+    url: './',
     navShow: false,
   },
   {

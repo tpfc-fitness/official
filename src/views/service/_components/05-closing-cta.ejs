@@ -1,0 +1,43 @@
+<%/* 結尾行動呼籲 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-bg-photo，使用的頁面樣式表必須引入它。
+   *
+   * 頁尾 footer 本來就有一顆「即刻預約」，這一段不是重複 ——
+   * footer 的那顆是全站共用的，這一段收的是「看完三種服務與價格之後」
+   * 還在猶豫的那個人，所以文案是「先體驗再決定」而不是「立刻報名」。
+   */
+-%>
+<section class="m-bg-photo --cta-service relative overflow-hidden text-[var(--white)]">
+  <%/* 底圖：純氛圍，alt 留空；延遲載入由 img.ejs 預設帶 loading="lazy" */%>
+  <%- require('img.ejs')({
+    decorative: true,
+    path: require('@imgs/common/firstclass_fitness_indoor2.jpg'),
+    style: {
+      main: 'm-bg-photo-img',
+      img: 'object-cover object-center'
+    }
+  }) %>
+
+  <%/* 桌機文字與按鈕左右並排，平板與手機置中堆疊 */%>
+  <div
+    class="relative z-[1] p:max-w-[1200px] p:mx-auto p:flex p:items-center p:justify-between p:gap-[60px] p:px-[60px] p:py-[90px] t:px-[40px] t:py-[64px] m:px-[20px] m:py-[48px] tm:text-center">
+    <h2 data-aos="fade-up"
+      class="font-black leading-[1.35] tracking-[-0.03em] p:text-[38px] t:text-[30px] m:text-[24px]">
+      不知道自己適合怎麼開始？<br />先來體驗一次，再決定適不適合你。</h2>
+
+    <%- require('@component/mBtn.ejs')({
+      label: '預約免費體驗',
+      link: './contact.html',
+      style: {
+        main: '--highlight p:flex-shrink-0 tm:mt-[28px] tm:mx-auto p:w-[260px] p:h-[54px] t:w-[300px] t:h-[52px] m:w-full m:h-[48px] p:text-[17px] tm:text-[15px]',
+        icon: 'w-[44px]'
+      },
+      icon: {
+        name: 'arrow',
+        css: 'w-[18px] h-[18px]'
+      },
+      fadeType: 'fade-up'
+    }) %>
+  </div>
+</section>

@@ -26,8 +26,7 @@
 .m-coach-grid {
   position: relative;
   display: grid;
-  column-gap: 16px;
-  row-gap: 0;
+  gap: 0 16px;
 
   @apply m:grid-cols-1 t:grid-cols-2 p:grid-cols-3;
 
@@ -45,6 +44,7 @@
 }
 
 /* 卡片：照片鋪滿，文字壓在下方的漸層上 */
+
 /*
  * 卡片。
  *
@@ -152,6 +152,7 @@
   grid-column: 1 / -1;
 
   @apply m:mb-[12px] pt:mb-[16px];
+
   border: 1px solid var(--xe120);
   background-color: var(--x15);
 
@@ -242,9 +243,11 @@
   .m-coach-card {
     grid-row: var(--row-m);
   }
+
   .m-coach-panel {
     grid-row: var(--prow-m);
   }
+
   .m-coach-panel::before {
     left: var(--caret-m);
   }
@@ -259,9 +262,11 @@
   .m-coach-card {
     grid-row: var(--row-t);
   }
+
   .m-coach-panel {
     grid-row: var(--prow-t);
   }
+
   .m-coach-panel::before {
     left: var(--caret-t);
   }
@@ -276,9 +281,11 @@
   .m-coach-card {
     grid-row: var(--row-p);
   }
+
   .m-coach-panel {
     grid-row: var(--prow-p);
   }
+
   .m-coach-panel::before {
     left: var(--caret-p);
   }

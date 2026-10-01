@@ -1,0 +1,4 @@
+# tiny-slider 的原廠樣式表，只是從套件搬進來排版過，內容沒有自己維護。
+# 它的前綴屬性、.tns-fadeIn 這類駝峰類名與 filter: alpha() 都是套件本來就
+# 長那樣，照 lint 改掉的話下次升級套件又會被蓋回去。
+src/assets/css/_common/tiny-slider.css

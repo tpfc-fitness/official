@@ -16,19 +16,20 @@
       0 0 5px #ff4da6,
       0 0 10px #ff4da6,
       0 0 20px #ff4da6,
-      0 0 30px #ff0066,
-      0 0 50px #ff0066,
-      0 0 70px #ff0066,
-      0 0 100px #ff0066;
+      0 0 30px #f06,
+      0 0 50px #f06,
+      0 0 70px #f06,
+      0 0 100px #f06;
   }
+
   to {
     text-shadow:
-      0 0 5px #ffff33,
-      0 0 10px #ffff33,
-      0 0 20px #ffff33,
-      0 0 30px #ff9933,
-      0 0 50px #ff9933,
-      0 0 70px #ff9933,
-      0 0 100px #ff9933;
+      0 0 5px #ff3,
+      0 0 10px #ff3,
+      0 0 20px #ff3,
+      0 0 30px #f93,
+      0 0 50px #f93,
+      0 0 70px #f93,
+      0 0 100px #f93;
   }
 }

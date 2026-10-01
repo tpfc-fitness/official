@@ -2,6 +2,10 @@
   @apply relative;
 }
 
+[class^='m-slider-ctrl'] {
+  @apply absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-between m:px-[8px] pt:px-[10px];
+}
+
 /*
  * --media：控制項改成以「圖片高度」定位，而不是以容器高度。
  *
@@ -24,10 +28,6 @@
     bottom: auto;
     transform: translateY(-100%);
   }
-}
-
-[class^='m-slider-ctrl'] {
-  @apply absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-between m:px-[8px] pt:px-[10px];
 }
 
 /*

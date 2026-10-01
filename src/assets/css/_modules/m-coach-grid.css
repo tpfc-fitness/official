@@ -13,11 +13,15 @@
  * 列間距不用 row-gap —— 沒有展開面板的那幾列高度為 0，但 gap 仍會
  * 佔位，會多出好幾段空白。改成由項目自己的 margin-bottom 負責。
  *
- * 切換用隱藏的 checkbox，不寫 JS：所有面板內容都在 HTML 裡，
- * 收合中的一樣被索引，鍵盤也能操作。
+ * 切換用隱藏的 checkbox：所有面板內容都在 HTML 裡，收合中的一樣
+ * 被索引，鍵盤也能操作，展開與收合本身不需要 JS。
  *
- * 用 checkbox 不用 radio —— radio 選了就取消不掉，一定得有一位是
- * 展開的，進頁面時第一位就被迫攤開。checkbox 可以全部收合。
+ * 用 checkbox 不用 radio —— radio 選了就取消不掉，想收起來只能改去
+ * 開另一位。checkbox 再點一次就能收合。
+ *
+ * ⚠️ 同一列的幾位教練共用同一個面板列（見上面的對照表），兩位同時
+ *    展開時面板會疊在同一個格子裡，只看得到 DOM 上最後那一個。
+ *    因此「一次只開一位」由 scripts/ourteam.js 強制，不是 CSS 擋的。
  */
 .m-coach-grid {
   position: relative;

@@ -4,7 +4,14 @@
 <section data-aos="fade-in" class="text-[var(--white)] p:pt-[90px] p:pb-[90px] t:py-[75px] m:py-[40px]">
   <header class="text-center p:pb-[70px] t:pb-[56px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
     <h2 class="resevation-h1"><%= rules.title %></h2>
-    <p class="resevation-p p:mt-[18px] tm:mt-[12px] p:max-w-[32em] pt:mx-auto"><%= rules.lead %></p>
+    <p class="resevation-h4 text-[var(--x7de9)] p:mt-[18px] tm:mt-[12px]"><%= rules.lead %></p>
+
+    <%/* 三段說明：副標之下、卡片之上，寬度收在 32em 以內才讀得順 */%>
+    <div class="p:mt-[24px] tm:mt-[16px] p:max-w-[32em] pt:mx-auto p:space-y-[14px] tm:space-y-[12px]">
+      <% rules.body.forEach((line) => { -%>
+      <p class="resevation-p"><%= line %></p>
+      <% }); -%>
+    </div>
   </header>
   <%/* 輪播下面已經沒有東西了，留白交給 section 自己的 padding */%>
   <div class="m-slider pt:mx-auto p:max-w-[1220px]">
@@ -19,9 +26,7 @@
             <%- i ? '<br />' : '' %><%= line %>
             <% }); -%>
           </h3>
-          <%/* 反話要和正面敘述分開，不然會被連著讀成同一句 */%>
-          <p class="training-rule-contrast p:mt-[22px] tm:mt-[18px]"><%= item.contrast %></p>
-          <p class="resevation-p p:mt-[10px] tm:mt-[8px]"><%= item.body %></p>
+          <p class="resevation-p p:mt-[22px] tm:mt-[18px]"><%= item.body %></p>
         </div>
       </li>
       <% }); -%>

@@ -225,17 +225,3 @@
 
   @apply m:text-[26px] t:text-[28px] p:text-[32px];
 }
-
-/*
- * 「不是⋯⋯」那一句。
- *
- * 這是讀者心裡本來就有的壞印象，不是我們在做的事。
- * 用灰字加左側短線把它推遠一點，避免和下面的正面敘述連成同一句讀。
- */
-.training-rule-contrast {
-  border-left: 2px solid var(--xc7);
-  color: var(--x56);
-  line-height: 170%;
-
-  @apply pl-[10px] m:text-[13px] t:text-[14px] p:text-[15px];
-}

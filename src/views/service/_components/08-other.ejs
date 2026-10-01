@@ -1,0 +1,47 @@
+<%/* 其他服務：團體訓練與自由教練場租 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-service，使用的頁面樣式表必須引入它。
+   *
+   * 兩張橫式卡：照片在左、文字在右。這一頁講的是一對一私人教練，
+   * 這兩項只是「還有這些」，所以放在最後、份量也比前面的區塊輕。
+   */
+  const { other } = require('_data/service.js');
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:px-[60px] p:py-[90px] t:px-[40px] t:py-[64px] m:px-[20px] m:py-[44px]">
+  <div class="p:max-w-[1200px] p:mx-auto">
+    <header data-aos="fade-up">
+      <p class="m-sec-eyebrow"><%= other.eyebrow %></p>
+      <h2 class="resevation-h1 p:mt-[14px] tm:mt-[10px]"><%= other.title %></h2>
+    </header>
+
+    <ul class="grid p:mt-[48px] t:mt-[36px] m:mt-[24px] p:grid-cols-2 p:gap-[28px] tm:grid-cols-1 tm:gap-[20px]">
+      <% other.items.forEach((item) => { -%>
+      <li data-aos="fade-up" class="m-wide-card">
+        <%- require('img.ejs')({
+          path: item.img,
+          alt: item.alt,
+          style: {
+            main: 'm-wide-card-fig',
+            img: 'object-cover object-center'
+          }
+        }) %>
+
+        <div class="m-wide-card-bd">
+          <h3 class="font-bold leading-[1.3] p:text-[22px] t:text-[22px] m:text-[19px]"><%= item.name %></h3>
+          <p class="leading-[1.9] p:mt-[12px] tm:mt-[10px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
+            <%= item.body %></p>
+
+          <% if (item.link) { -%>
+          <p class="p:mt-[14px] tm:mt-[10px]">
+            <a href="<%= item.link.href %>" class="m-card-link" target="_blank" rel="noopener"><%= item.link.label %>
+              →</a>
+          </p>
+          <% } -%>
+        </div>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

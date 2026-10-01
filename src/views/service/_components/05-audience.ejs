@@ -1,0 +1,60 @@
+<%/* 私人教練適合什麼人？ */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-bg-photo 與 _modules/m-service，
+   *    使用的頁面樣式表必須引入它們。
+   *
+   * 五張卡，桌機一列五欄。設計稿是四欄，但我們實際有五種對象 ——
+   * 併成四欄就得砍掉一項，所以改成五欄等寬。
+   *
+   * 用 p + font-bold 而不是 h3：五項是同一個問題底下的並列答案，
+   * 拆成五個 h3 會讓目錄看起來像五個獨立主題。
+   */
+  const { audience } = require('_data/service.js');
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[90px] t:px-[40px] t:py-[64px] m:px-[20px] m:py-[44px]">
+  <div class="p:max-w-[1240px] p:mx-auto">
+    <header data-aos="fade-up">
+      <p class="m-sec-eyebrow"><%= audience.eyebrow %></p>
+      <h2 class="resevation-h1 p:mt-[14px] tm:mt-[10px]"><%= audience.title %></h2>
+    </header>
+
+    <ul
+      class="grid p:mt-[48px] t:mt-[36px] m:mt-[24px] p:grid-cols-5 p:gap-[20px] t:grid-cols-2 t:gap-[20px] m:grid-cols-1 m:gap-[16px]">
+      <% audience.items.forEach((item) => { -%>
+      <li data-aos="fade-up"
+        class="m-bg-photo --card relative overflow-hidden flex flex-col p:p-[22px] t:p-[26px] m:p-[22px]">
+        <%- require('img.ejs')({
+          path: item.img,
+          alt: item.alt,
+          style: {
+            main: 'm-bg-photo-img',
+            img: 'object-cover object-center'
+          }
+        }) %>
+
+        <div class="relative z-[1] flex flex-col flex-grow">
+          <%- require('@component/svg.ejs')({
+            svgName: item.icon,
+            style: { main: 'm-card-icon' }
+          }) %>
+          <p class="font-bold leading-[1.5] p:mt-[16px] tm:mt-[14px] p:text-[17px] t:text-[19px] m:text-[17px]">
+            <%= item.title %></p>
+          <p class="leading-[1.9] p:mt-[12px] tm:mt-[10px] p:text-[13px] tm:text-[13px] text-[var(--xc7)]">
+            <%= item.body %></p>
+
+          <% if (item.links) { -%>
+          <%/* mt-auto：有連結的那張卡比較矮，連結貼齊卡片底部才不會浮在中間 */%>
+          <p class="flex flex-col p:mt-auto tm:mt-[12px] p:pt-[14px] tm:pt-[4px] gap-[6px]">
+            <% item.links.forEach((link) => { -%>
+            <a href="<%= link.href %>" class="m-card-link"><%= link.label %> →</a>
+            <% }); -%>
+          </p>
+          <% } -%>
+        </div>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

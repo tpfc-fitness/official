@@ -1,10 +1,16 @@
 <%/*
- * 服務項目
+ * 一對一私人教練
  *
  * 各區塊放在 ./_components/ 底下，檔名數字前綴＝頁面上的順序。
- * 要改哪一段就開哪一個檔，這裡只負責決定區塊的排列。
+ * 要改哪一段就開哪一個檔 —— 文字與圖片的來源都是 _data/service.js，
+ * 這裡只負責決定區塊的排列。
  */%>
-<%- require('./_components/01-kv.ejs')() %> <%/* KV：服務項目 */%>
-<%- require('./_components/02-intro.ejs')() %> <%/* 為您量身打造最佳計畫 */%>
-<%- require('./_components/03-courses.ejs')() %> <%/* 三種課程 */%>
-<%- require('./_components/04-rental.ejs')() %> <%/* 教練場租 */%>
+<%- require('./_components/01-kv.ejs')() %> <%/* KV：滿版主視覺 */%>
+<%- require('./_components/02-intro.ejs')() %> <%/* 導言 */%>
+<%- require('./_components/03-approach.ejs')() %> <%/* 私人教練怎麼帶你訓練？ */%>
+<%- require('./_components/04-courses.ejs')() %> <%/* 一對一還是一對二？ */%>
+<%- require('./_components/05-audience.ejs')() %> <%/* 私人教練適合什麼人？ */%>
+<%- require('./_components/06-price.ejs')() %> <%/* 私人教練課程費用 */%>
+<%- require('./_components/07-first-visit.ejs')() %> <%/* 第一次來頭等倉 */%>
+<%- require('./_components/08-other.ejs')() %> <%/* 其他服務 */%>
+<%- require('./_components/09-closing-cta.ejs')() %> <%/* 結尾行動呼籲 */%>

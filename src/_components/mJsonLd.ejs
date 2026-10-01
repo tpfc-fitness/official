@@ -5,6 +5,9 @@
    *   讓 Google 認得地址、電話、營業時間、價格與課程方案
    * - WebSite：網站實體，與商家實體以 @id 互相關聯
    * - BreadcrumbList：內頁麵包屑，改善搜尋結果的路徑顯示
+   * - WebPage + Service：只有服務項目頁輸出，把「一對一私人教練」
+   *   本身宣告成一個可被引用的服務實體（含價格），而不是只讓它
+   *   混在商家的 hasOfferCatalog 裡
    * - FAQPage：只有 faq 頁輸出。Google 從 2023 起不再給一般網站
    *   FAQ 複合式搜尋結果，但生成式搜尋與 LLM 的爬蟲會讀 JSON-LD，
    *   所以對 AEO 仍然值得輸出。
@@ -20,9 +23,36 @@
   const pageUrl = typeof PAGE_URL !== 'undefined' ? PAGE_URL : siteUrl;
   const pageTitle = typeof PAGE_TITLE !== 'undefined' ? PAGE_TITLE : '';
   const isHome = typeof IS_HOME !== 'undefined' ? IS_HOME : false;
+  const isService = typeof IS_SERVICE !== 'undefined' ? IS_SERVICE : false;
 
   const orgId = `${siteUrl}/#organization`;
   const siteId = `${siteUrl}/#website`;
+
+  /*
+   * 一筆 offers.js 的資料 → 一個 schema.org 的 Offer。
+   * 有級距的用 UnitPriceSpecification 標出上下限，定價的直接給 price。
+   */
+  const toOffer = (offer) => ({
+    '@type': 'Offer',
+    name: offer.name,
+    description: offer.description,
+    itemOffered: {
+      '@type': 'Service',
+      name: offer.name,
+      provider: { '@id': orgId },
+    },
+    ...(offer.price !== undefined
+      ? { price: String(offer.price), priceCurrency: 'TWD' }
+      : {
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            priceCurrency: 'TWD',
+            minPrice: offer.minPrice,
+            maxPrice: offer.maxPrice,
+            unitText: offer.unitText,
+          },
+        }),
+  });
 
   const graph = [
     {
@@ -38,7 +68,6 @@
       /* 品牌標是白色的，透明底在搜尋結果的白底上會整個看不見，所以保留深色底 */
       logo: `${siteUrl}/static/img/logo.png`,
       hasMap: site.hasMap,
-      priceRange: site.priceRange,
       areaServed: {
         '@type': 'City',
         name: site.address.addressRegion,
@@ -71,27 +100,7 @@
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: '課程與方案',
-        itemListElement: offers.map((offer) => ({
-          '@type': 'Offer',
-          name: offer.name,
-          description: offer.description,
-          itemOffered: {
-            '@type': 'Service',
-            name: offer.name,
-            provider: { '@id': orgId },
-          },
-          ...(offer.price !== undefined
-            ? { price: String(offer.price), priceCurrency: 'TWD' }
-            : {
-                priceSpecification: {
-                  '@type': 'UnitPriceSpecification',
-                  priceCurrency: 'TWD',
-                  minPrice: offer.minPrice,
-                  maxPrice: offer.maxPrice,
-                  unitText: offer.unitText,
-                },
-              }),
-        })),
+        itemListElement: offers.map(toOffer),
       },
     },
     {
@@ -123,6 +132,41 @@
           item: pageUrl,
         },
       ],
+    });
+  }
+
+  /*
+   * 服務項目頁：宣告這一頁在講哪一個服務。
+   *
+   * WebPage 的 about 指向 Service，breadcrumb 指向上面已產生的
+   * 麵包屑 —— 三個節點在同一個 @graph 裡，不另開 <script>。
+   *
+   * Service 的價格直接引用 offers.js，與首頁的 hasOfferCatalog
+   * 是同一組數字。一對二仍然列出（它確實有提供），但不進 name。
+   */
+  if (isService) {
+    const PT_OFFER_NAMES = ['新生 10 堂訓練計畫', '一對一私人教練課', '一對二私人教練課'];
+    const serviceId = `${pageUrl}#personal-training`;
+
+    graph.push({
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      inLanguage: 'zh-Hant-TW',
+      isPartOf: { '@id': siteId },
+      about: { '@id': serviceId },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+    });
+
+    graph.push({
+      '@type': 'Service',
+      '@id': serviceId,
+      name: '一對一私人教練',
+      serviceType: '私人教練',
+      provider: { '@id': orgId },
+      areaServed: '台北市中山區',
+      offers: PT_OFFER_NAMES.map((name) => toOffer(offers.find((o) => o.name === name))),
     });
   }
 

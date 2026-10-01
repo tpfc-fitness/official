@@ -8,8 +8,14 @@
  *      _data/newbie-plan.js   新生 10 堂（首頁 CTA 與方案區塊）
  *      _data/faq.js           Q10 的價格級距
  *      _data/contact-faq.js   Q5 一對一單堂
- *      _data/rental.js        場租價目（首頁 FAQ 與服務項目頁共用）
  *      _data/faq.js           Q11 也列了團體課程單堂價
+ *      _data/service.js       服務項目頁的團課說明
+ *      views/service/_components/06-price.ejs  服務項目頁的費用表
+ *
+ * ⚠️ 服務項目頁的 Service 節點直接引用這一份的後三筆
+ *    （新生 10 堂／一對一／一對二），兩邊的價格因此不會分岔。
+ *
+ * ⚠️ 場租不列在這裡 —— 對外只留一行連到 Instagram 的說明，不公布價格。
  *
  * price 是定價；minPrice / maxPrice 是級距（搭配當期優惠會落在區間內）。
  *
@@ -37,28 +43,18 @@ module.exports = [
   },
   {
     name: '一對二私人教練課',
-    description: '兩人一起訓練，適合程度與目標相近的人；依購買堂數與當期優惠而不同。',
+    description:
+      '兩人一起訓練，適合程度與目標相近的人；價格為兩人合計，依購買堂數與當期優惠而不同。',
     minPrice: 1700,
     maxPrice: 2100,
     unitText: '堂',
   },
   {
     name: '團體課程',
-    description: 'TRX、心肺耐力、基礎與進階重訓，單堂 6 至 8 人，由 Benson 教練帶課。',
+    description:
+      '小班制團體課程，使用 TRX、雪橇車、戰繩、腳踏車等器材，結合重量訓練與心肺耐力，單堂 6 至 8 人，由 Benson 教練帶課。',
     minPrice: 428,
     maxPrice: 500,
-    unitText: '堂',
-  },
-  {
-    name: '教練場租・月租',
-    description: '自由教練場地租借，不限堂數 30 天。',
-    price: 10000,
-  },
-  {
-    name: '教練場租・計次',
-    description: '自由教練場地租借，10 堂 NT$3,000、20 堂 NT$5,000、40 堂 NT$8,000。',
-    minPrice: 200,
-    maxPrice: 300,
     unitText: '堂',
   },
 ];

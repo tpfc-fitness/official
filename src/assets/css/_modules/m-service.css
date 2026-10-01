@@ -1,0 +1,186 @@
+/*
+ * 一對一私人教練頁的版面零件。
+ *
+ * 只放 Tailwind 工具類表達不了的東西 —— 間距、字級、顏色一律留在標記裡，
+ * 這裡處理的是「需要偽元素、需要定位、或同一組樣式重複出現」的部分。
+ */
+
+/* 區塊的英文小標。每一段的開頭都有一個，字距拉開當成分隔線用 */
+.m-sec-eyebrow {
+  color: var(--xe120);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+
+  @apply m:text-[10px] pt:text-[11px];
+}
+
+/*
+ * 地點標記。
+ * 圖釘與文字基線對不齊 —— 圖釘是個圖形，視覺重心比文字低，
+ * 所以用 flex 對齊頂端再把圖釘往下推一點點。
+ */
+.m-place {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgb(255 255 255 / 72%);
+  line-height: 1.7;
+
+  @apply m:text-[13px] pt:text-[14px];
+
+  /* 收在卡片裡時改成置中對齊 */
+  &.\-\-stack {
+    align-items: center;
+  }
+}
+
+.m-place-icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--xe120);
+
+  @apply h-[16px] w-[14px];
+}
+
+/*
+ * 卡片上的標記（建議從這裡開始／新生方案）。
+ * 實心色塊而不是外框：外框在照片上會被亮部吃掉。
+ */
+.m-card-badge {
+  display: inline-block;
+  background-color: var(--xe120);
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  @apply m:px-[10px] m:py-[4px] m:text-[11px] pt:px-[12px] pt:py-[5px] pt:text-[12px];
+}
+
+/* 適合對象卡上的圖示 */
+.m-card-icon {
+  color: var(--xe120);
+
+  @apply m:h-[32px] m:w-[32px] pt:h-[34px] pt:w-[34px];
+}
+
+/*
+ * 內文連結。
+ * 底線用 border-bottom 而不是 text-decoration —— 要能單獨調整
+ * 與文字的距離，text-underline-offset 在 Safari 上對行內元素不穩。
+ */
+.m-card-link {
+  display: inline-block;
+  border-bottom: 1px solid currentcolor;
+  color: var(--xe120);
+  line-height: 1.6;
+  transition: opacity 0.3s ease-in-out;
+
+  @apply m:text-[13px] pt:text-[14px];
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+/*
+ * 四個階段之間的箭頭。
+ * 掛在第二項之後的每一項上，定位到自己左邊的間隙正中央。
+ * 間隙是 40px，箭頭 16px，所以往左推 28px 就落在中間。
+ */
+.m-stage-arrow {
+  position: absolute;
+  top: 6px;
+  left: -28px;
+  color: rgb(255 255 255 / 34%);
+}
+
+/* 階段編號。用主色的大字當節點，傳達的是順序而不是選項 */
+.m-stage-no {
+  color: var(--xe120);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[26px] t:text-[30px] p:text-[34px];
+}
+
+/*
+ * 方案卡。
+ * 沒有照片 —— 這張卡的內容是價格，壓在照片上只會更難讀。
+ */
+.m-plan-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(255 255 255 / 16%);
+  background-color: var(--x15);
+
+  @apply m:p-[24px] t:p-[32px] p:p-[40px];
+}
+
+/*
+ * 價格。
+ * tabular-nums：預設的數字寬度不一致，兩張卡的價格會對不齊。
+ */
+.m-plan-amount {
+  color: var(--x7de9);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+
+  @apply m:text-[32px] t:text-[38px] p:text-[44px];
+}
+
+.m-plan-checks {
+  display: grid;
+  gap: 10px;
+
+  > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: rgb(255 255 255 / 78%);
+    line-height: 1.8;
+
+    @apply m:text-[13px] pt:text-[14px];
+  }
+}
+
+.m-plan-check-icon {
+  flex-shrink: 0;
+  margin-top: 5px;
+  color: var(--xe120);
+
+  @apply h-[14px] w-[14px];
+}
+
+/* 地點與 CTA 的小卡（第一次來頭等倉） */
+.m-info-card {
+  border: 1px solid rgb(255 255 255 / 16%);
+  background-color: var(--black);
+
+  @apply m:p-[22px] pt:p-[28px];
+}
+
+/*
+ * 其他服務的橫式卡：桌機與平板是照片在左、文字在右，
+ * 手機改成圖在上文在下 —— 手機寬度分兩欄的話照片只剩 100px 出頭。
+ */
+.m-wide-card {
+  display: flex;
+  overflow: hidden;
+  background-color: var(--x15);
+
+  @apply m:flex-col;
+}
+
+.m-wide-card-fig {
+  flex-shrink: 0;
+
+  @apply m:h-[160px] m:w-full pt:h-auto pt:w-[40%];
+}
+
+.m-wide-card-bd {
+  @apply m:p-[20px] t:p-[24px] p:p-[28px];
+}

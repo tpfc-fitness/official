@@ -24,8 +24,6 @@ module.exports = {
     postalCode: '10449',
     addressCountry: 'TW',
   },
-  /* Google 在地面板會顯示；涵蓋一對一到一對二的單堂區間 */
-  priceRange: 'NT$1,200–NT$2,100',
   hasMap: 'https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6',
   /* 場館座標。取得方式：Google Maps 網頁版對店家圖釘按右鍵，第一列即為經緯度。
      （網址列 @ 後面那組是地圖畫面中心，不是店家位置，別抓錯） */

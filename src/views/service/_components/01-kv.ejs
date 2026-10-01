@@ -1,15 +1,19 @@
-<%/* KV：服務項目 */%>
-<section class="overflow-hidden bg-[var(--x15)] flex tm:flex-col items-center p:max-h-[345px]">
-  <h1
-    class="text-center text-[var(--white)] p:w-[48%] font-black p:text-[38px] t:text-[42px] m:text-[28px] t:py-[50px] m:py-[20px]">
-    service<br />服務項目</h1>
+<%/* KV：滿版主視覺 */%>
+<%
+  /*
+   * 這一段只有照片，標題在下一段 —— 設計稿把 h1 放在 KV 底下的文字區，
+   * 不壓在照片上。照片仍是首屏，所以走 eager。
+   */
+  const { kv } = require('_data/service.js');
+-%>
+<section class="overflow-hidden bg-[var(--x15)]">
   <%- require('img.ejs')({
     /* 首屏圖片：立即載入並提高優先度 */
     eager: true,
-    path: require('@imgs/service/firstclass_fitness_indoor.jpg'),
-    alt : '室內環境',
+    path: kv.img,
+    alt: kv.alt,
     style: {
-      main: 'p:w-full p:h-full t:hidden m:w-[375px] m:h-[180px]',
+      main: 'w-full p:h-[420px] t:h-[300px] m:h-[200px]',
       img: 'object-cover object-center'
     }
   }) %>

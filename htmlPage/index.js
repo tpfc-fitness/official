@@ -6,13 +6,14 @@
 module.exports = {
   HtmlWebpackPlugin: [
     {
+      title: '民權西路健身教練',
       filename: 'index.html',
       view: 'home',
       path: '/',
       template: 'App.ejs',
       action: 'index',
       description:
-        'First Class 頭等倉運動空間推出多元運動為方向的規劃，除了一對一私人教練課、體態評估、團體課程等，也歡迎自由教練場租，另提供教練新媒體行銷推廣。',
+        '頭等倉運動空間位於台北市中山區，捷運民權西路站步行 3 分鐘，提供一對一私人教練與小班制團體課程。從動作學習到菜單安排，帶你學會正確訓練，最後能自己訓練。新生 10 堂 8,000 元，歡迎預約免費體驗。',
       chunks: ['index'],
     },
     {
@@ -27,14 +28,14 @@ module.exports = {
       chunks: ['about'],
     },
     {
-      title: '私人教練課',
+      title: '民權西路一對一私人教練',
       filename: 'service.html',
       view: 'service',
       path: '/service.html',
       template: 'App.ejs',
       action: 'service',
       description:
-        'First Class 頭等倉運動空間推出多元運動為方向的規劃，除了一對一及一對二私人教練課，也歡迎自由教練場租。',
+        '頭等倉運動空間位於台北中山區、捷運民權西路站步行約 3 分鐘，提供一對一私人教練課程。從動作學習、重量訓練到菜單安排，第一堂課後就能自己練，最後學會自己訓練。',
       chunks: ['service'],
     },
     {

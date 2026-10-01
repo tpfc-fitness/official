@@ -1,0 +1,60 @@
+<%/* 第一次來頭等倉 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-service，使用的頁面樣式表必須引入它。
+   *
+   * 設計稿這一段有四張體驗課步驟卡，但定案文案沒有那四個步驟，
+   * 所以只保留兩段說明與兩個延伸連結，右側放地點與 CTA。
+   */
+  const { firstVisit } = require('_data/service.js');
+-%>
+<section
+  class="text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[90px] t:px-[40px] t:py-[64px] m:px-[20px] m:py-[44px]">
+  <%/* 桌機左文右資訊卡，平板與手機堆疊 */%>
+  <div class="p:max-w-[1200px] p:mx-auto p:flex p:items-start p:gap-[60px]">
+    <div data-aos="fade-up" class="p:flex-grow">
+      <p class="m-sec-eyebrow"><%= firstVisit.eyebrow %></p>
+      <h2 class="resevation-h1 p:mt-[14px] tm:mt-[10px]"><%= firstVisit.title %></h2>
+
+      <div class="p:mt-[24px] tm:mt-[16px] p:space-y-[12px] tm:space-y-[10px]">
+        <% firstVisit.body.forEach((line) => { -%>
+        <p class="leading-[1.9] p:text-[16px] tm:text-[14px] text-[var(--xc7)]"><%= line %></p>
+        <% }); -%>
+      </div>
+
+      <p class="flex flex-wrap p:mt-[20px] tm:mt-[14px] p:gap-x-[24px] tm:gap-x-[16px] gap-y-[6px]">
+        <% firstVisit.links.forEach((link) => { -%>
+        <a href="<%= link.href %>" class="m-card-link"><%= link.label %> →</a>
+        <% }); -%>
+      </p>
+    </div>
+
+    <%/* 地點與 CTA 收成一張卡，和左邊的長文分開 */%>
+    <aside data-aos="fade-up" class="m-info-card p:w-[320px] p:flex-shrink-0 tm:mt-[28px]">
+      <p class="m-place --stack">
+        <%- require('@component/svg.ejs')({
+          svgName: 'icon_pin',
+          style: { main: 'm-place-icon' }
+        }) %>
+        <span>
+          <% firstVisit.place.forEach((line, i) => { -%>
+          <%- i ? '<br />' : '' %><%= line %>
+          <% }); -%>
+        </span>
+      </p>
+
+      <%- require('@component/mBtn.ejs')({
+        label: firstVisit.cta.label,
+        link: firstVisit.cta.link,
+        style: {
+          main: '--highlight mt-[20px] w-full p:h-[50px] tm:h-[48px] p:text-[16px] tm:text-[15px]',
+          icon: 'w-[40px]'
+        },
+        icon: {
+          name: 'arrow',
+          css: 'w-[18px] h-[18px]'
+        }
+      }) %>
+    </aside>
+  </div>
+</section>

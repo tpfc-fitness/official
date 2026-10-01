@@ -1,0 +1,74 @@
+<%/* 私人教練怎麼帶你訓練？ */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-bg-photo 與 _modules/m-service，
+   *    使用的頁面樣式表必須引入它們。
+   *
+   * 四個階段是有先後的，所以用 ol，步驟之間在桌機補一個箭頭。
+   * 箭頭是裝飾：順序由 ol 的語意與編號負責，螢幕閱讀器不需要再聽一次，
+   * 所以只在桌機輸出並且不帶任何文字。
+   */
+  const { approach } = require('_data/service.js');
+-%>
+<section class="m-bg-photo --approach relative overflow-hidden text-[var(--white)]">
+  <%/* 底圖：純氛圍，alt 留空 */%>
+  <%- require('img.ejs')({
+    decorative: true,
+    path: approach.bg,
+    style: {
+      main: 'm-bg-photo-img',
+      img: 'object-cover object-center'
+    }
+  }) %>
+
+  <div class="relative z-[1] p:px-[60px] p:py-[90px] t:px-[40px] t:py-[64px] m:px-[20px] m:py-[44px]">
+    <div class="p:max-w-[1200px] p:mx-auto">
+      <header data-aos="fade-up">
+        <p class="m-sec-eyebrow"><%= approach.eyebrow %></p>
+        <h2 class="resevation-h1 p:mt-[14px] tm:mt-[10px]"><%= approach.title %></h2>
+      </header>
+
+      <%/* 桌機四欄一列，平板兩欄，手機單欄 */%>
+      <ol
+        class="grid p:mt-[56px] t:mt-[44px] m:mt-[28px] p:grid-cols-4 p:gap-[40px] t:grid-cols-2 t:gap-[32px] m:grid-cols-1 m:gap-[26px]">
+        <% approach.steps.forEach((step, idx) => { -%>
+        <li data-aos="fade-up" class="relative">
+          <% if (idx > 0) { -%>
+          <%/* 階段之間的箭頭。手機是直向堆疊，箭頭會指錯方向，所以只在桌機出現 */%>
+          <span class="m-stage-arrow tm:hidden" aria-hidden="true">
+            <%- require('@component/svg.ejs')({
+              svgName: 'arrow',
+              style: { main: 'w-[16px] h-[16px]' }
+            }) %>
+          </span>
+          <% } -%>
+          <p class="m-stage-no"><%= step.no %></p>
+          <%/*
+            階段標題用 p + font-bold 而不是 h3 ——
+            四個階段是同一個問題的四個步驟，不是四個主題，
+            用 h3 會把下面那兩段追問的層級稀釋掉。
+          */%>
+          <%/* min-h 是兩行的高度：四欄並排時，標題一行與兩行的說明才會對齊 */%>
+          <p
+            class="font-bold leading-[1.5] p:mt-[16px] tm:mt-[12px] p:text-[18px] t:text-[17px] m:text-[16px] p:min-h-[54px]">
+            <%= step.title %></p>
+          <p class="leading-[1.9] p:mt-[10px] tm:mt-[8px] p:text-[14px] tm:text-[13px] text-[var(--xc7)]">
+            <%= step.body %></p>
+        </li>
+        <% }); -%>
+      </ol>
+
+      <%/* 兩個追問：桌機兩欄並排 */%>
+      <div
+        class="grid p:mt-[72px] t:mt-[56px] m:mt-[36px] p:pt-[56px] t:pt-[44px] m:pt-[30px] border-t border-solid border-[#fff] border-opacity-[0.14] p:grid-cols-2 p:gap-[60px] tm:grid-cols-1 tm:gap-[28px]">
+        <% approach.notes.forEach((note) => { -%>
+        <div data-aos="fade-up">
+          <h3 class="font-bold leading-[1.4] p:text-[22px] t:text-[20px] m:text-[17px]"><%= note.title %></h3>
+          <p class="leading-[1.9] p:mt-[14px] tm:mt-[10px] p:text-[15px] tm:text-[13px] text-[var(--xc7)]">
+            <%= note.body %></p>
+        </div>
+        <% }); -%>
+      </div>
+    </div>
+  </div>
+</section>

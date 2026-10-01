@@ -36,7 +36,10 @@
       }
     }) %>
     <div class="pt:space-y-[12px] m:space-y-[6px] flex-grow p:pl-[50px] tm:mt-[30px]">
-      <span class="text-[#E12020] resevation-h4">Before</span>
+      <%/* 紅色的 Before／After 後面接一句中文小標，點出這一段在講什麼 */%>
+      <p class="resevation-h4">
+        <span class="text-[#E12020]">Before</span>｜<%= story.before.heading %>
+      </p>
       <% story.before.paragraphs.forEach((paragraph) => { -%>
       <p class="resevation-p"><%- paragraph %></p>
       <% }); -%>
@@ -52,11 +55,39 @@
       }
     }) %>
     <div class="pt:space-y-[12px] m:space-y-[6px] flex-grow p:pr-[50px] tm:mt-[30px]">
-      <span class="text-[#E12020] resevation-h4">After</span>
+      <p class="resevation-h4">
+        <span class="text-[#E12020]">After</span>｜<%= story.after.heading %>
+      </p>
       <% story.after.paragraphs.forEach((paragraph) => { -%>
       <p class="resevation-p"><%- paragraph %></p>
       <% }); -%>
     </div>
   </div>
+
+  <% if (story.closing) { -%>
+  <%/*
+    收尾：從教練的故事轉向讀者。
+    沒有照片，所以不沿用上面的 reservation-card，改成置中、寬度收在
+    Before／After 文字欄差不多的範圍 —— 這一段是對著讀者說的，
+    左右並排的敘事版型到這裡就結束了。
+  */%>
+  <div class="text-center p:w-[1200px] p:mt-[70px] t:mt-[60px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px]
+    border-t border-solid border-[#fff] border-opacity-[0.14]">
+    <p class="resevation-p"><%= story.closing.lead %></p>
+
+    <%/* 三行是同一句話斷開的，行末的頓號與逗號要留著 */%>
+    <p class="resevation-p p:mt-[10px] tm:mt-[8px]">
+      <% story.closing.points.forEach((line, i) => { -%>
+      <%- i ? '<br />' : '' %><%= line %>
+      <% }); -%>
+    </p>
+
+    <p class="resevation-h4 p:mt-[28px] tm:mt-[20px]">
+      <% story.closing.conclusion.forEach((line, i) => { -%>
+      <%- i ? '<br />' : '' %><%= line %>
+      <% }); -%>
+    </p>
+  </div>
+  <% } -%>
 </section>
 <% }); -%>

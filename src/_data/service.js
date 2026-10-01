@@ -35,7 +35,11 @@ module.exports = [
     priceTitle: '新生方案',
     prices: [
       { name: '一對一', value: '10 堂 NT$8,000', note: '平均一堂 800 元・使用期限三個月' },
-      { name: '一對二', value: '10 堂 NT$13,000', note: '兩人合計，平均一堂 1,300 元' },
+      {
+        name: '一對二',
+        value: '10 堂 NT$13,000',
+        note: '兩人合計，平均一堂 1,300 元・使用期限三個月',
+      },
     ],
     imgs: [
       { path: require('@imgs/service/pt_01.jpg'), alt: '兩位學員在深蹲架前，各自扛著槓鈴做背蹲舉' },

@@ -14,7 +14,12 @@
       class="bg-[var(--x15)] overflow-hidden p:flex p:items-stretch<%- idx % 2 === 1 ? ' p:flex-row-reverse' : '' %>">
 
       <%/* 圖片輪播：B 樣式（箭頭 + 分頁數字）並保留橫條分頁 */%>
-      <div class="m-slider relative p:w-1/2 p:flex-shrink-0">
+      <%/*
+        --slider-media-h 同時給圖片的高度與控制項的定位用，
+        改高度只要動這一行。
+      */%>
+      <div
+        class="m-slider --media relative p:w-1/2 p:flex-shrink-0 p:self-start m:[--slider-media-h:210px] t:[--slider-media-h:300px] p:[--slider-media-h:420px]">
         <ul class="class-slider-<%= idx %>">
           <% item.imgs.forEach((img, i) => { -%>
           <li>
@@ -23,7 +28,7 @@
               alt: img.alt,
               eager: idx === 0 && i === 0,
               style: {
-                main: 'w-full p:h-[420px] t:h-[300px] m:h-[210px]',
+                main: 'w-full h-[var(--slider-media-h)]',
                 img: 'object-cover object-center'
               }
             }) %>
@@ -31,7 +36,7 @@
           <% }); -%>
         </ul>
         <p
-          class="m-gallery-counter absolute bottom-[34px] right-0 z-[2] bg-[rgb(0_0_0_/_65%)] p:px-[14px] p:py-[8px] tm:px-[12px] tm:py-[6px] p:text-[13px] tm:text-[12px]">
+          class="m-gallery-counter absolute right-0 z-[2] bg-[rgb(0_0_0_/_65%)] p:px-[14px] p:py-[8px] tm:px-[12px] tm:py-[6px] p:text-[13px] tm:text-[12px]">
           <b class="jCounter-<%= idx %>">01</b> / <%= String(item.imgs.length).padStart(2, '0') %>
         </p>
         <div class="m-slider-ctrl-<%= idx %>">
@@ -95,6 +100,22 @@
           放在特色後面而不是標題旁邊 —— 先看懂這是什麼課，再看多少錢。
           用 dl 不用 ul：每一列都是「方案名稱 → 價格」的配對。
         */%>
+        <%/*
+          只有一筆價格時不另外立一行標題 —— 「課程費用」底下只跟著一列，
+          標題與數字分成兩行讀起來像漏了什麼。這時直接把標題當成那一列
+          的名稱，價格就與它對齊在同一行。
+        */%>
+        <% if (item.prices.length === 1) { -%>
+        <dl class="m-price-list p:mt-[22px] tm:mt-[16px]">
+          <div>
+            <dt class="font-bold">
+              <%= item.priceTitle %>
+              <span class="m-price-list-term"><%= item.prices[0].note %></span>
+            </dt>
+            <dd><%= item.prices[0].value %></dd>
+          </div>
+        </dl>
+        <% } else { -%>
         <p class="font-bold p:mt-[22px] tm:mt-[16px] p:text-[15px] tm:text-[14px]"><%= item.priceTitle %></p>
         <dl class="m-price-list p:mt-[10px] tm:mt-[8px]">
           <% item.prices.forEach((price) => { -%>
@@ -107,6 +128,7 @@
           </div>
           <% }); -%>
         </dl>
+        <% } -%>
       </div>
     </li>
     <% }); -%>

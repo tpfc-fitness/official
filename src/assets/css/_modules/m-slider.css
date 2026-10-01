@@ -2,6 +2,30 @@
   @apply relative;
 }
 
+/*
+ * --media：控制項改成以「圖片高度」定位，而不是以容器高度。
+ *
+ * 給圖文左右並排的卡片用。那種版型的 .m-slider 會被右欄的文字撐到
+ * 整張卡那麼高，預設的 top-1/2 於是把箭頭推到圖片以外的卡片底色上，
+ * 計數器也會掉到卡片最下緣 —— 文字愈多、跑得愈遠。
+ *
+ * 用法：容器加上 --media，並用 --slider-media-h 傳入圖片高度
+ * （直接寫在標記裡的 m: / t: / p: 變體上，圖片本身也吃同一個變數，
+ *   所以高度只有一個來源，不會改了一邊忘了另一邊）。
+ */
+.m-slider.\-\-media {
+  [class^='m-slider-ctrl'] {
+    top: calc(var(--slider-media-h) / 2);
+  }
+
+  /* 計數器貼齊圖片的右下角，而不是容器的右下角 */
+  .m-gallery-counter {
+    top: calc(var(--slider-media-h) - 12px);
+    bottom: auto;
+    transform: translateY(-100%);
+  }
+}
+
 [class^='m-slider-ctrl'] {
   @apply absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-between m:px-[8px] pt:px-[10px];
 }

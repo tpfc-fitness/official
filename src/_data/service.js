@@ -32,11 +32,10 @@ module.exports = [
     ],
     featureTitle: '個人化訓練安排',
     features: ['動作指導', '重量調整', '訓練規劃'],
-    priceTitle: '課程費用',
+    priceTitle: '新生方案',
     prices: [
-      { name: '新生方案', value: '10 堂 NT$8,000', note: '平均每堂 800 元・使用期限三個月' },
-      { name: '一對一', value: '每堂 NT$1,200–1,600', note: '依購買堂數與優惠方案而定' },
-      { name: '一對二', value: '每堂 NT$1,700–2,100', note: '兩人合計，依購買堂數與優惠方案而定' },
+      { name: '一對一', value: '10 堂 NT$8,000', note: '平均一堂 800 元・使用期限三個月' },
+      { name: '一對二', value: '10 堂 NT$13,000', note: '兩人合計，平均一堂 1,300 元' },
     ],
     imgs: [
       { path: require('@imgs/service/pt_01.jpg'), alt: '兩位學員在深蹲架前，各自扛著槓鈴做背蹲舉' },
@@ -67,7 +66,7 @@ module.exports = [
     featureTitle: '重量訓練 × 心肺體能',
     features: ['重量訓練', '心肺訓練', '體能挑戰'],
     priceTitle: '課程費用',
-    prices: [{ name: '團體課程', value: '每堂 NT$428–500', note: '單堂 6 到 8 人' }],
+    prices: [{ value: '每堂 NT$428–500', note: '單堂 6 到 8 人' }],
     imgs: [
       {
         path: require('@imgs/service/group_01.jpg'),
@@ -95,8 +94,8 @@ module.exports = [
     body: '購課學員可於課程結束前自由使用訓練器材，將課堂上學到的動作與訓練方式實際運用在自己的訓練中。若現場狀況允許，巡場教練也會適時提供協助與指導，讓剛開始接觸健身房的學員，也能慢慢熟悉自主訓練。',
     featureTitle: '自主訓練支援',
     features: ['課後自主訓練', '器材自由使用', '巡場教練協助'],
-    priceTitle: '使用方式',
-    prices: [{ name: '購課學員', value: '完課期間免費', note: '使用方式於體驗課時說明' }],
+    priceTitle: '費用',
+    prices: [{ value: '購課學員完課期間免費', note: '使用方式於體驗課時說明' }],
     imgs: [
       { path: require('@imgs/service/self_01.jpg'), alt: '學員獨自在深蹲架內扛槓鈴蹲到底' },
       { path: require('@imgs/service/self_02.jpg'), alt: '學員獨自躺在臥推椅上推起槓鈴' },

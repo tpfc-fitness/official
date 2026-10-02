@@ -18,6 +18,8 @@
                   });
   /* 正式網域：唯一來源是 config.js 的 siteUrl（DefinePlugin 注入，已去除結尾斜線） */
   const SITE_URL = process.env.SITE_URL || '';
+  /* 部署的子目錄（/official/）。站內連結與資產路徑都要接在它後面 —— 見 _data/nav.js */
+  const ROOT_DIRECTORY = process.env.ROOT_DIRECTORY || '/';
   /* 每頁專屬路徑：來自 htmlPage/index.js 的 path 欄位 */
   const PAGE_PATH = htmlWebpackPlugin.options.path || `/${htmlWebpackPlugin.options.filename}`;
   const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
@@ -27,6 +29,8 @@
   const IS_HOME = PAGE_PATH === '/';
   const IS_FAQ = htmlWebpackPlugin.options.view === 'faq';
   const IS_SERVICE = htmlWebpackPlugin.options.view === 'service';
+  /* 文章頁：把 slug 傳下去，結構化資料要用它取文章內容 */
+  const ARTICLE_SLUG = htmlWebpackPlugin.options.article || '';
   const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
 -%>
 <!DOCTYPE html>
@@ -55,7 +59,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="<%= TITLENAME %>">
   <title><%- TITLE %></title>
-  <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="<%= ROOT_DIRECTORY %>static/img/favicon.ico">
   <link rel="canonical" href="<%= PAGE_URL %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -159,7 +163,8 @@
       PAGE_TITLE,
       IS_HOME,
       IS_FAQ,
-      IS_SERVICE
+      IS_SERVICE,
+      ARTICLE_SLUG
     }) %>
   <% } -%>
   <!-- Bings -->

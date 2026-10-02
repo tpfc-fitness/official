@@ -1,0 +1,26 @@
+<%/*
+ * 單篇文章
+ *
+ * 哪一篇由 htmlPage/index.js 的 article 欄位決定（＝slug），
+ * 內容則從 _data/articles.js 取。各區塊放在 ./_components/ 底下，
+ * 檔名數字前綴＝頁面上的順序。
+ */%>
+<%
+  const articles = require('_data/articles.js');
+  const slug = htmlWebpackPlugin.options.article;
+  const article = articles.find((item) => item.slug === slug);
+
+  if (!article) throw new Error(`找不到文章：${slug}`);
+
+  /*
+   * 延伸閱讀自動取其他文章，不手動維護 slug 清單 ——
+   * 手動列的話，刪掉一篇就會在別篇留下壞連結。
+   */
+  const related = articles.filter((item) => item.slug !== slug).slice(0, 3);
+-%>
+<%- require('./_components/01-hero.ejs')({ article }) %> <%/* 標題、摘要、封面 */%>
+<%- require('./_components/02-body.ejs')({ article }) %> <%/* 先說結論與內文 */%>
+<% if (related.length) { -%>
+<%- require('./_components/03-related.ejs')({ related }) %> <%/* 延伸閱讀 */%>
+<% } -%>
+<%- require('./_components/04-brand.ejs')() %> <%/* 頭等倉是誰：給搜尋進來的陌生讀者 */%>

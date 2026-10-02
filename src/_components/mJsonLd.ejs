@@ -8,6 +8,8 @@
    * - WebPage + Service：只有服務項目頁輸出，把「一對一私人教練」
    *   本身宣告成一個可被引用的服務實體（含價格），而不是只讓它
    *   混在商家的 hasOfferCatalog 裡
+   * - Article：只有文章頁輸出。把標題、摘要、作者與更新日期變成
+   *   機器讀得懂的資料，生成式搜尋引用時才知道這是誰寫的、什麼時候更新的。
    * - FAQPage：只有 faq 頁輸出。Google 從 2023 起不再給一般網站
    *   FAQ 複合式搜尋結果，但生成式搜尋與 LLM 的爬蟲會讀 JSON-LD，
    *   所以對 AEO 仍然值得輸出。
@@ -24,6 +26,7 @@
   const pageTitle = typeof PAGE_TITLE !== 'undefined' ? PAGE_TITLE : '';
   const isHome = typeof IS_HOME !== 'undefined' ? IS_HOME : false;
   const isService = typeof IS_SERVICE !== 'undefined' ? IS_SERVICE : false;
+  const articleSlug = typeof ARTICLE_SLUG !== 'undefined' ? ARTICLE_SLUG : '';
 
   const orgId = `${siteUrl}/#organization`;
   const siteId = `${siteUrl}/#website`;
@@ -174,6 +177,42 @@
       areaServed: '台北市中山區',
       offers: PT_OFFER_NAMES.map((name) => toOffer(offers.find((o) => o.name === name))),
     });
+  }
+
+  /*
+   * 文章頁：輸出 Article。
+   *
+   * 用 Article 不用 BlogPosting —— 這些是教學性質的內容，不是日誌；
+   * 兩者對 Google 的效果相同，但 Article 比較不會讓人誤會網站有在寫部落格日記。
+   *
+   * dateModified 用資料裡的 updated；datePublished 沒有另外維護，
+   * 先跟 updated 相同 —— 寧可少給一個欄位，也不要給一個編出來的日期。
+   */
+  if (articleSlug) {
+    const articles = require('_data/articles.js');
+    const article = articles.find((item) => item.slug === articleSlug);
+
+    if (article) {
+      graph.push({
+        '@type': 'Article',
+        '@id': `${pageUrl}#article`,
+        headline: article.title,
+        description: article.description,
+        articleSection: article.category,
+        inLanguage: 'zh-Hant-TW',
+        datePublished: article.updated,
+        dateModified: article.updated,
+        author: {
+          '@type': 'Person',
+          name: article.author.name,
+          jobTitle: article.author.role,
+          worksFor: { '@id': orgId },
+        },
+        publisher: { '@id': orgId },
+        isPartOf: { '@id': siteId },
+        mainEntityOfPage: pageUrl,
+      });
+    }
   }
 
   /* 常見問題頁：把問答輸出成 FAQPage */

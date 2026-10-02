@@ -1,0 +1,22 @@
+<%
+  /*
+   * 文章插圖。
+   *
+   * _data/articles.js 不能寫 require('@imgs/…') —— 那份資料要讓 Node 在
+   * webpack 啟動前直接 require（htmlPage/index.js 靠它產生頁面清單），
+   * 而 @imgs 這個別名只有 webpack 認得。
+   *
+   * 所以資料裡存的是路徑字串，由這裡用 require.context 解析成真正的網址。
+   * context 只掃 @imgs/article/，不會把整個圖庫拉進 bundle。
+   *
+   * 用法：require('@component/articleImg.ejs')({ src: 'squat/cover.jpg', alt: '…', … })
+   */
+  const resolve = require.context('@imgs/article/', true, /\.(jpe?g|png)$/);
+  const path = resolve(`./${src}`);
+-%>
+<%- require('img.ejs')({
+  path,
+  alt,
+  eager: typeof eager !== 'undefined' ? eager : false,
+  style: typeof style !== 'undefined' ? style : {}
+}) %>

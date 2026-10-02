@@ -1,0 +1,20 @@
+<%/* 延伸閱讀 */%>
+<%
+  /* ⚠️ 這個區塊用到 _modules/m-article，使用的頁面樣式表必須引入它。 */
+  const base = process.env.ROOT_DIRECTORY;
+-%>
+<section class="m-article-related">
+  <div class="m-article-container">
+    <h2 class="m-article-label">延伸閱讀</h2>
+    <ul class="m-article-related-list">
+      <% related.forEach((item) => { -%>
+      <li>
+        <a class="m-article-related-item" href="<%= base %>article/<%= item.slug %>.html">
+          <span><%= item.title %></span>
+          <span class="m-article-related-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

@@ -2,7 +2,26 @@
  * 每頁的設定。
  * filename 是產出的網址檔名，view 是 src/views/ 底下的資料夾名稱，
  * 兩者刻意分開，改網址或搬動頁面時不會互相牽動。
+ *
+ * 文章頁不逐筆寫在這裡：由 _data/articles.js 依陣列產生，
+ * 新增一篇文章只要加資料，頁面與 sitemap 都會自動跟上。
  */
+const articles = require('../src/_data/articles.js');
+
+/* 一篇文章 → 一個頁面設定 */
+const articlePages = articles.map((article) => ({
+  title: article.title,
+  filename: `article/${article.slug}.html`,
+  view: 'article',
+  path: `/article/${article.slug}.html`,
+  template: 'App.ejs',
+  action: 'article',
+  description: article.description,
+  /* 哪一篇 —— App.ejs 會把它傳進 view，view 再從 articles.js 取內容 */
+  article: article.slug,
+  chunks: ['article'],
+}));
+
 module.exports = {
   HtmlWebpackPlugin: [
     {
@@ -112,5 +131,6 @@ module.exports = {
       description: '感謝您預約 First Class 頭等倉運動空間免費體驗課程',
       chunks: ['thankyou'],
     },
+    ...articlePages,
   ],
 };

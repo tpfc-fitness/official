@@ -1,0 +1,33 @@
+<%/* 文章頁首：分類、標題、摘要、資訊列、封面 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-article，使用的頁面樣式表必須引入它。
+   *
+   * 日期在版面上給人看的是 2026.10.02，但 <time datetime> 要給機器讀的
+   * ISO 格式 —— 兩者都要，所以這裡各轉一次。
+   */
+  const display = article.updated.replace(/-/g, '.');
+-%>
+<header class="m-article-hero">
+  <div class="m-article-container">
+    <p class="m-article-category"><%= article.category %></p>
+    <h1 class="m-article-title"><%= article.title %></h1>
+    <p class="m-article-lead"><%= article.lead %></p>
+
+    <p class="m-article-meta">
+      <span>更新日期｜<time datetime="<%= article.updated %>"><%= display %></time></span>
+      <span>閱讀時間｜<%= article.readingTime %> 分鐘</span>
+    </p>
+
+    <%- require('@component/articleImg.ejs')({
+      src: article.cover.img,
+      alt: article.cover.alt,
+      /* 首屏圖片：立即載入並提高優先度 */
+      eager: true,
+      style: {
+        main: 'm-article-cover',
+        img: 'object-cover object-center'
+      }
+    }) %>
+  </div>
+</header>

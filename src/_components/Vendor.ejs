@@ -16,13 +16,15 @@
       const fullhashLength = regex.test(oriSrc) ? /\[fullhash:(\d+)\]/.exec(oriSrc)[1] : 0
       const src = oriSrc.replace(/\.js\?/, `.${extension}?`).replace(regex, hash(fullhashLength))
     -%>
-<script src="<%- src %>"></script>
+<%/* 接上部署子目錄：相對路徑在 /article/ 底下會解析錯 */%>
+<script src="<%- process.env.ROOT_DIRECTORY %><%- src %>"></script>
 <% }); -%>
 <% } -%>
 <% if ( process.env.BUILD_JS_EXTENSION ) { -%>
 <% const chunks = htmlWebpackPlugin.options.chunks -%>
 <% for (let i = 0; i < chunks.length; i+=1) { -%>
-<script src="<%- process.env.ROOT_FILES.js %><%- chunks[i] %>.<%- process.env.BUILD_JS_EXTENSION %>?<%- hash(8) %>">
+<script
+  src="<%- process.env.ROOT_DIRECTORY %><%- process.env.ROOT_FILES.js %><%- chunks[i] %>.<%- process.env.BUILD_JS_EXTENSION %>?<%- hash(8) %>">
 </script>
 <% } -%>
 <% } -%>

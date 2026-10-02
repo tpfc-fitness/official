@@ -65,6 +65,12 @@ const extendPlugins = () => {
         static: CONFIG.static,
       }),
       PROJECT_ROOT: JSON.stringify(__dirname),
+      /*
+       * 部署的子目錄（＝webpack 的 publicPath）。
+       * 導覽連結要用它組成絕對路徑 —— 文章頁在 /article/ 底下，
+       * 相對路徑的 ./contact.html 在那裡會解析成 /article/contact.html。
+       */
+      ROOT_DIRECTORY: JSON.stringify(CONFIG.rootDirectory || '/'),
       SITE_URL: JSON.stringify((CONFIG.siteUrl || '').replace(/\/+$/, '')),
       PROJECT_NAME: JSON.stringify(CONFIG.projectName),
       COPYRIGHT: JSON.stringify(CONFIG.copyright),

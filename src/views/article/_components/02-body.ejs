@@ -1,0 +1,56 @@
+<%/* 文章本體：先說結論 + 依 blocks 依序渲染 + 作者 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-article，使用的頁面樣式表必須引入它。
+   *
+   * blocks 是有順序的陣列，不是固定欄位 —— 每篇文章的段落組成都不同，
+   * 寫死「為什麼／常見錯誤／怎麼判斷…」的話，只用得到其中三段的文章
+   * 就會留下三個空標題。
+   */
+-%>
+<article class="m-article-body">
+  <div class="m-article-container">
+
+    <%/* 先說結論：給趕時間的讀者與生成式搜尋直接引用的一段 */%>
+    <div class="m-article-answer">
+      <p class="m-article-label">先說結論</p>
+      <p class="m-article-answer-text"><%- article.directAnswer %></p>
+    </div>
+
+    <% article.blocks.forEach((block) => { -%>
+    <% if (block.h2) { -%>
+    <h2 class="m-article-h2"><%= block.h2 %></h2>
+    <% } else if (block.h3) { -%>
+    <h3 class="m-article-h3"><%= block.h3 %></h3>
+    <% } else if (block.p) { -%>
+    <%/* 不轉義輸出：段落裡可以寫 b 與 a 這類行內標記 */%>
+    <p class="m-article-p"><%- block.p %></p>
+    <% } else if (block.img) { -%>
+    <%- require('@component/articleImg.ejs')({
+      src: block.img,
+      alt: block.alt,
+      style: {
+        main: 'm-article-image',
+        /* 覆寫 img.ejs 固定給的 w-full h-full —— 理由見 _modules/m-article */
+        img: 'object-contain object-center mx-auto max-w-full !w-auto !h-auto m:!max-h-[420px] pt:!max-h-[560px]'
+      }
+    }) %>
+    <% } else if (block.embed) { -%>
+    <%/*
+      Instagram Reel。用 iframe 而不是官方的 embed.js ——
+      那支 script 會在每個讀者身上多跑一次第三方追蹤，
+      而這裡只是要播一段影片。lazy 讓它捲到才載入。
+    */%>
+    <div class="m-article-embed">
+      <iframe src="<%= block.embed %>embed" title="Instagram 影片" loading="lazy" allowfullscreen scrolling="no"></iframe>
+    </div>
+    <% } -%>
+    <% }); -%>
+
+    <section class="m-article-author">
+      <p class="m-article-label">AUTHOR</p>
+      <p class="m-article-author-name"><%= article.author.name %></p>
+      <p class="m-article-author-role"><%= article.author.role %></p>
+    </section>
+  </div>
+</article>

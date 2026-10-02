@@ -1,0 +1,304 @@
+/*
+ * 單篇文章。
+ *
+ * 樣板原本自帶一套變數（--bg #111、--red #e51b23、--line #333、--muted #aaa），
+ * 這裡一律換成 _common/color.css 既有的 token —— 色差極小（#e51b23 對
+ * #e12020），但換掉之後文章頁跟全站同一套色，日後改品牌色只要動一處。
+ *
+ * 字級也從樣板的 clamp() 改成專案慣用的 m: / t: / p: 斷點：
+ * 全站都是這樣寫的，混用兩套在維護時會變成每次都要先確認「這一頁是哪種」。
+ *
+ * 行寬固定 820px。文章是長文，一行超過大約 40 個全形字，
+ * 眼睛換行時就容易跳行。
+ */
+
+/*
+ * 文字顏色設在四個區塊上，而不是每個元素各自寫。
+ * 不設的話標題會繼承到預設的黑色，壓在深色底上等於看不見。
+ */
+.m-article-hero,
+.m-article-body,
+.m-article-related,
+.m-article-brand {
+  color: var(--white);
+}
+
+.m-article-container {
+  width: min(820px, calc(100% - 40px));
+  margin-inline: auto;
+
+  @apply m:w-[calc(100%-28px)];
+}
+
+/* 小標：分類、先說結論、AUTHOR、延伸閱讀共用 */
+.m-article-label {
+  color: var(--xe120);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+
+  @apply m:text-[11px] pt:text-[12px];
+}
+
+/* ---------- 頁首 ---------- */
+.m-article-hero {
+  border-bottom: 1px solid var(--x56);
+
+  @apply m:pb-[40px] m:pt-[58px] t:pb-[48px] t:pt-[72px] p:pb-[56px] p:pt-[88px];
+}
+
+.m-article-category {
+  color: var(--xe120);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+
+  @apply m:mb-[14px] m:text-[12px] pt:mb-[18px] pt:text-[13px];
+}
+
+.m-article-title {
+  margin: 0;
+  line-height: 1.25;
+  font-weight: 800;
+
+  @apply m:text-[32px] t:text-[42px] p:text-[54px];
+}
+
+.m-article-lead {
+  color: var(--xc7);
+  line-height: 1.9;
+
+  @apply m:mt-[20px] m:text-[16px] t:mt-[24px] t:text-[17px] p:mt-[28px] p:text-[18px];
+}
+
+/*
+ * 資訊列。
+ * gap 分開寫：橫向的 24px 是兩組資訊之間，縱向的 10px 是換行之後，
+ * 兩個值一樣的話窄螢幕會擠成一團。
+ */
+.m-article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  color: var(--x6);
+
+  @apply m:mt-[18px] m:text-[12px] pt:mt-[24px] pt:text-[13px];
+}
+
+.m-article-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--x1f1d);
+
+  @apply m:mt-[28px] pt:mt-[42px];
+}
+
+/* ---------- 內文 ---------- */
+.m-article-body {
+  @apply m:pb-[20px] m:pt-[44px] t:pt-[56px] p:pb-[20px] p:pt-[64px];
+}
+
+.m-article-p {
+  line-height: 1.9;
+
+  @apply m:mb-[24px] m:text-[16px] pt:mb-[28px] pt:text-[17px];
+
+  /*
+   * 行內的粗體與連結。
+   * 連結不用主色而是白字加紅底線 —— 文章裡連結不少，整句話裡跳出一個
+   * 紅字會比底線更干擾閱讀。
+   */
+  & b,
+  & strong {
+    font-weight: 800;
+  }
+
+  & a {
+    color: var(--white);
+    text-decoration: underline;
+    text-decoration-color: var(--xe120);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.3s ease-in-out;
+
+    &:hover {
+      text-decoration-color: var(--white);
+    }
+  }
+}
+
+/*
+ * 大段落標題。
+ * 左側一條主色短線取代編號 —— 每篇文章的段落數都不同，
+ * 編號會逼得資料裡要多維護一個序號。
+ */
+.m-article-h2 {
+  padding-left: 18px;
+  border-left: 4px solid var(--xe120);
+  line-height: 1.45;
+
+  @apply m:mb-[20px] m:mt-[54px] m:text-[24px] t:mb-[22px] t:mt-[64px] t:text-[28px] p:mb-[24px] p:mt-[72px] p:text-[32px];
+}
+
+.m-article-h3 {
+  font-weight: 700;
+
+  @apply m:mb-[14px] m:mt-[36px] m:text-[19px] pt:mb-[16px] pt:mt-[44px] pt:text-[21px];
+}
+
+/*
+ * 內文插圖。
+ *
+ * 限高而不是裁切：動作教學的照片常常是直式的手機照，
+ * 套一個固定比例再 object-cover 會把腳或頭切掉，而那往往正是重點。
+ *
+ * ⚠️ 高度限在 <img> 上而不是這個 <figure> 上。img.ejs 固定給圖片
+ *    w-full h-full，父層只給 max-height 的話，h-full 會算成 auto、
+ *    用原始高度溢出框外，後面的段落就會疊在照片上。
+ *    所以標記那邊用 ! 覆寫成 w-auto h-auto，由圖片自己限高。
+ */
+.m-article-image {
+  display: block;
+  width: 100%;
+
+  @apply m:my-[32px] pt:my-[42px];
+}
+
+/*
+ * 先說結論。
+ *
+ * 放在內文最前面，給趕時間的讀者與生成式搜尋一段可以直接引用的答案。
+ * 上下各一條線而不是整塊外框 —— 外框會讓它看起來像廣告或註解，
+ * 但它其實是整篇文章最重要的一段。
+ */
+.m-article-answer {
+  border-top: 1px solid var(--x56);
+  border-bottom: 1px solid var(--x56);
+  background-color: var(--x15);
+
+  @apply m:mb-[44px] m:px-[20px] m:py-[22px] pt:mb-[56px] pt:px-[30px] pt:py-[28px];
+}
+
+.m-article-answer-text {
+  font-weight: 700;
+  line-height: 1.9;
+
+  @apply m:mt-[8px] m:text-[17px] pt:mt-[10px] pt:text-[19px];
+}
+
+/*
+ * Instagram Reel。
+ * 限寬 560px 並維持直式比例，不然嵌入框會跟著 820px 的行寬一起拉寬。
+ */
+.m-article-embed {
+  max-width: 560px;
+
+  @apply mx-auto m:my-[32px] pt:my-[44px];
+
+  & iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 14;
+    border: 0;
+    background-color: var(--x1f1d);
+  }
+}
+
+/* ---------- 作者 ---------- */
+.m-article-author {
+  border-top: 1px solid var(--x56);
+  border-bottom: 1px solid var(--x56);
+
+  @apply m:mt-[56px] m:py-[22px] pt:mt-[76px] pt:py-[28px];
+}
+
+.m-article-author-name {
+  font-weight: 700;
+
+  @apply m:my-[6px] m:text-[18px] pt:my-[8px] pt:text-[20px];
+}
+
+.m-article-author-role {
+  color: var(--x6);
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+/* ---------- 延伸閱讀 ---------- */
+.m-article-related {
+  @apply m:py-[48px] t:py-[56px] p:pb-[72px] p:pt-[64px];
+}
+
+.m-article-related-list {
+  border-top: 1px solid var(--x56);
+
+  @apply m:mt-[16px] pt:mt-[20px];
+}
+
+/*
+ * 一列一篇，箭頭靠右。
+ * gap 保住標題與箭頭之間的距離 —— 標題長到佔滿整行時，
+ * 沒有 gap 的話兩者會黏在一起。
+ */
+.m-article-related-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--x56);
+  color: var(--white);
+  line-height: 1.7;
+  transition: color 0.3s ease-in-out;
+
+  @apply m:py-[16px] m:text-[15px] pt:py-[18px] pt:text-[16px];
+
+  &:hover {
+    color: var(--xe120);
+  }
+}
+
+.m-article-related-arrow {
+  flex-shrink: 0;
+  color: var(--xe120);
+}
+
+/* ---------- 頭等倉是誰 ---------- */
+.m-article-brand {
+  border-top: 1px solid var(--x56);
+  border-bottom: 1px solid var(--x56);
+  background-color: var(--black);
+}
+
+.m-article-brand-inner {
+  width: min(1080px, calc(100% - 40px));
+  margin-inline: auto;
+
+  @apply m:w-[calc(100%-28px)] m:py-[44px] t:py-[50px] p:py-[58px];
+}
+
+.m-article-brand-title {
+  font-weight: 700;
+
+  @apply m:mb-[12px] m:mt-[8px] m:text-[22px] pt:mb-[16px] pt:mt-[10px] pt:text-[25px];
+}
+
+.m-article-brand-text {
+  max-width: 680px;
+  color: var(--xc7);
+  line-height: 1.9;
+
+  @apply m:mb-[12px] m:text-[14px] pt:mb-[14px] pt:text-[15px];
+}
+
+.m-article-brand-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--x6);
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+.m-article-pin {
+  flex-shrink: 0;
+  color: var(--xe120);
+
+  @apply h-[16px] w-[14px];
+}

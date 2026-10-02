@@ -3,7 +3,8 @@
   <%/* 這裡是網站識別（logo），不是本頁標題，所以不使用 h1。
        每一頁的 h1 定義在各自的 view 裡 */%>
   <div class="flex-grow flex items-center">
-    <a href="./" class="m-hd-logo pt:inline-block m:flex m:items-center" rel="noopener" data-aos="fade-in">
+    <a href="<%= process.env.ROOT_DIRECTORY %>" class="m-hd-logo pt:inline-block m:flex m:items-center" rel="noopener"
+      data-aos="fade-in">
       <%- require('@component/svg.ejs')({
         svgName: 'logo_sub',
         style: {

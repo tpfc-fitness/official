@@ -1,0 +1,29 @@
+<%/* 頭等倉是誰 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-article，使用的頁面樣式表必須引入它。
+   *
+   * 文章頁的讀者多半是從搜尋進來的陌生人，不會先看過首頁，
+   * 所以在文末補一次「這裡是誰、在哪裡」。
+   *
+   * 這一塊刻意不放按鈕 —— 整頁的行動呼籲只留 footer 那一顆，
+   * 不要在一頁裡反覆要求同一件事。
+   */
+  const site = require('_data/site.js');
+-%>
+<section class="m-article-brand">
+  <div class="m-article-brand-inner">
+    <p class="m-article-label">ABOUT FIRST CLASS FITNESS</p>
+    <h2 class="m-article-brand-title"><%= site.name %></h2>
+    <p class="m-article-brand-text">
+      台北市中山區、鄰近民權西路站的一對一私人教練工作室。我們除了陪你完成訓練，也會從動作學習、訓練安排與實際操作開始，幫助你逐漸建立自主訓練能力。
+    </p>
+    <p class="m-article-brand-location">
+      <%- require('@component/svg.ejs')({
+        svgName: 'icon_pin',
+        style: { main: 'm-article-pin' }
+      }) %>
+      <span>捷運民權西路站 4 號出口步行約 3 分鐘</span>
+    </p>
+  </div>
+</section>

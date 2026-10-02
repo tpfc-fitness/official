@@ -6,7 +6,9 @@
   /* 地圖連結也用商家資料那一份（結構化資料的 hasMap），換地圖網址只要改一處 */
   const site = require('_data/site.js');
   const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
-  const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
+  /* nav.js 存的是站內路徑，前面接上部署子目錄才是真正的網址 */
+  const href = (url) => `${process.env.ROOT_DIRECTORY}${url}`;
+  const isActive = (url) => url === currentFile;
 -%>
 <footer class="m-ft p:px-[50px] p:pt-[50px] tm:px-[40px] tm:pt-[30px]">
   <div class="p:flex p:justify-between p:pl-[30px]">
@@ -26,7 +28,7 @@
         追蹤我們的社群媒體，每週都會有實質的內容與教學，降低更多的運動傷害，讓我們同步更好的訓練效益！</p>
       <%- require('@component/mBtn.ejs')({
         label: '即刻預約',
-        link: './contact.html',
+        link: `${process.env.ROOT_DIRECTORY}contact.html`,
         style: {
           main: '--border text-[18px] p:w-[144px] p:h-[38px] t:w-[216px] t:h-[60px] m:w-[180px] m:h-[50px]'
         }
@@ -39,7 +41,7 @@
           <ul>
             <% navItems.forEach((item) => { -%>
             <li>
-              <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]"
+              <a href="<%= href(item.url) %>" class="pt:text-[14px] m:text-[12px]"
                 <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
             </li>
             <% }); -%>
@@ -50,6 +52,7 @@
           <ul>
             <% social.forEach((item) => { -%>
             <li>
+              <%/* 社群是完整外部網址，不要接部署子目錄 */%>
               <a href="<%= item.url %>" class="pt:text-[14px] m:text-[12px]" target="_blank" rel="noopener">
                 <%- require('svg.ejs')({
                   svgName: item.icon,

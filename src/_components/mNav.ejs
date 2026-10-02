@@ -5,7 +5,9 @@
    */
   const navItems = require('_data/nav.js');
   const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
-  const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
+  /* nav.js 存的是站內路徑，前面接上部署子目錄才是真正的網址 */
+  const href = (url) => `${process.env.ROOT_DIRECTORY}${url}`;
+  const isActive = (url) => url === currentFile;
 -%>
 <div class="m-nav flex flex-row-reverse items-center text-center pt:flex-shrink-0">
   <button aria-label="menu" type="button"
@@ -20,7 +22,7 @@
       <% navItems.forEach((item) => { -%>
       <% if (item.navShow) { -%>
       <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]">
-        <a href="<%= item.url %>"
+        <a href="<%= href(item.url) %>"
           class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"
           <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
       </li>

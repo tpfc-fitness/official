@@ -53,11 +53,43 @@
 
   @apply m:text-[13px] t:text-[14px] p:text-[15px];
 
-  &:first-of-type {
-    @apply m:mt-[40px] t:mt-[56px] p:mt-[72px];
-  }
+  /*
+   * 與開場之間的兩倍段距。
+   *
+   * ⚠️ 不要改回 &:first-of-type —— of-type 看的是元素而不是類名，
+   *    這裡每一行都是 <p>，所以第一個 <p> 永遠是開場，這條規則
+   *    一次也不會中（這個間距原本就沒生效過）。
+   *    改成全部都給，再用下面的相鄰選擇器把段落之間收回去。
+   */
+  @apply m:mt-[40px] t:mt-[56px] p:mt-[72px];
 
+  /* 連續的內文段落之間用較小的段距 */
   & + & {
     @apply m:mt-[24px] t:mt-[30px] p:mt-[36px];
+  }
+}
+
+/*
+ * 收尾句。
+ *
+ * 和 body 的方向相反：body 是把補充說明往後退，收尾是把最後一句往前推。
+ * 所以字級跟著 lead、不縮小，再用純白與粗體把它和上面的鋪陳分開。
+ *
+ * 上方的間距抓一個行高（22 × 1.7 ≈ 37px），等於文案裡空的那一行 ——
+ * 比 body 的 72px 近得多，因為它還是同一段話的結論，不是另一個段落。
+ */
+.m-transition-conclusion {
+  color: var(--white);
+  font-weight: 700;
+  line-height: 1.7;
+
+  @apply m:text-[17px] t:text-[19px] p:text-[22px];
+
+  /* 與上面的鋪陳隔一個行高，等於文案裡空的那一行 */
+  @apply m:mt-[28px] t:mt-[32px] p:mt-[36px];
+
+  /* 收尾本身是連續的幾行，彼此之間不再加間距 */
+  & + & {
+    margin-top: 0;
   }
 }

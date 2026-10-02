@@ -28,4 +28,9 @@
     <% }); -%>
   </p>
   <% }); -%>
+
+  <%/* 收尾句：整段話的結論，一行一句，與上面的鋪陳隔開 */%>
+  <% (item.conclusion || []).forEach((line) => { -%>
+  <p class="m-transition-conclusion"><%= line %></p>
+  <% }); -%>
 </div>

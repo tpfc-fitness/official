@@ -61,33 +61,34 @@
       <% story.after.paragraphs.forEach((paragraph) => { -%>
       <p class="resevation-p"><%- paragraph %></p>
       <% }); -%>
+
+      <% if (story.closing) { -%>
+      <%/*
+        收尾：從教練的故事轉向讀者。
+
+        收在 After 這一欄裡，不另外開一塊置中的區段 —— 這一段後面緊接著
+        就是頁面的過場文案，那一塊也是置中、也是「如果你⋯⋯」起手，
+        兩塊長得一樣會看起來像同一段講了兩次。
+        留在欄內、靠左，它就還是 Benson 這段故事的結尾。
+
+        ⚠️ mt 要加 !：外層的 space-y 權重比單獨的 mt 高，不蓋不過去。
+      */%>
+      <p class="resevation-p p:!mt-[32px] tm:!mt-[24px]"><%= story.closing.lead %></p>
+
+      <%/* 三行是同一句話斷開的，行末的頓號與逗號要留著 */%>
+      <p class="resevation-p">
+        <% story.closing.points.forEach((line, i) => { -%>
+        <%- i ? '<br />' : '' %><%= line %>
+        <% }); -%>
+      </p>
+
+      <p class="resevation-h4 p:!mt-[24px] tm:!mt-[18px]">
+        <% story.closing.conclusion.forEach((line, i) => { -%>
+        <%- i ? '<br />' : '' %><%= line %>
+        <% }); -%>
+      </p>
+      <% } -%>
     </div>
   </div>
-
-  <% if (story.closing) { -%>
-  <%/*
-    收尾：從教練的故事轉向讀者。
-    沒有照片，所以不沿用上面的 reservation-card，改成置中、寬度收在
-    Before／After 文字欄差不多的範圍 —— 這一段是對著讀者說的，
-    左右並排的敘事版型到這裡就結束了。
-  */%>
-  <div class="text-center p:w-[1200px] p:mt-[70px] t:mt-[60px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px]
-    border-t border-solid border-[#fff] border-opacity-[0.14]">
-    <p class="resevation-p"><%= story.closing.lead %></p>
-
-    <%/* 三行是同一句話斷開的，行末的頓號與逗號要留著 */%>
-    <p class="resevation-p p:mt-[10px] tm:mt-[8px]">
-      <% story.closing.points.forEach((line, i) => { -%>
-      <%- i ? '<br />' : '' %><%= line %>
-      <% }); -%>
-    </p>
-
-    <p class="resevation-h4 p:mt-[28px] tm:mt-[20px]">
-      <% story.closing.conclusion.forEach((line, i) => { -%>
-      <%- i ? '<br />' : '' %><%= line %>
-      <% }); -%>
-    </p>
-  </div>
-  <% } -%>
 </section>
 <% }); -%>

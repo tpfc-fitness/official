@@ -1,89 +1,96 @@
 /*
  * 文章（部落格）
  *
- * 一筆＝一頁。htmlPage/index.js 讀這一份，依陣列自動產生
- * /article/<slug>.html，sitemap 也會跟著收錄，不必另外登記。
+ * 這一支不放內容，只負責把 _data/articles/ 底下的 JSON 收集起來。
+ * 一個 .json ＝ 一篇文章 ＝ 一頁：htmlPage/index.js 讀這份清單，
+ * 自動產生 /article/<檔名>.html，sitemap 也會跟著收錄，不必另外登記。
  *
- * ⚠️ 這個檔會被「Node 直接 require」（htmlPage/index.js 在 webpack 啟動前
- *    就要知道有哪些頁），所以裡面不能出現任何 webpack 專屬語法 ——
- *    特別是 require('@imgs/…')。圖片一律寫成相對於 src/assets/img/article/
- *    的路徑字串，由 _components/article-image.ejs 在 build 期解析成網址。
+ * 新增一篇文章 = 丟一個 JSON 進 _data/articles/ + 圖片放
+ * assets/img/article/<資料夾>/。格式見 _data/articles/_TEMPLATE.json。
  *
- * ⚠️ 不可以依賴 window / document，理由同上。
+ * ⚠️ 檔名就是網址。squat-knee-pain.json → /article/squat-knee-pain.html，
+ *    所以檔名只用小寫英數與連字號，不要用中文或空白。
+ *    改檔名等於改網址，已經發布過的文章不要隨手改。
  *
- * blocks 是文章本體，依序渲染：
- *   { h2 }            一個大段落的開頭
- *   { h3 }            段落內的小標
- *   { p }             段落（走 <%- %>，可以寫 <b> <a> 這類行內標記）
- *   { img, alt }      插圖，img 是 article/ 底下的路徑
- *   { embed }         Instagram Reel 的嵌入網址（只有真的有才放）
+ * ⚠️ 底線開頭的檔案會被跳過（_TEMPLATE.json 是空白表單，不是文章）。
  *
- * 樣板原本每篇都列了「為什麼／常見錯誤／怎麼判斷／怎麼調整／適合誰／
- * 什麼情況建議找教練」六個 H2，那是提示不是規定 —— 依題目增減即可。
+ * ⚠️ 這份清單在 webpack 啟動前就要算出來，所以 dev server 開著的時候
+ *    新增 JSON 不會自動出現，要重跑一次。改既有 JSON 的內容則會。
  */
-module.exports = [
-  {
-    slug: 'squat-knee-pain',
-    category: '動作教學',
-    title: '深蹲膝蓋痛，是姿勢錯了嗎？',
-    lead: '膝蓋在深蹲時覺得卡、酸或痛，多數時候不是「膝蓋壞了」，而是動作的分配出了問題。',
-    /* meta description：和 lead 分開寫，這一句是給搜尋結果看的 */
-    description:
-      '深蹲時膝蓋痛，常見原因是重心過度前移、膝蓋內夾與腳踝活動度不足。這篇說明怎麼自己判斷、怎麼調整，以及什麼情況該找教練看動作。',
-    updated: '2026-10-02',
-    readingTime: 6,
-    cover: {
-      img: 'squat/cover.jpg',
-      alt: '學員在深蹲架前扛槓鈴做背蹲舉，教練在旁觀察動作',
-    },
-    author: { name: 'Benson', role: '創辦人・私人教練' },
-    /* 先說結論：給 AI 與趕時間的人直接引用的一段 */
-    directAnswer:
-      '深蹲膝蓋痛多半不是膝蓋本身的問題，而是重心過度前移、膝蓋往內夾，或腳踝活動度不足把壓力全推到膝關節。先減重量、把動作分配調回髖關節，痛感通常就會明顯下降；若減重量仍然會痛，或痛在特定角度卡住，請先讓專業人員看過。',
-    blocks: [
-      { h2: '為什麼會痛？' },
-      {
-        p: '深蹲是髖關節與膝關節一起分工的動作。當髖關節沒有參與，身體就只能靠膝蓋往前頂來完成蹲低，膝關節前側因此承受了本來該由臀部與大腿後側分擔的負荷。',
-      },
-      {
-        p: '這不是「深蹲傷膝蓋」，而是<b>這一次的深蹲把工作全派給了膝蓋</b>。同樣的重量，分配對了就不痛，分配錯了就會痛。',
-      },
-      { img: 'squat/depth.jpg', alt: '學員扛槓鈴蹲向軟墊跳箱，用箱子確認蹲的深度' },
+const fs = require('fs');
+const path = require('path');
 
-      { h2: '常見的三種狀況' },
-      { h3: '一｜重心整個壓在前腳掌' },
-      {
-        p: '蹲下去的時候腳跟先離地，或是感覺整個人往前倒。這通常是腳踝活動度不足，小腿前側推不過去，身體只好用膝蓋往前補。',
-      },
-      { h3: '二｜膝蓋往內夾' },
-      {
-        p: '從正面看，蹲到底時膝蓋朝內靠攏。多半是臀部外側沒有出力，膝關節因此被往內拉，壓力落在內側。',
-      },
-      { h3: '三｜蹲得比自己能控制的還低' },
-      {
-        p: '為了追求「蹲到底」，在髖關節已經沒有空間的狀況下硬往下坐，骨盆後傾、腰椎跟著捲起來，膝蓋也被推到更前面。',
-      },
+/*
+ * 這支模組會被兩邊 require：
+ *   1. Node 直接讀（htmlPage/index.js 要先知道有哪些頁）
+ *   2. webpack 打包後在 EJS 裡讀（mJsonLd 與 views/article 要取內容）
+ * 第二種情況 __dirname 會被改寫成 '/'，所以兩個候選路徑都試。
+ *
+ * ⚠️ 第二個候選不要改成 process.cwd() —— webpack 端沒有 process 這個物件，
+ *    只有 DefinePlugin 事先替換掉的 process.env.XXX 會變成字串常數。
+ */
+const DIR = [
+  path.join(__dirname, 'articles'),
+  `${process.env.PROJECT_ROOT}/src/_data/articles`,
+].find((dir) => fs.existsSync(dir));
 
-      { h2: '怎麼自己判斷？' },
-      {
-        p: '把重量拿掉，只用徒手蹲，對著鏡子從正面和側面各看一次：腳跟有沒有離地、膝蓋有沒有往內、蹲到哪一個深度開始覺得卡。徒手就會痛，代表問題在動作或活動度，不是重量太重。',
-      },
+/*
+ * 中文閱讀時間：以每分鐘 350 字估算，不足一分鐘算一分鐘。
+ * 自動算而不是手填 —— 手填的數字在內容改過之後就不準了，
+ * 而且沒人會記得回來改。
+ */
+const readingTime = (article) => {
+  const text = [article.lead, article.directAnswer]
+    .concat(article.blocks.map((block) => block.h2 || block.h3 || block.p || ''))
+    .join('')
+    .replace(/<[^>]+>/g, '');
 
-      { h2: '可以怎麼調整？' },
-      {
-        p: '先把重量降到可以做出完整動作的範圍，寧可輕也不要帶著錯誤的分配練下去。接著把注意力放在「往後坐」而不是「往下蹲」，讓髖關節先開始動；蹲的深度則以自己能維持骨盆不後傾的位置為準，而不是以別人的深度為準。',
-      },
-      {
-        p: '如果是腳踝的問題，訓練前先做小腿的放鬆與活動度，再回到深蹲，多數人當下就能感覺到重心比較穩。',
-      },
+  return Math.max(1, Math.round(text.length / 350));
+};
 
-      { h2: '什麼情況建議找教練？' },
-      {
-        p: '動作是自己看不到的 —— 你感覺到的和實際做出來的往往有落差。如果你已經調整過還是會痛、或是不確定自己哪裡做錯，讓人從旁邊看一次會比反覆自己猜快很多。這也是我們在<a href="/official/service.html">一對一私人教練課</a>裡最常處理的事：先找出動作做不好的原因，再決定怎麼練。',
-      },
-      {
-        p: '另外提醒：如果痛的位置很明確、或是休息之後仍然持續，請先讓醫療專業人員評估，不要只靠調整動作解決。',
-      },
-    ],
-  },
+/*
+ * 必填欄位。缺了就直接在 build 時說清楚是哪個檔少了什麼 ——
+ * 不檢查的話會變成 EJS 裡一句 Cannot read properties of undefined，
+ * 看不出是哪一篇寫錯。
+ */
+const REQUIRED = [
+  'category',
+  'title',
+  'lead',
+  'description',
+  'updated',
+  'cover',
+  'author',
+  'directAnswer',
+  'blocks',
 ];
+
+module.exports = fs
+  .readdirSync(DIR)
+  .filter((file) => file.endsWith('.json') && !file.startsWith('_'))
+  .map((file) => {
+    const raw = JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
+
+    /*
+     * 底線開頭的鍵一律丟掉 —— _TEMPLATE.json 的說明文字就是寫成
+     * _category、_blocks 這樣，忘記刪也不會被當成內容渲染出來。
+     */
+    const article = {};
+    Object.keys(raw).forEach((key) => {
+      if (!key.startsWith('_')) article[key] = raw[key];
+    });
+
+    const missing = REQUIRED.filter((key) => !article[key]);
+    if (missing.length) {
+      throw new Error(`[articles] _data/articles/${file} 缺少欄位：${missing.join('、')}`);
+    }
+
+    /* slug 不寫在 JSON 裡：檔名是唯一來源，兩邊都有就會有一天對不上 */
+    return {
+      ...article,
+      slug: path.basename(file, '.json'),
+      readingTime: readingTime(article),
+    };
+  })
+  /* 新的排前面。文章清單頁與「延伸閱讀」都直接吃這個順序 */
+  .sort((a, b) => (a.updated < b.updated ? 1 : -1));

@@ -10,9 +10,22 @@
 /* 兩個地方會用到：具名的 line 欄位（版面上的連結）與 sameAs（結構化資料） */
 const LINE = 'https://line.me/R/ti/p/@936ccniz';
 
+/* 完整品牌名。別名清單與 WebSite 的 name 都會用到，所以抽成一個常數 */
+const FULL_NAME = 'First Class 頭等倉運動空間';
+
 module.exports = {
   name: '頭等倉運動空間',
-  alternateName: 'First Class 頭等倉運動空間',
+  fullName: FULL_NAME,
+  /*
+   * 別名。Google 用它把不同寫法認成同一間店。
+   *
+   * 「頭等艙」是錯字，但實際上被搜的次數不少 —— 倉與艙同音，
+   * 而且「頭等艙」是大家本來就熟悉的詞。宣告成別名不是把錯字扶正，
+   * 是讓打錯的人也找得到我們；頁面上的正式寫法仍然只有「頭等倉」。
+   *
+   * 「First Class」單獨列出，是因為有人只記得英文名。
+   */
+  alternateName: [FULL_NAME, '頭等艙', 'First Class'],
   description:
     '位於台北市中山區、鄰近民權西路的私人教練運動工作室，提供一對一與一對二私人教練課程及自主訓練。',
   telephone: '+886-2-2522-2330',

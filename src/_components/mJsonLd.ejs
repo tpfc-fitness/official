@@ -107,7 +107,8 @@
       '@type': 'WebSite',
       '@id': siteId,
       url: `${siteUrl}/`,
-      name: site.alternateName,
+      /* 這裡只能給一個字串，不能用 alternateName —— 那是別名清單（陣列） */
+      name: site.fullName,
       inLanguage: 'zh-Hant-TW',
       publisher: { '@id': orgId },
     },

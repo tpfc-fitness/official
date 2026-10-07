@@ -1,6 +1,15 @@
 <%
   const TITLENAME = 'First Class 頭等倉運動空間';
-  const TITLE = htmlWebpackPlugin.options.title ? `${htmlWebpackPlugin.options.title} | First Class 頭等倉運動空間` : TITLENAME;
+  /*
+   * 頁面標題。預設在頁名後面接上品牌名當後綴。
+   * htmlPage 的 titleExact 可以關掉後綴 —— 給那種標題本身就寫了品牌名的頁面用，
+   * 不關的話品牌名會出現兩次，長度也會超出搜尋結果顯示的範圍。
+   */
+  const PAGE_NAME = htmlWebpackPlugin.options.title;
+  let TITLE = TITLENAME;
+  if (PAGE_NAME) {
+    TITLE = htmlWebpackPlugin.options.titleExact ? PAGE_NAME : `${PAGE_NAME} | ${TITLENAME}`;
+  }
   /* view 資料夾名稱由 htmlPage/index.js 指定，與網址檔名脫鉤 */
   const VIEW = htmlWebpackPlugin.options.view
     || /(.*)(?=\.html$)/.exec(htmlWebpackPlugin.options.filename)[1];

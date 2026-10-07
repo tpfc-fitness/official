@@ -6,14 +6,20 @@
 module.exports = {
   HtmlWebpackPlugin: [
     {
-      title: '民權西路健身教練',
+      title: '頭等倉運動空間 First Class｜中山區民權西路健身工作室',
+      /*
+       * 這一頁的 title 自己就含品牌名了，所以不要再接
+       * 「| First Class 頭等倉運動空間」—— 接了會變成品牌名出現兩次，
+       * 而且長度直接超出搜尋結果會顯示的範圍。其他頁維持接後綴。
+       */
+      titleExact: true,
       filename: 'index.html',
       view: 'home',
       path: '/',
       template: 'App.ejs',
       action: 'index',
       description:
-        '頭等倉運動空間位於台北市中山區，捷運民權西路站步行 3 分鐘，提供一對一私人教練與小班制團體課程。從動作學習到菜單安排，帶你學會正確訓練，最後能自己訓練。新生 10 堂 8,000 元，歡迎預約免費體驗。',
+        '讓你真正學會訓練，不用一輩子靠教練。頭等倉是中山區民權西路的健身工作室，提供一對一、一對二教練課，捷運民權西路站4號出口步行4分鐘。',
       chunks: ['index'],
     },
     {

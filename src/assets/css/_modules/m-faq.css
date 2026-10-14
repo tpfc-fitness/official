@@ -129,3 +129,62 @@ details[open] .m-faq-icon::after {
     }
   }
 }
+
+/*
+ * 答案裡的表格（並排比較用，例如各方案適合誰）。
+ *
+ * 只畫橫線不畫直線：兩欄而已，加直線會像試算表，
+ * 跟上下的段落文字放在一起太硬。
+ * 第一欄固定寬度並靠上對齊 —— 右欄的說明有長有短，
+ * 方案名稱要跟說明的第一行對齊，不要跑到中間。
+ */
+.m-faq-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: rgb(255 255 255 / 82%);
+  text-align: left;
+  line-height: 1.8;
+
+  @apply m:text-[13px] pt:text-[15px];
+
+  th,
+  td {
+    border-top: 1px solid rgb(255 255 255 / 14%);
+    vertical-align: top;
+
+    @apply m:py-[10px] pt:py-[12px];
+  }
+
+  thead th {
+    border-top: 0;
+    color: rgb(255 255 255 / 55%);
+    font-weight: 400;
+
+    @apply m:pb-[6px] m:pt-0 m:text-[12px] pt:pb-[8px] pt:pt-0 pt:text-[13px];
+  }
+
+  /*
+   * 方案名稱一律不斷行，欄寬會自己撐開。
+   * 允許斷行的話，全形的「＋」本身就是斷點，手機上會切成
+   * 「新手組合 10／＋8 堂」；桌機則會剩一個「堂」掉到第二行。
+   * 名稱都很短（最長的「新手組合 10＋8 堂」在手機上約 86px），不斷行也擠不壞右欄。
+   *
+   * ⚠️ 以後加的方案名稱如果很長，手機上這一欄會把右欄壓窄，到時再改成兩行的寫法。
+   */
+  tbody th {
+    color: var(--white);
+    font-weight: 700;
+    white-space: nowrap;
+
+    @apply m:w-[7.5em] m:pr-[12px] pt:w-[10em] pt:pr-[20px];
+  }
+}
+
+/*
+ * 有錨點的題目（別頁會連到 faq.html#<id>）。
+ * 實際的展開與捲動交給 scripts/faq.js，會扣掉 header 的高度；
+ * 這裡是 JS 還沒跑或被關掉時的後備，至少不要讓題目被固定的 header 蓋住。
+ */
+.m-faq-anchor {
+  scroll-margin-top: 140px;
+}

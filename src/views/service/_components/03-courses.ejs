@@ -105,7 +105,63 @@
           標題與數字分成兩行讀起來像漏了什麼。這時直接把標題當成那一列
           的名稱，價格就與它對齊在同一行。
         */%>
-        <% if (item.prices.length === 1) { -%>
+        <% if (item.pricing) { -%>
+        <%/*
+          可收合的價格方案（私人教練課程）。
+
+          用原生 details 的理由跟 faq 頁的手風琴一樣：收合中的價格仍然在
+          HTML 裡，搜尋引擎與 LLM 讀得到。不要改成點了才用 JS 塞內容。
+
+          預設收合 —— 六個方案全攤開，這一項會比團課、自主訓練長一大截，
+          三項並排時版面就歪了。
+        */%>
+        <details class="m-pricing p:mt-[22px] tm:mt-[16px]">
+          <summary class="m-pricing-summary">
+            <span class="font-bold p:text-[15px] tm:text-[14px]"><%= item.pricing.summary %></span>
+            <span class="m-pricing-hint">
+              <%= item.pricing.hint %>
+              <i class="m-pricing-arrow" aria-hidden="true"></i>
+            </span>
+          </summary>
+
+          <div class="m-pricing-body">
+            <% item.pricing.groups.forEach((group) => { -%>
+            <div class="m-pricing-group">
+              <p class="m-pricing-group-title">
+                <b><%= group.title %></b>
+                <span><%= group.note %></span>
+              </p>
+              <dl class="m-price-list">
+                <% group.rows.forEach((row) => { -%>
+                <div>
+                  <dt>
+                    <%= row.name %>
+                    <% if (row.badge) { -%>
+                    <em class="m-pricing-badge"><%= row.badge %></em>
+                    <% } -%>
+                    <%/*
+                      附註以「・」分段，每段各自不斷行 —— 手機上換行時整段一起
+                      掉到下一行，不會把「每堂約」和「1,506」拆在兩行。
+                    */%>
+                    <span
+                      class="m-price-list-term"><% row.term.split('・').forEach((part, partIdx) => { -%><%= partIdx ? '・' : '' %><span
+                        class="inline-block"><%= part %></span><% }); -%></span>
+                  </dt>
+                  <dd>
+                    <span class="m-pricing-unit"><%= row.unit %></span>
+                    <span class="m-pricing-value"><%= row.value %></span>
+                  </dd>
+                </div>
+                <% }); -%>
+              </dl>
+            </div>
+            <% }); -%>
+
+            <p class="m-pricing-footnote"><%= item.pricing.footnote %></p>
+            <a class="m-pricing-link" href="<%= item.pricing.link.href %>"><%= item.pricing.link.label %> →</a>
+          </div>
+        </details>
+        <% } else if (item.prices.length === 1) { -%>
         <dl class="m-price-list p:mt-[22px] tm:mt-[16px]">
           <div>
             <dt class="font-bold">

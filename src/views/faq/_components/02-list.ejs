@@ -22,7 +22,8 @@
 
       <ul data-aos="fade-up" class="m-faq bg-[rgb(0_0_0_/_40%)] border border-solid border-[rgb(255_255_255_/_18%)]">
         <% group.items.forEach((item) => { no += 1; -%>
-        <li>
+        <%/* id 是給別頁連過來用的錨點，script 會依網址的 # 展開這一題 */%>
+        <li <%- item.id ? `id="${item.id}" class="m-faq-anchor"` : '' %>>
           <details>
             <summary class="flex items-center p:px-[28px] p:py-[24px] t:px-[22px] t:py-[20px] m:px-[16px] m:py-[16px]">
               <span class="flex-shrink-0 font-bold text-[13px] tracking-[0.1em] text-[var(--xe120)]">
@@ -42,6 +43,30 @@
                   <li><%- li %></li>
                   <% }); -%>
                 </ul>
+                <% } else if (line.table) { -%>
+                <%/* 第一欄是列標題（th scope=row）：螢幕閱讀器讀每一格時會先唸出是哪個方案 */%>
+                <table class="m-faq-table">
+                  <thead>
+                    <tr>
+                      <% line.table.head.forEach((cell) => { -%>
+                      <th scope="col"><%= cell %></th>
+                      <% }); -%>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% line.table.rows.forEach((row) => { -%>
+                    <tr>
+                      <% row.forEach((cell, cellIdx) => { -%>
+                      <% if (cellIdx === 0) { -%>
+                      <th scope="row"><%- cell %></th>
+                      <% } else { -%>
+                      <td><%- cell %></td>
+                      <% } -%>
+                      <% }); -%>
+                    </tr>
+                    <% }); -%>
+                  </tbody>
+                </table>
                 <% } else { -%>
                 <p class="leading-[1.9] p:text-[15px] tm:text-[13px] text-[rgb(255_255_255_/_82%)]"><%- line %></p>
                 <% } -%>

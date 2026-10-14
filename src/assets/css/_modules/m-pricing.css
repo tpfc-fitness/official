@@ -1,0 +1,172 @@
+/*
+ * 可收合的價格方案（服務項目頁・私人教練課程）。
+ *
+ * 外框是原生 <details>，理由見 views/service/_components/03-courses.ejs。
+ * 每一列沿用 _modules/m-price-list 的 dt／dd 結構，這裡只調整
+ * 「單堂價放大」與方案分組需要的部分。
+ *
+ * ⚠️ 使用的頁面樣式表要同時引入 m-price-list 與這一支。
+ */
+
+/* ---------- 收合時露出的那一列 ---------- */
+
+/*
+ * 上下各一條線，與說明文字下方那條分隔線同色（--x56），
+ * 收合時看起來就是一列可以點的價目，而不是一顆按鈕。
+ */
+.m-pricing-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--x56);
+  border-bottom: 1px solid var(--x56);
+  cursor: pointer;
+
+  /* 拿掉瀏覽器預設的三角形，改用右側自己的箭頭 */
+  list-style: none;
+
+  @apply m:py-[12px] pt:py-[14px];
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+  }
+}
+
+.m-pricing-hint {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 10px;
+  color: var(--xc7);
+
+  @apply m:text-[12px] pt:text-[13px];
+}
+
+/* 向下的箭頭，展開時轉成朝上 */
+.m-pricing-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.m-pricing[open] .m-pricing-arrow {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+/* ---------- 展開後 ---------- */
+
+/*
+ * 展開的內容放在一塊稍亮的底上，跟收合列與上方說明文字分開 ——
+ * 六個方案一展開很長，沒有底色的話會跟整張卡片的內文混成一片。
+ * #262626 介於卡片底（--x15）與分隔線（--x56）之間，色票裡沒有這一階。
+ */
+.m-pricing-body {
+  padding: 16px;
+  background-color: #262626;
+}
+
+.m-pricing-group {
+  & + & {
+    @apply m:mt-[22px] pt:mt-[26px];
+  }
+
+  /*
+   * 價目表在這裡不限寬：左欄本身就只有半個版面寬，
+   * 再限 420px 的話，右邊的單堂價會跟名稱擠在一起。
+   */
+  .m-price-list {
+    max-width: none;
+  }
+
+  /* 單堂價可能是四位數加「每堂」，不能被擠到換行 */
+  .m-price-list dd {
+    white-space: nowrap;
+  }
+}
+
+/* 分組標題：左邊組名，右邊小字說明 */
+.m-pricing-group-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+
+  @apply m:mb-[8px] pt:mb-[10px];
+
+  b {
+    @apply m:text-[14px] pt:text-[15px];
+  }
+
+  span {
+    color: rgb(255 255 255 / 55%);
+
+    @apply m:text-[12px] pt:text-[13px];
+  }
+}
+
+/*
+ * 「推薦」標籤。主色紅底 —— 整塊價目表只有這裡用紅色，
+ * 一眼就落在新手組合上。
+ */
+.m-pricing-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  background-color: var(--xe120);
+  color: var(--white);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5;
+  vertical-align: 1px;
+
+  @apply m:text-[11px] pt:text-[12px];
+}
+
+/*
+ * 右欄：「每堂」小字＋放大的數字。
+ * 主視覺是單堂價而不是總價 —— 比方案時大家看的是一堂多少。
+ */
+.m-pricing-unit {
+  margin-right: 4px;
+  color: rgb(255 255 255 / 55%);
+  font-weight: 400;
+
+  @apply m:text-[12px] pt:text-[13px];
+}
+
+.m-pricing-value {
+  font-weight: 900;
+  line-height: 1;
+
+  @apply m:text-[20px] pt:text-[24px];
+}
+
+.m-pricing-footnote {
+  color: rgb(255 255 255 / 55%);
+
+  @apply m:mt-[18px] m:text-[12px] pt:mt-[22px] pt:text-[13px];
+}
+
+.m-pricing-link {
+  display: inline-block;
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-color: var(--xe120);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.3s ease-in-out;
+
+  @apply m:mt-[8px] m:text-[13px] pt:mt-[10px] pt:text-[14px];
+
+  &:hover {
+    text-decoration-color: var(--white);
+  }
+}

@@ -4,8 +4,13 @@
  * 順序：私人教練課程 → 團體訓練 → 自主訓練。
  * 第一組有兩種上課形式，以分頁切換呈現。
  *
- * ⚠️ prices 的數字必須與 _data/offers.js（結構化資料）、_data/newbie-plan.js
- *    與 llms.txt 完全一致，改價格時四處都要動。
+ * 價格有兩種寫法，模板依欄位決定畫哪一種：
+ *   pricing           可收合的「價格方案」（私人教練課程用，方案多）
+ *   priceTitle/prices 直接列出的價目（團體訓練、自主訓練用，只有一兩列）
+ *
+ * ⚠️ pricing 與 prices 的數字必須與 _data/offers.js（結構化資料）、
+ *    _data/faq.js、_data/contact-faq.js、_data/newbie-plan.js 與 llms.txt
+ *    完全一致，改價格時這幾處都要動。
  *
  * ⚠️ 每張照片的 alt 各自描述畫面內容，不要改回同一句 ——
  *    同一句 alt 對螢幕閱讀器與搜尋引擎都等於沒有資訊。
@@ -32,15 +37,76 @@ module.exports = [
     ],
     featureTitle: '個人化訓練安排',
     features: ['動作指導', '重量調整', '訓練規劃'],
-    priceTitle: '新生方案',
-    prices: [
-      { name: '一對一', value: '10 堂 NT$8,000', note: '平均一堂 800 元・使用期限三個月' },
-      {
-        name: '一對二',
-        value: '10 堂 NT$13,000',
-        note: '兩人合計，平均一堂 1,300 元・使用期限三個月',
-      },
-    ],
+    /*
+     * 價格方案（收合）。
+     *
+     * 主視覺是單堂價（value），總價放在 term 當附註 ——
+     * 比較方案時大家看的是「一堂多少」，總價是決定買哪個之後才看的。
+     *
+     * ⚠️ 期限只寫在新生 10 堂上。新手組合與正式方案刻意不寫期限，
+     *    也刻意不寫「新生＋正式方案」的組合平均價，不要自己補上去。
+     */
+    pricing: {
+      summary: '價格方案',
+      hint: '',
+      groups: [
+        {
+          title: '新生方案 10堂優惠',
+          note: '限購一次・先試試看',
+          rows: [
+            {
+              name: '一對一',
+              term: '總價 NT$8,000・使用期限三個月',
+              unit: '每堂',
+              value: '800',
+            },
+            {
+              name: '一對二',
+              term: '兩人合計 NT$13,000・使用期限三個月',
+              unit: '每堂',
+              value: '1,300',
+            },
+            {
+              name: '新手組合 10＋8 堂',
+              badge: '推薦',
+              term: '一對一共 18 堂・總價 NT$22,400',
+              unit: '平均',
+              value: '1,244',
+            },
+          ],
+        },
+        {
+          title: '正式方案（一對一）',
+          note: '確定適合再續',
+          rows: [
+            {
+              name: '16＋1 堂',
+              term: '總價 NT$25,600・含贈堂每堂約 1,506',
+              unit: '每堂',
+              value: '1,600',
+            },
+            {
+              name: '32＋2 堂',
+              term: '總價 NT$48,000・含贈堂每堂約 1,412',
+              unit: '每堂',
+              value: '1,500',
+            },
+            {
+              name: '48＋3 堂',
+              term: '總價 NT$62,400・含贈堂每堂約 1,224',
+              unit: '每堂',
+              value: '1,300',
+            },
+          ],
+        },
+      ],
+      footnote: '付款方式：匯款或現金',
+      /*
+       * 連到 faq 頁「要買幾堂？」那一題，faq 頁會自動展開並捲過去。
+       * ⚠️ #choose-plan 是 _data/faq.js 裡那一題的 id，兩邊要一起改。
+       */
+      link: { label: '不知道怎麼選？看各方案適合誰', href: './faq.html#choose-plan' },
+    },
     imgs: [
       { path: require('@imgs/service/pt_01.jpg'), alt: '兩位學員在深蹲架前，各自扛著槓鈴做背蹲舉' },
       {
@@ -99,7 +165,7 @@ module.exports = [
     featureTitle: '自主訓練支援',
     features: ['課後自主訓練', '器材自由使用', '巡場教練協助'],
     priceTitle: '費用',
-    prices: [{ value: '購課學員完課期間免費', note: '使用方式於體驗課時說明' }],
+    prices: [{ value: '1對1/1對2購課期間免費', note: '使用方式於體驗課時說明' }],
     imgs: [
       { path: require('@imgs/service/self_01.jpg'), alt: '學員獨自在深蹲架內扛槓鈴蹲到底' },
       { path: require('@imgs/service/self_02.jpg'), alt: '學員獨自躺在臥推椅上推起槓鈴' },

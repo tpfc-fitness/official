@@ -3,6 +3,8 @@
   const navItems = require('_data/nav.js');
   /* 社群連結同樣只有一份來源，避免 footer 與結構化資料各寫各的而不同步 */
   const social = require('_data/social.js');
+  /* 地圖連結也用商家資料那一份（結構化資料的 hasMap），換地圖網址只要改一處 */
+  const site = require('_data/site.js');
   const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
   const isActive = (url) => url.replace(/^\.\//, '') === currentFile;
 -%>
@@ -70,11 +72,35 @@
             </li>
             <li class="p:mt-[40px] tm:w-1/2">
               <h2 class="text-[var(--xc7)] font-bold p:mb-[8px] tm:mb-[6px] p:text-[20px] tm:text-[20px]">地址電話</h2>
-              <a class="block p:mb-[4px] tm:mb-[10px] pt:text-[14px] m:text-[12px]"
-                href="tel:+886-2-25222330">(02)2522-2330</a>
-              <a class="pt:text-[14px] m:text-[12px]" href="https://maps.app.goo.gl/XJrhGD2UgVfA9BrC6" target="_blank"
-                rel="noopener">
-                <p class="leading-tight">10449<br>台北市中山區中山北路二段128巷32號1F</p>
+              <%/*
+                電話也加同一個 ↗，跟下面的地址統一 —— 兩個連結長得一樣，
+                看的人才會推得出「有箭頭的都能點」。改用聽筒圖示的話，
+                很容易被當成單純的裝飾。手機上點下去是直接撥號。
+              */%>
+              <a class="block p:mb-[4px] tm:mb-[10px] pt:text-[14px] m:text-[12px]" href="tel:+886-2-25222330">(02)2522-2330<%- require('@component/svg.ejs')({
+                  svgName: 'arrow',
+                  style: {
+                    main: 'inline-block w-[0.9em] h-[0.9em] ml-[6px] -rotate-45 align-[-0.1em]'
+                  }
+                }) %><span class="sr-only">（撥打電話）</span></a>
+              <%/*
+                地址連到 Google 地圖的店家頁：手機上會直接開地圖 App，按「路線」就能導航。
+                原本就有連結，但跟電話一樣是純文字的樣子，看不出能點 ——
+                地址後面加一個指向右上的箭頭（↗，「開到別的地方」的慣用符號）。
+                不用底線：兩行地址都畫線太吵。
+
+                箭頭沿用站上的 arrow.svg 轉 -45 度，跟其他按鈕的箭頭是同一個樣子。
+                它是裝飾，意思由 sr-only 那句講給螢幕閱讀器聽。
+              */%>
+              <a class="m-ft-map pt:text-[14px] m:text-[12px]" href="<%= site.hasMap %>" target="_blank" rel="noopener">
+                <span class="block leading-tight">
+                  10449<br>台北市中山區中山北路二段128巷32號1F<%- require('@component/svg.ejs')({
+                    svgName: 'arrow',
+                    style: {
+                      main: 'inline-block w-[0.9em] h-[0.9em] ml-[6px] -rotate-45 align-[-0.1em]'
+                    }
+                  }) %><span class="sr-only">（在 Google 地圖開啟）</span>
+                </span>
               </a>
             </li>
           </ul>

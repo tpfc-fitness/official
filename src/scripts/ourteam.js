@@ -122,9 +122,29 @@ window.PetiteVue.createApp({
     });
   },
 
+  /*
+   * 網址列跟著目前展開的教練走：展開 Benson 時網址變成 ourteam.html#coach-benson，
+   * 收起來就拿掉 #。這樣直接複製網址列分享出去，對方點開就是同一位教練。
+   *
+   * 用 replaceState 不用 pushState —— 一路點了五位教練，按上一頁應該回到
+   * 前一個頁面，而不是一位一位倒回去。replaceState 也不會觸發 hashchange，
+   * 不會反過來再跑一次 openCoachFromHash。
+   */
+  syncCoachHash(input) {
+    const { pathname, search, hash } = window.location;
+
+    if (input.checked) {
+      window.history.replaceState(null, '', `#${input.id}`);
+    } else if (hash === `#${input.id}`) {
+      window.history.replaceState(null, '', `${pathname}${search}`);
+    }
+  },
+
   bindCoachToggle() {
     document.querySelectorAll('.m-coach-grid > input').forEach((input) => {
       input.addEventListener('change', () => {
+        this.syncCoachHash(input);
+
         /* 收合不必捲動 —— 使用者看的還是同一張卡 */
         if (!input.checked) return;
 

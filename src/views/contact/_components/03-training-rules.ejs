@@ -14,10 +14,20 @@
     </div>
   </header>
   <%/* 輪播下面已經沒有東西了，留白交給 section 自己的 padding */%>
+  <%/*
+    四張卡要一樣高。
+
+    ul 在所有斷點都是 flex（原本只有平板以上）：flex 子項目預設會被拉到同一列
+    最高那張的高度，裡面卡片的 h-full 才算得出來。手機原本是 tiny-slider 的
+    inline-block，li 只設 min-height，卡片的 h-full 對 min-height 無效、只撐到
+    文字高度 —— 每張卡下面空一大塊黑，左右箭頭也跟著對到卡片底部去。
+
+    flex-shrink-0：寬度由 tiny-slider 指定，不能讓 flex 把它壓窄。
+  */%>
   <div class="m-slider pt:mx-auto p:max-w-[1220px]">
-    <ul class="training-rules-slider pt:flex">
+    <ul class="training-rules-slider flex">
       <% rules.items.forEach((item) => { -%>
-      <li class="p:w-1/4 tm:min-h-[340px]">
+      <li class="flex-shrink-0 p:w-1/4">
         <div
           class="bg-[#fff] text-[var(--black)] h-full p:mx-[10px] p:px-[24px] p:py-[32px] t:px-[20px] t:py-[28px] m:px-[24px] m:py-[32px]">
           <p class="training-rule-no"><%= item.no %></p>

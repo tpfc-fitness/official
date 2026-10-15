@@ -24,6 +24,10 @@ import 'tiny-slider/dist/tiny-slider.css';
  * 頁面捲動。預設是 false —— 手指稍微斜一點就會同時帶動上下捲動，
  * 卡片跟著頁面一起晃，在手機上很難切換。放在這裡而不是各處自己設，
  * 是因為每一個輪播都需要，漏掉一個就會有一塊手感不一樣。
+ *
+ * swipeAngle 30：手勢偏離水平線多少度以內才算「左右滑」。
+ * tiny-slider 預設 15 度太嚴 —— 單手拿手機用拇指滑，軌跡自然是斜的弧線，
+ * 常常超過 15 度就被當成上下捲頁，卡片完全不動。30 度仍然擋得住真的在往下捲的手勢。
  */
 const BASE = {
   autoplay: false,
@@ -31,6 +35,7 @@ const BASE = {
   rewind: true,
   mouseDrag: false,
   preventScrollOnTouch: 'auto',
+  swipeAngle: 30,
 };
 
 /* 四種樣式在導覽方式上的差異 */

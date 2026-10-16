@@ -7,7 +7,11 @@
   const currentFile = typeof filename !== 'undefined' && filename ? filename : '';
   /* nav.js 存的是站內路徑，前面接上部署子目錄才是真正的網址 */
   const href = (url) => `${process.env.ROOT_DIRECTORY}${url}`;
-  const isActive = (url) => url === currentFile;
+  /*
+   * 資料夾網址（例如 article/）實際的檔名是 article/index.html，
+   * 比對前先把結尾的 index.html 拿掉，兩種寫法才對得上。
+   */
+  const isActive = (url) => url === currentFile.replace(/index\.html$/, '');
 -%>
 <div class="m-nav flex flex-row-reverse items-center text-center pt:flex-shrink-0">
   <button aria-label="menu" type="button"

@@ -1,0 +1,29 @@
+<%/*
+ * 健身知識（文章列表）
+ *
+ * 網址是 /article/ —— 跟單篇文章 /article/xxx.html 同一層，
+ * 網址本身就說明了「這裡是所有文章的入口」，麵包屑也順著這個結構。
+ *
+ * 清單直接吃 _data/articles.js，已經依 updated 由新到舊排好，
+ * 新增一篇文章不必回來改這一頁。
+ *
+ * ⚠️ 用到 _modules/m-article（頭等倉是誰）與 _modules/m-article-list，
+ *    頁面樣式表 articles.css 兩個都要引入。
+ */%>
+<%
+  const articles = require('_data/articles.js');
+
+  /*
+   * 推薦輪播：JSON 裡 featured: true 的文章，新到舊、最多 5 則。
+   * 一篇都沒有就整塊不輸出（不是輸出一個空輪播）。
+   */
+  const FEATURED_MAX = 5;
+  const featured = articles.filter((item) => item.featured === true).slice(0, FEATURED_MAX);
+-%>
+<%- require('./_components/01-hero.ejs')() %> <%/* 頁首 */%>
+<% if (featured.length) { -%>
+<%- require('./_components/02-featured.ejs')({ featured }) %> <%/* 推薦輪播 */%>
+<% } -%>
+<%- require('./_components/03-list.ejs')({ articles }) %> <%/* 分類 tab、文章卡片、分頁 */%>
+<%/* 跟文章頁共用同一塊：搜尋進來的人一樣需要知道「這裡是誰、在哪裡」 */%>
+<%- require('../article/_components/04-brand.ejs')() %>

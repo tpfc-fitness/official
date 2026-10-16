@@ -1,0 +1,506 @@
+/*
+ * 健身知識（文章列表頁）。
+ *
+ * 顏色分工：
+ *   紅 --xe120     品牌與分類標籤
+ *   螢光 --xb3ff   只用在「可以點／目前在哪裡」：tab、輪播進度、分頁目前頁、箭頭 hover
+ * 兩種都拿來表示狀態的話，讀者分不出哪個是分類、哪個是「我現在在這」。
+ *
+ * 次要文字用白色 55%（約 #8c8c8c）而不是 --x6（#666）：
+ * 日期、篇數這些小字在黑底上用 #666 對比不到 4.5:1，讀起來吃力。
+ *
+ * ⚠️ 這支有好幾個元素預設帶 hidden 屬性、等 JS 打開（tab、分頁器、輪播控制項）。
+ *    它們的 class 都設了 display，會蓋過瀏覽器對 [hidden] 的 display: none，
+ *    所以每一個都要自己補上 &[hidden] { display: none; }。
+ */
+
+.m-alist-container {
+  width: min(1160px, calc(100% - 40px));
+  margin-inline: auto;
+
+  @apply m:w-[calc(100%-32px)];
+}
+
+/* 分類標籤：輪播與卡片共用 */
+.m-alist-category {
+  color: var(--xe120);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* 方形箭頭按鈕：輪播與分頁器共用 */
+.m-alist-arrow {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--x56);
+  color: var(--white);
+  transition:
+    background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  @apply m:h-[44px] m:w-[44px] pt:h-[48px] pt:w-[48px];
+
+  &:hover:not(:disabled) {
+    border-color: var(--xb3ff);
+    background-color: var(--xb3ff);
+    color: var(--black);
+  }
+
+  /* 到第一頁／最後一頁時：還看得到位置，但看得出按不了 */
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+/* ---------- 頁首 ---------- */
+.m-alist-hero {
+  color: var(--white);
+
+  @apply m:pb-[32px] m:pt-[48px] t:pb-[40px] t:pt-[64px] p:pb-[48px] p:pt-[80px];
+}
+
+/* 桌機：H1 在左、說明在右並靠底對齊；平板以下上下排 */
+.m-alist-hero-inner {
+  @apply p:flex p:flex-wrap p:items-end p:justify-between p:gap-x-[48px] p:gap-y-[24px];
+}
+
+.m-alist-eyebrow {
+  color: var(--xb3ff);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+
+  @apply m:mb-[12px] m:text-[12px] pt:mb-[14px] pt:text-[13px];
+}
+
+.m-alist-h1 {
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+
+  @apply m:text-[38px] t:text-[48px] p:text-[60px];
+}
+
+.m-alist-intro {
+  color: var(--xc7);
+
+  @apply m:mt-[14px] m:text-[15px] m:leading-[1.85] t:mt-[18px] t:text-[16px] t:leading-[1.9] p:max-w-[460px] p:flex-[0_1_460px] p:text-[17px] p:leading-[1.9];
+}
+
+/* ---------- 推薦輪播 ---------- */
+.m-alist-featured {
+  color: var(--white);
+
+  @apply m:pb-[56px] t:pb-[64px] p:pb-[80px];
+}
+
+.m-alist-slide-card {
+  position: relative;
+  background-color: var(--x1f1d);
+}
+
+.m-alist-slide-media {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--x1f1d);
+
+  @apply tm:aspect-[4/3] p:aspect-[16/7];
+}
+
+/*
+ * 桌機：文字區疊在圖片左下角，黑底、左邊不留白，跟圖片的左緣切齊。
+ * 平板以下：圖在上、文字在下，背景回到頁面的黑。
+ */
+.m-alist-slide-text {
+  background-color: var(--black);
+
+  @apply tm:pt-[18px] p:absolute p:bottom-0 p:left-0 p:w-[min(560px,100%)] p:py-[32px] p:pr-[40px];
+}
+
+.m-alist-slide-tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+
+  @apply m:mb-[10px] m:text-[11px] pt:mb-[14px] pt:text-[12px];
+}
+
+.m-alist-badge {
+  padding: 4px 10px;
+  background-color: var(--xb3ff);
+  color: var(--black);
+
+  @apply m:px-[8px];
+}
+
+.m-alist-slide-title {
+  font-weight: 900;
+
+  @apply m:text-[22px] m:leading-[1.4] t:text-[26px] t:leading-[1.4] p:text-[32px] p:leading-[1.35];
+
+  a {
+    color: var(--white);
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: var(--xb3ff);
+    }
+  }
+}
+
+.m-alist-slide-lead {
+  color: var(--xc7);
+
+  @apply m:mt-[10px] m:text-[14px] m:leading-[1.8] pt:mt-[14px] pt:text-[16px] pt:leading-[1.85];
+}
+
+.m-alist-slide-more {
+  display: inline-block;
+  color: var(--xb3ff);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+
+  @apply m:mt-[14px] m:text-[14px] pt:mt-[20px] pt:text-[15px];
+}
+
+/*
+ * 平板以下露出下一則的一小條（提示「可以往左滑」）。
+ *
+ * 規格原本寫用 tiny-slider 的 edgePadding，但 edgePadding 是左右兩邊都留：
+ * 第一則左邊會空出一條什麼都沒有的黑，跟設計稿「只有右邊露出下一則」不同。
+ * 所以改成：
+ *   1. 輪播可視範圍只佔「整寬 − 52px」，tiny-slider 的 gutter 12px 是兩則之間的縫
+ *   2. 打開 tiny-slider 外框的 overflow，讓下一則從右邊露出來（剩下的 40px）
+ *   3. clip-path 只把左邊裁掉 —— 不裁的話上一則會從左邊的留白露出來
+ *   4. 整個區塊 overflow: hidden，後面幾則才不會把頁面撐出橫向捲軸
+ * 外框只留左邊 16px，右邊貼齊螢幕，露出的那條才會一直延伸到畫面邊緣。
+ */
+@screen tm {
+  .m-alist-featured {
+    overflow: hidden;
+
+    .m-alist-container {
+      width: auto;
+      margin-left: 16px;
+    }
+
+    .tns-ovh {
+      overflow: visible;
+    }
+
+    /* 露出來的那一則壓暗，跟目前這則分出主次 */
+    .tns-item {
+      transition: opacity 0.3s ease-in-out;
+
+      &:not(.tns-slide-active) {
+        opacity: 0.45;
+      }
+    }
+  }
+
+  .m-alist-featured-viewport {
+    width: calc(100% - 52px);
+    clip-path: inset(0 -100vw 0 0);
+  }
+
+  .m-alist-featured-ctrl {
+    padding-right: 16px;
+  }
+}
+
+.m-alist-featured-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @apply m:mt-[22px] m:gap-[12px] pt:mt-[24px] pt:gap-[24px];
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+/* 01 ── 進度條 ── 03 */
+.m-alist-progress {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  letter-spacing: 0.08em;
+
+  @apply m:gap-[12px] m:text-[13px] pt:gap-[16px] pt:text-[14px];
+}
+
+.m-alist-progress-no {
+  color: var(--xb3ff);
+  font-weight: 800;
+}
+
+.m-alist-progress-total {
+  color: rgb(255 255 255 / 55%);
+}
+
+.m-alist-progress-bars {
+  display: flex;
+  flex: 1 1 auto;
+
+  @apply m:gap-[6px] pt:max-w-[360px] pt:gap-[8px];
+
+  /*
+   * 每一格是一顆按鈕（可以直接跳到那一則）。按鈕本身比線粗很多，
+   * 手指才點得到；看得到的只有中間那條線。
+   * 目前那一格由 tiny-slider 加上 tns-nav-active。
+   */
+  button {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+
+    @apply m:h-[24px] pt:h-[20px];
+  }
+
+  span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--x56);
+    transition:
+      height 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+  }
+
+  .tns-nav-active span {
+    height: 3px;
+    background-color: var(--xb3ff);
+  }
+}
+
+.m-alist-arrows {
+  display: flex;
+
+  @apply m:gap-[8px] pt:gap-[10px];
+}
+
+/* ---------- 分類 tab ---------- */
+
+/*
+ * 底線：桌機跟內容同寬；手機貼齊整個螢幕，tab 列本身可以左右滑。
+ */
+.m-alist-tabs-wrap {
+  border-bottom: 1px solid rgb(255 255 255 / 20%);
+
+  @apply pt:mx-auto pt:w-[min(1160px,calc(100%-40px))];
+}
+
+.m-alist-tabs {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  /* 可以滑，但不顯示捲軸 —— 捲軸在 tab 列下面只會多一條雜線 */
+  scrollbar-width: none;
+
+  @apply m:gap-[28px] m:px-[16px] pt:flex-wrap pt:gap-x-[40px];
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.m-alist-tab {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  color: rgb(255 255 255 / 55%);
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+
+  @apply m:gap-[5px] m:pb-[18px] m:pt-[16px] m:text-[16px] pt:gap-[6px] pt:pb-[20px] pt:pt-[18px] pt:text-[17px];
+
+  &:hover {
+    color: var(--white);
+  }
+
+  /*
+   * 底部那條線壓在外層的 1px 底線上（bottom: -1px），
+   * 選中時帶一點螢光暈 —— 只有這一個地方用到發光效果，一眼就找得到目前在哪一類。
+   */
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 3px;
+  }
+
+  &[aria-selected='true'] {
+    color: var(--xb3ff);
+    font-weight: 800;
+
+    &::after {
+      background-color: var(--xb3ff);
+      box-shadow: 0 0 12px rgb(179 255 245 / 60%);
+    }
+
+    .m-alist-tab-count {
+      background-color: var(--xb3ff);
+      color: var(--black);
+    }
+  }
+}
+
+/* 右上角的篇數 */
+.m-alist-tab-count {
+  border-radius: 999px;
+  background-color: var(--x1f1d);
+  color: rgb(255 255 255 / 55%);
+  font-weight: 700;
+  line-height: 1;
+
+  @apply m:px-[5px] m:py-[3px] m:text-[10px] pt:px-[6px] pt:py-[3px] pt:text-[11px];
+}
+
+/* ---------- 文章卡片 ---------- */
+.m-alist-list {
+  color: var(--white);
+
+  @apply m:pb-[72px] t:pb-[80px] p:pb-[96px];
+}
+
+.m-alist-grid {
+  display: grid;
+
+  @apply m:mt-[32px] m:gap-[40px] t:mt-[40px] t:grid-cols-2 t:gap-x-[24px] t:gap-y-[48px] p:mt-[48px] p:grid-cols-3 p:gap-x-[32px] p:gap-y-[56px];
+}
+
+.m-alist-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.m-alist-card-media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--x1f1d);
+
+  img {
+    transition: transform 0.6s ease;
+  }
+}
+
+/* 圖片微放大只在桌機：手機沒有 hover，點下去的瞬間放大反而像畫面在跳 */
+@screen p {
+  .m-alist-card:hover .m-alist-card-media img {
+    transform: scale(1.05);
+  }
+}
+
+.m-alist-card-category {
+  @apply m:mb-[6px] m:mt-[14px] m:text-[11px] pt:mb-[8px] pt:mt-[18px] pt:text-[12px];
+}
+
+.m-alist-card-title {
+  font-weight: 800;
+  line-height: 1.5;
+
+  @apply m:text-[18px] pt:text-[19px];
+}
+
+/* 標題連結撐滿整張卡：整張都能點，但連結文字只有標題 */
+.m-alist-card-link {
+  color: var(--white);
+  transition: color 0.3s ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  &:hover,
+  .m-alist-card:hover & {
+    color: var(--xb3ff);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::after {
+      outline: 2px solid var(--xb3ff);
+      outline-offset: 4px;
+    }
+  }
+}
+
+/* 摘要固定兩行：卡片高度一致，三欄並排時標題才會對齊 */
+.m-alist-card-lead {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--xc7);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  @apply m:mt-[8px] m:text-[14px] m:leading-[1.8] pt:mt-[10px] pt:text-[14px] pt:leading-[1.85];
+}
+
+.m-alist-card-meta {
+  display: flex;
+  color: rgb(255 255 255 / 55%);
+
+  @apply m:mt-[10px] m:gap-[14px] m:text-[12px] pt:mt-[14px] pt:gap-[16px] pt:text-[13px];
+}
+
+/* ---------- 分頁器 ---------- */
+.m-alist-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @apply m:mt-[56px] m:gap-[8px] pt:mt-[72px] pt:gap-[10px];
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.m-alist-pages {
+  display: flex;
+
+  @apply m:gap-[8px] pt:gap-[10px];
+}
+
+.m-alist-page {
+  border: 1px solid rgb(255 255 255 / 20%);
+  color: var(--xc7);
+  font-weight: 800;
+  transition:
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  @apply m:h-[44px] m:w-[44px] m:text-[15px] pt:h-[48px] pt:w-[48px] pt:text-[15px];
+
+  &:hover {
+    border-color: var(--xb3ff);
+    color: var(--xb3ff);
+  }
+
+  &[aria-current='page'] {
+    border-color: var(--xb3ff);
+    background-color: var(--xb3ff);
+    color: var(--black);
+  }
+}

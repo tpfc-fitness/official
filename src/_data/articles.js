@@ -59,13 +59,12 @@ const REQUIRED = [
   'lead',
   'description',
   'updated',
-  'cover',
   'author',
   'directAnswer',
   'blocks',
 ];
 
-module.exports = fs
+const articles = fs
   .readdirSync(DIR)
   .filter((file) => file.endsWith('.json') && !file.startsWith('_'))
   .map((file) => {
@@ -86,11 +85,58 @@ module.exports = fs
     }
 
     /* slug 不寫在 JSON 裡：檔名是唯一來源，兩邊都有就會有一天對不上 */
+    const slug = path.basename(file, '.json');
+
+    /*
+     * 封面。
+     *
+     * JSON 沒寫 cover → 用程式產生的封面（tools/article-cover.js），
+     * 存在 <檔名>/cover.jpg。npm run dev / build / deploy 之前會自動畫好，
+     * 所以平常寫文章完全不用管封面。
+     * 要用實拍照片時才寫 cover（img + alt），那張就不會被程式動到。
+     *
+     * 程式產生的封面畫面上就是分類加標題，alt 照著寫就好，不必手填；
+     * 有手填的 alt 時以手填的為準。
+     */
+    const baseCover = article.cover || { img: `${slug}/cover.jpg`, generated: true };
+    const cover =
+      baseCover.generated && !baseCover.alt
+        ? { ...baseCover, alt: `${article.category}文章封面：${article.title}` }
+        : baseCover;
+
     return {
       ...article,
-      slug: path.basename(file, '.json'),
+      cover,
+      slug,
       readingTime: readingTime(article),
     };
   })
   /* 新的排前面。文章清單頁與「延伸閱讀」都直接吃這個順序 */
   .sort((a, b) => (a.updated < b.updated ? 1 : -1));
+
+/*
+ * 手動指定的相關文章（related）一定要存在。
+ *
+ * 寫錯檔名、或那篇文章後來被刪掉，build 直接失敗並說出是哪一篇 ——
+ * 不檢查的話，那個位置只會安靜地少一張卡，或留下一條連到 404 的連結。
+ */
+const SLUGS = new Set(articles.map((item) => item.slug));
+
+articles.forEach((article) => {
+  if (article.related === undefined) return;
+
+  if (!Array.isArray(article.related)) {
+    throw new Error(
+      `[articles] _data/articles/${article.slug}.json 的 related 要寫成陣列，例如 ["squat-knee-pain"]`
+    );
+  }
+
+  const broken = article.related.filter((slug) => slug === article.slug || !SLUGS.has(slug));
+  if (broken.length) {
+    throw new Error(
+      `[articles] _data/articles/${article.slug}.json 的 related 指到不存在（或指到自己）的文章：${broken.join('、')}`
+    );
+  }
+});
+
+module.exports = articles;

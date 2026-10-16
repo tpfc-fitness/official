@@ -8,6 +8,8 @@
    * - WebPage + Service：只有服務項目頁輸出，把「一對一私人教練」
    *   本身宣告成一個可被引用的服務實體（含價格），而不是只讓它
    *   混在商家的 hasOfferCatalog 裡
+   * - CollectionPage + ItemList：只有健身知識（文章列表）頁輸出，
+   *   告訴搜尋引擎這一頁是「一組文章的入口」，並逐篇列出網址與標題。
    * - Article：只有文章頁輸出。把標題、摘要、作者與更新日期變成
    *   機器讀得懂的資料，生成式搜尋引用時才知道這是誰寫的、什麼時候更新的。
    * - FAQPage：只有 faq 頁輸出。Google 從 2023 起不再給一般網站
@@ -27,6 +29,18 @@
   const isHome = typeof IS_HOME !== 'undefined' ? IS_HOME : false;
   const isService = typeof IS_SERVICE !== 'undefined' ? IS_SERVICE : false;
   const articleSlug = typeof ARTICLE_SLUG !== 'undefined' ? ARTICLE_SLUG : '';
+  const isArticleIndex = typeof IS_ARTICLE_INDEX !== 'undefined' ? IS_ARTICLE_INDEX : false;
+
+  /*
+   * 健身知識（文章列表）的名稱與網址，從導覽資料取 ——
+   * 選單上叫什麼，麵包屑就叫什麼，改名只要改 nav.js 一處。
+   */
+  const articleIndexNav = require('_data/nav.js').find((item) => item.url === 'article/');
+  const articleIndex = {
+    name: articleIndexNav ? articleIndexNav.label : '健身知識',
+    url: `${siteUrl}/article/`,
+  };
+  const articleUrl = (slug) => `${siteUrl}/article/${slug}.html`;
 
   const orgId = `${siteUrl}/#organization`;
   const siteId = `${siteUrl}/#website`;
@@ -117,25 +131,69 @@
     },
   ];
 
-  /* 首頁本身就是麵包屑的根，不需要再輸出 */
+  /*
+   * 首頁本身就是麵包屑的根，不需要再輸出。
+   *
+   * 文章頁多一層「健身知識」：首頁 › 健身知識 › 文章標題。
+   * 列表頁自己那一層用短名稱（健身知識），不用頁面的完整 title ——
+   * 麵包屑會顯示在搜尋結果的網址列，太長會被截掉。
+   */
   if (!isHome && pageTitle) {
+    const trail = [{ name: '首頁', item: `${siteUrl}/` }];
+
+    if (articleSlug) trail.push(articleIndex);
+    trail.push(isArticleIndex ? articleIndex : { name: pageTitle, item: pageUrl });
+
     graph.push({
       '@type': 'BreadcrumbList',
       '@id': `${pageUrl}#breadcrumb`,
-      itemListElement: [
-        {
+      itemListElement: trail.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: crumb.item || crumb.url,
+      })),
+    });
+  }
+
+  /*
+   * 健身知識（文章列表）：CollectionPage + ItemList。
+   *
+   * 每一篇用 @id 指向文章頁自己輸出的 Article 節點（同一個 #article 錨點），
+   * 搜尋引擎會把兩邊認成同一篇，不會當成兩份重複的資料。
+   */
+  if (isArticleIndex) {
+    const articles = require('_data/articles.js');
+
+    graph.push({
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: articleIndex.name,
+      description: typeof DESCRIPTION !== 'undefined' ? DESCRIPTION : undefined,
+      inLanguage: 'zh-Hant-TW',
+      isPartOf: { '@id': siteId },
+      publisher: { '@id': orgId },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      ...(articles.length ? { dateModified: articles[0].updated } : {}),
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: articles.length,
+        itemListElement: articles.map((article, index) => ({
           '@type': 'ListItem',
-          position: 1,
-          name: '首頁',
-          item: `${siteUrl}/`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: pageTitle,
-          item: pageUrl,
-        },
-      ],
+          position: index + 1,
+          item: {
+            '@type': 'Article',
+            '@id': `${articleUrl(article.slug)}#article`,
+            url: articleUrl(article.slug),
+            headline: article.title,
+            description: article.description,
+            articleSection: article.category,
+            dateModified: article.updated,
+            author: { '@type': 'Person', name: article.author.name },
+          },
+        })),
+      },
     });
   }
 
@@ -216,7 +274,8 @@
           worksFor: { '@id': orgId },
         },
         publisher: { '@id': orgId },
-        isPartOf: { '@id': siteId },
+        /* 屬於健身知識這個欄目，而不只是屬於整個網站 */
+        isPartOf: { '@id': `${articleIndex.url}#webpage` },
         mainEntityOfPage: pageUrl,
       });
     }

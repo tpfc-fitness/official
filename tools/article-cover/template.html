@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <!--
+    文章封面的模板。tools/article-cover.js 會把分類、標題、色系塞進 window.COVER，
+    用 headless Chrome 開這一頁、截成 1600×900 的 jpg。
+
+    ⚠️ 同一張封面在網站上會被裁成好幾種比例：
+         文章頁 16:9（不裁）、卡片 16:10、輪播桌機 16:7、輪播手機 4:3
+       四種比例都看得到的範圍是「左右各內縮 200px、上下各內縮 100px」，
+       而桌機輪播的左下角還會被一塊黑底文字區蓋住。
+       所以標題一定放在左上方、底部最多放到 y≈420，下半部只放裝飾。
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&display=block">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      background-color: #0b0b0b;
+      color: #fff;
+      font-family: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    }
+
+    /* 右上角的強調色光暈：讓不同分類的整體色調不同，但面積大、透明度低，不會喧賓奪主 */
+    .glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--accent) 26%, transparent) 0, transparent 52%),
+        radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--accent) 10%, transparent) 0, transparent 45%);
+    }
+
+    /* 頭等倉的三叉標誌當浮水印，放在右下 —— 那一塊在所有裁切比例裡都只是背景 */
+    .mark {
+      position: absolute;
+      right: 120px;
+      bottom: 40px;
+      width: 560px;
+      height: 486px;
+      fill: var(--accent);
+      opacity: 0.1;
+    }
+
+    /* 內容框：左右內縮 220、上方 150 —— 比安全範圍再多留 20px，裁切後也不會貼邊 */
+    .content {
+      position: absolute;
+      top: 150px;
+      left: 220px;
+      width: 1160px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+    }
+
+    /* 色條呼應文章內頁大標左邊的那條線 */
+    .eyebrow-bar {
+      width: 56px;
+      height: 8px;
+      background-color: var(--accent);
+    }
+
+    .eyebrow-category {
+      color: var(--accent);
+      font-size: 34px;
+    }
+
+    .eyebrow-label {
+      color: rgb(255 255 255 / 45%);
+      font-size: 22px;
+      letter-spacing: 0.24em;
+    }
+
+    .title {
+      margin-top: 34px;
+      font-size: 84px;
+      font-weight: 900;
+      line-height: 1.28;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+    }
+
+    /* 底部的品牌字：裝飾用，被輪播的文字區蓋住也沒關係 */
+    .brand {
+      position: absolute;
+      left: 220px;
+      bottom: 130px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: rgb(255 255 255 / 55%);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+    }
+
+    .brand i {
+      width: 40px;
+      height: 2px;
+      background-color: rgb(255 255 255 / 35%);
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <svg class="mark" viewBox="0 0 20 17.36" aria-hidden="true">
+    <polygon points="10.9 0 10.14 0 10.14 10.79 10.14 10.79 11.6 9.95 10.9 0" />
+    <polygon points="20 15.81 11.73 10.23 10.28 11.07 19.62 16.46 20 15.81" />
+    <polygon points="9.1 0 9.86 0 9.86 10.79 9.86 10.79 8.4 9.95 9.1 0" />
+    <polygon points="0 15.81 8.27 10.23 9.72 11.07 0.38 16.46 0 15.81" />
+    <polygon points="9.85 11.31 0.51 16.71 0.89 17.36 9.86 12.99 9.86 11.31 9.85 11.31" />
+    <polygon points="19.1 17.36 19.48 16.71 10.14 11.31 10.14 11.31 10.14 12.99 10.14 12.99 19.1 17.36" />
+  </svg>
+
+  <div class="content">
+    <p class="eyebrow">
+      <span class="eyebrow-bar"></span>
+      <span class="eyebrow-category" id="category"></span>
+      <span class="eyebrow-label" id="label"></span>
+    </p>
+    <h1 class="title" id="title"></h1>
+  </div>
+
+  <p class="brand"><span>FIRST CLASS</span><i></i><span>頭等倉運動空間</span></p>
+
+  <script>
+    /*
+     * 填內容，再把標題縮到放得下：
+     *   - 最多三行
+     *   - 底部不超過 y = 430（再往下在桌機輪播會被文字區蓋住）
+     * 從 84px 開始每次縮 2px，最小 56px。長標題寧可字小一點，也不要被裁掉。
+     */
+    window.renderCover = () => {
+      const { category, title, accent, label } = window.COVER;
+      document.documentElement.style.setProperty('--accent', accent);
+      document.getElementById('category').textContent = category;
+      document.getElementById('label').textContent = label;
+
+      /*
+       * 標題有「？」「：」「，」的話，在第一個後面斷行 ——
+       * 文章標題多半是「問題？答案」的句型，從這裡斷最好讀；
+       * 交給瀏覽器自己斷，常常會斷在詞的中間（例如「做完還／剩 1～3」）。
+       * 標題結尾的標點不算，斷了會變成第二行空白。
+       */
+      const el = document.getElementById('title');
+      const at = title.slice(0, -1).search(/[？：，]/);
+      el.textContent = '';
+      if (at > 0) {
+        el.append(title.slice(0, at + 1), document.createElement('br'), title.slice(at + 1).trim());
+      } else {
+        el.textContent = title;
+      }
+
+      const MAX_BOTTOM = 430;
+      const MIN_SIZE = 56;
+      let size = 84;
+      /* 可能會被呼叫兩次（字型載完後再量一次），每次都從最大字級重新縮 */
+      el.style.fontSize = `${size}px`;
+      const lineCount = () => Math.round(el.getBoundingClientRect().height / (size * 1.28));
+
+      while (size > MIN_SIZE && (lineCount() > 3 || el.getBoundingClientRect().bottom > MAX_BOTTOM)) {
+        size -= 2;
+        el.style.fontSize = `${size}px`;
+      }
+
+      return { size, lines: lineCount(), bottom: Math.round(el.getBoundingClientRect().bottom) };
+    };
+  </script>
+</body>
+</html>

@@ -76,6 +76,7 @@
 * 教練團隊　/ourteam.html
 * 關於頭等倉　/about.html
 * 常見問題　/faq.html
+* 健身知識（文章列表）　/article/
 * 交通與環境　/information.html
 * 教練招募　/careers.html
 * 免費體驗／預約　/contact.html

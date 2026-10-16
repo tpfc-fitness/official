@@ -1,0 +1,86 @@
+<%/* 分類 tab、文章卡片、分頁器 */%>
+<%
+  /*
+   * 所有文章都輸出在這一頁的 HTML 裡，分類篩選與分頁交給 scripts/articles.js：
+   * 只是把卡片加上 / 拿掉 hidden，不用 JS 產生卡片 ——
+   * Google 與 AI 不執行 JS 也看得到全部文章與連結。
+   *
+   * 沒有 JS 時：全部文章一次顯示，tab 與分頁器預設 hidden，不會出現按了沒反應的按鈕。
+   *
+   * 每張卡片只有一個連結（標題上那個），用 ::after 撐滿整張卡讓整張都能點。
+   * 不把整張卡包在 <a> 裡 —— 那樣螢幕閱讀器會把標題、摘要、日期全部
+   * 當成連結文字唸一遍，搜尋引擎看到的錨點文字也會是一大段。
+   */
+  const base = process.env.ROOT_DIRECTORY;
+
+  /* 分類依「第一次出現」的順序排 —— articles 已經新到舊，最近有新文章的分類會排前面 */
+  const categories = articles
+    .map((item) => item.category)
+    .filter((item, idx, all) => all.indexOf(item) === idx);
+  const tabs = [
+    { id: 'all', label: '全部', value: '', count: articles.length },
+    ...categories.map((category, idx) => ({
+      id: `cat-${idx + 1}`,
+      label: category,
+      value: category,
+      count: articles.filter((item) => item.category === category).length,
+    })),
+  ];
+-%>
+<section class="m-alist-list jAlist" aria-label="所有文章">
+  <div class="m-alist-tabs-wrap">
+    <div class="m-alist-tabs jAlistTabs" role="tablist" aria-label="文章分類" hidden>
+      <% tabs.forEach((tab, idx) => { -%>
+      <button type="button" role="tab" id="alist-tab-<%= tab.id %>" class="m-alist-tab jAlistTab"
+        data-category="<%= tab.value %>" aria-controls="alist-panel" aria-selected="<%= idx === 0 %>"
+        tabindex="<%= idx === 0 ? 0 : -1 %>">
+        <span><%= tab.label %></span>
+        <span class="m-alist-tab-count"><%= tab.count %></span>
+      </button>
+      <% }); -%>
+    </div>
+  </div>
+
+  <div class="m-alist-container">
+    <ul id="alist-panel" class="m-alist-grid" role="tabpanel" aria-labelledby="alist-tab-all">
+      <% articles.forEach((article) => { -%>
+      <li class="jAlistItem" data-category="<%= article.category %>">
+        <article class="m-alist-card">
+          <%- require('@component/articleImg.ejs')({
+            src: article.cover.img,
+            alt: article.cover.alt,
+            style: {
+              main: 'm-alist-card-media',
+              img: 'object-cover object-center'
+            }
+          }) %>
+          <p class="m-alist-category m-alist-card-category"><%= article.category %></p>
+          <h3 class="m-alist-card-title">
+            <a class="m-alist-card-link" href="<%= base %>article/<%= article.slug %>.html"><%= article.title %></a>
+          </h3>
+          <p class="m-alist-card-lead"><%= article.lead %></p>
+          <p class="m-alist-card-meta">
+            <time datetime="<%= article.updated %>"><%= article.updated.replace(/-/g, '.') %></time>
+            <span>閱讀 <%= article.readingTime %> 分鐘</span>
+          </p>
+        </article>
+      </li>
+      <% }); -%>
+    </ul>
+
+    <%/*
+      分頁器。頁碼按鈕由 script 依目前分類的篇數產生 ——
+      頁數會隨分類改變，而它本來就只在有 JS 時才有用。
+      篇數不超過一頁時整個不顯示。
+    */%>
+    <nav class="m-alist-pager jAlistPager" aria-label="分頁" hidden>
+      <button type="button" class="m-alist-arrow jPagerPrev" aria-label="上一頁">
+        <%- require('@component/svg.ejs')({ svgName: 'arrow', style: { main: 'w-[14px] h-[14px] rotate-180' } }) %>
+      </button>
+      <span class="m-alist-pages jPagerPages"></span>
+      <button type="button" class="m-alist-arrow jPagerNext" aria-label="下一頁">
+        <%- require('@component/svg.ejs')({ svgName: 'arrow', style: { main: 'w-[14px] h-[14px]' } }) %>
+      </button>
+    </nav>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+<%/* 推薦文章輪播 */%>
+<%
+  /*
+   * 文字與連結全部在 HTML 裡，輪播只是把它們排成一列左右切 ——
+   * 沒有 JS 時五則推薦會由上往下全部顯示，爬蟲也一樣讀得到。
+   *
+   * 桌機：16:7 大圖，左下角疊一塊黑底文字區。
+   * 平板以下：4:3 圖在上、文字在下；右邊露出下一則的一小條，提示可以滑。
+   * （露出的做法見 _modules/m-article-list 的「推薦輪播」那段。）
+   */
+  const base = process.env.ROOT_DIRECTORY;
+  const pad = (n) => String(n).padStart(2, '0');
+  const hasCtrl = featured.length > 1;
+-%>
+<section class="m-alist-featured" aria-label="推薦文章">
+  <div class="m-alist-container">
+    <div class="m-alist-featured-viewport">
+      <ul class="m-alist-featured-slider jFeaturedSlider">
+        <% featured.forEach((article, idx) => { -%>
+        <% const url = `${base}article/${article.slug}.html`; -%>
+        <li class="m-alist-slide">
+          <article class="m-alist-slide-card">
+            <%- require('@component/articleImg.ejs')({
+              src: article.cover.img,
+              alt: article.cover.alt,
+              /* 只有第一則在首屏，其他照常延遲載入 */
+              eager: idx === 0,
+              style: {
+                main: 'm-alist-slide-media',
+                img: 'object-cover object-center'
+              }
+            }) %>
+            <div class="m-alist-slide-text">
+              <p class="m-alist-slide-tags">
+                <span class="m-alist-badge">推薦閱讀</span>
+                <span class="m-alist-category"><%= article.category %></span>
+              </p>
+              <h2 class="m-alist-slide-title"><a href="<%= url %>"><%= article.title %></a></h2>
+              <p class="m-alist-slide-lead"><%= article.lead %></p>
+              <%/*
+                「閱讀全文」跟標題是同一個連結，所以不讓鍵盤與螢幕閱讀器再停一次 ——
+                滑鼠與手指照樣點得到。
+              */%>
+              <a class="m-alist-slide-more" href="<%= url %>" tabindex="-1" aria-hidden="true">閱讀全文 →</a>
+            </div>
+          </article>
+        </li>
+        <% }); -%>
+      </ul>
+    </div>
+
+    <%/* 只有一則推薦時沒有東西可以切，進度條與箭頭都不輸出 */%>
+    <% if (hasCtrl) { -%>
+    <%/* 沒有 JS 時輪播不會啟動，控制項也就沒有作用 —— 預設 hidden，由 script 打開 */%>
+    <div class="m-alist-featured-ctrl jFeaturedCtrl" hidden>
+      <div class="m-alist-progress">
+        <span class="m-alist-progress-no jFeaturedNo">01</span>
+        <div class="m-alist-progress-bars jFeaturedNav">
+          <% featured.forEach((article, idx) => { -%>
+          <button type="button" aria-label="第 <%= idx + 1 %> 則推薦"><span></span></button>
+          <% }); -%>
+        </div>
+        <span class="m-alist-progress-total"><%= pad(featured.length) %></span>
+      </div>
+      <div class="m-alist-arrows jFeaturedArrows">
+        <button type="button" class="m-alist-arrow" aria-label="上一則">
+          <%- require('@component/svg.ejs')({ svgName: 'arrow', style: { main: 'w-[16px] h-[16px] rotate-180' } }) %>
+        </button>
+        <button type="button" class="m-alist-arrow" aria-label="下一則">
+          <%- require('@component/svg.ejs')({ svgName: 'arrow', style: { main: 'w-[16px] h-[16px]' } }) %>
+        </button>
+      </div>
+    </div>
+    <% } -%>
+  </div>
+</section>

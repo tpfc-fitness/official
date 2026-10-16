@@ -62,6 +62,16 @@
   @apply m:text-[32px] t:text-[42px] p:text-[54px];
 }
 
+/*
+ * 標題的每一段（在「？」「：」「，」後面切開，見 01-hero.ejs）各自一行。
+ * balance：某一段太長、還是要換行時，兩行切得一樣長，
+ * 不會剩一兩個字孤零零掉到最後一行（例如「剛好」）。
+ */
+.m-article-title-line {
+  display: block;
+  text-wrap: balance;
+}
+
 .m-article-lead {
   color: var(--xc7);
   line-height: 1.9;

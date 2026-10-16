@@ -17,6 +17,8 @@ const articlePages = articles.map((article) => ({
   template: 'App.ejs',
   action: 'article',
   description: article.description,
+  /* sitemap 的 lastmod：讓搜尋引擎知道這篇改過了，值得回來重新爬 */
+  lastmod: article.updated,
   /* 哪一篇 —— App.ejs 會把它傳進 view，view 再從 articles.js 取內容 */
   article: article.slug,
   chunks: ['article'],
@@ -130,6 +132,24 @@ module.exports = {
       action: 'bare',
       description: '感謝您預約 First Class 頭等倉運動空間免費體驗課程',
       chunks: ['thankyou'],
+    },
+    {
+      /*
+       * 健身知識（文章列表）。
+       * filename 是 article/index.html，對外網址是資料夾 /article/ ——
+       * 跟單篇文章同一層，麵包屑「首頁 › 健身知識 › 文章」也順著網址走。
+       */
+      title: '健身知識｜教練整理的訓練與動作問題',
+      filename: 'article/index.html',
+      view: 'articles',
+      path: '/article/',
+      template: 'App.ejs',
+      action: 'articles',
+      description:
+        '頭等倉教練把課堂上最常被問的訓練問題整理成文章：深蹲膝蓋痛、動作怎麼自己判斷與調整、什麼時候該找教練看動作。中山區民權西路健身工作室的教練實際教學經驗。',
+      /* 清單頁的更新日 ＝ 最新一篇文章的日期 */
+      lastmod: articles.length ? articles[0].updated : undefined,
+      chunks: ['articles'],
     },
     ...articlePages,
   ],

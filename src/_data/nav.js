@@ -44,6 +44,12 @@ module.exports = [
     navShow: true,
   },
   {
+    /* 文章列表。指向資料夾而不是 index.html，網址才會是乾淨的 /article/ */
+    label: '健身知識',
+    url: 'article/',
+    navShow: true,
+  },
+  {
     label: '常見問題',
     url: 'faq.html',
     navShow: true,

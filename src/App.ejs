@@ -29,6 +29,8 @@
   const IS_HOME = PAGE_PATH === '/';
   const IS_FAQ = htmlWebpackPlugin.options.view === 'faq';
   const IS_SERVICE = htmlWebpackPlugin.options.view === 'service';
+  /* 健身知識（文章列表）：結構化資料要輸出文章清單 */
+  const IS_ARTICLE_INDEX = htmlWebpackPlugin.options.view === 'articles';
   /* 文章頁：把 slug 傳下去，結構化資料要用它取文章內容 */
   const ARTICLE_SLUG = htmlWebpackPlugin.options.article || '';
   const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
@@ -164,7 +166,9 @@
       IS_HOME,
       IS_FAQ,
       IS_SERVICE,
-      ARTICLE_SLUG
+      IS_ARTICLE_INDEX,
+      ARTICLE_SLUG,
+      DESCRIPTION
     }) %>
   <% } -%>
   <!-- Bings -->

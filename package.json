@@ -87,14 +87,18 @@
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
+    "predev": "node tools/article-cover.js",
     "dev": "cross-env NODE_ENV=development APP_ENV=dev NODE_OPTIONS=--max_old_space_size=8192 webpack serve --mode development",
+    "predeploy": "node tools/article-cover.js",
     "deploy": "cross-env NODE_ENV=production APP_ENV=deploy webpack --mode production",
+    "prebuild": "node tools/article-cover.js",
     "build": "cross-env NODE_ENV=production APP_ENV=build webpack --mode production",
     "format": "npm run format:code && npm run format:ejs",
     "format:code": "prettier --write .",
     "format:ejs": "node tools/format-ejs.js",
     "format:check": "prettier --check . && node tools/format-ejs.js --check",
-    "lint": "eslint src/scripts --ext .js"
+    "lint": "eslint src/scripts --ext .js",
+    "covers": "node tools/article-cover.js"
   },
   "browserslist": {
     "production": [

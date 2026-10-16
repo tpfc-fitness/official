@@ -24,18 +24,31 @@ class SeoAssetsPlugin {
     this.pages = options.pages || [];
   }
 
-  get urls() {
+  /* 一個頁面設定 → 完整網址 */
+  urlOf(page) {
+    const path = page.path || `/${page.filename || ''}`.replace(/^\/+/, '/');
+    return `${this.siteUrl}${path}`;
+  }
+
+  /*
+   * 要進 sitemap 的頁面：{ url, lastmod }。
+   * lastmod 只有文章類的頁面有（來自文章的 updated）；其他頁沒有可靠的日期，
+   * 就不給 —— 給一個每次 build 都變的日期，搜尋引擎會學到「這個欄位不可信」。
+   */
+  get entries() {
     return this.pages
       .filter((page) => !page.noindex)
-      .map((page) => {
-        const path = page.path || `/${page.filename || ''}`.replace(/^\/+/, '/');
-        return `${this.siteUrl}${path}`;
-      })
-      .filter((url, index, all) => all.indexOf(url) === index);
+      .map((page) => ({ url: this.urlOf(page), lastmod: page.lastmod }))
+      .filter((entry, index, all) => all.findIndex((item) => item.url === entry.url) === index);
   }
 
   buildSitemap() {
-    const locs = this.urls.map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`).join('\n');
+    const locs = this.entries
+      .map(({ url, lastmod }) => {
+        const mod = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
+        return `  <url>\n    <loc>${url}</loc>${mod}\n  </url>`;
+      })
+      .join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -57,6 +70,32 @@ Sitemap: ${this.siteUrl}/sitemap.xml
 `;
   }
 
+  /*
+   * 接在 llms.txt 最後的文章清單。
+   *
+   * 自動產生而不是手寫進 src/llms.txt：文章會一直增加，
+   * 手寫的清單一定會有一天漏掉新的那篇。
+   * 每篇附上 description，讓 AI 不用點進去也知道這篇在回答什麼問題。
+   */
+  buildArticleList() {
+    const articles = this.pages.filter((page) => page.article && !page.noindex);
+    if (!articles.length) return '';
+
+    const lines = articles.map((page) => `* [${page.title}](${this.urlOf(page)})：${page.description}`);
+
+    return `
+---
+
+# 22. 健身知識文章（build 時自動產生）
+
+文章列表：${this.siteUrl}/article/
+
+由頭等倉教練撰寫，內容來自課堂上實際遇到的訓練問題。
+
+${lines.join('\n')}
+`;
+  }
+
   apply(compiler) {
     const { webpack } = compiler;
     const { RawSource } = webpack.sources;
@@ -74,7 +113,8 @@ Sitemap: ${this.siteUrl}/sitemap.xml
 
           /* 沒有這個檔也不該讓 build 失敗 —— 它是選用的 */
           if (FS.existsSync(LLMS_SOURCE)) {
-            compilation.emitAsset('llms.txt', new RawSource(FS.readFileSync(LLMS_SOURCE, 'utf8')));
+            const llms = FS.readFileSync(LLMS_SOURCE, 'utf8') + this.buildArticleList();
+            compilation.emitAsset('llms.txt', new RawSource(llms));
           }
         }
       );

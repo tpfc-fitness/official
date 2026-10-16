@@ -13,10 +13,23 @@
   if (!article) throw new Error(`找不到文章：${slug}`);
 
   /*
-   * 延伸閱讀自動取其他文章，不手動維護 slug 清單 ——
-   * 手動列的話，刪掉一篇就會在別篇留下壞連結。
+   * 延伸閱讀，最多三篇，依序挑：
+   *   1. 這篇 JSON 裡手動指定的 related（照寫的順序）
+   *   2. 同分類的文章，新的優先
+   *   3. 還不滿三篇，用其他分類的新文章補齊
+   *
+   * 平常不用指定，自動挑的同分類就夠合理；想把特定幾篇串在一起時才寫 related。
+   * 指定的檔名寫錯或文章被刪，_data/articles.js 會在 build 時就擋下來。
+   * articles 已經依更新日期排好（新的在前），所以 filter 出來的順序就是新到舊。
    */
-  const related = articles.filter((item) => item.slug !== slug).slice(0, 3);
+  const others = articles.filter((item) => item.slug !== slug);
+  const picked = [
+    ...(article.related || []).map((relatedSlug) => others.find((item) => item.slug === relatedSlug)),
+    ...others.filter((item) => item.category === article.category),
+    ...others,
+  ];
+  /* 三個來源會重複（指定的那篇也可能同分類），去重後取前三 */
+  const related = picked.filter((item, idx) => picked.indexOf(item) === idx).slice(0, 3);
 -%>
 <%- require('./_components/01-hero.ejs')({ article }) %> <%/* 標題、摘要、封面 */%>
 <%- require('./_components/02-body.ejs')({ article }) %> <%/* 先說結論與內文 */%>

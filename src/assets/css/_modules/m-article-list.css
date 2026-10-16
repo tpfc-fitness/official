@@ -63,11 +63,6 @@
   @apply m:pb-[32px] m:pt-[48px] t:pb-[40px] t:pt-[64px] p:pb-[48px] p:pt-[80px];
 }
 
-/* 桌機：H1 在左、說明在右並靠底對齊；平板以下上下排 */
-.m-alist-hero-inner {
-  @apply p:flex p:flex-wrap p:items-end p:justify-between p:gap-x-[48px] p:gap-y-[24px];
-}
-
 .m-alist-eyebrow {
   color: var(--xb3ff);
   font-weight: 800;
@@ -87,7 +82,8 @@
 .m-alist-intro {
   color: var(--xc7);
 
-  @apply m:mt-[14px] m:text-[15px] m:leading-[1.85] t:mt-[18px] t:text-[16px] t:leading-[1.9] p:max-w-[460px] p:flex-[0_1_460px] p:text-[17px] p:leading-[1.9];
+  /* 桌機限制行寬：整行拉滿 1160px 一行會有五十幾個字，讀到行尾很難接回下一行 */
+  @apply m:mt-[14px] m:text-[15px] m:leading-[1.85] t:mt-[18px] t:text-[16px] t:leading-[1.9] p:mt-[20px] p:max-w-[640px] p:text-[17px] p:leading-[1.9];
 }
 
 /* ---------- 推薦輪播 ---------- */
@@ -342,6 +338,13 @@
     bottom: -1px;
     left: 0;
     height: 3px;
+    background-color: transparent;
+
+    /* 未選中也先放一個透明的同尺寸光暈：從 none 開始的話光暈不會漸變，會直接跳出來 */
+    box-shadow: 0 0 12px rgb(179 255 245 / 0%);
+    transition:
+      background-color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
   }
 
   &[aria-selected='true'] {
@@ -367,6 +370,9 @@
   color: rgb(255 255 255 / 55%);
   font-weight: 700;
   line-height: 1;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 
   @apply m:px-[5px] m:py-[3px] m:text-[10px] pt:px-[6px] pt:py-[3px] pt:text-[11px];
 }

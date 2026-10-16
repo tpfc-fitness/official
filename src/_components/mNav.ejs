@@ -12,26 +12,36 @@
    * 比對前先把結尾的 index.html 拿掉，兩種寫法才對得上。
    */
   const isActive = (url) => url === currentFile.replace(/index\.html$/, '');
+  /* 一般項目排成一列；cta（免費體驗）抽出來放最後，做成實心按鈕 */
+  const links = navItems.filter((item) => item.navShow && !item.cta);
+  const cta = navItems.find((item) => item.navShow && item.cta);
 -%>
 <div class="m-nav flex flex-row-reverse items-center text-center pt:flex-shrink-0">
   <button aria-label="menu" type="button"
     class="m-nav-btn relative p:hidden tm:block h-[40px] w-[40px] flex-shrink-0 z-10"
-    :class="{'active': store.nav.active}" @click="store.nav.onClick">
+    :class="{'active': store.nav.active}" :aria-expanded="!!store.nav.active" @click="store.nav.onClick">
     <i></i>
   </button>
-  <nav
-    class="m-nav-bd tm:absolute tm:right-0 tm:top-0 tm:h-screen tm:w-full tm:flex tm:justify-center tm:overflow-hidden tm:bg-[var(--black)] tm:transition-all tm:duration-300 tm:ease-in-out"
-    :class="[store.nav.active ? 'tm:translate-x-0 tm:z-[5]' : 'tm:translate-x-full']" aria-label="主選單">
-    <ul class="flex tm:flex-col items-center tm:justify-center">
-      <% navItems.forEach((item) => { -%>
-      <% if (item.navShow) { -%>
-      <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]">
-        <a href="<%= href(item.url) %>"
-          class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"
-          <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
-      </li>
-      <% } -%>
-      <% }); -%>
-    </ul>
+  <%/*
+    手機：選單從 header 下緣鋪到畫面底部，logo 與關閉鈕留在上面。
+    項目區自己捲動，免費體驗按鈕固定在底部不跟著捲。
+  */%>
+  <nav class="m-nav-bd" :class="{'active': store.nav.active}" aria-label="主選單">
+    <div class="m-nav-scroll">
+      <ul class="m-nav-list flex tm:flex-col items-center">
+        <% links.forEach((item) => { -%>
+        <li class="p:px-[10px] text-[var(--white)] tm:py-[18px]">
+          <a href="<%= href(item.url) %>"
+            class="t:text-[28px] m:text-[24px] tracking-[-0.1em]<%- isActive(item.url) ? ' tm:underline tm:underline-offset-8' : '' %>"
+            <%- isActive(item.url) ? ' aria-current="page"' : '' %>><%= item.label %></a>
+        </li>
+        <% }); -%>
+      </ul>
+    </div>
+    <% if (cta) { -%>
+    <div class="m-nav-cta-wrap">
+      <a href="<%= href(cta.url) %>" class="m-nav-cta"<%- isActive(cta.url) ? ' aria-current="page"' : '' %>><%= cta.label %></a>
+    </div>
+    <% } -%>
   </nav>
 </div>

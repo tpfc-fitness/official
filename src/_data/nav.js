@@ -19,9 +19,14 @@ module.exports = [
     navShow: false,
   },
   {
+    /*
+     * cta：導覽列上不跟其他項目排在一起，而是做成最後面的實心按鈕
+     * （手機選單裡固定在底部）。頁尾仍照這裡的順序排。
+     */
     label: '免費體驗',
     url: 'contact.html',
     navShow: true,
+    cta: true,
   },
   {
     label: '關於我們',

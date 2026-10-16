@@ -220,10 +220,27 @@
   @apply m:mt-[56px] m:py-[22px] pt:mt-[76px] pt:py-[28px];
 }
 
+.m-article-author-row {
+  display: flex;
+  align-items: center;
+
+  @apply m:mt-[12px] m:gap-[14px] pt:mt-[14px] pt:gap-[16px];
+}
+
+/* 頭像旁邊已經有名字，alt 留空 —— 不然螢幕閱讀器會把名字念兩次 */
+.m-article-author-avatar {
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--x1f1d);
+
+  @apply m:h-[52px] m:w-[52px] pt:h-[60px] pt:w-[60px];
+}
+
 .m-article-author-name {
   font-weight: 700;
 
-  @apply m:my-[6px] m:text-[18px] pt:my-[8px] pt:text-[20px];
+  @apply m:mb-[2px] m:text-[18px] pt:mb-[4px] pt:text-[20px];
 }
 
 .m-article-author-role {

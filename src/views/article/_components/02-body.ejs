@@ -47,10 +47,29 @@
     <% } -%>
     <% }); -%>
 
+    <%/*
+      頭像直接用教練團隊頁的照片，靠 author.name 對應 _data/coach.js 的 name。
+      對不到（名字打錯或不是教練寫的）就只顯示文字，不放空的圓。
+    */%>
+    <% const authorCoach = require('_data/coach.js').find((item) => item.name === article.author.name); -%>
     <section class="m-article-author">
       <p class="m-article-label">AUTHOR</p>
-      <p class="m-article-author-name"><%= article.author.name %></p>
-      <p class="m-article-author-role"><%= article.author.role %></p>
+      <div class="m-article-author-row">
+        <% if (authorCoach) { -%>
+        <%- require('@component/img.ejs')({
+          path: authorCoach.img,
+          decorative: true,
+          style: {
+            main: 'm-article-author-avatar',
+            img: 'object-cover object-[center_25%]'
+          }
+        }) %>
+        <% } -%>
+        <div>
+          <p class="m-article-author-name"><%= article.author.name %></p>
+          <p class="m-article-author-role"><%= article.author.role %></p>
+        </div>
+      </div>
     </section>
   </div>
 </article>

@@ -13,6 +13,8 @@ module.exports = window.PetiteVue.reactive({
       const vm = this;
 
       vm.active = !vm.active;
+      /* 打開時鎖住後面的頁面（樣式見 _modules/m-nav，只在手機／平板生效） */
+      document.documentElement.classList.toggle('is-nav-open', vm.active);
       console.log(e);
     },
   },

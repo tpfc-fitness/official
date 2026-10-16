@@ -50,3 +50,103 @@
     }
   }
 }
+
+/* ---------- 選單本體 ---------- */
+
+/* 桌機：項目一列排開，免費體驗按鈕接在最後面 */
+.m-nav-bd {
+  @apply p:flex p:items-center;
+}
+
+/*
+ * 免費體驗按鈕：白底黑字，hover 照 m-btn --contain 變透明、白字白框。
+ * 外框平常就畫（跟底色同為白色）：hover 時才出現的話，按鈕會大 2px 跳一下。
+ *
+ * 曾比較過品牌紅與白框兩種：紅的在桌機緊貼下方紅色跑馬燈，像跑馬燈的一部分；
+ * 白框在手機滿版時太弱，看起來像次要按鈕。
+ */
+.m-nav-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--white);
+  background-color: var(--white);
+  color: var(--black);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition:
+    background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  /* 桌機比上一版矮一點、跟前面項目拉開距離：按鈕不要比 header 裡其他東西重太多 */
+  @apply p:ml-[28px] p:h-[40px] p:px-[22px] p:text-[15px] tm:h-[56px] tm:w-full tm:text-[18px];
+
+  &:hover {
+    background-color: transparent;
+    color: var(--white);
+  }
+}
+
+/*
+ * 手機與平板：選單從 header 下緣鋪到畫面底部（header 的 logo 與關閉鈕留在上面）。
+ * 只有項目區會捲，免費體驗按鈕留在底部不動。
+ *
+ * 用 fixed 而不是 absolute：.l-hd 只有在 --hide 時才有 transform，
+ * 選單打開時頁面不能捲、header 不會被收起，所以這裡的 fixed 一定是相對於視窗。
+ */
+@screen tm {
+  .m-nav-bd {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    height: calc(100dvh - 70px);
+    border-top: 1px solid rgb(255 255 255 / 20%);
+    background-color: var(--black);
+    visibility: hidden;
+    transform: translateX(100%);
+    transition:
+      transform 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+
+    &.active {
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+
+  .m-nav-scroll {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+
+    /* 捲到底不要帶動後面的頁面 */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 項目少時置中、多到超出時從頂端開始捲 —— 用 justify-content: center 的話上面幾項會被切掉 */
+  .m-nav-list {
+    margin-block: auto;
+    padding-block: 24px;
+  }
+
+  .m-nav-cta-wrap {
+    flex-shrink: 0;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgb(255 255 255 / 20%);
+  }
+
+  /* 選單打開時鎖住後面的頁面。只在手機／平板生效，視窗拉寬到桌機版就自動解鎖 */
+  html.is-nav-open,
+  html.is-nav-open body {
+    overflow: hidden;
+  }
+}

@@ -1,11 +1,9 @@
 /*
  * 健身知識（文章列表頁）。
  *
- * 顏色分工：
- *   紅 --xe120     品牌與分類標籤
- *   藍綠 --x7de9   在這頁只用在「可以點／目前在哪裡」：tab、分頁目前頁
- *   輪播進度與箭頭的配色跟 m-slider 一致（目前那格紅、其他灰），不另外用藍綠
- * 兩種都拿來表示狀態的話，讀者分不出哪個是分類、哪個是「我現在在這」。
+ * 顏色：強調色只用紅 --xe120（分類、tab、分頁目前頁、精選標籤），與文章頁一致。
+ * 輪播進度與箭頭的配色跟 m-slider 一致（目前那格紅、其他灰）。
+ * 紅底上的字一律用白色。
  *
  * 次要文字用白色 55%（約 #8c8c8c）而不是 --x6（#666）：
  * 日期、篇數這些小字在黑底上用 #666 對比不到 4.5:1，讀起來吃力。
@@ -64,7 +62,7 @@
 }
 
 .m-alist-eyebrow {
-  color: var(--x7de9);
+  color: var(--xe120);
   font-weight: 800;
   letter-spacing: 0.2em;
 
@@ -134,8 +132,8 @@
 
 .m-alist-badge {
   padding: 4px 10px;
-  background-color: var(--x7de9);
-  color: var(--black);
+  background-color: var(--xe120);
+  color: var(--white);
 
   @apply m:px-[8px];
 }
@@ -150,7 +148,7 @@
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: var(--x7de9);
+      color: var(--xe120);
     }
   }
 }
@@ -163,7 +161,7 @@
 
 .m-alist-slide-more {
   display: inline-block;
-  color: var(--x7de9);
+  color: var(--xe120);
   font-weight: 700;
   letter-spacing: 0.06em;
 
@@ -346,24 +344,24 @@
     background-color: transparent;
 
     /* 未選中也先放一個透明的同尺寸光暈：從 none 開始的話光暈不會漸變，會直接跳出來 */
-    box-shadow: 0 0 12px rgb(125 233 225 / 0%);
+    box-shadow: 0 0 12px rgb(225 32 32 / 0%);
     transition:
       background-color 0.3s ease-in-out,
       box-shadow 0.3s ease-in-out;
   }
 
   &[aria-selected='true'] {
-    color: var(--x7de9);
+    color: var(--xe120);
     font-weight: 800;
 
     &::after {
-      background-color: var(--x7de9);
-      box-shadow: 0 0 12px rgb(125 233 225 / 60%);
+      background-color: var(--xe120);
+      box-shadow: 0 0 12px rgb(225 32 32 / 60%);
     }
 
     .m-alist-tab-count {
-      background-color: var(--x7de9);
-      color: var(--black);
+      background-color: var(--xe120);
+      color: var(--white);
     }
   }
 }
@@ -444,14 +442,14 @@
 
   &:hover,
   .m-alist-card:hover & {
-    color: var(--x7de9);
+    color: var(--xe120);
   }
 
   &:focus-visible {
     outline: none;
 
     &::after {
-      outline: 2px solid var(--x7de9);
+      outline: 2px solid var(--xe120);
       outline-offset: 4px;
     }
   }
@@ -505,13 +503,13 @@
   @apply m:h-[44px] m:w-[44px] m:text-[15px] pt:h-[48px] pt:w-[48px] pt:text-[15px];
 
   &:hover {
-    border-color: var(--x7de9);
-    color: var(--x7de9);
+    border-color: var(--xe120);
+    color: var(--xe120);
   }
 
   &[aria-current='page'] {
-    border-color: var(--x7de9);
-    background-color: var(--x7de9);
-    color: var(--black);
+    border-color: var(--xe120);
+    background-color: var(--xe120);
+    color: var(--white);
   }
 }

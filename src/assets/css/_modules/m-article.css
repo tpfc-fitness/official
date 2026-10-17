@@ -88,7 +88,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px 24px;
-  color: var(--x6);
+  color: rgb(255 255 255 / 55%);
 
   @apply m:mt-[18px] m:text-[12px] pt:mt-[24px] pt:text-[13px];
 }
@@ -239,7 +239,7 @@
 }
 
 .m-article-author-role {
-  color: var(--x6);
+  color: rgb(255 255 255 / 55%);
 
   @apply m:text-[13px] pt:text-[14px];
 }
@@ -313,7 +313,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--x6);
+  color: rgb(255 255 255 / 55%);
 
   @apply m:text-[13px] pt:text-[14px];
 }

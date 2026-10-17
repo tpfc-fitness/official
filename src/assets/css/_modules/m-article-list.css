@@ -93,28 +93,33 @@
   @apply m:pb-[56px] t:pb-[64px] p:pb-[80px];
 }
 
+/*
+ * 桌機：圖在左、文字在右，兩者不重疊。
+ * 原本是文字區疊在圖片左下角的黑塊，但產生的封面左邊印著標題，疊上去會壓到；
+ * 照片封面則會蓋掉主角。文字區用深灰 --x15 加淡邊框，跟頁面的純黑分開，看得出是一張卡。
+ * 平板以下：圖在上、文字在下，背景回到頁面的黑。
+ */
 .m-alist-slide-card {
   position: relative;
   background-color: var(--x1f1d);
+
+  @apply p:grid p:grid-cols-[58fr_42fr] p:border p:border-solid p:border-[rgb(255_255_255_/_10%)] p:bg-[var(--x15)];
 }
 
+/* 桌機 16:10：原本的 16:7 太扁，人物照片的頭跟腳都會被切掉 */
 .m-alist-slide-media {
   display: block;
   width: 100%;
   overflow: hidden;
   background-color: var(--x1f1d);
 
-  @apply tm:aspect-[4/3] p:aspect-[16/7];
+  @apply tm:aspect-[4/3] p:aspect-[16/10];
 }
 
-/*
- * 桌機：文字區疊在圖片左下角，黑底、左邊不留白，跟圖片的左緣切齊。
- * 平板以下：圖在上、文字在下，背景回到頁面的黑。
- */
 .m-alist-slide-text {
   background-color: var(--black);
 
-  @apply tm:pt-[18px] p:absolute p:bottom-0 p:left-0 p:w-[min(560px,100%)] p:py-[32px] p:pr-[40px];
+  @apply tm:pt-[18px] p:flex p:flex-col p:justify-center p:bg-transparent p:px-[44px] p:py-[40px];
 }
 
 .m-alist-slide-tags {

@@ -73,8 +73,8 @@
 }
 
 .m-article-lead {
-  /* 導言句：藍綠（color.css 的分工：藍綠＝重點句／數值） */
-  color: var(--x7de9);
+  /* 導言句用白色（color.css 的分工：藍綠只用在粗體重點句與數值） */
+  color: var(--white);
   line-height: 1.9;
 
   @apply m:mt-[20px] m:text-[16px] t:mt-[24px] t:text-[17px] p:mt-[28px] p:text-[18px];

@@ -80,7 +80,7 @@
             <p class="p:mt-[4px] tm:mt-[3px] p:text-[13px] tm:text-[12px] text-[rgb(255_255_255_/_75%)]">
               <%= item.job %>
             </p>
-            <p class="p:mt-[8px] tm:mt-[4px] p:text-[13px] tm:text-[12px] text-[var(--x7de9)]"><%= item.tagline %></p>
+            <p class="p:mt-[8px] tm:mt-[4px] p:text-[13px] tm:text-[12px] text-[var(--white)]"><%= item.tagline %></p>
           </div>
           <span class="m-coach-caret" aria-hidden="true"></span>
         </div>
@@ -124,7 +124,7 @@
             <div class="m-tab-panels p:mt-[22px] tm:mt-[16px]">
               <% TABS.forEach((tab) => { -%>
               <div>
-                <h4 class="m-tab-panel-title font-bold text-[var(--x7de9)] mb-[10px] text-[15px]"><%= tab.label %></h4>
+                <h4 class="m-tab-panel-title font-bold text-[var(--white)] mb-[10px] text-[15px]"><%= tab.label %></h4>
                 <% if (item[tab.key].length) { -%>
                 <ul class="m-list --list p:space-y-[18px] tm:space-y-[16px]">
                   <% item[tab.key].forEach((line) => { -%>

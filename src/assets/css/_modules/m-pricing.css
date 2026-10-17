@@ -132,8 +132,8 @@
 }
 
 /*
- * 右欄：「每堂」小字＋放大的數字。
- * 主視覺是單堂價而不是總價 —— 比方案時大家看的是一堂多少。
+ * 右欄：「每堂」小字＋數字。
+ * 數字沿用 .m-price-list dd 的字級與字重，跟場租、團課的價格同一個樣子。
  */
 .m-pricing-unit {
   margin-right: 4px;
@@ -141,13 +141,6 @@
   font-weight: 400;
 
   @apply m:text-[12px] pt:text-[13px];
-}
-
-.m-pricing-value {
-  font-weight: 900;
-  line-height: 1;
-
-  @apply m:text-[20px] pt:text-[24px];
 }
 
 .m-pricing-footnote {

@@ -2,10 +2,7 @@
 <section class="bg-[var(--x15)] text-[var(--white)]">
   <div class="p:max-w-[1920px] p:flex p:items-stretch mx-auto">
     <div class="p:w-[56%] p:flex-shrink-0 p:px-[80px] p:py-[90px] t:px-[40px] t:py-[56px] m:px-[20px] m:py-[40px]">
-      <p class="text-[11px] tracking-[0.24em] text-[rgb(255_255_255_/_55%)]">ABOUT US</p>
-      <h1 data-aos="fade-up"
-        class="font-black leading-[1.15] tracking-[-0.03em] p:mt-[18px] tm:mt-[12px] p:text-[62px] t:text-[40px] m:text-[30px]">
-        關於頭等倉</h1>
+      <%- require('@component/mHeading.ejs')({ tag: 'h1', size: 'kv', eyebrow: 'ABOUT US', aos: 'fade-up', title: '關於頭等倉' }) %>
       <p data-aos="fade-up"
         class="font-bold leading-[1.6] p:mt-[22px] tm:mt-[14px] p:text-[20px] t:text-[17px] m:text-[15px]">
         我們想做的，不只是一間讓你來運動的健身房。</p>

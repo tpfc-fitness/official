@@ -1,8 +1,8 @@
 /*
- * 免費體驗／預約內容的樣式。
+ * 免費體驗頁（contact）專用的樣式：表單區塊、比價表、Before／After 卡、照片底。
  *
- * 免費體驗頁專用的樣式，量大且只有這一頁會用，因此獨立成模組。
- * 只有這兩頁會 @import 它，不放進 _library，避免其他頁面被拖累。
+ * 只有免費體驗頁會 @import 它。標題與內文字級（原本的 .resevation-h1 等）
+ * 已搬到 m-heading.css，全站共用。
  */
 .contact-bd {
   background: url('@imgs/contact/kv.jpg') center center;
@@ -18,72 +18,20 @@
   }
 }
 
-.resevation-title {
-  line-height: 140%;
-  font-weight: 700;
-
-  @apply m:text-[32px] t:text-[32px] p:text-[48px];
-}
-
-.resevation-h1 {
-  line-height: 140%;
-  font-weight: 700;
-
-  @apply m:text-[32px] t:text-[32px] p:text-[40px];
-}
-
-.resevation-h2 {
-  line-height: 140%;
-  font-weight: 700;
-  color: var(--x7de9);
-
-  @apply tm:text-[28px] p:text-[32px];
-}
-
-.resevation-h3 {
-  line-height: 170%;
-  font-weight: 700;
-
-  @apply m:text-[22px] t:text-[22px] p:text-[24px];
-
-  &.deco-line {
-    @apply relative;
-
-    &::before {
-      content: '';
-
-      @apply absolute bottom-[-4px] h-[1px] w-full bg-[var(--black)];
-    }
-  }
-}
-
-.resevation-h4 {
-  line-height: 170%;
-  font-weight: 700;
-
-  @apply m:text-[14px] t:text-[16px] p:text-[18px];
-}
-
-.resevation-p {
-  line-height: 170%;
-
-  @apply m:text-[14px] t:text-[16px] p:text-[18px];
-}
-
-.resevation-table-text {
+.reservation-table-text {
   line-height: 170%;
   letter-spacing: 0;
 
   @apply m:text-[13px] t:text-[14px] p:text-[16px];
 }
 
-.resevation-table-border {
+.reservation-table-border {
   border-left-style: dashed;
 
   @apply border-l border-t border-[#fff] border-opacity-30;
 }
 
-.resevation-table-highlight {
+.reservation-table-highlight {
   @apply relative z-[1];
 
   &::before {
@@ -102,16 +50,6 @@
     &::before {
       @apply bottom-[-6px];
     }
-  }
-}
-
-.deco-header {
-  @apply relative text-center m:pb-[18px] pt:pb-[28px];
-
-  &::before {
-    content: '';
-
-    @apply absolute bottom-0 left-1/2 h-[1px] w-[50px] -translate-x-1/2 bg-[#fff];
   }
 }
 
@@ -145,7 +83,7 @@
   }
 }
 
-.resevation-img {
+.reservation-img {
   @apply relative;
 
   &::before {
@@ -181,7 +119,7 @@
  * 60% 時白字對最亮處是 4.57:1，剛好站在 WCAG AA 的線上，
  * 55% 就掉到 3.88:1 了。
  */
-.resevation-bg-01 {
+.reservation-bg-01 {
   background-image: linear-gradient(#0009, #1a1a1a99), linear-gradient(#0000001a, #0000001a),
     url('@imgs/contact/pain-points-bg.jpg');
   background-repeat: no-repeat;
@@ -195,17 +133,17 @@
  * 遮罩由上往下從近黑漸到深灰，文字走白色 ——
  * 原本是淺色遮罩配黑字，夾在整頁深色區塊之間會像兩塊白板。
  */
-.resevation-bg-02 {
+.reservation-bg-02 {
   background-image: linear-gradient(#000000c2, #333333c2), linear-gradient(#0000001a, #0000001a),
-    url('@imgs/resevation/bg-02.jpg');
+    url('@imgs/reservation/bg-02.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
 
-.resevation-bg-03 {
+.reservation-bg-03 {
   background-image: linear-gradient(#000000c2, #333333c2), linear-gradient(#0000001a, #0000001a),
-    url('@imgs/resevation/bg-03.jpg');
+    url('@imgs/reservation/bg-03.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

@@ -17,7 +17,7 @@ module.exports = [
     title: '竹竿人的逆襲',
     before: {
       heading: '曾經，我也不知道該怎麼練',
-      img: require('@imgs/resevation/before_benson.jpg'),
+      img: require('@imgs/reservation/before_benson.jpg'),
       alt: 'Benson 教練體態改善前',
       paragraphs: [
         '從小我就是個怎麼吃都吃不胖的竹竿人。',
@@ -28,7 +28,7 @@ module.exports = [
     },
     after: {
       heading: '後來，我才知道努力不等於有效',
-      img: require('@imgs/resevation/after_benson.jpg'),
+      img: require('@imgs/reservation/after_benson.jpg'),
       alt: 'Benson 教練體態改善後',
       paragraphs: [
         '在無數次的挫折與重來之後，我才發現：<br /><b class="font-bold text-[var(--white)]">訓練不是一味衝重量，而是找到適合自己的方法。</b>',
@@ -47,7 +47,7 @@ module.exports = [
   //   coach: 'Allen 教練',
   //   title: '米其林寶寶剷油奮鬥記',
   //   before: {
-  //     img: require('@imgs/resevation/before_allen.jpg'),
+  //     img: require('@imgs/reservation/before_allen.jpg'),
   //     alt: 'Allen 教練體態改善前',
   //     paragraphs: [
   //       '我一直以來都是個大食怪，大學畢業之後身材越來越變形，等回過神已經肥的跟米其林寶寶一樣了。',
@@ -55,7 +55,7 @@ module.exports = [
   //     ],
   //   },
   //   after: {
-  //     img: require('@imgs/resevation/after_allen.jpg'),
+  //     img: require('@imgs/reservation/after_allen.jpg'),
   //     alt: 'Allen 教練體態改善後',
   //     paragraphs: [
   //       '我開始每周健身，只吃原型食物，調味簡單，偶爾放縱大吃一餐，一不小心竟然瘦下來了<span class="m:hidden">，而且還養成了「健康飲食」的習慣，再也不需要刻意節食，維持起來超簡單，現在一天沒動就全身不對勁。</span>',

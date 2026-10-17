@@ -1,0 +1,50 @@
+<%
+  /*
+   * 段落開頭的「小標＋標題」。
+   *
+   * 參數：
+   *   title    必填，標題文字（可含 <br />）
+   *   tag      'h1' | 'h2'，預設 h2
+   *   size     'kv'（每頁最上方的主標）| 'section'（段落標題），預設 section
+   *   eyebrow  英文小標，例如 'ABOUT US'
+   *   line     true 時在英文小標後面接一條短線
+   *   no       編號，例如 '01'；有編號時排成「01 ── label」
+   *   label    跟在編號後面的中文小標
+   *   center   true 時置中
+   *   deco     true 時標題下方加一條置中短線
+   *   aos      data-aos 的值，加在標題上
+   *   attrs    額外加在標題上的屬性字串（例如 'data-kv-title'，給 JS 抓）
+   *   cls      加在外層的 class（間距等）
+   *
+   * 樣式在 _modules/m-heading.css（已在 _library 裡，所有頁面都有）。
+   * 強調色由 .m-heading 的 --heading-accent 統一控制。
+   */
+  const h = {
+    tag: typeof tag !== 'undefined' ? tag : 'h2',
+    size: typeof size !== 'undefined' ? size : 'section',
+    eyebrow: typeof eyebrow !== 'undefined' ? eyebrow : '',
+    line: typeof line !== 'undefined' && line,
+    no: typeof no !== 'undefined' ? no : '',
+    label: typeof label !== 'undefined' ? label : '',
+    center: typeof center !== 'undefined' && center,
+    deco: typeof deco !== 'undefined' && deco,
+    aos: typeof aos !== 'undefined' ? ` data-aos="${aos}"` : '',
+    attrs: typeof attrs !== 'undefined' ? ` ${attrs}` : '',
+    cls: typeof cls !== 'undefined' ? ` ${cls}` : '',
+  };
+-%>
+<div class="m-heading<%- h.center ? ' --center' : '' %><%- h.cls %>">
+  <% if (h.no) { -%>
+  <p class="m-heading-meta">
+    <span class="m-heading-no"><%= h.no %></span>
+    <i class="m-heading-line" aria-hidden="true"></i>
+    <% if (h.label) { -%><span class="m-heading-label"><%= h.label %></span><% } -%>
+  </p>
+  <% } else if (h.eyebrow) { -%>
+  <p class="m-heading-meta">
+    <span class="m-heading-eyebrow"><%= h.eyebrow %></span>
+    <% if (h.line) { -%><i class="m-heading-line" aria-hidden="true"></i><% } -%>
+  </p>
+  <% } -%>
+  <<%= h.tag %><%- h.aos %><%- h.attrs %> class="m-heading-title --<%= h.size %><%- h.deco ? ' --deco' : '' %>"><%- title %></<%= h.tag %>>
+</div>

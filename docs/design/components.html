@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>頭等倉元件盤點</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="_shared.css">
+<style>
+/*
+ * 元件的重現樣式。數值照 src/assets/css/_modules 的桌機（p:）版本，
+ * class 前綴 d- 避免和說明頁本身的樣式混在一起。
+ */
+.arrow { width: 1em; height: 1em; flex-shrink: 0; }
+
+/* 按鈕 m-btn */
+.d-btn { display: inline-flex; border: 1px solid #fff; font-weight: 700; color: #fff; text-decoration: none; font-size: 17px; height: 54px; transition: background-color .3s, color .3s; }
+.d-btn .c { display: flex; align-items: center; justify-content: center; flex-grow: 1; padding-inline: 24px; transition: background-color .3s, color .3s; }
+.d-btn .i { position: relative; display: flex; align-items: center; justify-content: center; width: 52px; }
+.d-btn .i::before { content: ''; position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: #fff; }
+.d-btn.border { width: 268px; }
+.d-btn.border:hover .c { background: #fff; color: #000; }
+.d-btn.contain, .d-btn.highlight { justify-content: center; align-items: center; width: 260px; }
+.d-btn.contain .c, .d-btn.highlight .c { flex-grow: 0; padding: 0; }
+.d-btn.contain .i, .d-btn.highlight .i { width: auto; margin-left: 8px; }
+.d-btn.contain .i::before, .d-btn.highlight .i::before { display: none; }
+.d-btn.contain { background: #fff; color: #000; }
+.d-btn.contain:hover { background: transparent; color: #fff; }
+.d-btn.highlight { background: #e12020; border: 0; }
+.d-btn.highlight:hover { background: #c40000; }
+
+/* 導覽列 */
+.d-hd { display: flex; align-items: center; height: 72px; padding-inline: 20px; background: #000; border-bottom: 1px solid var(--line); gap: 28px; }
+.d-logo { font-weight: 900; font-size: 18px; letter-spacing: 0.06em; line-height: 1.1; flex-grow: 1; }
+.d-logo small { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--fg-2); }
+.d-hd nav { display: flex; gap: 26px; font-size: 15px; }
+.d-hd nav a { text-decoration: none; }
+.d-hd nav a.on { text-decoration: underline; text-underline-offset: 8px; }
+.d-navcta { display: flex; align-items: center; height: 44px; padding-inline: 24px; background: #fff; color: #000; font-weight: 700; font-size: 15px; text-decoration: none; transition: background-color .3s; }
+.d-navcta:hover { background: var(--mint); }
+.d-burger { position: relative; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; }
+.d-burger i, .d-burger::before, .d-burger::after { content: ''; position: absolute; left: 50%; top: 50%; width: 20px; height: 2px; background: #fff; transform: translate(-50%, -50%); transition: all .3s; }
+.d-burger::before { margin-top: -6px; } .d-burger::after { margin-top: 6px; }
+.d-burger.active::before, .d-burger.active::after { margin-top: 0; }
+.d-burger.active::before { transform: translate(-50%, -50%) rotate(45deg); }
+.d-burger.active::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.d-burger.active i { opacity: 0; }
+
+/* 跑馬燈 */
+.d-marquee { background: #e12020; color: #fff; text-align: center; padding: 12px; font-size: 18px; font-style: normal; }
+
+/* 標題組合 */
+.d-eb { font-size: 11px; letter-spacing: 0.24em; font-weight: 700; color: #e12020; }
+.d-eb.gray { color: rgb(255 255 255 / 55%); font-weight: 400; }
+.d-res-h1 { font-size: 40px; font-weight: 700; line-height: 1.4; }
+.d-deco { position: relative; text-align: center; padding-bottom: 28px; }
+.d-deco::before { content: ''; position: absolute; bottom: 0; left: 50%; width: 50px; height: 1px; background: #fff; transform: translateX(-50%); }
+.d-numhead { display: flex; align-items: center; }
+.d-numhead .n { font-weight: 900; line-height: 1; color: var(--cyan); font-size: 40px; }
+.d-numhead i { display: block; height: 1px; width: 36px; margin-left: 18px; background: rgb(255 255 255 / 35%); }
+.d-numhead .t { margin-left: 18px; font-size: 16px; font-weight: 700; color: rgb(255 255 255 / 70%); }
+
+/* 清單 m-list */
+.d-list li { list-style: none; display: flex; }
+.d-list li::before { content: '·'; margin-right: .25em; }
+.d-olist { counter-reset: o; }
+.d-olist li { list-style: none; counter-increment: o; }
+.d-olist li::before { content: counter(o) '. '; }
+
+/* 步驟 m-step */
+.d-step > li { list-style: none; position: relative; padding-left: 84px; padding-bottom: 52px; }
+.d-step > li:last-child { padding-bottom: 0; }
+.d-step > li::before { content: ''; position: absolute; top: 46px; bottom: 0; left: 27px; width: 1px; background: rgb(255 255 255 / 20%); }
+.d-step > li:last-child::before { display: none; }
+.d-step-no { position: absolute; top: 0; left: 0; color: #e12020; font-weight: 900; line-height: 1; letter-spacing: -0.02em; font-size: 38px; }
+.d-step h4 { font-size: 22px; line-height: 1.4; }
+.d-step p { color: var(--fg-2); font-size: 15px; margin-top: 6px; }
+.d-stepq { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.d-stepq li { list-style: none; border-left: 2px solid #e12020; padding-left: 14px; font-weight: 700; font-size: 14px; }
+
+/* 流程 m-flow */
+.d-flow > li { list-style: none; position: relative; padding: 0 0 20px 26px; }
+.d-flow > li:last-child { padding-bottom: 0; }
+.d-flow > li::before { content: ''; position: absolute; top: 12px; bottom: 0; left: 4px; width: 1px; background: rgb(255 255 255 / 28%); }
+.d-flow > li:last-child::before { display: none; }
+.d-flow > li::after { content: ''; position: absolute; top: 6px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: #666; }
+
+/* FAQ m-faq */
+.d-faq > li { list-style: none; border-top: 1px solid rgb(255 255 255 / 18%); }
+.d-faq > li:first-child { border-top: 0; }
+.d-faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 20px; padding-block: 22px; }
+.d-faq summary::-webkit-details-marker { display: none; }
+.d-faq summary h4 { flex-grow: 1; font-size: 18px; line-height: 1.5; }
+.d-faq-q { color: #e12020; font-weight: 900; font-size: 20px; }
+.d-faq-icon { position: relative; width: 16px; height: 16px; flex-shrink: 0; }
+.d-faq-icon::before, .d-faq-icon::after { content: ''; position: absolute; top: 50%; left: 50%; background: currentColor; transform: translate(-50%, -50%); }
+.d-faq-icon::before { width: 16px; height: 1px; }
+.d-faq-icon::after { width: 1px; height: 16px; transition: transform .3s, opacity .3s; }
+details[open] .d-faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+.d-faq-a { padding-bottom: 22px; display: grid; gap: 10px; }
+.d-faq-a li { list-style: none; display: flex; line-height: 1.9; color: rgb(255 255 255 / 82%); font-size: 15px; }
+.d-faq-a li::before { content: '・'; color: #e12020; flex-shrink: 0; }
+.d-faq-group { font-size: 24px; font-weight: 700; letter-spacing: .02em; margin-bottom: 8px; }
+.d-faq-steps { counter-reset: s; display: grid; gap: 8px; }
+.d-faq-steps li { list-style: none; position: relative; counter-increment: s; padding-left: 34px; color: rgb(255 255 255 / 82%); font-size: 15px; }
+.d-faq-steps li::before { content: counter(s); position: absolute; top: 3px; left: 0; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 50%; font-size: 11px; line-height: 1; }
+
+/* Tab m-tab */
+.d-tabnav { display: flex; gap: 10px; flex-wrap: wrap; }
+.d-tabnav button { font: inherit; width: 110px; height: 38px; font-size: 14px; border: 1px solid #565656; background: none; color: #c7c7c7; cursor: pointer; transition: all .3s; }
+.d-tabnav button:hover { border-color: #fff; color: #fff; }
+.d-tabnav button[aria-selected="true"] { border-color: #e12020; background: #e12020; color: #fff; font-weight: 700; }
+.d-tabpanel { margin-top: 18px; color: var(--fg-2); font-size: 15px; }
+/* 文章列表 tab */
+.d-atabs { display: flex; gap: 40px; border-bottom: 1px solid rgb(255 255 255 / 20%); flex-wrap: wrap; }
+.d-atab { position: relative; font: inherit; background: none; border: 0; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 18px 0 20px; font-size: 17px; color: rgb(255 255 255 / 55%); font-weight: 500; }
+.d-atab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: transparent; }
+.d-atab:hover { color: #fff; }
+.d-atab[aria-selected="true"] { color: var(--mint); font-weight: 800; }
+.d-atab[aria-selected="true"]::after { background: var(--mint); }
+.d-atab .cnt { border-radius: 999px; background: #1f1d1d; color: rgb(255 255 255 / 55%); font-weight: 700; padding: 3px 6px; font-size: 11px; line-height: 1; }
+.d-atab[aria-selected="true"] .cnt { background: var(--mint); color: #000; }
+
+/* 輪播控制 */
+.d-sl { position: relative; height: 220px; }
+.d-sl .photo { position: absolute; inset: 0; }
+.d-sl-ctrl { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding-inline: 10px; }
+.d-sl-btn { position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 64px; border: 0; color: #fff; background: rgb(0 0 0 / 45%); cursor: pointer; transition: background-color .3s; }
+.d-sl-btn:hover { background: rgb(0 0 0 / 75%); }
+.d-sl-btn[disabled] { opacity: .35; cursor: default; }
+.d-sl-btn::before { content: ''; display: block; width: 16px; height: 16px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; }
+.d-sl-btn.next::before { transform: rotate(45deg); margin-left: -2px; }
+.d-sl-btn.prev::before { transform: rotate(-135deg); margin-left: 2px; }
+.d-tnav { display: flex; justify-content: center; gap: 6px; margin-top: 24px; }
+.d-tnav i { width: 40px; height: 2px; background: #565656; }
+.d-tnav i.on { background: #e12020; }
+.d-counter { color: #c7c7c7; letter-spacing: .1em; font-size: 14px; }
+.d-counter b { color: #fff; }
+.d-thumbs { display: flex; }
+.d-thumbs button { flex: 1; font: inherit; background: none; border: 0; border-top: 1px solid #565656; color: #c7c7c7; padding: 12px 4px; font-size: 13px; cursor: pointer; }
+.d-thumbs button.on { border-top-color: #e12020; color: #fff; font-weight: 700; }
+/* 文章列表進度 */
+.d-prog { display: flex; align-items: center; gap: 16px; font-size: 14px; flex-wrap: wrap; }
+.d-prog .no { color: var(--mint); font-weight: 800; }
+.d-prog .tot { color: rgb(255 255 255 / 55%); }
+.d-prog .bars { display: flex; gap: 8px; flex: 1 1 200px; max-width: 360px; }
+.d-prog .bars span { flex: 1; height: 2px; background: #565656; }
+.d-prog .bars span.on { background: var(--mint); }
+.d-asq { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid #565656; background: none; color: #fff; cursor: pointer; transition: all .3s; }
+.d-asq:hover:not(:disabled) { border-color: var(--mint); background: var(--mint); color: #000; }
+.d-asq:disabled { opacity: .35; cursor: default; }
+
+/* 價目表 */
+.d-price { max-width: 420px; }
+.d-price > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-top: 1px solid rgb(255 255 255 / 14%); padding-block: 12px; }
+.d-price > div:first-child { border-top: 0; padding-top: 0; }
+.d-price dt { color: rgb(255 255 255 / 78%); font-size: 15px; }
+.d-price dt small { display: block; color: rgb(255 255 255 / 55%); font-size: 13px; margin-top: 2px; }
+.d-price dd { color: #fff; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; }
+.d-note { color: rgb(255 255 255 / 55%); font-size: 13px; line-height: 1.7; }
+/* 方案展開 m-pricing */
+.d-pricing summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-block: 1px solid #565656; padding-block: 14px; cursor: pointer; list-style: none; }
+.d-pricing summary::-webkit-details-marker { display: none; }
+.d-pricing .hint { display: flex; align-items: center; gap: 10px; color: #c7c7c7; font-size: 13px; }
+.d-pricing .arr { width: 8px; height: 8px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .3s; }
+.d-pricing[open] .arr { transform: translateY(2px) rotate(-135deg); }
+.d-pricing .body { padding: 16px; background: #262626; display: grid; gap: 26px; }
+.d-pgt { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.d-pgt b { font-size: 15px; } .d-pgt span { color: rgb(255 255 255 / 55%); font-size: 13px; }
+.d-badge { display: inline-block; margin-left: 6px; padding: 1px 6px; background: #e12020; color: #fff; font-weight: 700; font-size: 12px; line-height: 1.5; font-style: normal; vertical-align: 1px; }
+.d-unit { margin-right: 4px; color: rgb(255 255 255 / 55%); font-weight: 400; font-size: 13px; }
+.d-val { font-weight: 900; font-size: 24px; line-height: 1; }
+.d-link { color: #fff; text-decoration: underline; text-decoration-color: #e12020; text-underline-offset: 4px; font-size: 14px; transition: text-decoration-color .3s; }
+.d-link:hover { text-decoration-color: #fff; }
+
+/* 新生方案 m-plan */
+.d-plan-price { border: 1px solid rgb(255 255 255 / 18%); background: #1f1d1d; padding: 40px; display: grid; gap: 32px; grid-template-columns: minmax(0, 260px) 1fr; align-items: center; }
+.d-plan-amount { color: var(--cyan); font-weight: 900; line-height: 1; letter-spacing: -.02em; font-size: 52px; }
+.d-plan-amount small { font-size: 24px; font-weight: 700; margin-right: 4px; }
+.d-tags { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.d-tags li { list-style: none; border: 1px solid rgb(255 255 255 / 18%); text-align: center; font-weight: 700; padding: 18px 10px; font-size: 15px; display: flex; flex-direction: column; align-items: center; }
+.d-tags svg { color: var(--cyan); width: 28px; height: 28px; margin-bottom: 10px; }
+.d-plan-card { border: 1px solid rgb(255 255 255 / 12%); background: #1f1d1d; padding: 36px; display: grid; gap: 10px; }
+.d-plan-no { color: #e12020; font-weight: 900; line-height: 1; font-size: 40px; letter-spacing: -.02em; }
+.d-plan-turn { color: var(--cyan); font-weight: 700; font-size: 17px; line-height: 1.6; }
+.d-keys { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.d-keys li { list-style: none; display: flex; font-weight: 700; font-size: 15px; }
+.d-keys li::before { content: '·'; color: #e12020; margin-right: .25em; }
+
+/* 適合對象卡 m-audience */
+.d-aud { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.d-aud li { list-style: none; }
+.d-aud-head { display: flex; flex-wrap: wrap; align-items: center; }
+.d-aud-no { color: #e12020; font-weight: 900; line-height: 1; font-size: 36px; letter-spacing: -.02em; }
+.d-aud-head svg { width: 48px; height: 48px; margin-left: auto; }
+.d-aud-title { width: 100%; margin-top: 14px; font-weight: 700; line-height: 1.4; font-size: 20px; }
+.d-aud-rule { display: block; height: 1px; width: 26px; margin-block: 18px; background: rgb(255 255 255 / 30%); }
+.d-aud-body { color: #c7c7c7; line-height: 1.9; font-size: 14px; }
+
+/* 評論卡 */
+.d-review { display: grid; grid-template-columns: repeat(2, 1fr); }
+.d-review > li { list-style: none; padding-inline: 28px; }
+.d-review > li + li { border-left: 1px solid rgb(255 255 255 / 18%); }
+.d-review .src { font-size: 11px; letter-spacing: .2em; color: rgb(255 255 255 / 55%); }
+.d-stars { display: flex; gap: 3px; margin-top: 10px; color: var(--cyan); }
+.d-stars svg { width: 15px; height: 15px; }
+.d-review blockquote { margin: 22px 0 0; line-height: 1.9; font-size: 14px; }
+.d-review .who { display: flex; align-items: center; margin-top: 24px; font-weight: 700; font-size: 15px; }
+.d-review .who i { width: 26px; height: 1px; background: rgb(255 255 255 / 55%); margin-right: 14px; }
+
+/* 教練卡 */
+.d-coachrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.d-coach { position: relative; height: 340px; border: 1px solid rgb(255 255 255 / 20%); overflow: hidden; cursor: pointer; transition: border-color .3s; text-align: left; font: inherit; color: #fff; background: #151515; padding: 0; }
+.d-coach:hover { border-color: rgb(255 255 255 / 70%); }
+.d-coach.on { border-color: #e12020; }
+.d-coach .photo { position: absolute; inset: 0; }
+.d-coach::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 55%) 42%, rgb(0 0 0 / 5%) 100%); }
+.d-coach .body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 20px; display: flex; align-items: flex-end; }
+.d-coach .body div { flex-grow: 1; }
+.d-coach h4 { font-size: 26px; }
+.d-coach p { font-size: 14px; color: #c7c7c7; }
+.d-caret { margin-left: 16px; align-self: center; }
+.d-caret::before { content: ''; display: block; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform .3s; }
+.d-coach.on .d-caret::before { transform: rotate(-135deg) translate(-2px, -2px); }
+.d-panel { position: relative; grid-column: 1 / -1; border: 1px solid #e12020; background: #151515; padding: 36px; display: grid; grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); gap: 32px; }
+.d-panel::before { content: ''; position: absolute; top: -9px; left: calc(16.66% - 9px); border: 9px solid transparent; border-top: 0; border-bottom-color: #e12020; }
+.d-cred { border-right: 1px solid #565656; padding-right: 32px; }
+.d-cred h5 { font-size: 16px; padding-bottom: 12px; margin: 0 0 16px; border-bottom: 1px solid #e12020; letter-spacing: .04em; }
+.d-cred ul { columns: 2; column-gap: 20px; font-size: 14px; }
+.d-cred li { list-style: none; break-inside: avoid; padding-bottom: 16px; line-height: 1.45; }
+.d-panel .tabtitle { color: var(--cyan); font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+
+/* KV 與照片底區塊 */
+.d-kv { position: relative; min-height: 360px; display: flex; flex-direction: column; justify-content: center; padding: 48px 56px; }
+.d-kv > i { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgb(0 0 0 / 88%) 0%, rgb(0 0 0 / 72%) 42%, rgb(0 0 0 / 25%) 100%); }
+.d-kv > *:not(i):not(.photo) { position: relative; z-index: 2; }
+.d-kv .photo { position: absolute; inset: 0; }
+.d-kv h4 { font-size: 46px; font-weight: 900; line-height: 1.25; letter-spacing: -.03em; margin-top: 18px; }
+.d-kv p { margin-top: 22px; font-size: 15px; line-height: 1.9; color: rgb(255 255 255 / 85%); max-width: 26em; }
+.d-bgp { position: relative; isolation: isolate; text-align: center; padding: 64px 32px; }
+.d-bgp .photo { position: absolute; inset: 0; z-index: -1; }
+.d-bgp::before { content: ''; position: absolute; inset: 0; z-index: 0; background: rgb(0 0 0 / 68%); }
+.d-bgp > div { position: relative; z-index: 1; display: grid; gap: 24px; justify-items: center; }
+.d-bgp h4 { font-size: 38px; font-weight: 900; line-height: 1.35; letter-spacing: -.03em; }
+
+/* 過場 m-transition */
+.d-trans { text-align: center; padding: 48px 32px; }
+.d-trans::before { content: ''; display: block; width: 1px; height: 44px; margin: 0 auto 28px; background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 40%)); }
+.d-trans .lead { color: rgb(255 255 255 / 90%); font-size: 22px; line-height: 1.7; }
+.d-trans .body { color: rgb(255 255 255 / 52%); font-size: 15px; line-height: 1.7; margin-top: 48px; }
+.d-trans .end { font-weight: 700; font-size: 22px; line-height: 1.7; margin-top: 36px; }
+
+/* Before / After */
+.d-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 70px; }
+.d-ba > div { position: relative; border: 1px solid rgb(255 255 255 / 18%); padding: 24px; min-height: 120px; }
+.d-ba > div::before { position: absolute; top: -78px; font-weight: 800; color: #e12020; opacity: .15; font-size: 84px; line-height: 1.2; }
+.d-ba > div:first-child::before { content: 'Before'; left: -10px; }
+.d-ba > div:last-child::before { content: 'After'; right: -10px; }
+.d-ba h4 { font-size: 24px; line-height: 1.7; }
+
+/* 文章頁 */
+.d-art-label { color: #e12020; font-weight: 800; font-size: 12px; letter-spacing: .14em; }
+.d-art-title { font-weight: 800; font-size: 40px; line-height: 1.3; margin-top: 14px; }
+.d-art-lead { color: #c7c7c7; font-size: 18px; margin-top: 20px; }
+.d-art-meta { color: #666; font-size: 13px; margin-top: 18px; }
+.d-art-h2 { border-left: 4px solid #e12020; padding-left: 16px; font-size: 32px; font-weight: 700; line-height: 1.4; }
+.d-art-h3 { font-weight: 700; font-size: 21px; }
+.d-art-p { font-size: 17px; line-height: 1.9; }
+.d-art-p a { color: #fff; text-decoration-color: #e12020; text-underline-offset: 4px; }
+.d-answer { border-block: 1px solid #565656; background: #151515; padding: 28px 30px; }
+.d-answer .t { font-weight: 700; font-size: 19px; margin-top: 10px; }
+.d-related { border-top: 1px solid #565656; }
+.d-related a { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid #565656; padding-block: 18px; font-size: 16px; text-decoration: none; transition: color .3s; }
+.d-related a:hover { color: #e12020; }
+.d-related a span { color: #e12020; }
+/* 文章卡 */
+.d-acards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.d-acard .photo { aspect-ratio: 16 / 10; background-color: #1f1d1d; transition: transform .4s; }
+.d-acard .media { overflow: hidden; }
+.d-acard:hover .photo { transform: scale(1.04); }
+.d-acard .cat { color: #e12020; font-weight: 800; font-size: 12px; margin: 18px 0 8px; letter-spacing: .1em; }
+.d-acard h4 { font-weight: 800; font-size: 19px; line-height: 1.5; transition: color .3s; }
+.d-acard:hover h4 { color: var(--mint); }
+.d-acard p { color: #c7c7c7; font-size: 14px; line-height: 1.85; margin-top: 10px; }
+.d-acard .m { color: rgb(255 255 255 / 55%); font-size: 13px; margin-top: 14px; display: flex; gap: 16px; }
+.d-abadge { background: var(--mint); color: #000; font-weight: 800; font-size: 12px; padding: 2px 8px; }
+
+/* 頁尾 */
+.d-ft { background: #000; box-shadow: 1px -2px 4px 1px rgb(0 0 0 / 40%); padding: 40px 32px 0; display: grid; gap: 28px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.d-ft h4 { color: #c7c7c7; font-size: 20px; margin-bottom: 8px; }
+.d-ft p, .d-ft a { font-size: 14px; display: block; text-decoration: none; }
+.d-ft small { grid-column: 1 / -1; display: block; text-align: center; padding-block: 24px; font-size: 13px; border-top: 1px solid var(--line); }
+
+/* 載入 */
+.spin { animation: spin 1.2s infinite linear; color: #b3ce2b; width: 80px; height: 80px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .d-plan-price, .d-panel { grid-template-columns: 1fr; }
+  .d-tags { grid-template-columns: repeat(2, 1fr); }
+  .d-aud, .d-review, .d-acards, .d-ba, .d-ft { grid-template-columns: 1fr; }
+  .d-review > li + li { border-left: 0; border-top: 1px solid rgb(255 255 255 / 18%); padding-top: 22px; margin-top: 22px; }
+  .d-coachrow { grid-template-columns: 1fr; }
+  .d-cred { border-right: 0; padding-right: 0; }
+  .d-hd nav { display: none; }
+  .d-kv { padding: 32px 20px; }
+  .d-kv h4 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 16 16"><path d="M8 1.2l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 12l-4.2 2.2.8-4.7L1.2 6.2l4.7-.7z" fill="currentColor"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 32 32"><path d="M4 12v8M8 9v14M24 9v14M28 12v8M8 16h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 32 32"><path d="M5 7h22v14H14l-6 5v-5H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-note" viewBox="0 0 32 32"><path d="M8 4h12l5 5v19H8zM12 14h9M12 19h9M12 24h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-growth" viewBox="0 0 32 32"><path d="M4 26l8-8 5 5 10-12M20 11h7v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eb">FIRST CLASS FITNESS · DESIGN SYSTEM</p>
+    <h1>元件盤點</h1>
+    <p>全站共用的元件，照桌機版的數值重新畫一次。每個元件標出 class、檔案位置、用在哪些頁面。可以點的地方（按鈕 hover、FAQ 展開、tab 切換、教練卡）都能操作。除了跑馬燈與頁尾，文案都是示意，不是網站上的真實內容。</p>
+    <nav class="toc" aria-label="本頁段落">
+      <a href="#basic">按鈕與連結</a><a href="#nav">導覽</a><a href="#title">標題組合</a><a href="#content">內容區塊</a><a href="#price">價格</a><a href="#card">卡片</a><a href="#section">整段版面</a><a href="#article">文章</a><a href="#todo">觀察與建議</a>
+    </nav>
+    <p class="sub">另見：<a href="colors.html">色彩盤點</a>　·　照片取自 src/assets/img　·　資料日期 2026-10-17</p>
+  </header>
+
+  <!-- ========== 按鈕與連結 ========== -->
+  <section class="blk" id="basic">
+    <header>
+      <h2>按鈕與連結</h2>
+      <p>按鈕全站只有一個元件 <code>mBtn.ejs</code>，三種外觀。尺寸沒有內建，每次使用都在 <code>style.main</code> 手寫寬高與字級。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp wide">
+        <header><h3>按鈕 <code>.m-btn</code></h3><p>_components/mBtn.ejs · _modules/m-btn.css · 全站</p></header>
+        <div class="stage">
+          <div class="row-wrap">
+            <div><span class="vlabel">--highlight　主要 CTA</span><a class="d-btn highlight" href="#basic"><span class="c">預約免費體驗</span><span class="i"><svg class="arrow"><use href="#i-arrow"/></svg></span></a></div>
+            <div><span class="vlabel">--contain　白底</span><a class="d-btn contain" href="#basic"><span class="c">了解課程</span><span class="i"><svg class="arrow"><use href="#i-arrow"/></svg></span></a></div>
+            <div><span class="vlabel">--border　框線，有分隔線</span><a class="d-btn border" href="#basic"><span class="c">看更多學員回饋</span><span class="i"><svg class="arrow"><use href="#i-arrow"/></svg></span></a></div>
+          </div>
+        </div>
+        <footer>
+          <p><b>hover：</b>紅 → 深紅 #c40000；白底 → 透明白字；框線 → 左半邊變白底黑字（箭頭那格不變）。</p>
+          <p><b>目前的尺寸寫法：</b>主要 CTA 高 54/52/48、字 17/15、手機滿版；KV 高 45 字 18；footer 高 38 字 18；小按鈕高 42 字 14。共 10 處各自不同。</p>
+        </footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>文字連結</h3><p>.m-pricing-link、.m-article-p a</p></header>
+        <div class="stage">
+          <p class="d-art-p">深蹲時膝蓋會痛，先看 <a href="#basic">膝蓋內夾的三個原因</a>，再決定要不要調整重量。</p>
+          <a class="d-link" href="#basic">查看完整價目</a>
+        </div>
+        <footer><p>白字，紅色底線；hover 底線變白。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>標籤 <code>.m-pricing-badge</code> <code>.m-alist-badge</code></h3><p>服務項目價格、文章列表</p></header>
+        <div class="stage">
+          <p>一對一私人教練 <i class="d-badge">熱門</i></p>
+          <p><span class="d-abadge">精選</span></p>
+        </div>
+        <footer><p>同樣是小標籤，價格用紅底白字、文章用薄荷底黑字。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 導覽 ========== -->
+  <section class="blk" id="nav">
+    <header>
+      <h2>導覽</h2>
+      <p>頁首、選單、跑馬燈，以及各種「切換」元件：tab、輪播控制、分頁。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp wide">
+        <header><h3>頁首與選單 <code>.m-hd</code> <code>.m-nav</code></h3><p>_components/mHd.ejs、mNav.ejs · m-nav.css · 全站</p></header>
+        <div class="stage flush">
+          <div class="d-hd">
+            <div class="d-logo">FIRST CLASS<small>頭等倉運動空間</small></div>
+            <nav><a href="#nav">關於我們</a><a href="#nav" class="on">服務項目</a><a href="#nav">教練團隊</a><a href="#nav">文章</a><a href="#nav">常見問題</a></nav>
+            <a class="d-navcta" href="#nav">免費體驗</a>
+            <button class="d-burger" type="button" aria-label="切換選單圖示" onclick="this.classList.toggle('active')"><i></i></button>
+          </div>
+        </div>
+        <footer>
+          <p><b>選單 CTA：</b>整條導覽列唯一實心的按鈕，白底黑字，hover 變薄荷色。高 44、字 15；手機選單裡改成滿版高 56、字 18。</p>
+          <p><b>漢堡鈕：</b>三條線轉成 X（點右邊的鈕試試；實際只在手機與平板出現）。目前頁面在手機選單用底線標示。</p>
+        </footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>跑馬燈 <code>.m-marquee</code></h3><p>_components/mMarquee.ejs · App.ejs</p></header>
+        <div class="stage flush"><em class="d-marquee" style="display:block">凡首次購買，一對一私人教練課 <b>10</b> 堂 <b>8,000</b> 元，完課期間到館自主訓練免費</em></div>
+        <footer><p>品牌紅底白字，桌機 18px、手機 16px。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>分頁籤 <code>.m-tab</code></h3><p>m-tab.css · 教練團隊、服務項目</p></header>
+        <div class="stage">
+          <div class="d-tabnav" role="tablist" data-tabs>
+            <button role="tab" aria-selected="true" data-panel="經歷：國家隊體能教練、健身房主管 5 年">經歷</button>
+            <button role="tab" aria-selected="false" data-panel="專長：增肌減脂、體態調整、傷後回歸訓練">專長</button>
+            <button role="tab" aria-selected="false" data-panel="證照：NSCA-CSCS、ACE-CPT">證照</button>
+          </div>
+          <p class="d-tabpanel" data-tabpanel>經歷：國家隊體能教練、健身房主管 5 年</p>
+        </div>
+        <footer><p>選中：紅底白字。未選：灰框 #565656、灰字 #c7c7c7。手機可加 <code>--stack-m</code> 改成全部攤開。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>文章分類 tab <code>.m-alist-tab</code></h3><p>m-article-list.css · 文章列表</p></header>
+        <div class="stage">
+          <div class="d-atabs" role="tablist" data-tabs>
+            <button class="d-atab" role="tab" aria-selected="true">全部<span class="cnt">12</span></button>
+            <button class="d-atab" role="tab" aria-selected="false">訓練觀念<span class="cnt">5</span></button>
+            <button class="d-atab" role="tab" aria-selected="false">動作教學<span class="cnt">7</span></button>
+          </div>
+        </div>
+        <footer><p>和上面的 <code>.m-tab</code> 做同一件事，但長得完全不同：底線式、選中用薄荷色、帶篇數。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>輪播控制 <code>.m-slider</code></h3><p>m-slider.css · 首頁評論、環境導覽、服務項目</p></header>
+        <div class="stage">
+          <div class="d-sl">
+            <div class="photo" style="--img:url('../../src/assets/img/common/firstclass_fitness_indoor.jpg')"></div>
+            <div class="d-sl-ctrl"><button class="d-sl-btn prev" type="button" aria-label="上一張" disabled></button><button class="d-sl-btn next" type="button" aria-label="下一張"></button></div>
+          </div>
+          <div class="d-tnav" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+        <footer><p>箭頭：黑 45% 底，hover 75%，到底時 35% 透明。分頁橫條：目前頁紅、其他 #565656。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>相簿導覽 <code>.m-gallery</code></h3><p>m-gallery.css · 首頁、交通資訊</p></header>
+        <div class="stage">
+          <p class="d-counter"><b>02</b> / 06</p>
+          <div class="d-thumbs"><button type="button">重訓區</button><button type="button" class="on">有氧區</button><button type="button">淋浴間</button><button type="button">戶外</button></div>
+        </div>
+        <footer><p>桌機：上緣線，選中變紅。手機：改成縮圖列，選中縮圖加紅框。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>文章輪播進度 <code>.m-alist-progress</code></h3><p>m-article-list.css · 文章列表精選</p></header>
+        <div class="stage">
+          <div class="d-prog">
+            <span><span class="no">02</span> <span class="tot">/ 04</span></span>
+            <span class="bars"><span></span><span class="on"></span><span></span><span></span></span>
+            <span style="display:flex;gap:10px"><button class="d-asq" type="button" aria-label="上一篇"><svg class="arrow" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button><button class="d-asq" type="button" aria-label="下一篇"><svg class="arrow"><use href="#i-arrow"/></svg></button></span>
+          </div>
+        </div>
+        <footer><p>同樣是輪播，這裡用薄荷色和方形框線箭頭，跟上面的 <code>.m-slider</code> 是兩套。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 標題組合 ========== -->
+  <section class="blk" id="title">
+    <header>
+      <h2>標題組合</h2>
+      <p>段落開頭的「小標 + 大標」。沒有共用元件，各頁自己組，以下是出現過的四種。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp">
+        <header><h3>英文小標 + 標題</h3><p>service 場租、contact KV</p></header>
+        <div class="stage">
+          <div><p class="d-eb">SPACE RENTAL</p><h4 class="d-res-h1" style="margin-top:14px">教練場租</h4></div>
+          <div><p class="d-eb gray">TESTIMONIAL</p><h4 class="d-res-h1" style="margin-top:14px;font-weight:900;letter-spacing:-.03em">學員推薦</h4></div>
+        </div>
+        <footer><p>小標 11px、字距 0.24em；紅色（粗體）與白 55%（細體）兩種混用。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>置中標題 + 短線 <code>.deco-header</code></h3><p>m-reservation.css · 免費體驗、常見問題</p></header>
+        <div class="stage"><h4 class="d-res-h1 d-deco">學員成果分享</h4></div>
+        <footer><p>搭配 <code>.resevation-h1</code>（40/32/32）。標題下方 50px 白線。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>編號 + 線 + 小標</h3><p>about 三段</p></header>
+        <div class="stage">
+          <p class="d-numhead"><span class="n">01</span><i></i><span class="t">我們是誰</span></p>
+          <h4 style="font-size:34px;line-height:1.4">為什麼有了頭等倉？</h4>
+        </div>
+        <footer><p>編號用藍綠 #7de9e1。其他頁的編號（適合對象、步驟、方案）都是紅色。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>Before / After 浮水印 <code>.reservation-card</code></h3><p>m-reservation.css · 免費體驗學員成果</p></header>
+        <div class="stage">
+          <div class="d-ba">
+            <div><h4>InBody <span style="color:#e12020">數值提升</span></h4></div>
+            <div><h4>體態 <span style="color:#e12020">改善</span></h4></div>
+          </div>
+        </div>
+        <footer><p>卡片後方 120px 紅色 15% 透明大字。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 內容區塊 ========== -->
+  <section class="blk" id="content">
+    <header>
+      <h2>內容區塊</h2>
+      <p>清單、步驟、流程、問答。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp">
+        <header><h3>清單 <code>.m-list</code></h3><p>m-list.css · 全站</p></header>
+        <div class="stage">
+          <div class="row-wrap" style="gap:40px">
+            <div><span class="vlabel">--list</span><ul class="d-list"><li>一對一私人教練</li><li>自主訓練</li><li>教練場租，可依時段計費</li></ul></div>
+            <div><span class="vlabel">--order</span><ol class="d-olist"><li>填寫表單</li><li>教練來電確認</li><li>到館體驗</li></ol></div>
+          </div>
+        </div>
+        <footer><p>另有 <code>--heading</code>：符號掛在每項的標題上，用於「標題 + 說明」的清單。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>流程 <code>.m-flow</code></h3><p>m-flow.css · 首頁</p></header>
+        <div class="stage">
+          <ol class="d-flow"><li>線上預約體驗課</li><li>到館做身體評估</li><li>教練說明訓練規劃</li><li>開始第一堂訓練</li></ol>
+        </div>
+        <footer><p>灰色圓點 #666、白 28% 連接線。最後一項自動不畫線。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>步驟 <code>.m-step</code></h3><p>m-step.css · 免費體驗頁</p></header>
+        <div class="stage">
+          <ol class="d-step">
+            <li><span class="d-step-no">01</span><h4>線上填表</h4><p>留下聯絡方式與方便的時段。</p></li>
+            <li><span class="d-step-no">02</span><h4>教練來電</h4><p>確認你的運動經驗與目標。</p></li>
+            <li><span class="d-step-no">03</span><h4>到館體驗</h4><p>第一次上課常見的問題：</p>
+              <ul class="d-stepq"><li>要穿什麼？</li><li>需要帶毛巾嗎？</li><li>沒有運動經驗可以嗎？</li><li>可以兩個人一起嗎？</li></ul>
+            </li>
+          </ol>
+        </div>
+        <footer><p>紅色大編號（38/32/26）當節點，不加圓框。和 <code>.m-flow</code> 都是「直式有線的順序」，兩套外觀不同。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>問答 <code>.m-faq</code></h3><p>m-faq.css · 首頁、免費體驗、常見問題頁</p></header>
+        <div class="stage">
+          <h4 class="d-faq-group">課程與費用</h4>
+          <ul class="d-faq">
+            <li><details open><summary><span class="d-faq-q">Q</span><h4>沒有運動經驗可以上課嗎？</h4><i class="d-faq-icon"></i></summary>
+              <ul class="d-faq-a"><li>可以。第一堂會先做身體評估，再依你的狀況安排動作。</li><li>多數學員都是從零開始。</li></ul></details></li>
+            <li><details><summary><span class="d-faq-q">Q</span><h4>體驗課要怎麼預約？</h4><i class="d-faq-icon"></i></summary>
+              <ol class="d-faq-steps" style="padding-bottom:22px"><li>填寫線上表單</li><li>教練在一天內來電</li><li>約好時間到館</li></ol></details></li>
+            <li><details><summary><span class="d-faq-q">Q</span><h4>可以只租場地自己練嗎？</h4><i class="d-faq-icon"></i></summary>
+              <ul class="d-faq-a"><li>可以，教練場租依時段計費，詳見服務項目頁。</li></ul></details></li>
+          </ul>
+        </div>
+        <footer><p>＋ 號展開後橫線保留、直線轉掉。答案可以是紅點清單、圓圈編號步驟，或表格（<code>.m-faq-table</code>）。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>過場 <code>.m-transition</code></h3><p>m-transition.css · 免費體驗頁段落之間</p></header>
+        <div class="stage flush">
+          <div class="d-trans">
+            <p class="lead">你可能也試過自己練，<br>練了一陣子卻不知道有沒有效。</p>
+            <p class="body">問題通常不是不夠努力，而是沒有人告訴你哪裡做錯。</p>
+            <p class="end">所以我們從「看懂自己的身體」開始。</p>
+          </div>
+        </div>
+        <footer><p>漸層細線開頭；導言白 90%、內文白 52%、收尾句白色粗體。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 價格 ========== -->
+  <section class="blk" id="price">
+    <header>
+      <h2>價格</h2>
+      <p>價格出現在三個地方，各用一套元件。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp">
+        <header><h3>價目表 <code>.m-price-list</code></h3><p>m-price-list.css · 首頁 FAQ、服務項目場租</p></header>
+        <div class="stage">
+          <dl class="d-price">
+            <div><dt>單次</dt><dd>NT$500</dd></div>
+            <div><dt>10 次</dt><dd>NT$4,500</dd></div>
+            <div><dt>月租<small>需簽約 3 個月</small></dt><dd>NT$10,000</dd></div>
+          </dl>
+          <p class="d-note">以上皆含稅，教練需自備學員保險。</p>
+        </div>
+        <footer><p>限寬 420px，名稱與價格才不會離太遠。價格白色粗體、數字等寬。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>方案展開 <code>.m-pricing</code></h3><p>m-pricing.css · 服務項目課程卡</p></header>
+        <div class="stage">
+          <details class="d-pricing" open>
+            <summary><b>一對一私人教練</b><span class="hint">查看方案<i class="arr"></i></span></summary>
+            <div class="body">
+              <div><p class="d-pgt"><b>單堂 <i class="d-badge">熱門</i></b><span>60 分鐘</span></p>
+                <p><span class="d-unit">NT$</span><span class="d-val">1,800</span></p></div>
+              <div><p class="d-pgt"><b>20 堂</b><span>平均每堂 1,500</span></p>
+                <p><span class="d-unit">NT$</span><span class="d-val">30,000</span></p></div>
+              <a class="d-link" href="#price">查看完整價目</a>
+            </div>
+          </details>
+        </div>
+        <footer><p>展開後的底色 #262626 是寫死的，不在色票內。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>新生方案 <code>.m-plan</code></h3><p>m-plan.css · 免費體驗頁</p></header>
+        <div class="stage">
+          <div class="d-plan-price">
+            <p class="d-plan-amount"><small>NT$</small>8,000</p>
+            <ul class="d-tags">
+              <li><svg><use href="#i-note"/></svg>身體評估</li>
+              <li><svg><use href="#i-dumbbell"/></svg>8 堂課</li>
+              <li><svg><use href="#i-chat"/></svg>飲食建議</li>
+              <li><svg><use href="#i-growth"/></svg>進度追蹤</li>
+            </ul>
+          </div>
+          <div class="d-plan-card">
+            <span class="d-plan-no">01</span>
+            <h4 style="font-size:24px;line-height:1.4">第 1–2 週：建立基本動作</h4>
+            <p class="d-plan-turn">從深蹲、硬舉、推、拉開始</p>
+            <ul class="d-keys"><li>動作評估</li><li>核心穩定</li><li>呼吸</li></ul>
+          </div>
+        </div>
+        <footer><p>大數字和圖示用藍綠色，卡片底 #1f1d1d。全站唯一用藍綠當價格色的地方（價目表的註解特別寫了不要用）。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 卡片 ========== -->
+  <section class="blk" id="card">
+    <header>
+      <h2>卡片</h2>
+    </header>
+    <div class="cgrid">
+      <article class="comp wide">
+        <header><h3>適合對象卡 <code>.m-audience</code></h3><p>m-audience.css · 首頁</p></header>
+        <div class="stage">
+          <ul class="d-aud">
+            <li><div class="d-aud-head"><span class="d-aud-no">01</span><svg><use href="#i-dumbbell"/></svg><h4 class="d-aud-title">完全沒有運動經驗</h4></div><i class="d-aud-rule"></i><p class="d-aud-body">不知道從哪裡開始，怕自己做錯動作受傷。</p></li>
+            <li><div class="d-aud-head"><span class="d-aud-no">02</span><svg><use href="#i-growth"/></svg><h4 class="d-aud-title">自己練遇到瓶頸</h4></div><i class="d-aud-rule"></i><p class="d-aud-body">練了一段時間，重量和體態都卡住。</p></li>
+          </ul>
+        </div>
+        <footer><p>手機改成「編號、標題、圖示」一列，項目之間用分隔線。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>評論卡 <code>.m-review</code></h3><p>_components/mReviewList.ejs · m-review.css · 首頁、免費體驗</p></header>
+        <div class="stage">
+          <ul class="d-review">
+            <li><p class="src">GOOGLE REVIEW</p><p class="d-stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></p>
+              <blockquote>「教練會先問清楚我的狀況，動作講解得很仔細，上了兩個月腰痛明顯改善。」</blockquote><p class="who"><i></i>王小姐</p></li>
+            <li><p class="src">GOOGLE REVIEW</p><p class="d-stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></p>
+              <blockquote>「場地乾淨、器材齊全，捷運站走過來很近。」</blockquote><p class="who"><i></i>陳先生</p></li>
+          </ul>
+        </div>
+        <footer><p>桌機三欄直線分隔、平板三列橫線分隔、手機輪播（加框與黑 45% 底）。示意文字不是真實評論。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>教練卡 + 展開面板 <code>.m-coach-grid</code></h3><p>m-coach-grid.css · 教練團隊頁（首頁另有 <code>.m-coach-card</code>，外觀相同）</p></header>
+        <div class="stage">
+          <div class="d-coachrow">
+            <button type="button" class="d-coach on" data-coach><div class="photo" style="--img:url('../../src/assets/img/ourteam/coach_ayuan.jpg')"></div><div class="body"><div><h4>阿源</h4><p>增肌減脂 · 體態調整</p></div><i class="d-caret"></i></div></button>
+            <button type="button" class="d-coach" data-coach><div class="photo" style="--img:url('../../src/assets/img/ourteam/coach_benson.jpg')"></div><div class="body"><div><h4>Benson</h4><p>肌力訓練 · 運動表現</p></div><i class="d-caret"></i></div></button>
+            <button type="button" class="d-coach" data-coach><div class="photo" style="--img:url('../../src/assets/img/common/firstclass_fitness_indoor2.jpg')"></div><div class="body"><div><h4>教練</h4><p>示意卡片</p></div><i class="d-caret"></i></div></button>
+            <div class="d-panel">
+              <div class="d-cred"><h5>證照與經歷</h5><ul><li>NSCA-CSCS</li><li>ACE-CPT</li><li>健身房主管 5 年</li><li>國家隊體能教練</li></ul></div>
+              <div><p class="tabtitle">教學理念</p><p style="color:var(--fg-2);font-size:15px">先讓學員理解為什麼這樣練，再慢慢加重量。</p></div>
+            </div>
+          </div>
+        </div>
+        <footer><p>照片上壓黑色漸層；hover 框線變亮，選中變紅，面板紅框加三角指向該卡。手機改成高 96px 的橫條。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>文章卡 <code>.m-alist-card</code></h3><p>m-article-list.css · 文章列表</p></header>
+        <div class="stage">
+          <div class="d-acards">
+            <a class="d-acard" href="#card" style="text-decoration:none"><div class="media"><div class="photo" style="--img:url('../../src/assets/img/common/firstclass_fitness_indoor4.jpg')"></div></div>
+              <p class="cat">動作教學</p><h4>深蹲膝蓋痛？先檢查這三件事</h4><p>膝蓋內夾、重心太前、腳踝活動度不足，是最常見的三個原因。</p><p class="m"><span>2026.09.20</span><span>閱讀 5 分鐘</span></p></a>
+            <a class="d-acard" href="#card" style="text-decoration:none"><div class="media"><div class="photo" style="--img:url('../../src/assets/img/common/firstclass_fitness_indoor5.jpg')"></div></div>
+              <p class="cat">訓練觀念</p><h4>重量該怎麼選？從 RPE 開始</h4><p>用自覺強度來挑重量，比照表抄數字更準。</p><p class="m"><span>2026.09.12</span><span>閱讀 4 分鐘</span></p></a>
+          </div>
+        </div>
+        <footer><p>hover：照片微放大、標題變薄荷色。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 整段版面 ========== -->
+  <section class="blk" id="section">
+    <header>
+      <h2>整段版面</h2>
+      <p>以照片為底的大區塊，以及頁尾與載入畫面。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp wide">
+        <header><h3>KV <code>.m-kv</code></h3><p>m-kv.css · 免費體驗頁</p></header>
+        <div class="stage flush">
+          <div class="d-kv">
+            <div class="photo" style="--img:url('../../src/assets/img/contact/kv.jpg')"></div><i></i>
+            <p class="d-eb">FIRST CLASS FITNESS</p>
+            <h4>第一次健身，<br>從一堂免費體驗課開始</h4>
+            <p>教練先了解你的狀況，再帶你做第一組動作。</p>
+          </div>
+        </div>
+        <footer><p>由左到右漸層壓暗（88 → 25%），手機改由下往上。其他頁的 KV 各自寫，沒有共用這個元件。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>照片底區塊 <code>.m-bg-photo</code></h3><p>m-bg-photo.css · 首頁、免費體驗、常見問題、服務項目</p></header>
+        <div class="stage flush">
+          <div class="d-bgp">
+            <div class="photo" style="--img:url('../../src/assets/img/index/qa-bg.jpg')"></div>
+            <div><h4>不論你是否健身過——</h4><a class="d-btn highlight" href="#section"><span class="c">預約免費體驗</span><span class="i"><svg class="arrow"><use href="#i-arrow"/></svg></span></a></div>
+          </div>
+        </div>
+        <footer><p>修飾子只調遮罩濃度：預設 72%、<code>--cta</code> 68%、<code>--cta-service</code> 80%、<code>--bonus</code> 82%。</p></footer>
+      </article>
+
+      <article class="comp wide">
+        <header><h3>頁尾 <code>.m-ft</code></h3><p>_components/mFt.ejs · 全站</p></header>
+        <div class="stage flush">
+          <div class="d-ft">
+            <div><h4>網站導覽</h4><a href="#section">關於我們</a><a href="#section">服務項目</a><a href="#section">教練團隊</a></div>
+            <div><h4>營業時間</h4><p>週一至週六（周日公休）</p><p>下午 01 : 00 ~ 晚上 10 : 00</p></div>
+            <div><h4>地址電話</h4><p>台北市中山區</p><p>捷運民權西路站步行 3 分鐘</p></div>
+            <small>FIRST CLASS FITNESS © 2022 ALL RIGHT RESERVED.</small>
+          </div>
+        </div>
+        <footer><p>欄標題灰 #c7c7c7、20px；內容 14px，手機 12px。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>載入中 <code>.m-loading</code></h3><p>_components/mLoading.ejs · 表單送出時</p></header>
+        <div class="stage" style="justify-items:center"><svg class="spin" viewBox="0 0 50 50" aria-label="載入中"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="90 40" stroke-linecap="round"/></svg></div>
+        <footer><p>圖示是黃綠色 #b3ce2b，全站只出現在這裡。外層黑 75% 遮罩。圖形為示意，實際是 svg sprite 的 loading 圖。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 文章 ========== -->
+  <section class="blk" id="article">
+    <header>
+      <h2>文章</h2>
+      <p>單篇文章頁 <code>m-article.css</code>。這是目前字級寫得最完整的一套，可以當全站字級統一的參考。</p>
+    </header>
+    <div class="cgrid">
+      <article class="comp wide">
+        <header><h3>文章開頭與內文</h3><p>.m-article-hero、.m-article-h2、.m-article-h3、.m-article-p</p></header>
+        <div class="stage">
+          <div>
+            <p class="d-art-label">動作教學</p>
+            <h4 class="d-art-title">深蹲膝蓋痛？先檢查這三件事</h4>
+            <p class="d-art-lead">膝蓋痛不一定要停練，多數時候是動作出了問題。</p>
+            <p class="d-art-meta">2026.09.20 · 頭等倉教練團隊</p>
+          </div>
+          <h4 class="d-art-h2">一、膝蓋內夾</h4>
+          <h5 class="d-art-h3" style="margin:0">怎麼檢查</h5>
+          <p class="d-art-p">對著鏡子蹲下，看膝蓋是否往內靠。可以參考 <a href="#article">深蹲動作要點</a>。</p>
+        </div>
+        <footer><p>H2 左側 4px 紅線。日期與作者用 #666，黑底對比只有 3.7:1，偏淡。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>重點答案框 <code>.m-article-answer</code></h3><p>m-article.css</p></header>
+        <div class="stage">
+          <div class="d-answer"><p class="d-art-label">先說結論</p><p class="t">多數深蹲膝蓋痛來自膝蓋內夾，先降重量、把動作做對。</p></div>
+        </div>
+        <footer><p>深灰底 #151515，上下 #565656 線。</p></footer>
+      </article>
+
+      <article class="comp">
+        <header><h3>延伸閱讀 <code>.m-article-related</code></h3><p>m-article.css</p></header>
+        <div class="stage">
+          <p class="d-art-label">延伸閱讀</p>
+          <div class="d-related">
+            <a href="#article">重量該怎麼選？從 RPE 開始<span>→</span></a>
+            <a href="#article">練到撞牆期該怎麼辦<span>→</span></a>
+          </div>
+        </div>
+        <footer><p>hover 整列變紅。</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== 觀察 ========== -->
+  <section class="blk" id="todo">
+    <header><h2>觀察與建議</h2></header>
+    <ol class="notes">
+      <li><b>同一件事有兩套外觀。</b>tab（<code>.m-tab</code> 紅底方塊 vs <code>.m-alist-tab</code> 薄荷底線）、輪播（<code>.m-slider</code> vs 文章列表進度條）、直式順序（<code>.m-step</code> vs <code>.m-flow</code>）、小標籤（紅 vs 薄荷）。文章列表是後來加的，用了「薄荷色＝可以點」的新規則，舊元件還沒跟上。建議先決定規則，再把舊元件改過去。</li>
+      <li><b>按鈕要有尺寸。</b><code>mBtn.ejs</code> 加 <code>size: 'lg' | 'sm'</code>，寬高與字級寫進 m-btn.css，頁面上不再手寫。目前 10 處各自不同。</li>
+      <li><b>標題組合沒有元件。</b>「英文小標 + 標題」出現十次以上，各頁自己組，小標顏色、字重、間距都不一樣。適合做成一個 <code>mHeading.ejs</code>。</li>
+      <li><b><code>m-reservation.css</code> 名稱拼錯而且已經變成共用樣式。</b><code>.resevation-h1</code>、<code>.deco-header</code> 用在常見問題、服務項目，建議改名為 <code>m-heading</code> 一類，順便修正拼字。</li>
+      <li><b>編號顏色不一致。</b>about 用藍綠、其他頁用紅。</li>
+      <li><b>KV 只有免費體驗頁是元件。</b>其他頁的 KV 各自寫，主標字級從 38 到 64 不等。</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+// tab 切換
+document.querySelectorAll('[data-tabs]').forEach(list => {
+  list.addEventListener('click', e => {
+    const b = e.target.closest('[role="tab"]'); if (!b) return;
+    list.querySelectorAll('[role="tab"]').forEach(t => t.setAttribute('aria-selected', t === b));
+    const panel = list.parentElement.querySelector('[data-tabpanel]');
+    if (panel && b.dataset.panel) panel.textContent = b.dataset.panel;
+  });
+});
+// 教練卡
+document.querySelectorAll('[data-coach]').forEach((card, i, all) => {
+  card.addEventListener('click', () => {
+    all.forEach(c => c.classList.toggle('on', c === card));
+    const panel = card.parentElement.querySelector('.d-panel');
+    panel.style.setProperty('--i', i);
+    panel.style.setProperty('display', 'grid');
+    panel.querySelector('.d-cred h5').textContent = card.querySelector('h4').textContent + '｜證照與經歷';
+    panel.style.cssText += `;--caret:${(i * 2 + 1) / 6 * 100}%`;
+    panel.dataset.caret = i;
+  });
+});
+</script>
+<style>.d-panel::before { left: calc(var(--caret, 16.66%) - 9px); }</style>
+</body>
+</html>

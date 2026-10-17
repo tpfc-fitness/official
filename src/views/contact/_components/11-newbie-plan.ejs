@@ -6,8 +6,8 @@
   const plan = require('_data/newbie-plan.js');
 -%>
 <!-- 過度 -->
-<div class="resevation-bg-03 text-center pt:py-[90px] m:py-[60px] m:px-[20px]">
-  <p class="resevation-p text-[var(--white)]">
+<div class="reservation-bg-03 text-center pt:py-[90px] m:py-[60px] m:px-[20px]">
+  <p class="m-text text-[var(--white)]">
     進步快慢，<br />
     往往不是取決於你多努力，<br />
     而是<b>方向有沒有走對</b><br /><br />
@@ -21,8 +21,8 @@
 <section data-aos="fade-in"
   class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[80px] t:pt-[75px] t:pb-[60px] m:pt-[50px] m:pb-[40px] p:px-[60px] t:px-[40px] m:px-[20px]">
   <div class="p:max-w-[1220px] pt:mx-auto">
-    <h2 class="resevation-h1"><%= plan.title %></h2>
-    <p class="resevation-h4 text-[var(--x7de9)] p:mt-[14px] tm:mt-[10px]"><%= plan.lead %></p>
+    <h2 class="m-title"><%= plan.title %></h2>
+    <p class="m-subtitle-sm text-[var(--x7de9)] p:mt-[14px] tm:mt-[10px]"><%= plan.lead %></p>
 
     <div class="p:mt-[30px] tm:mt-[20px] p:max-w-[760px] p:space-y-[12px] tm:space-y-[10px]">
       <% plan.intro.forEach((line) => { -%>
@@ -72,9 +72,12 @@
 <section data-aos="fade-in"
   class="text-[var(--white)] bg-[var(--x15)] p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
   <div class="p:max-w-[1220px] pt:mx-auto">
-    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">
-      <% plan.abilitiesTitle.forEach((line, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= line %><% }); %>
-    </h2>
+    <%- require('@component/mHeading.ejs')({
+      center: true,
+      deco: true,
+      title: plan.abilitiesTitle.join('<br class="pt:hidden" />'),
+      cls: 'p:mb-[60px] tm:mb-[36px]'
+    }) %>
 
     <ul class="m-plan-grid">
       <% plan.abilities.forEach((item) => { -%>
@@ -124,8 +127,12 @@
       }
     }) %>
   <div class="relative z-[1] p:max-w-[1220px] pt:mx-auto">
-    <h2 class="resevation-h1 deco-header p:mb-[60px] tm:mb-[36px]">
-      <% plan.bonusTitle.forEach((line, i) => { %><%- i ? '<br class="pt:hidden" />' : '' %><%= line %><% }); %></h2>
+    <%- require('@component/mHeading.ejs')({
+      center: true,
+      deco: true,
+      title: plan.bonusTitle.join('<br class="pt:hidden" />'),
+      cls: 'p:mb-[60px] tm:mb-[36px]'
+    }) %>
 
     <%/*
       手機收合成一列一項，桌機與平板一律展開。
@@ -156,7 +163,7 @@
     <div
       class="text-center p:flex p:items-center p:justify-center p:gap-[40px] p:mt-[90px] t:mt-[70px] m:mt-[50px] p:pt-[60px] t:pt-[48px] m:pt-[40px] border-t border-solid border-[#fff] border-opacity-[0.12]">
       <div>
-        <p class="resevation-h3"><%= plan.closing.title %></p>
+        <p class="m-subtitle"><%= plan.closing.title %></p>
         <p class="text-[var(--xc7)] p:mt-[10px] tm:mt-[8px] p:text-[16px] tm:text-[14px]"><%= plan.closing.body %></p>
       </div>
 

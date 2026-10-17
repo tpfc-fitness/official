@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>頭等倉色彩盤點</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eb">FIRST CLASS FITNESS · DESIGN SYSTEM</p>
+    <h1>色彩盤點</h1>
+    <p>全站用到的每一個顏色：色票變數、白色與黑色的透明度、寫死在檔案裡的色碼，以及漸層。次數是在 src 底下搜尋到的出現次數。</p>
+    <nav class="toc" aria-label="本頁段落">
+      <a href="#tokens">色票變數</a><a href="#white">白色透明度</a><a href="#black">黑色透明度</a><a href="#hard">寫死的色碼</a><a href="#grad">漸層與光暈</a><a href="#todo">觀察與建議</a>
+    </nav>
+    <p class="sub">另見：<a href="components.html">元件盤點</a>　·　資料日期 2026-10-17</p>
+  </header>
+
+  <!-- 色票 -->
+  <section class="blk" id="tokens">
+    <header>
+      <h2>色票變數</h2>
+      <p>定義在 <code>src/assets/css/_common/color.css</code>。變數名稱取自色碼（<code>--xe120</code> = #e12020），看名字看不出用途，下表右欄是實際的用法。對比值是放在黑底上的文字對比，4.5 以上才算內文可讀。</p>
+    </header>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- 白色透明度 -->
+  <section class="blk" id="white">
+    <header>
+      <h2>白色透明度</h2>
+      <p>黑底上的灰色文字和分隔線，大多不是用色票，而是直接寫 <code>rgb(255 255 255 / N%)</code>。目前用了 20 種濃度。</p>
+    </header>
+    <div class="two">
+      <div>
+        <h3 class="h3">當文字用</h3>
+        <div class="alpha" id="alpha-text"></div>
+      </div>
+      <div>
+        <h3 class="h3">當線、框、底用</h3>
+        <div class="alpha" id="alpha-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 黑色透明度 -->
+  <section class="blk" id="black">
+    <header>
+      <h2>黑色透明度（照片遮罩）</h2>
+      <p>疊在照片上壓暗用。下面每一格都是同一張照片，蓋上該濃度的黑。</p>
+    </header>
+    <div class="scrims" id="scrims"></div>
+  </section>
+
+  <!-- 寫死 -->
+  <section class="blk" id="hard">
+    <header>
+      <h2>寫死的色碼</h2>
+      <p>沒有進色票、直接寫在 class 或 CSS 裡的顏色。</p>
+    </header>
+    <div class="table-wrap">
+      <table class="tbl" id="hardtbl">
+        <thead><tr><th>色</th><th>色碼</th><th>位置</th><th>用途</th><th>建議</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 漸層 -->
+  <section class="blk" id="grad">
+    <header>
+      <h2>漸層與光暈</h2>
+      <p>都是 CSS 產生的，不是圖片。</p>
+    </header>
+    <div class="grads">
+      <figure class="g">
+        <div class="g-box photo" style="--img:url('../../src/assets/img/contact/kv.jpg')"><i style="background:linear-gradient(to right, rgb(0 0 0 / 88%) 0%, rgb(0 0 0 / 72%) 42%, rgb(0 0 0 / 25%) 100%)"></i><b>文字靠左</b></div>
+        <figcaption><b>KV 左右漸層</b><span>.m-kv（免費體驗頁）桌機。88% → 72% → 25%</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box photo" style="--img:url('../../src/assets/img/contact/kv.jpg')"><i style="background:linear-gradient(to top, rgb(0 0 0 / 92%) 0%, rgb(0 0 0 / 78%) 55%, rgb(0 0 0 / 45%) 100%)"></i><b class="bot">手機版由下往上</b></div>
+        <figcaption><b>KV 上下漸層</b><span>.m-kv 手機。92% → 78% → 45%</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box photo" style="--img:url('../../src/assets/img/ourteam/coach_ayuan.jpg')"><i style="background:linear-gradient(to top, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 55%) 42%, rgb(0 0 0 / 5%) 100%)"></i><b class="bot">教練名字</b></div>
+        <figcaption><b>教練卡底部漸層</b><span>.m-coach-card（首頁 88/55/5、教練頁 90/55/5，兩處數字不同）</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box" style="background:var(--bg)"><i class="tline"></i></div>
+        <figcaption><b>過場細線</b><span>.m-transition 開頭那條，透明 → 白 40%</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box" style="background:linear-gradient(138deg, rgb(50 77 101) 0%, #000 100%)"></div>
+        <figcaption><b>藍灰漸層 .bg-gdt</b><span>common.css 有定義，全站沒有用到</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box glow"><span>FIRST CLASS</span></div>
+        <figcaption><b>首頁霓虹光暈</b><span>index.css 的 text-shadow，用 #7de9e1 與 rgb(202 228 225) 疊 6 層</span></figcaption>
+      </figure>
+      <figure class="g">
+        <div class="g-box neon"><span>『自由班』</span></div>
+        <figcaption><b>.ani-special 閃爍霓虹</b><span>只在徵才頁一處；粉紅 ↔ 黃，色碼都不在色票內</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 觀察 -->
+  <section class="blk" id="todo">
+    <header><h2>觀察與建議</h2></header>
+    <ol class="notes">
+      <li><b>兩個藍綠色（2026-10-17 已處理：#b3fff5 移除，全部改用 #7de9e1）。</b><code>--x7de9</code>（#7de9e1）和 <code>--xb3ff</code>（#b3fff5）很接近，但 color.css 的註解把 #b3fff5 定為「可以點／目前在哪裡」專用，#7de9e1 則用在星星、編號、大數字等強調。並排看分得出來，分開看幾乎一樣，建議二選一，或把其中一個拉開距離。</li>
+      <li><b>白色透明度收斂成 7 階。</b>文字 4 階：100（主要）、85（內文）、70（次要）、55（註記）；線 3 階：30（強）、18（一般）、12（弱）。白 45% 在黑底只剩 4.4:1，剛好不到內文標準，45% 以下不要拿來排字。</li>
+      <li><b><code>--x6</code>（#666）不該當文字色。</b>黑底對比只有 3.7:1，文章頁的日期、作者職稱、地點目前都用它。文章列表那邊已經改用白 55%，文章頁可以照做。</li>
+      <li><b>灰底有三階卻沒有名字：</b>#151515、#1f1d1d、#262626。#1f1d1d 帶一點紅，跟另外兩個並排時看得出色偏。建議統一成同一個色相的三階。</li>
+      <li><b>變數改用途命名。</b>例如 <code>--color-brand</code>（紅）、<code>--color-accent</code>（藍綠）、<code>--surface-1/2/3</code>（三階灰底）、<code>--text-muted</code>、<code>--line</code>。舊名稱先保留成別名，頁面慢慢替換。</li>
+      <li><b>沒用到的可以刪：</b><code>.bg-gdt</code> 藍灰漸層、<code>--x6</code> 以外的幾個色碼（#b3ce2b 只在載入動畫）。</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+const TOKENS = [
+  { v: '--black', hex: '#000000', n: 41, role: '頁面底色', where: '全站' },
+  { v: '--white', hex: '#ffffff', n: 135, role: '主要文字、框線按鈕', where: '全站' },
+  { v: '--xe120', hex: '#e12020', n: 38, role: '品牌紅：主要 CTA、跑馬燈、編號、分類標籤、選中的 tab、輪播目前頁', where: '22 個檔案' },
+  { v: '--x7de9', hex: '#7de9e1', n: 16, role: '藍綠強調：五星、新生方案大數字、about 編號、教練頁小標', where: '10 個檔案' },
+  { v: '--xc7', hex: '#c7c7c7', n: 40, role: '次要文字：說明、導言、footer 標題', where: '20 個檔案' },
+  { v: '--x6', hex: '#666666', n: 9, role: '更淡的文字、流程圓點、文章 meta', where: '6 個檔案' },
+  { v: '--x56', hex: '#565656', n: 20, role: '分隔線、tab 外框、輪播未選中', where: '9 個檔案' },
+  { v: '--x1f1d', hex: '#1f1d1d', n: 10, role: '卡片底（方案卡、文章圖片底）', where: '4 個檔案' },
+  { v: '--x15', hex: '#151515', n: 24, role: '區塊底色（深灰段落、KV 底、教練面板）', where: '22 個檔案' },
+];
+
+const WHITE_TEXT = [
+  { a: 90, n: 1, use: '過場導言' }, { a: 85, n: 7, use: '內文段落（about、contact KV）' }, { a: 82, n: 5, use: 'FAQ 答案、表格' },
+  { a: 80, n: 2, use: '說明文字' }, { a: 78, n: 1, use: '價目表名稱' }, { a: 75, n: 3, use: '說明文字' },
+  { a: 70, n: 3, use: '小標（我們是誰）' }, { a: 60, n: 1, use: '小字' }, { a: 55, n: 15, use: '英文小標、註記、日期' },
+  { a: 52, n: 1, use: '過場內文' }, { a: 45, n: 6, use: '英文小標、FAQ 步驟圈' },
+];
+const WHITE_LINE = [
+  { a: 40, n: 1, use: '過場細線（漸層終點）' }, { a: 35, n: 6, use: '標題旁短橫線' }, { a: 30, n: 3, use: '教練卡標題線、適合對象短線' },
+  { a: 28, n: 1, use: '流程連接線' }, { a: 25, n: 1, use: '教練卡外框' }, { a: 20, n: 7, use: '步驟連接線、選單分隔' },
+  { a: 18, n: 9, use: '評論分隔、方案卡框' }, { a: 14, n: 3, use: '價目表、FAQ 表格分隔' }, { a: 12, n: 2, use: '方案卡框（較淡）' },
+];
+const SCRIMS = [
+  { a: 45, use: '輪播箭頭底、評論卡底（手機）、加值卡底' }, { a: 55, use: '—' }, { a: 68, use: '.m-bg-photo --cta' },
+  { a: 72, use: '.m-bg-photo 預設（rgb 10 12 14）' }, { a: 75, use: '輪播箭頭 hover、載入遮罩' }, { a: 80, use: '.m-bg-photo --cta-service' },
+  { a: 82, use: '.m-bg-photo --bonus（rgb 8 10 12）' },
+];
+const HARD = [
+  { c: '#c40000', where: 'm-btn.css', use: '紅色按鈕 hover', fix: '收進色票，例如 --color-brand-dark' },
+  { c: '#262626', where: 'm-pricing.css', use: '價格展開後的底色', fix: '和 #151515、#1f1d1d 整理成三階灰底' },
+  { c: '#b3ce2b', where: 'mLoading.ejs', use: '載入動畫的黃綠色', fix: '全站只出現這一次，改成白或品牌紅' },
+  { c: 'rgb(50 77 101)', where: 'common.css .bg-gdt', use: '藍灰漸層', fix: '沒有頁面使用，可刪' },
+  { c: '#ff4da6', where: 'common.css .ani-special', use: '霓虹動畫（粉紅）', fix: '只用在徵才頁一處，視需要保留' },
+  { c: '#f06', where: 'common.css .ani-special', use: '霓虹動畫（桃紅）', fix: '同上' },
+  { c: '#ff3', where: 'common.css .ani-special', use: '霓虹動畫（黃）', fix: '同上' },
+  { c: '#f93', where: 'common.css .ani-special', use: '霓虹動畫（橘）', fix: '同上' },
+  { c: 'rgb(202 228 225)', where: 'index.css', use: '首頁霓虹光暈的白綠色', fix: '接近 #b3fff5，可直接用色票' },
+  { c: 'rgb(10 12 14)', where: 'm-bg-photo.css', use: '照片遮罩預設色（略帶藍的黑）', fix: '與純黑看不出差別，可統一成黑' },
+  { c: 'rgb(8 10 12)', where: 'm-bg-photo.css', use: '照片遮罩 --bonus', fix: '同上' },
+];
+
+// WCAG 對比
+const lum = hex => {
+  const n = parseInt(hex.slice(1), 16);
+  return [n >> 16, (n >> 8) & 255, n & 255].map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; })
+    .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+};
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+const mix = a => { const v = Math.round(255 * a / 100); return '#' + v.toString(16).padStart(2, '0').repeat(3); };
+const grade = c => c >= 7 ? '<span class="ok">AAA</span>' : c >= 4.5 ? '<span class="ok">AA</span>' : c >= 3 ? '<span class="mid">僅大字</span>' : '<span class="bad">不足</span>';
+
+document.getElementById('swatches').innerHTML = TOKENS.map(t => {
+  const c = contrast(t.hex, '#000000');
+  const light = lum(t.hex) > 0.3;
+  return `<div class="sw">
+    <div class="chip" style="background:${t.hex};color:${light ? '#000' : '#fff'}"><span>Aa 頭等倉</span></div>
+    <div class="sw-body">
+      <div class="sw-head"><code>${t.v}</code><span class="mono">${t.hex}</span></div>
+      <p>${t.role}</p>
+      <div class="meta"><span>使用 ${t.n} 次 · ${t.where}</span><span>黑底對比 ${c.toFixed(1)} ${grade(c)}</span></div>
+    </div>
+  </div>`;
+}).join('');
+
+const alphaRow = (r, kind) => {
+  const eq = mix(r.a), c = contrast(eq, '#000000');
+  const demo = kind === 'text'
+    ? `<span class="a-txt" style="color:rgb(255 255 255 / ${r.a}%)">我們更在意你是否理解自己的身體</span>`
+    : `<span class="a-line"><i style="background:rgb(255 255 255 / ${r.a}%)"></i><i class="box" style="border-color:rgb(255 255 255 / ${r.a}%)"></i></span>`;
+  return `<div class="a-row"><span class="a-pct mono">${r.a}%</span>${demo}<span class="a-meta">${r.n} 次 · ${r.use}${kind === 'text' ? ` · 對比 ${c.toFixed(1)} ${grade(c)}` : ''}</span></div>`;
+};
+document.getElementById('alpha-text').innerHTML = WHITE_TEXT.map(r => alphaRow(r, 'text')).join('');
+document.getElementById('alpha-line').innerHTML = WHITE_LINE.map(r => alphaRow(r, 'line')).join('');
+
+document.getElementById('scrims').innerHTML = SCRIMS.map(s => `<figure class="scrim">
+  <div class="photo" style="--img:url('../../src/assets/img/index/qa-bg.jpg')"><i style="background:rgb(0 0 0 / ${s.a}%)"></i><b>${s.a}%</b></div>
+  <figcaption>${s.use}</figcaption></figure>`).join('');
+
+document.querySelector('#hardtbl tbody').innerHTML = HARD.map(h => `<tr>
+  <td><i class="dot" style="background:${h.c}"></i></td><td class="mono">${h.c}</td><td><code>${h.where}</code></td><td>${h.use}</td><td>${h.fix}</td></tr>`).join('');
+</script>
+</body>
+</html>

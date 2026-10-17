@@ -1,17 +1,17 @@
-<% const resevation = require('_data/resevation.js'); -%>
+<% const reservation = require('_data/reservation.js'); -%>
 <%/* 學員成果分享 */%>
 <!-- 學員故事 -->
 <section data-aos="fade-in"
   class="flex flex-col items-center text-[var(--white)] bg-[var(--x15)] p:pt-[86px] p:pb-[120px] t:pt-[75px] t:pb-[105px] t:px-[32px] m:pt-[40px] m:pb-[80px] m:px-[20px]">
-  <h2 class="resevation-h1 deco-header p:mb-[70px] t:mb-[40px] m:mb-[40px]">學員成果分享</h2>
+  <%- require('@component/mHeading.ejs')({ center: true, deco: true, title: '學員成果分享', cls: 'p:mb-[70px] tm:mb-[40px]' }) %>
   <div class="flex flex-col items-center p:w-[995px] pt:mb-[50px] m:mb-[42px]">
     <div class="flex items-center p:my-[70px]">
       <div class="reservation-card">
         <%- require('img.ejs')({
-          path: require('@imgs/resevation/before_member.jpg'),
+          path: require('@imgs/reservation/before_member.jpg'),
           alt : '體態改善前',
           style: {
-            main: 'resevation-img flex-shrink-0 p:w-[315px] p:h-[481px] t:w-[222px] t:h-[338px] m:w-[146px] m:h-[222px]',
+            main: 'reservation-img flex-shrink-0 p:w-[315px] p:h-[481px] t:w-[222px] t:h-[338px] m:w-[146px] m:h-[222px]',
             img: 'relative'
           }
         }) %>
@@ -24,21 +24,21 @@
       }) %>
       <div class="reservation-card-reverse-bottom">
         <%- require('img.ejs')({
-          path: require('@imgs/resevation/after_member.jpg'),
+          path: require('@imgs/reservation/after_member.jpg'),
           alt : '體態改善後',
           style: {
-            main: 'resevation-img flex-shrink-0 p:w-[315px] p:h-[481px] t:w-[222px] t:h-[338px] m:w-[146px] m:h-[222px]',
+            main: 'reservation-img flex-shrink-0 p:w-[315px] p:h-[481px] t:w-[222px] t:h-[338px] m:w-[146px] m:h-[222px]',
             img: 'relative'
           }
         }) %>
       </div>
     </div>
     <div class="pt:space-y-[12px] m:space-y-[6px] flex-grow p:pl-[50px] tm:mt-[60px]">
-      <p class="resevation-p">
+      <p class="m-text">
         從小就肥肥的，試過斷食、代餐、各種減脂法，每次都瘦一下就復胖==<br />
         本來覺得也沒有到誇張肥就算了，結果健檢發現肌肉量嚴重不足。
       </p>
-      <p class="resevation-p">我花了3個月從基礎肌力開始，搭配一對一教練訓練，三個月後整個人緊實到不行⚡️<br />
+      <p class="m-text">我花了3個月從基礎肌力開始，搭配一對一教練訓練，三個月後整個人緊實到不行⚡️<br />
         現在運動不會再愛去不去的，是會想一直做下去的那種爽🔥</p>
     </div>
   </div>
@@ -47,10 +47,10 @@
   <div class="w-full p:flex p:max-w-[1220px] p:mx-auto p:space-x-[20px]">
     <div class="m-slider tm:w-full pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px]">
       <ul class="inbody-slider">
-        <% resevation.inbody.forEach((item) => { -%>
+        <% reservation.inbody.forEach((item) => { -%>
         <li>
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
+            <h3 class="m-subtitle pt:mb-[28px] m:mb-[16px]">InBody <span class="text-[var(--xe120)]">數值提升</span></h3>
             <%- require('img.ejs')({
               path: item.img,
               alt: item.alt,
@@ -59,7 +59,7 @@
                 img: 'object-cover object-right !w-full'
               }
             }) %>
-            <p class="resevation-p text-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
+            <p class="m-text text-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
           </div>
         </li>
         <% }); -%>
@@ -75,10 +75,10 @@
     </div>
     <div class="m-slider tm:w-full pt:mx-auto p:w-1/2 t:max-w-[550px] pt:mb-[40px] m:mb-[28px]">
       <ul class="body-shape-slider">
-        <% resevation.bodyShape.forEach((item) => { -%>
+        <% reservation.bodyShape.forEach((item) => { -%>
         <li>
           <div class="bg-[var(--black)] p:py-[30px] p:px-[40px] t:py-[24px] t:px-[32px] m:py-[22px] m:px-[18px]">
-            <h3 class="resevation-h3 pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">改善</span></h3>
+            <h3 class="m-subtitle pt:mb-[28px] m:mb-[16px]">體態 <span class="text-[var(--xe120)]">改善</span></h3>
             <div class="flex pt:space-x-[20px] m:space-x-[10px]">
               <%- require('img.ejs')({
                 path: item.before.img,
@@ -97,7 +97,7 @@
                 }
               }) %>
             </div>
-            <p class="resevation-p tetx-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
+            <p class="m-text tetx-[var(--white)] pt:mt-[14px] m:mt-[6px]"><%= item.text %></p>
           </div>
         </li>
         <% }); -%>

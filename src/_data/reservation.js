@@ -30,26 +30,26 @@ module.exports = {
     },
   ],
   comments: [
-    require('@imgs/resevation/comment_1.jpg'),
-    require('@imgs/resevation/comment_2.jpg'),
-    require('@imgs/resevation/comment_3.jpg'),
-    require('@imgs/resevation/comment_4.jpg'),
-    require('@imgs/resevation/comment_5.jpg'),
-    require('@imgs/resevation/comment_6.jpg'),
+    require('@imgs/reservation/comment_1.jpg'),
+    require('@imgs/reservation/comment_2.jpg'),
+    require('@imgs/reservation/comment_3.jpg'),
+    require('@imgs/reservation/comment_4.jpg'),
+    require('@imgs/reservation/comment_5.jpg'),
+    require('@imgs/reservation/comment_6.jpg'),
   ],
   inbody: [
     {
-      img: require('resevation/inbody_1.jpg'),
+      img: require('reservation/inbody_1.jpg'),
       alt: '3個月內體脂下降4%',
       text: '3個月內體脂下降4％、肌肉量上升1公斤',
     },
     {
-      img: require('resevation/inbody_2.jpg'),
+      img: require('reservation/inbody_2.jpg'),
       alt: '6個月內體脂下降11%',
       text: '6個月體脂下降11%、體重下降9公斤',
     },
     {
-      img: require('resevation/inbody_3.jpg'),
+      img: require('reservation/inbody_3.jpg'),
       alt: '3個月內體脂下降10%',
       text: '6個月體脂下降8%、肌肉量上升1.5公斤',
     },
@@ -57,33 +57,33 @@ module.exports = {
   bodyShape: [
     {
       before: {
-        img: require('resevation/body_shape_before_1.jpg'),
+        img: require('reservation/body_shape_before_1.jpg'),
         alt: '翼狀肩胛調整前',
       },
       after: {
-        img: require('resevation/body_shape_after_1.jpg'),
+        img: require('reservation/body_shape_after_1.jpg'),
         alt: '翼狀肩胛調整後',
       },
       text: '體驗課結束後翼狀肩胛就消失了',
     },
     {
       before: {
-        img: require('resevation/body_shape_before_2.jpg'),
+        img: require('reservation/body_shape_before_2.jpg'),
         alt: '3個月體重消失5kg',
       },
       after: {
-        img: require('resevation/body_shape_after_2.jpg'),
+        img: require('reservation/body_shape_after_2.jpg'),
         alt: '3個月體重消失5kg',
       },
       text: '3個月每周1次訓練，體重消失5kg',
     },
     {
       before: {
-        img: require('resevation/body_shape_before_3.jpg'),
+        img: require('reservation/body_shape_before_3.jpg'),
         alt: '3個月內體脂下降10%',
       },
       after: {
-        img: require('resevation/body_shape_after_3.jpg'),
+        img: require('reservation/body_shape_after_3.jpg'),
         alt: '3個月內體脂下降10%',
       },
       text: '一個孩子的媽，半年時間恢復少女體態',

@@ -3,7 +3,8 @@
  *
  * 顏色分工：
  *   紅 --xe120     品牌與分類標籤
- *   螢光 --xb3ff   只用在「可以點／目前在哪裡」：tab、輪播進度、分頁目前頁、箭頭 hover
+ *   藍綠 --x7de9   在這頁只用在「可以點／目前在哪裡」：tab、分頁目前頁
+ *   輪播進度與箭頭的配色跟 m-slider 一致（目前那格紅、其他灰），不另外用藍綠
  * 兩種都拿來表示狀態的話，讀者分不出哪個是分類、哪個是「我現在在這」。
  *
  * 次要文字用白色 55%（約 #8c8c8c）而不是 --x6（#666）：
@@ -43,10 +44,9 @@
 
   @apply m:h-[44px] m:w-[44px] pt:h-[48px] pt:w-[48px];
 
+  /* 配色跟 m-slider 的輪播箭頭同一套：不用主色，只把框線提亮 */
   &:hover:not(:disabled) {
-    border-color: var(--xb3ff);
-    background-color: var(--xb3ff);
-    color: var(--black);
+    border-color: var(--white);
   }
 
   /* 到第一頁／最後一頁時：還看得到位置，但看得出按不了 */
@@ -64,7 +64,7 @@
 }
 
 .m-alist-eyebrow {
-  color: var(--xb3ff);
+  color: var(--x7de9);
   font-weight: 800;
   letter-spacing: 0.2em;
 
@@ -134,7 +134,7 @@
 
 .m-alist-badge {
   padding: 4px 10px;
-  background-color: var(--xb3ff);
+  background-color: var(--x7de9);
   color: var(--black);
 
   @apply m:px-[8px];
@@ -150,7 +150,7 @@
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: var(--xb3ff);
+      color: var(--x7de9);
     }
   }
 }
@@ -163,7 +163,7 @@
 
 .m-alist-slide-more {
   display: inline-block;
-  color: var(--xb3ff);
+  color: var(--x7de9);
   font-weight: 700;
   letter-spacing: 0.06em;
 
@@ -238,7 +238,7 @@
 }
 
 .m-alist-progress-no {
-  color: var(--xb3ff);
+  color: var(--white);
   font-weight: 800;
 }
 
@@ -268,16 +268,16 @@
   span {
     display: block;
     width: 100%;
-    height: 1px;
+    height: 2px;
     background-color: var(--x56);
     transition:
       height 0.3s ease-in-out,
       background-color 0.3s ease-in-out;
   }
 
+  /* 與 m-slider 的分頁橫條同色：目前那一格紅、其他灰 */
   .tns-nav-active span {
-    height: 3px;
-    background-color: var(--xb3ff);
+    background-color: var(--xe120);
   }
 }
 
@@ -346,23 +346,23 @@
     background-color: transparent;
 
     /* 未選中也先放一個透明的同尺寸光暈：從 none 開始的話光暈不會漸變，會直接跳出來 */
-    box-shadow: 0 0 12px rgb(179 255 245 / 0%);
+    box-shadow: 0 0 12px rgb(125 233 225 / 0%);
     transition:
       background-color 0.3s ease-in-out,
       box-shadow 0.3s ease-in-out;
   }
 
   &[aria-selected='true'] {
-    color: var(--xb3ff);
+    color: var(--x7de9);
     font-weight: 800;
 
     &::after {
-      background-color: var(--xb3ff);
-      box-shadow: 0 0 12px rgb(179 255 245 / 60%);
+      background-color: var(--x7de9);
+      box-shadow: 0 0 12px rgb(125 233 225 / 60%);
     }
 
     .m-alist-tab-count {
-      background-color: var(--xb3ff);
+      background-color: var(--x7de9);
       color: var(--black);
     }
   }
@@ -444,14 +444,14 @@
 
   &:hover,
   .m-alist-card:hover & {
-    color: var(--xb3ff);
+    color: var(--x7de9);
   }
 
   &:focus-visible {
     outline: none;
 
     &::after {
-      outline: 2px solid var(--xb3ff);
+      outline: 2px solid var(--x7de9);
       outline-offset: 4px;
     }
   }
@@ -505,13 +505,13 @@
   @apply m:h-[44px] m:w-[44px] m:text-[15px] pt:h-[48px] pt:w-[48px] pt:text-[15px];
 
   &:hover {
-    border-color: var(--xb3ff);
-    color: var(--xb3ff);
+    border-color: var(--x7de9);
+    color: var(--x7de9);
   }
 
   &[aria-current='page'] {
-    border-color: var(--xb3ff);
-    background-color: var(--xb3ff);
+    border-color: var(--x7de9);
+    background-color: var(--x7de9);
     color: var(--black);
   }
 }

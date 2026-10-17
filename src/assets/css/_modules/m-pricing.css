@@ -103,6 +103,9 @@
   @apply m:mb-[8px] pt:mb-[10px];
 
   b {
+    /* 組名是標籤不是重點句，不吃全站粗體的藍綠（m-heading.css） */
+    color: var(--white);
+
     @apply m:text-[14px] pt:text-[15px];
   }
 

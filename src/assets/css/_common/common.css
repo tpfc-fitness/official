@@ -4,6 +4,8 @@
 }
 
 .ani-special {
+  /* 霓虹字是特效不是重點句，不吃全站粗體的藍綠（m-heading.css） */
+  color: var(--white);
   animation: neon-animation 1s infinite ease-in-out alternate;
   text-transform: uppercase;
 

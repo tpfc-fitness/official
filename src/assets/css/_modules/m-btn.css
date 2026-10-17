@@ -3,9 +3,29 @@
  *
  * 底色上在 .m-btn 本身而不是內層的 .m-btn-cnt ——
  * 箭頭是 .m-btn-cnt 的兄弟節點，底色上在內層的話箭頭那塊會露白。
+ *
+ * 尺寸全站統一，寫在這裡，頁面上不要再手寫寬高與字級：
+ *   高度／字級  桌機 54／18、平板 48／18、手機 48／16
+ *   寬度        --short 150、--long 240 二選一
+ *   --full-m    手機改成滿版（平板與桌機仍是 short／long 的寬度）
  */
 .m-btn {
   @apply flex justify-between border border-solid border-[var(--white)] text-center font-bold;
+  @apply p:h-[54px] p:text-[18px] t:h-[48px] t:text-[18px] m:h-[48px] m:text-[16px];
+
+  &.\-\-short {
+    width: 150px;
+  }
+
+  &.\-\-long {
+    width: 240px;
+  }
+
+  @screen m {
+    &.\-\-full-m {
+      width: 100%;
+    }
+  }
 
   &.\-\-contain {
     @apply bg-[#fff] text-[var(--black)];
@@ -49,7 +69,7 @@
 
 /* 空心按鈕保留分隔線：外框本來就是方塊，線是這個樣式的一部分 */
 .m-btn-icon {
-  @apply relative flex flex-shrink-0 items-center justify-center;
+  @apply relative flex flex-shrink-0 items-center justify-center p:w-[48px] tm:w-[44px];
 
   &::before {
     content: '';

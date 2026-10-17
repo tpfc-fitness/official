@@ -85,7 +85,7 @@
 
 /* 「從 A 到 B」那句轉折：整張卡片的重點，用主色拉出來 */
 .m-plan-turn {
-  color: var(--x7de9);
+  color: var(--white);
   font-weight: 700;
   line-height: 1.6;
 
@@ -101,7 +101,7 @@
 
   > li {
     display: flex;
-    color: var(--white);
+    color: var(--x7de9);
     font-weight: 700;
 
     @apply m:text-[13px] pt:text-[15px];

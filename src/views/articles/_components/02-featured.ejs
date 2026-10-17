@@ -41,7 +41,10 @@
                 「閱讀全文」跟標題是同一個連結，所以不讓鍵盤與螢幕閱讀器再停一次 ——
                 滑鼠與手指照樣點得到。
               */%>
-              <a class="m-alist-slide-more" href="<%= url %>" tabindex="-1" aria-hidden="true">閱讀全文 →</a>
+              <a class="m-link m-alist-slide-more" href="<%= url %>" tabindex="-1" aria-hidden="true">
+                <span class="m-link-txt">閱讀全文</span>
+                <%- require('@component/svg.ejs')({ svgName: 'arrow_up_right', style: { main: 'm-link-icon' } }) %>
+              </a>
             </div>
           </article>
         </li>

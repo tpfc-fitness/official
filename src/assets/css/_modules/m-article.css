@@ -272,13 +272,8 @@
   border-bottom: 1px solid var(--x56);
   color: var(--white);
   line-height: 1.7;
-  transition: color 0.3s ease-in-out;
 
   @apply m:py-[16px] m:text-[15px] pt:py-[18px] pt:text-[16px];
-
-  &:hover {
-    color: var(--xe120);
-  }
 }
 
 .m-article-related-arrow {

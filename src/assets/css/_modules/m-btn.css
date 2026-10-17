@@ -104,3 +104,40 @@
     @apply transition-colors duration-300 ease-in-out;
   }
 }
+
+/*
+ * 文字連結：白字＋半透明底線＋右上箭頭（「閱讀全文」這類次要的前往連結）。
+ *
+ * 底線只畫在文字底下，不延伸到箭頭；滑過時底線由半透明變實心，
+ * 字色不變 —— 跟站上其他行內連結同一個作法。
+ *
+ * 用法：
+ *   <a class="m-link" href="…">
+ *     <span class="m-link-txt">閱讀全文</span>
+ *     <%- require('@component/svg.ejs')({ svgName: 'arrow_up_right', style: { main: 'm-link-icon' } }) %>
+ *   </a>
+ * 字級由使用的地方決定，箭頭跟著字級（1em）縮放。
+ */
+.m-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.m-link-txt {
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgb(255 255 255 / 45%);
+  transition: border-color 0.3s ease-in-out;
+
+  .m-link:hover & {
+    border-color: var(--white);
+  }
+}
+
+.m-link-icon {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}

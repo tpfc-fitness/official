@@ -73,7 +73,8 @@
 }
 
 .m-article-lead {
-  color: var(--xc7);
+  /* 導言句：藍綠（color.css 的分工：藍綠＝重點句／數值） */
+  color: var(--x7de9);
   line-height: 1.9;
 
   @apply m:mt-[20px] m:text-[16px] t:mt-[24px] t:text-[17px] p:mt-[28px] p:text-[18px];
@@ -117,8 +118,10 @@
    * 連結不用主色而是白字加紅底線 —— 文章裡連結不少，整句話裡跳出一個
    * 紅字會比底線更干擾閱讀。
    */
+  /* 段落裡的粗體是要先看到的重點句，跟 FAQ 回答一樣用藍綠 */
   & b,
   & strong {
+    color: var(--x7de9);
     font-weight: 800;
   }
 
@@ -183,6 +186,8 @@
 }
 
 .m-article-answer-text {
+  /* 「先說結論」那一句是整篇的重點句，用藍綠 */
+  color: var(--x7de9);
   font-weight: 700;
   line-height: 1.9;
 

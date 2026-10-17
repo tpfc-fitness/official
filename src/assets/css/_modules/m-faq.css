@@ -106,6 +106,17 @@ details[open] .m-faq-icon::after {
 }
 
 /*
+ * 回答裡的粗體：用藍綠標出這題的重點句（color.css 的分工：藍綠＝重點句／數值）。
+ */
+.m-faq-answer {
+  b,
+  strong {
+    color: var(--x7de9);
+    font-weight: 700;
+  }
+}
+
+/*
  * 答案裡的清單。
  *
  * 只有內容本來就並列時才用（價格級距、交通方式），

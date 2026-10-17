@@ -6,7 +6,7 @@
  * 整張圖還是頭等倉的黑底白字，只是不同分類一眼分得出來，
  * 不會像換了一個網站。
  *
- * 紅與螢光藍綠是網站本來就有的顏色（--xe120、--xb3ff）；
+ * 紅與藍綠是網站本來就有的顏色（--xe120、--x7de9）；
  * 黃與綠是新加的，彩度刻意壓低，放在黑底上不會比紅色搶眼。
  *
  * 新增分類時在這裡加一行；沒列到的分類會用 DEFAULT（灰白）。
@@ -14,7 +14,7 @@
 module.exports = {
   themes: {
     動作教學: { accent: '#e12020', label: 'MOVEMENT' },
-    訓練觀念: { accent: '#b3fff5', label: 'TRAINING' },
+    訓練觀念: { accent: '#7de9e1', label: 'TRAINING' },
     新手入門: { accent: '#f2c14e', label: 'BEGINNER' },
     飲食營養: { accent: '#9bd47a', label: 'NUTRITION' },
   },

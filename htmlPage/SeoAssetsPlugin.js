@@ -84,13 +84,9 @@ Sitemap: ${this.siteUrl}/sitemap.xml
     const lines = articles.map((page) => `* [${page.title}](${this.urlOf(page)})：${page.description}`);
 
     return `
----
+## 健身知識文章
 
-# 22. 健身知識文章（build 時自動產生）
-
-文章列表：${this.siteUrl}/article/
-
-由頭等倉教練撰寫，內容來自課堂上實際遇到的訓練問題。
+由頭等倉教練撰寫，內容來自課堂上實際遇到的訓練問題。文章列表：${this.siteUrl}/article/
 
 ${lines.join('\n')}
 `;

@@ -40,7 +40,8 @@
     </div>
     <% if (cta) { -%>
     <div class="m-nav-cta-wrap">
-      <a href="<%= href(cta.url) %>" class="m-nav-cta"<%- isActive(cta.url) ? ' aria-current="page"' : '' %>><%= cta.label %></a>
+      <a href="<%= href(cta.url) %>" class="m-nav-cta"
+        <%- isActive(cta.url) ? ' aria-current="page"' : '' %>><%= cta.label %></a>
     </div>
     <% } -%>
   </nav>

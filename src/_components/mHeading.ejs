@@ -46,5 +46,6 @@
     <% if (h.line) { -%><i class="m-heading-line" aria-hidden="true"></i><% } -%>
   </p>
   <% } -%>
-  <<%= h.tag %><%- h.aos %><%- h.attrs %> class="m-heading-title --<%= h.size %><%- h.deco ? ' --deco' : '' %>"><%- title %></<%= h.tag %>>
+  <<%= h.tag %><%- h.aos %><%- h.attrs %> class="m-heading-title --<%= h.size %><%- h.deco ? ' --deco' : '' %>">
+    <%- title %></<%= h.tag %>>
 </div>

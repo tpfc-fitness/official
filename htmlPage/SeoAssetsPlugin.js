@@ -81,7 +81,9 @@ Sitemap: ${this.siteUrl}/sitemap.xml
     const articles = this.pages.filter((page) => page.article && !page.noindex);
     if (!articles.length) return '';
 
-    const lines = articles.map((page) => `* [${page.title}](${this.urlOf(page)})：${page.description}`);
+    const lines = articles.map(
+      (page) => `* [${page.title}](${this.urlOf(page)})：${page.description}`
+    );
 
     return `
 ## 健身知識文章

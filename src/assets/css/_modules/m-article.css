@@ -118,6 +118,7 @@
    * 連結不用主色而是白字加紅底線 —— 文章裡連結不少，整句話裡跳出一個
    * 紅字會比底線更干擾閱讀。
    */
+
   /* 段落裡的粗體是要先看到的重點句，跟 FAQ 回答一樣用藍綠 */
   & b,
   & strong {
@@ -247,6 +248,36 @@
   color: rgb(255 255 255 / 55%);
 
   @apply m:text-[13px] pt:text-[14px];
+}
+
+/*
+ * 作者證照：一行一張，小字。
+ * 不做成標籤或徽章 —— 那會比文章本身還搶眼，這裡只是「附註來歷」。
+ */
+.m-article-author-credentials {
+  color: rgb(255 255 255 / 55%);
+  line-height: 1.8;
+
+  @apply m:mt-[14px] m:text-[12px] pt:mt-[16px] pt:text-[13px];
+
+  > li::before {
+    content: '・';
+  }
+}
+
+.m-article-author-link {
+  display: inline-block;
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-color: var(--x56);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.3s ease-in-out;
+
+  @apply m:mt-[12px] m:text-[13px] pt:mt-[14px] pt:text-[14px];
+
+  &:hover {
+    text-decoration-color: var(--white);
+  }
 }
 
 /* ---------- 延伸閱讀 ---------- */

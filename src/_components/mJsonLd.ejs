@@ -29,6 +29,8 @@
   const isHome = typeof IS_HOME !== 'undefined' ? IS_HOME : false;
   const isService = typeof IS_SERVICE !== 'undefined' ? IS_SERVICE : false;
   const articleSlug = typeof ARTICLE_SLUG !== 'undefined' ? ARTICLE_SLUG : '';
+  /* 文章的分享圖（App.ejs 算好的封面網址與尺寸）；直式照片等不適合的情況是 null */
+  const articleImage = typeof ARTICLE_IMAGE !== 'undefined' ? ARTICLE_IMAGE : null;
   const isArticleIndex = typeof IS_ARTICLE_INDEX !== 'undefined' ? IS_ARTICLE_INDEX : false;
 
   /*
@@ -258,6 +260,34 @@
     const article = articles.find((item) => item.slug === articleSlug);
 
     if (article) {
+      /*
+       * 作者：對得到教練資料（_data/coach.js，用名字對）時，補上
+       *   - url：教練團隊頁上那一位（#coach-<slug>），讓作者是一個查得到的人
+       *   - image：教練照片
+       *   - hasCredential：正式證照（coach.js 的 credentials）
+       * 生成式搜尋判斷內容可不可信時，會看作者是誰、有沒有相關資格。
+       * ⚠️ 這裡的證照，文章頁底部的作者區也要看得到（02-body.ejs 吃同一份資料）。
+       */
+      const coach = require('_data/coach.js').find((item) => item.name === article.author.name);
+      const origin = siteUrl.replace(/^(https?:\/\/[^/]+).*$/, '$1');
+      const author = {
+        '@type': 'Person',
+        name: article.author.name,
+        jobTitle: article.author.role,
+        worksFor: { '@id': orgId },
+      };
+      if (coach) {
+        author.url = `${siteUrl}/ourteam.html#coach-${coach.slug}`;
+        author.image = `${origin}${typeof coach.img === 'object' ? coach.img.p : coach.img}`;
+        if (coach.credentials) {
+          author.hasCredential = coach.credentials.map((name) => ({
+            '@type': 'EducationalOccupationalCredential',
+            credentialCategory: 'certification',
+            name,
+          }));
+        }
+      }
+
       graph.push({
         '@type': 'Article',
         '@id': `${pageUrl}#article`,
@@ -267,12 +297,8 @@
         inLanguage: 'zh-Hant-TW',
         datePublished: article.updated,
         dateModified: article.updated,
-        author: {
-          '@type': 'Person',
-          name: article.author.name,
-          jobTitle: article.author.role,
-          worksFor: { '@id': orgId },
-        },
+        ...(articleImage ? { image: [articleImage.url] } : {}),
+        author,
         publisher: { '@id': orgId },
         /* 屬於健身知識這個欄目，而不只是屬於整個網站 */
         isPartOf: { '@id': `${articleIndex.url}#webpage` },

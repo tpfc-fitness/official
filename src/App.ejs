@@ -24,15 +24,51 @@
   const PAGE_PATH = htmlWebpackPlugin.options.path || `/${htmlWebpackPlugin.options.filename}`;
   const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
   const DESCRIPTION = htmlWebpackPlugin.options.description || '';
-  const OG_IMAGE_URL = `${SITE_URL}/static/img/FB_share.png`;
+  /* 文章頁：把 slug 傳下去，結構化資料要用它取文章內容 */
+  const ARTICLE_SLUG = htmlWebpackPlugin.options.article || '';
+
+  /*
+   * 分享圖（og:image）。預設是全站共用的 FB_share.png。
+   *
+   * 文章頁改用那篇的封面 —— 每篇分享到 LINE、Facebook 時看得出是哪一篇。
+   * 程式產生的封面是 1600×900，剛好適合分享預覽。
+   * 實拍照片如果是直的（例如手機直拍），社群預覽會裁掉大半，
+   * 那種就退回共用圖：寬高比不到 1.3 的不用。
+   *
+   * 同一張圖也給 Article 結構化資料的 image（Google 的文章複合式結果要有圖）。
+   */
+  let OG_IMAGE = { url: `${SITE_URL}/static/img/FB_share.png`, type: 'image/png', width: 1200, height: 630 };
+  const ARTICLE_IMAGE = (() => {
+    if (!ARTICLE_SLUG) return null;
+    const article = require('_data/articles.js').find((item) => item.slug === ARTICLE_SLUG);
+    if (!article) return null;
+    try {
+      const IMAGESIZE = require('image-size');
+      const sizeOf = typeof IMAGESIZE === 'function' ? IMAGESIZE : IMAGESIZE.imageSize;
+      const file = require('path').join(process.env.PROJECT_ROOT, 'src/assets/img/article', article.cover.img);
+      const { width, height } = sizeOf(require('fs').readFileSync(file));
+      if (width / height < 1.3) return null;
+      /* webpack 給的是從網域根開始的路徑（/official/assets/…），前面補上網域 */
+      const resolve = require.context('@imgs/article/', true, /\.(jpe?g|png)$/);
+      const asset = resolve(`./${article.cover.img}`);
+      const origin = SITE_URL.replace(/^(https?:\/\/[^/]+).*$/, '$1');
+      return {
+        url: `${origin}${typeof asset === 'object' ? asset.p : asset}`,
+        type: /\.png$/i.test(article.cover.img) ? 'image/png' : 'image/jpeg',
+        width,
+        height,
+      };
+    } catch (err) {
+      return null;
+    }
+  })();
+  if (ARTICLE_IMAGE) OG_IMAGE = ARTICLE_IMAGE;
   const NOINDEX = !!htmlWebpackPlugin.options.noindex;
   const IS_HOME = PAGE_PATH === '/';
   const IS_FAQ = htmlWebpackPlugin.options.view === 'faq';
   const IS_SERVICE = htmlWebpackPlugin.options.view === 'service';
   /* 健身知識（文章列表）：結構化資料要輸出文章清單 */
   const IS_ARTICLE_INDEX = htmlWebpackPlugin.options.view === 'articles';
-  /* 文章頁：把 slug 傳下去，結構化資料要用它取文章內容 */
-  const ARTICLE_SLUG = htmlWebpackPlugin.options.article || '';
   const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
 -%>
 <!DOCTYPE html>
@@ -53,12 +89,12 @@
   <% } -%>
   <meta property="og:title" content="<%= TITLE %>">
   <meta property="og:description" content="<%= DESCRIPTION %>">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="<%= ARTICLE_SLUG ? 'article' : 'website' %>">
   <meta property="og:url" content="<%= PAGE_URL %>">
-  <meta property="og:image" content="<%= OG_IMAGE_URL %>">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="<%= OG_IMAGE.url %>">
+  <meta property="og:image:type" content="<%= OG_IMAGE.type %>">
+  <meta property="og:image:width" content="<%= OG_IMAGE.width %>">
+  <meta property="og:image:height" content="<%= OG_IMAGE.height %>">
   <meta property="og:site_name" content="<%= TITLENAME %>">
   <title><%- TITLE %></title>
   <link rel="shortcut icon" type="image/x-icon" href="<%= ROOT_DIRECTORY %>static/img/favicon.ico">
@@ -168,6 +204,7 @@
       IS_SERVICE,
       IS_ARTICLE_INDEX,
       ARTICLE_SLUG,
+      ARTICLE_IMAGE,
       DESCRIPTION
     }) %>
   <% } -%>

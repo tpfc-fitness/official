@@ -70,6 +70,25 @@
           <p class="m-article-author-role"><%= article.author.role %></p>
         </div>
       </div>
+      <%/*
+        證照與教練介紹的連結。
+        讀者（與搜尋引擎、AI）判斷「這篇可不可信」時，會看是誰寫的、有沒有相關資格。
+        結構化資料裡宣告的證照，畫面上也一定要看得到 —— Google 規定兩邊要一致，
+        所以這裡跟 _components/mJsonLd.ejs 吃同一份 coach.js 的 credentials。
+      */%>
+      <% if (authorCoach && authorCoach.credentials) { -%>
+      <ul class="m-article-author-credentials" aria-label="證照">
+        <% authorCoach.credentials.forEach((credential) => { -%>
+        <li><%= credential %></li>
+        <% }); -%>
+      </ul>
+      <% } -%>
+      <% if (authorCoach) { -%>
+      <a class="m-article-author-link"
+        href="<%= process.env.ROOT_DIRECTORY %>ourteam.html#coach-<%= authorCoach.slug %>">
+        看 <%= authorCoach.name %> 的教練介紹 →
+      </a>
+      <% } -%>
     </section>
   </div>
 </article>

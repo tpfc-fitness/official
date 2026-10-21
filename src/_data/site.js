@@ -24,10 +24,12 @@ module.exports = {
    * 是讓打錯的人也找得到我們；頁面上的正式寫法仍然只有「頭等倉」。
    *
    * 「First Class」單獨列出，是因為有人只記得英文名。
+   * 「頭等倉first class」是 Google 商家檔案上的名稱，照抄（含大小寫與無空格），
+   * 讓 Google 把商家檔案與網站對成同一間店。
    */
-  alternateName: [FULL_NAME, '頭等艙', 'First Class'],
+  alternateName: [FULL_NAME, '頭等倉first class', '頭等艙', 'First Class'],
   description:
-    '位於台北市中山區、鄰近民權西路的私人教練運動工作室，提供一對一與一對二私人教練課程及自主訓練。',
+    '位於台北市中山區、鄰近民權西路的健身工作室，主要提供一對一私人教練課程，另有小班制團體課程與自主訓練。',
   telephone: '+886-2-2522-2330',
   email: 'tpfc.fit@gmail.com',
   address: {

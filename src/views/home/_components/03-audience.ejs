@@ -10,7 +10,8 @@
     {
       no: '01',
       icon: 'icon_book',
-      title: '健身新手',
+      /* 標題帶「第一次重訓」：這是新手實際會搜的字，只寫「健身新手」對不到 */
+      title: '健身新手、第一次重訓也可以',
       body: '第一次接觸重量訓練，不知道器材怎麼用、動作怎麼做，也擔心自己練會受傷。',
     },
     {
@@ -63,5 +64,21 @@
       </li>
       <% }); -%>
     </ul>
+
+    <%/*
+      給新手的一行引導。
+
+      刻意只寫一句：新手的細節（不懂器材、很久沒運動、第一次要準備什麼）
+      由 faq 頁回答，首頁只負責出現「第一次重訓」這個詞，再把人帶過去。
+      寫成一整段的話，在四張精簡的卡片下面太搶眼。
+
+      兩個連結：免費體驗課 → 預約頁、新手常見問題 → FAQ。
+      「一對一私人教練」連到服務項目頁的連結在首頁 FAQ 第 2 題，這裡不重複。
+    */%>
+    <p data-aos="fade-up"
+      class="leading-[1.9] text-center p:mt-[56px] t:mt-[40px] m:mt-[30px] p:text-[16px] tm:text-[14px] text-[var(--xc7)]">
+      第一次重訓也沒關係，先來上一堂<a href="./contact.html" class="text-[var(--white)] underline underline-offset-4">免費體驗課</a>，或看看<a
+        href="./faq.html" class="text-[var(--white)] underline underline-offset-4">新手常見問題</a>。
+    </p>
   </div>
 </section>

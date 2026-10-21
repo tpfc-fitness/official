@@ -25,8 +25,11 @@
     <%/*
       手機把「｜」換成換行。只藏分隔線的話兩段會黏成一句，
       而且斷在哪裡由容器寬度決定，通常會斷在詞中間。
+
+      H1 用「民權西路健身房」：搶「民權西路附近健身房」這組查詢（10/16 起從結果裡消失）。
+      原本的「民權西路健身教練」改由教練團隊頁的 H1 接住，下面那行也還有「健身教練」。
     */%>
-    民權西路健身教練<span class="m:hidden">｜</span><br class="pt:hidden" />頭等倉運動空間</h1>
+    民權西路健身房<span class="m:hidden">｜</span><br class="pt:hidden" />頭等倉運動空間</h1>
   <%- require('@component/svg.ejs')({
       svgName: 'logo',
       style: {
@@ -42,7 +45,11 @@
     台北市中山區・捷運民權西路站步行 3 分鐘</p>
   <p data-aos="fade-up"
     class="text-[var(--white)] text-center p:text-[18px] tm:text-[15px] p:mt-[16px] tm:mt-[12px] order-4">
-    一對一｜一對二｜自主訓練<br />重量訓練｜肌力訓練｜體態改善｜增肌減脂</p>
+    <%/*
+      「健身教練」接在一對一後面：H1 改成健身房之後，首屏仍保有「健身教練」這個詞；
+      不接在一對二後面，是因為一對二不是主推的課程。
+    */%>
+    一對一健身教練｜一對二｜自主訓練<br />重量訓練｜肌力訓練｜體態改善｜增肌減脂</p>
   <%- require('@component/mBtn.ejs')({
       label: '即刻預約',
       link: './contact.html',

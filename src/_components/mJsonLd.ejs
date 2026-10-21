@@ -86,11 +86,13 @@
       image: `${siteUrl}/static/img/FB_share.png`,
       /* 品牌標是白色的，透明底在搜尋結果的白底上會整個看不見，所以保留深色底 */
       logo: `${siteUrl}/static/img/logo.png`,
+      priceRange: site.priceRange,
       hasMap: site.hasMap,
-      areaServed: {
-        '@type': 'City',
-        name: site.address.addressRegion,
-      },
+      /* 行政區用 AdministrativeArea，不用 City —— 中山區、大同區不是城市 */
+      areaServed: site.areaServed.map((name) => ({
+        '@type': 'AdministrativeArea',
+        name,
+      })),
       address: {
         '@type': 'PostalAddress',
         streetAddress: site.address.streetAddress,

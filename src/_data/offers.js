@@ -9,6 +9,7 @@
  *      _data/faq.js           「價格與交通」第一題的價目
  *      _data/contact-faq.js   Q5 新生優惠結束後的價格
  *      _data/newbie-plan.js   新生 10 堂（首頁 CTA 與方案區塊）
+ *      _data/site.js          priceRange（一對一單堂價的最低與最高）
  *      llms.txt               6.2 Pricing
  *
  * ⚠️ 服務項目頁的 Service 節點（_components/mJsonLd.ejs 的 PT_OFFER_NAMES）
@@ -71,9 +72,14 @@ module.exports = [
   },
   {
     name: '一對二私人教練課',
+    /*
+     * 一對二每堂 ＝ 同方案的一對一每堂＋500 元（兩人合計）。
+     * 這裡跟上面的「一對一私人教練課」一樣只算正式方案：1,300＋500 到 1,600＋500。
+     * 新生方案（13,000 ÷ 10 ＝ 1,300）是另一筆，不算進這個區間。
+     */
     description:
-      '兩人一起訓練，適合程度與目標相近的人；價格為兩人合計，依購買堂數與當期優惠而不同。',
-    minPrice: 1700,
+      '兩人一起訓練，適合程度與目標相近的人。價格為兩人合計，依購買堂數而不同；首次購買可選新生 10 堂 NT$13,000，平均一堂 1,300 元。',
+    minPrice: 1800,
     maxPrice: 2100,
     unitText: '堂',
   },

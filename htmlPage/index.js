@@ -27,7 +27,13 @@ const articlePages = articles.map((article) => ({
 module.exports = {
   HtmlWebpackPlugin: [
     {
-      title: '頭等倉運動空間 First Class｜中山區民權西路健身工作室',
+      /*
+       * 「民權西路」「健身房」「一對一」三組字都要在 title 裡：
+       * 民權西路附近健身房、民權西路健身教練這幾組查詢在 10 月退步或沒出現，
+       * 而 title 是搜尋引擎判斷「這頁在講什麼」權重最高的地方。
+       * 品牌名放在後半段，用「健身工作室」收尾，維持品牌定位。
+       */
+      title: '民權西路健身房｜一對一私人教練・頭等倉 First Class 健身工作室',
       /*
        * 這一頁的 title 自己就含品牌名了，所以不要再接
        * 「| First Class 頭等倉運動空間」—— 接了會變成品牌名出現兩次，
@@ -77,7 +83,8 @@ module.exports = {
       chunks: ['careers'],
     },
     {
-      title: '專業教練團隊',
+      /* 加上「民權西路」：搶「民權西路健身教練」這組查詢（10 月從第 3 名掉到第 8 名） */
+      title: '民權西路健身教練團隊｜證照與專長',
       filename: 'ourteam.html',
       view: 'ourteam',
       path: '/ourteam.html',

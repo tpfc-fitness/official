@@ -1,0 +1,35 @@
+<%/* 常見問題 */%>
+<%
+  /*
+   * ⚠️ 用到 _modules/m-faq（手風琴樣式與 faq.html 同一套），頁面樣式表要引入。
+   *
+   * 參數：faq（[{ q, a: [段落] }]），同一份資料也會輸出成 FAQPage 結構化資料。
+   * 用原生 <details>：收合中的答案仍在 DOM 裡，搜尋引擎讀得到。
+   */
+-%>
+<section class="m-resource-faq">
+  <div class="m-resource-container">
+    <h2 class="m-resource-h2">常見問題</h2>
+    <ul class="m-faq bg-[rgb(0_0_0_/_40%)] border border-solid border-[rgb(255_255_255_/_18%)]">
+      <% faq.forEach((item, idx) => { -%>
+      <li>
+        <details>
+          <summary class="flex items-center pt:px-[24px] pt:py-[20px] m:px-[16px] m:py-[16px]">
+            <span class="flex-shrink-0 font-bold text-[13px] tracking-[0.1em] text-[var(--xe120)]">
+              Q<%= String(idx + 1).padStart(2, '0') %>
+            </span>
+            <i class="flex-shrink-0 w-[18px] h-px bg-[rgb(255_255_255_/_35%)] pt:mx-[18px] m:mx-[12px]"></i>
+            <h3 class="flex-grow font-bold leading-[1.5] pt:text-[17px] m:text-[15px]"><%= item.q %></h3>
+            <span class="m-faq-icon pt:ml-[20px] m:ml-[12px]"></span>
+          </summary>
+          <div class="pt:px-[24px] pt:pb-[24px] m:px-[16px] m:pb-[20px] space-y-[10px]">
+            <% item.a.forEach((line) => { -%>
+            <p class="leading-[1.9] pt:text-[15px] m:text-[14px] text-[rgb(255_255_255_/_82%)]"><%- line %></p>
+            <% }); -%>
+          </div>
+        </details>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>

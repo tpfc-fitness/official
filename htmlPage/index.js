@@ -7,6 +7,7 @@
  * 新增一篇文章只要加資料，頁面與 sitemap 都會自動跟上。
  */
 const articles = require('../src/_data/articles.js');
+const resources = require('../src/_data/resources.js');
 
 /* 一篇文章 → 一個頁面設定 */
 const articlePages = articles.map((article) => ({
@@ -22,6 +23,25 @@ const articlePages = articles.map((article) => ({
   /* 哪一篇 —— App.ejs 會把它傳進 view，view 再從 articles.js 取內容 */
   article: article.slug,
   chunks: ['article'],
+}));
+
+/*
+ * 免費資源：跟文章同一個做法，由 _data/resources.js 依陣列產生。
+ * 每一頁的工具不同，所以 view 與 chunk 各自一份（views/resources/<slug>/、scripts/<slug>.js），
+ * 頁首、說明、FAQ、CTA 這些共用區塊放在 views/resources/_components/。
+ */
+const resourcePages = resources.map((resource) => ({
+  title: resource.title,
+  filename: `resources/${resource.slug}.html`,
+  view: `resources/${resource.slug}`,
+  path: `/resources/${resource.slug}.html`,
+  template: 'App.ejs',
+  action: 'resource',
+  description: resource.description,
+  lastmod: resource.updated,
+  /* 哪一頁 —— mJsonLd 用它取麵包屑名稱與 FAQ */
+  resource: resource.slug,
+  chunks: [resource.slug],
 }));
 
 module.exports = {
@@ -159,5 +179,27 @@ module.exports = {
       chunks: ['articles'],
     },
     ...articlePages,
+    {
+      /*
+       * 免費資源（總覽）。同健身知識：filename 是 resources/index.html，
+       * 對外網址是資料夾 /resources/，各資源頁都在它底下。
+       */
+      title: '免費資源｜營養計算機與訓練工具',
+      filename: 'resources/index.html',
+      view: 'resources',
+      path: '/resources/',
+      template: 'App.ejs',
+      action: 'resources',
+      description:
+        '頭等倉教練整理的免費工具：營養計算機幫你算出每日熱量與蛋白質、脂肪、碳水，之後會陸續加上訓練計畫表。不用註冊，打開就能用。',
+      lastmod: resources.length
+        ? resources
+            .map((item) => item.updated)
+            .sort()
+            .reverse()[0]
+        : undefined,
+      chunks: ['resources'],
+    },
+    ...resourcePages,
   ],
 };

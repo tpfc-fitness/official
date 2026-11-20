@@ -64,4 +64,14 @@ module.exports = [
     url: 'careers.html',
     navShow: true,
   },
+  {
+    /*
+     * 免費資源總覽。navShow: false —— 不進 header 主選單，只出現在 footer 的網站導覽最後一行。
+     * 這一區的流量主要來自 IG 留言與自然搜尋，直接落地在各資源頁，
+     * 主選單留給跟預約有關的頁面。
+     */
+    label: '免費資源',
+    url: 'resources/',
+    navShow: false,
+  },
 ];

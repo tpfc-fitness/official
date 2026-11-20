@@ -69,6 +69,9 @@
   const IS_SERVICE = htmlWebpackPlugin.options.view === 'service';
   /* 健身知識（文章列表）：結構化資料要輸出文章清單 */
   const IS_ARTICLE_INDEX = htmlWebpackPlugin.options.view === 'articles';
+  /* 免費資源：總覽頁與單一資源頁（slug），結構化資料要輸出麵包屑與 FAQ */
+  const IS_RESOURCE_INDEX = htmlWebpackPlugin.options.view === 'resources';
+  const RESOURCE_SLUG = htmlWebpackPlugin.options.resource || '';
   const PAGE_TITLE = htmlWebpackPlugin.options.title || '';
 -%>
 <!DOCTYPE html>
@@ -203,6 +206,8 @@
       IS_FAQ,
       IS_SERVICE,
       IS_ARTICLE_INDEX,
+      IS_RESOURCE_INDEX,
+      RESOURCE_SLUG,
       ARTICLE_SLUG,
       ARTICLE_IMAGE,
       DESCRIPTION

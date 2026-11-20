@@ -1,0 +1,51 @@
+<%/*
+ * 免費資源（總覽）
+ *
+ * 網址是 /resources/，跟各資源頁 /resources/xxx.html 同一層 —— 做法同健身知識 /article/。
+ * 清單直接吃 _data/resources.js，新增一頁資源不用回來改這裡。
+ *
+ * 還沒做好的資源不列出來：一張點不進去的「即將推出」卡片，
+ * 對搜尋進來的人沒有用，對搜尋引擎則是一段沒有內容的文字。
+ */%>
+<%
+  const resources = require('_data/resources.js');
+  const href = (slug) => `${process.env.ROOT_DIRECTORY}resources/${slug}.html`;
+-%>
+<%- require('./_components/01-hero.ejs')({
+  hero: {
+    eyebrow: 'FREE RESOURCES',
+    title: '免費資源',
+    lead: '把學員最常問的計算和訓練安排，整理成自己就能用的工具。不用註冊，打開就能用。'
+  }
+}) %>
+
+<section class="m-resource-cards-wrap" aria-label="資源列表">
+  <div class="m-resource-container">
+    <ul class="m-resource-cards">
+      <% resources.forEach((item) => { -%>
+      <li>
+        <a class="m-resource-card" href="<%= href(item.slug) %>">
+          <h2 class="m-resource-card-title"><%= item.name %></h2>
+          <p class="m-resource-card-text"><%= item.summary %></p>
+          <span class="m-resource-card-more">
+            開始使用
+            <%- require('@component/svg.ejs')({
+              svgName: 'arrow',
+              style: { main: 'inline-block w-[16px] h-[16px] ml-[8px]' }
+            }) %>
+          </span>
+        </a>
+      </li>
+      <% }); -%>
+    </ul>
+  </div>
+</section>
+
+<%- require('./_components/05-cta.ejs')({
+  cta: {
+    title: '想要一份只屬於你的安排？',
+    text: '工具算的是平均值。教練會看你的動作、作息和目標，把訓練和飲食調到適合你的程度。',
+    label: '預約免費體驗課'
+  },
+  location: 'resources'
+}) %>

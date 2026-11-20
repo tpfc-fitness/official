@@ -1,0 +1,215 @@
+/*
+ * 免費資源頁的共用版型（頁首、說明文字、FAQ 外框、注意事項、總覽卡片）。
+ *
+ * 說明文字的層級沿用文章頁（m-article）的作法：h2 左邊一條紅線、行距 1.9，
+ * 兩種頁面讀起來是同一個網站。行寬比文章寬一點（960px），
+ * 因為上面的計算機要左右並排表單與結果。
+ */
+.m-resource-hero,
+.m-resource-prose,
+.m-resource-faq,
+.m-resource-notes,
+.m-resource-cards-wrap {
+  color: var(--white);
+}
+
+.m-resource-container {
+  width: min(960px, calc(100% - 40px));
+  margin-inline: auto;
+
+  @apply m:w-[calc(100%-32px)];
+}
+
+/* ---------- 頁首 ---------- */
+.m-resource-hero {
+  @apply m:pb-[28px] m:pt-[48px] t:pb-[36px] t:pt-[64px] p:pb-[44px] p:pt-[80px];
+}
+
+.m-resource-lead {
+  max-width: 40em;
+  line-height: 1.9;
+
+  @apply m:mt-[16px] m:text-[16px] t:mt-[20px] t:text-[17px] p:mt-[24px] p:text-[18px];
+}
+
+.m-resource-note {
+  color: rgb(255 255 255 / 55%);
+
+  @apply m:mt-[10px] m:text-[13px] pt:mt-[12px] pt:text-[14px];
+}
+
+/* ---------- 說明文字 ---------- */
+.m-resource-prose {
+  @apply m:pt-[20px] pt:pt-[32px];
+}
+
+.m-resource-section + .m-resource-section {
+  @apply m:mt-[48px] pt:mt-[64px];
+}
+
+.m-resource-h2 {
+  padding-left: 16px;
+  border-left: 4px solid var(--xe120);
+  font-weight: 700;
+  line-height: 1.45;
+
+  @apply m:mb-[18px] m:text-[22px] t:mb-[20px] t:text-[26px] p:mb-[24px] p:text-[30px];
+}
+
+.m-resource-h3 {
+  font-weight: 700;
+
+  @apply m:mb-[10px] m:mt-[28px] m:text-[18px] pt:mb-[12px] pt:mt-[36px] pt:text-[20px];
+}
+
+.m-resource-p,
+.m-resource-list > li,
+.m-resource-steps > li {
+  line-height: 1.9;
+
+  @apply m:text-[15px] pt:text-[17px];
+
+  /* 粗體重點句用藍綠（color.css 的分工） */
+  & b,
+  & strong {
+    color: var(--x7de9);
+    font-weight: 700;
+  }
+
+  & a {
+    color: var(--white);
+    text-decoration: underline;
+    text-decoration-color: var(--xe120);
+    text-underline-offset: 4px;
+  }
+}
+
+.m-resource-p {
+  @apply m:mb-[18px] pt:mb-[22px];
+}
+
+/* 符號掛在外側，換行的文字對齊第一行（同 m-faq-answer-list） */
+.m-resource-list {
+  @apply m:mb-[18px] pt:mb-[22px];
+
+  > li {
+    display: flex;
+
+    &::before {
+      content: '・';
+      flex-shrink: 0;
+      color: var(--xe120);
+    }
+  }
+}
+
+.m-resource-steps {
+  counter-reset: step;
+
+  @apply m:mb-[18px] pt:mb-[22px];
+
+  > li {
+    position: relative;
+    counter-increment: step;
+    padding-left: 34px;
+
+    & + li {
+      @apply m:mt-[10px] pt:mt-[12px];
+    }
+
+    &::before {
+      content: counter(step);
+      position: absolute;
+      top: 0.45em;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgb(255 255 255 / 45%);
+      border-radius: 50%;
+      font-size: 12px;
+      line-height: 1;
+    }
+  }
+}
+
+/* ---------- 常見問題 ---------- */
+.m-resource-faq {
+  @apply m:pt-[40px] pt:pt-[56px];
+}
+
+/* ---------- 注意事項 ---------- */
+.m-resource-notes {
+  @apply m:pb-[56px] m:pt-[40px] pt:pb-[80px] pt:pt-[56px];
+
+  .m-resource-container {
+    border-top: 1px solid var(--x56);
+
+    @apply m:pt-[24px] pt:pt-[32px];
+  }
+
+  .m-resource-list > li {
+    color: rgb(255 255 255 / 70%);
+
+    @apply m:text-[14px] pt:text-[15px];
+  }
+}
+
+.m-resource-notes-title {
+  font-weight: 700;
+
+  @apply m:mb-[12px] m:text-[17px] pt:mb-[14px] pt:text-[19px];
+}
+
+/* ---------- 總覽卡片 ---------- */
+.m-resource-cards-wrap {
+  @apply m:pb-[56px] pt:pb-[90px];
+}
+
+.m-resource-cards {
+  display: grid;
+  gap: 20px;
+
+  @apply pt:grid-cols-2;
+}
+
+.m-resource-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--x56);
+  background-color: var(--x15);
+  transition: border-color 0.2s ease-in-out;
+
+  @apply m:p-[22px] pt:p-[30px];
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--xe120);
+  }
+}
+
+.m-resource-card-title {
+  font-weight: 700;
+
+  @apply m:text-[20px] pt:text-[24px];
+}
+
+.m-resource-card-text {
+  flex-grow: 1;
+  color: var(--xc7);
+  line-height: 1.8;
+
+  @apply m:mt-[10px] m:text-[14px] pt:mt-[12px] pt:text-[15px];
+}
+
+.m-resource-card-more {
+  display: inline-flex;
+  align-items: center;
+  color: var(--xe120);
+  font-weight: 700;
+
+  @apply m:mt-[18px] m:text-[15px] pt:mt-[24px] pt:text-[16px];
+}

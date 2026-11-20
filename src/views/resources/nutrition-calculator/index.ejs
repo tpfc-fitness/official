@@ -1,0 +1,18 @@
+<%/*
+ * 營養計算機
+ *
+ * 版面：頁首 → 計算機 → 說明 → 常見問題 → 注意事項 → CTA。
+ * 除了「計算機」那一塊，其他都是 resources/_components/ 的共用區塊，
+ * 內容在 _data/resources/nutrition-calculator.js。
+ *
+ * 計算邏輯在 scripts/_nutrition.js，互動在 scripts/nutrition-calculator.js。
+ */%>
+<%
+  const content = require('_data/resources/nutrition-calculator.js');
+-%>
+<%- require('../_components/01-hero.ejs')({ hero: content.hero }) %> <%/* 頁首 */%>
+<%- require('./_components/01-calculator.ejs')({ guide: content.activityGuide }) %> <%/* 計算機 */%>
+<%- require('../_components/02-prose.ejs')({ blocks: content.blocks }) %> <%/* 怎麼算、怎麼用、為什麼要調整 */%>
+<%- require('../_components/03-faq.ejs')({ faq: content.faq }) %> <%/* 常見問題 */%>
+<%- require('../_components/04-notes.ejs')({ notes: content.notes }) %> <%/* 注意事項 */%>
+<%- require('../_components/05-cta.ejs')({ cta: content.cta, location: 'nutrition-calculator' }) %> <%/* 導去預約 */%>

@@ -1,0 +1,233 @@
+<%/* 計算機：表單＋結果 */%>
+<%
+  /*
+   * ⚠️ 用到 _modules/m-nutrition，頁面樣式表要引入。
+   *
+   * 選項的文字（活動程度、目標、模式）直接吃 scripts/_nutrition.js，
+   * 跟計算用的是同一份，改名稱不會發生畫面跟計算對不上。
+   *
+   * 參數：guide（活動程度對照，_data/resources/nutrition-calculator.js）
+   *
+   * 難度模式只顯示名稱，不在表單上列出熱量與脂肪的差異 ——
+   * 填表的人只需要選一個，細節留給下方說明與 FAQ，想知道的人再去看。
+   *
+   * 活動程度的對照說明是彈窗（<dialog>），build 期就輸出，沒打開也在 DOM 裡。
+   * 結果區是 petite-vue 渲染的，v-cloak 讓 JS 跑起來之前不會露出 {{ }}。
+   *
+   * 數字欄位用 type="text" ＋ inputmode，不用 type="number"：
+   * number 在手機上會被捲動誤改數值、還接受 1e2 這種寫法，
+   * inputmode 一樣能叫出數字鍵盤。字級 16px 以上，iOS 才不會在聚焦時自動放大。
+   */
+  const { ACTIVITY, GOAL, MODE, LIMITS, FAT_MIN } = require('_nutrition.js');
+  const sexes = [
+    { value: 'male', label: '男' },
+    { value: 'female', label: '女' },
+  ];
+  const numberFields = [
+    { name: 'age', inputmode: 'numeric', placeholder: '例如 30' },
+    { name: 'height', inputmode: 'decimal', placeholder: '例如 165' },
+    { name: 'weight', inputmode: 'decimal', placeholder: '例如 58' },
+  ];
+-%>
+<section class="m-nutri" aria-labelledby="nutri-form-title">
+  <div class="m-resource-container m-nutri-layout">
+    <form class="m-nutri-form" novalidate @submit.prevent @input="onEdit" @change="onEdit">
+      <h2 id="nutri-form-title" class="sr-only">輸入你的資料</h2>
+
+      <fieldset class="m-nutri-field">
+        <legend class="m-nutri-legend">生理性別</legend>
+        <div class="m-nutri-choices --cols-2">
+          <% sexes.forEach((item) => { -%>
+          <label class="m-nutri-choice">
+            <input type="radio" name="sex" value="<%= item.value %>" v-model="form.sex">
+            <span class="m-nutri-choice-box"><%= item.label %></span>
+          </label>
+          <% }); -%>
+        </div>
+      </fieldset>
+
+      <div class="m-nutri-numbers">
+        <% numberFields.forEach((field) => { const limit = LIMITS[field.name]; -%>
+        <div class="m-nutri-field">
+          <label class="m-nutri-legend" for="nutri-<%= field.name %>"><%= limit.label %></label>
+          <div class="m-nutri-input" :class="{ '--error': errorOf('<%= field.name %>') }">
+            <input id="nutri-<%= field.name %>" type="text" inputmode="<%= field.inputmode %>" autocomplete="off"
+              enterkeyhint="next" placeholder="<%= field.placeholder %>" aria-describedby="nutri-<%= field.name %>-hint"
+              v-model="form.<%= field.name %>" @blur="touched.<%= field.name %> = true"
+              :aria-invalid="errorOf('<%= field.name %>') ? 'true' : 'false'">
+            <span class="m-nutri-unit" aria-hidden="true"><%= limit.unit %></span>
+          </div>
+          <p id="nutri-<%= field.name %>-hint" class="m-nutri-hint"
+            :class="{ '--error': errorOf('<%= field.name %>') }">
+            <span v-if="errorOf('<%= field.name %>')">{{ errorOf('<%= field.name %>') }}</span>
+            <span v-else><%= limit.min %>–<%= limit.max %> <%= limit.unit %></span>
+          </p>
+        </div>
+        <% }); -%>
+      </div>
+
+      <fieldset class="m-nutri-field">
+        <legend class="m-nutri-legend">目標</legend>
+        <div class="m-nutri-choices --cols-3">
+          <% Object.keys(GOAL).forEach((key) => { -%>
+          <label class="m-nutri-choice">
+            <input type="radio" name="goal" value="<%= key %>" v-model="form.goal">
+            <span class="m-nutri-choice-box"><%= GOAL[key].label %></span>
+          </label>
+          <% }); -%>
+        </div>
+      </fieldset>
+
+      <fieldset class="m-nutri-field">
+        <legend class="m-nutri-legend">活動程度</legend>
+        <div class="m-nutri-choices --stack">
+          <% Object.keys(ACTIVITY).forEach((key) => { -%>
+          <label class="m-nutri-choice">
+            <input type="radio" name="activity" value="<%= key %>" v-model="form.activity">
+            <span class="m-nutri-choice-box --row">
+              <b class="m-nutri-choice-title"><%= ACTIVITY[key].label %></b>
+              <span class="m-nutri-choice-desc"><%= guide[key].summary %></span>
+            </span>
+          </label>
+          <% }); -%>
+        </div>
+
+        <button type="button" class="m-nutri-guide-open" aria-haspopup="dialog" aria-controls="nutri-guide"
+          @click="openGuide">不確定選哪個？看生活與運動範例</button>
+      </fieldset>
+
+      <fieldset class="m-nutri-field">
+        <legend class="m-nutri-legend">難度模式</legend>
+        <div class="m-nutri-choices --cols-2">
+          <% Object.keys(MODE).forEach((key) => { -%>
+          <label class="m-nutri-choice">
+            <input type="radio" name="mode" value="<%= key %>" v-model="form.mode">
+            <span class="m-nutri-choice-box"><%= MODE[key].label %></span>
+          </label>
+          <% }); -%>
+        </div>
+      </fieldset>
+    </form>
+
+    <%/*
+      活動程度的對照說明：彈窗。
+      用原生 <dialog>：Esc 關閉、焦點鎖在框內、關掉後焦點回到按鈕，都是瀏覽器內建的。
+      內容在 build 期就輸出，沒打開也在 DOM 裡，搜尋引擎一樣讀得到。
+      放在 <form> 外面：框裡的連結或按鈕不會觸發表單的 @input／@change。
+      點框外的暗色背景也會關（closeGuideOnBackdrop），手機上大家習慣這樣關。
+    */%>
+    <dialog id="nutri-guide" class="m-nutri-dialog" aria-labelledby="nutri-guide-title" @click="closeGuideOnBackdrop">
+      <div class="m-nutri-dialog-inner">
+        <div class="m-nutri-dialog-head">
+          <h3 id="nutri-guide-title" class="m-nutri-dialog-title">活動程度怎麼選</h3>
+          <button type="button" class="m-nutri-dialog-close" @click="closeGuide">
+            <span class="sr-only">關閉</span>
+          </button>
+        </div>
+        <%/*
+          表格：步數與每週運動兩欄橫向比較，生活範例字比較多，放在每一級下面獨立一列（跨三欄），
+          手機寬度塞四欄會每格都斷成好幾行。
+          每一級用一個 tbody 包住兩列，邊框畫在 tbody 上，兩列看起來是同一組。
+          程度旁的小格子是強度（1～5 格），讓人不用讀字也看得出由低到高。
+        */%>
+        <table class="m-nutri-guide-table">
+          <caption class="sr-only">活動程度對照表：每日步數、每週運動與生活範例</caption>
+          <thead>
+            <tr>
+              <th scope="col">程度</th>
+              <th scope="col">
+                <span class="m-nutri-guide-th"><span aria-hidden="true"><%- require('@component/svg.ejs')({
+                  svgName: 'icon_steps', style: { main: 'm-nutri-guide-icon' } }) %></span>每日步數</span>
+              </th>
+              <th scope="col">
+                <span class="m-nutri-guide-th"><span aria-hidden="true"><%- require('@component/svg.ejs')({
+                  svgName: 'icon_dumbbel', style: { main: 'm-nutri-guide-icon' } }) %></span>每週運動</span>
+              </th>
+            </tr>
+          </thead>
+          <% Object.keys(ACTIVITY).forEach((key, index) => { -%>
+          <tbody>
+            <tr>
+              <th scope="row" rowspan="2">
+                <span class="m-nutri-guide-level"><%= ACTIVITY[key].label %></span>
+                <span class="m-nutri-guide-meter" aria-hidden="true">
+                  <% for (let i = 0; i < 5; i++) { -%><i class="<%= i <= index ? '--on' : '' %>"></i><% } -%>
+                </span>
+              </th>
+              <td><%= guide[key].steps %></td>
+              <td><%= guide[key].training %></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="m-nutri-guide-life">
+                <div class="m-nutri-guide-life-inner">
+                  <span aria-hidden="true"><%- require('@component/svg.ejs')({
+                    svgName: 'icon_home', style: { main: 'm-nutri-guide-icon' } }) %></span>
+                  <span><%= guide[key].life %></span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <% }); -%>
+        </table>
+        <p class="m-nutri-guide-tip">步數和訓練次數落在不同等級時，選比較低的那一個。</p>
+      </div>
+    </dialog>
+
+    <%/* 結果。aria-live 讓螢幕閱讀器在數字更新時念出來 */%>
+    <div class="m-nutri-result" aria-live="polite" v-cloak>
+      <h2 class="m-nutri-result-title">你的計算結果</h2>
+
+      <div v-if="result">
+        <p class="m-nutri-kcal-label">每日建議熱量</p>
+        <p class="m-nutri-kcal"><b>{{ fmt(result.calories) }}</b><span>大卡</span></p>
+
+        <p class="m-nutri-alert" v-if="result.clamped">
+          減脂調整後是 {{ fmt(result.target) }} 大卡，比你的 BMR（{{ fmt(result.bmr) }} 大卡）還低。長期吃得比 BMR 少容易一直餓、掉肌肉，也撐不久，所以拉回
+          BMR，脂肪和碳水也用拉回後的熱量計算。
+        </p>
+
+        <ul class="m-nutri-macros">
+          <li class="m-nutri-macro">
+            <p class="m-nutri-macro-name">蛋白質</p>
+            <p class="m-nutri-macro-value"><b>{{ fmt(result.protein.grams) }}</b> g</p>
+            <p class="m-nutri-macro-basis">
+              體重 {{ result.protein.factor }} 倍<span v-if="result.protein.raisedForBulk">（增肌最低 1.6 倍）</span>
+            </p>
+          </li>
+          <li class="m-nutri-macro">
+            <p class="m-nutri-macro-name">脂肪</p>
+            <p class="m-nutri-macro-value"><b>{{ fmt(result.fat.grams) }}</b> g</p>
+            <p class="m-nutri-macro-basis">
+              <span v-if="result.fat.raisedToFloor">體重 <%= FAT_MIN %> 倍</span>
+              <span v-else>總熱量 {{ Math.round(result.fat.ratio * 100) }}%</span>
+            </p>
+          </li>
+          <li class="m-nutri-macro">
+            <p class="m-nutri-macro-name">碳水</p>
+            <p class="m-nutri-macro-value"><b>{{ fmt(result.carbs.grams) }}</b> g</p>
+          </li>
+        </ul>
+
+        <dl class="m-nutri-steps">
+          <div>
+            <dt>BMR 基礎代謝</dt>
+            <dd>{{ fmt(result.bmr) }} 大卡</dd>
+          </div>
+          <div>
+            <dt>TDEE 每日總消耗</dt>
+            <dd>{{ fmt(result.tdee) }} 大卡<small>BMR × {{ result.activityFactor }}（{{ activityLabel }}）</small></dd>
+          </div>
+          <div>
+            <dt>目標調整</dt>
+            <dd>{{ adjustmentText }}<small>{{ goalLabel }}・{{ modeLabel }}</small></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div v-else class="m-nutri-empty">
+        <p>資料填完，結果會馬上出現在這裡。</p>
+        <p v-if="missing.length" class="m-nutri-empty-missing">還缺：{{ missing.join('、') }}</p>
+      </div>
+    </div>
+  </div>
+</section>

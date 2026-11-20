@@ -1,0 +1,557 @@
+/*
+ * 營養計算機（表單＋結果）。
+ *
+ * 桌機左右並排，結果黏在右側 —— 改左邊任何一個欄位，右邊的數字立刻跟著變，
+ * 不用捲來捲去對照。手機上下排列，結果在表單下面。
+ *
+ * 顏色照 color.css 的分工：選中狀態是紅（「目前選的是哪個」），
+ * 結果的數字是藍綠（數值），不另外加第三個強調色。
+ */
+[v-cloak] {
+  display: none;
+}
+
+.m-nutri {
+  color: var(--white);
+
+  @apply m:pb-[24px] pt:pb-[40px];
+}
+
+.m-nutri-layout {
+  @apply p:flex p:items-start p:gap-[40px];
+}
+
+/* ---------- 表單 ---------- */
+.m-nutri-form {
+  min-width: 0;
+
+  @apply p:flex-1;
+}
+
+.m-nutri-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  & + & {
+    @apply m:mt-[24px] pt:mt-[28px];
+  }
+}
+
+.m-nutri-legend {
+  display: block;
+  padding: 0;
+  font-weight: 700;
+
+  @apply m:mb-[10px] m:text-[15px] pt:mb-[12px] pt:text-[16px];
+}
+
+/* 三個數字欄位：手機一列三格（都很短），寬螢幕也是三格 */
+.m-nutri-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+
+  @apply m:mt-[24px] pt:mt-[28px] pt:gap-[16px];
+
+  .m-nutri-field + .m-nutri-field {
+    margin-top: 0;
+  }
+
+  /* 外層不是 .m-nutri-field，上面的 & + & 套不到，下一個欄位的間距要自己補 */
+  & + .m-nutri-field {
+    @apply m:mt-[24px] pt:mt-[28px];
+  }
+}
+
+.m-nutri-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--x56);
+  background-color: var(--x15);
+  transition: border-color 0.2s ease-in-out;
+
+  &:focus-within {
+    border-color: var(--white);
+  }
+
+  &.\-\-error {
+    border-color: var(--xe120);
+  }
+
+  input {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 0 0 12px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--white);
+
+    /* 16px 以上 iOS 聚焦時才不會自動放大整頁 */
+    font-size: 18px;
+
+    &::placeholder {
+      color: rgb(255 255 255 / 35%);
+      font-size: 14px;
+    }
+  }
+}
+
+.m-nutri-unit {
+  flex-shrink: 0;
+  padding: 0 12px 0 6px;
+  color: rgb(255 255 255 / 55%);
+  font-size: 14px;
+}
+
+.m-nutri-hint {
+  margin-top: 6px;
+  color: rgb(255 255 255 / 45%);
+  font-size: 12px;
+  line-height: 1.5;
+
+  &.\-\-error {
+    color: #ff6b6b;
+  }
+}
+
+/* 單選按鈕做成整塊可點的方框：手指比小圓點好按得多 */
+.m-nutri-choices {
+  display: grid;
+  gap: 10px;
+
+  &.\-\-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &.\-\-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.m-nutri-choice {
+  position: relative;
+  display: block;
+  cursor: pointer;
+
+  /* 原生 radio 藏起來但保留在無障礙樹裡，鍵盤用方向鍵一樣能切換 */
+  input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+}
+
+.m-nutri-choice-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  height: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--x56);
+  background-color: var(--x15);
+  font-weight: 700;
+  text-align: center;
+  transition:
+    border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+  @apply m:text-[15px] pt:text-[16px];
+
+  &.\-\-row,
+  &.\-\-col {
+    font-weight: 400;
+  }
+
+  &.\-\-row {
+    justify-content: flex-start;
+    gap: 12px;
+    text-align: left;
+  }
+
+  &.\-\-col {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .m-nutri-choice:hover & {
+    border-color: rgb(255 255 255 / 60%);
+  }
+
+  input:checked + & {
+    border-color: var(--xe120);
+    background-color: rgb(225 32 32 / 14%);
+  }
+
+  input:focus-visible + & {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
+}
+
+.m-nutri-choice-title {
+  flex-shrink: 0;
+  font-weight: 700;
+
+  @apply m:text-[15px] pt:text-[16px];
+
+  .\-\-row & {
+    width: 4.5em;
+  }
+}
+
+.m-nutri-choice-desc {
+  color: rgb(255 255 255 / 65%);
+  line-height: 1.5;
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+/* 活動程度對照：打開彈窗的連結樣式按鈕。高 44px 以上，手指好按 */
+.m-nutri-guide-open {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--xe120);
+  text-underline-offset: 4px;
+
+  @apply m:text-[14px] pt:text-[15px];
+}
+
+/*
+ * 彈窗。手機上從底部滑上來的感覺（貼底、滿寬），桌機置中。
+ * 內容比螢幕高時只捲框內，背後的頁面鎖住不動（:has 那一行）。
+ */
+html:has(.m-nutri-dialog[open]) {
+  overflow: hidden;
+}
+
+.m-nutri-dialog {
+  width: min(640px, calc(100% - 32px));
+  max-height: min(85vh, 760px);
+  padding: 0;
+  border: 1px solid var(--x56);
+  background-color: var(--x15);
+  color: var(--white);
+
+  &::backdrop {
+    background-color: rgb(0 0 0 / 75%);
+  }
+
+  @screen m {
+    width: 100%;
+    max-width: 100%;
+    max-height: 85vh;
+    margin: auto 0 0;
+    border-width: 1px 0 0;
+  }
+}
+
+.m-nutri-dialog-inner {
+  padding: 0 20px 8px;
+}
+
+/* 標題列黏在上緣，往下捲也看得到關閉鈕 */
+.m-nutri-dialog-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid rgb(255 255 255 / 14%);
+  background-color: var(--x15);
+}
+
+.m-nutri-dialog-title {
+  font-weight: 700;
+
+  @apply m:text-[17px] pt:text-[19px];
+}
+
+/* 關閉鈕：44px 的點擊範圍，圖示是兩條交叉線 */
+.m-nutri-dialog-close {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  color: var(--white);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 2px;
+    background-color: currentcolor;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+/* 活動程度對照表 */
+.m-nutri-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    padding: 10px 8px;
+    vertical-align: top;
+  }
+
+  th:first-child {
+    padding-left: 0;
+  }
+
+  thead th {
+    padding-top: 14px;
+    color: rgb(255 255 255 / 55%);
+    font-weight: 400;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* 一級一個 tbody，線畫在 tbody 之間，步數那列和生活範例那列看起來是同一組 */
+  tbody {
+    border-top: 1px solid rgb(255 255 255 / 14%);
+  }
+
+  tbody th {
+    width: 5.5em;
+  }
+
+  tbody td {
+    font-weight: 700;
+    white-space: nowrap;
+
+    @apply m:text-[14px] pt:text-[15px];
+  }
+}
+
+.m-nutri-guide-th {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.m-nutri-guide-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.m-nutri-guide-level {
+  display: block;
+  font-weight: 700;
+
+  @apply m:text-[15px] pt:text-[16px];
+}
+
+/* 強度格：亮起的格數 = 第幾級。用白色不用紅 —— 紅色在這頁代表「目前選的」 */
+.m-nutri-guide-meter {
+  display: flex;
+  gap: 3px;
+  margin-top: 6px;
+
+  i {
+    width: 8px;
+    height: 4px;
+    background-color: rgb(255 255 255 / 18%);
+
+    &.\-\-on {
+      background-color: var(--white);
+    }
+  }
+}
+
+.m-nutri-guide-table td.m-nutri-guide-life {
+  padding-top: 0;
+  padding-bottom: 14px;
+  color: rgb(255 255 255 / 70%);
+  font-weight: 400;
+  line-height: 1.6;
+  white-space: normal;
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+/* flex 不能直接下在 td 上，會讓它脫離表格排版、colspan 失效 */
+.m-nutri-guide-life-inner {
+  display: flex;
+  gap: 6px;
+
+  .m-nutri-guide-icon {
+    margin-top: 3px;
+  }
+}
+
+.m-nutri-guide-tip {
+  padding: 12px 0 16px;
+  border-top: 1px solid rgb(255 255 255 / 14%);
+  color: rgb(255 255 255 / 65%);
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+/* ---------- 結果 ---------- */
+.m-nutri-result {
+  border: 1px solid var(--x56);
+  background-color: var(--x15);
+
+  @apply m:mt-[32px] m:p-[20px] t:mt-[40px] t:p-[28px] p:sticky p:top-[140px] p:w-[380px] p:flex-shrink-0 p:p-[28px];
+}
+
+.m-nutri-result-title {
+  color: var(--xe120);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+.m-nutri-kcal-label {
+  color: rgb(255 255 255 / 70%);
+
+  @apply m:mt-[14px] m:text-[14px] pt:mt-[18px] pt:text-[15px];
+}
+
+.m-nutri-kcal {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  b {
+    color: var(--x7de9);
+    font-weight: 800;
+    line-height: 1.1;
+
+    @apply m:text-[44px] pt:text-[52px];
+  }
+
+  span {
+    color: rgb(255 255 255 / 70%);
+  }
+}
+
+.m-nutri-alert {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--xe120);
+  background-color: rgb(225 32 32 / 10%);
+  line-height: 1.7;
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+.m-nutri-macros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+
+  @apply m:mt-[18px] pt:mt-[22px];
+}
+
+.m-nutri-macro {
+  padding: 12px 10px;
+  border: 1px solid rgb(255 255 255 / 14%);
+  background-color: var(--black);
+}
+
+.m-nutri-macro-name {
+  color: rgb(255 255 255 / 70%);
+  font-size: 13px;
+}
+
+.m-nutri-macro-value {
+  margin-top: 4px;
+  color: rgb(255 255 255 / 70%);
+
+  b {
+    color: var(--x7de9);
+    font-weight: 800;
+
+    @apply m:text-[26px] pt:text-[28px];
+  }
+}
+
+.m-nutri-macro-basis {
+  margin-top: 6px;
+  color: rgb(255 255 255 / 60%);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* 計算過程：讓人看得到數字怎麼來的 */
+.m-nutri-steps {
+  border-top: 1px solid rgb(255 255 255 / 14%);
+
+  @apply m:mt-[18px] pt:mt-[22px];
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(255 255 255 / 14%);
+  }
+
+  dt {
+    flex-shrink: 0;
+    color: rgb(255 255 255 / 70%);
+    font-size: 14px;
+  }
+
+  dd {
+    font-weight: 700;
+    font-size: 15px;
+    text-align: right;
+
+    small {
+      display: block;
+      color: rgb(255 255 255 / 55%);
+      font-weight: 400;
+      font-size: 12px;
+    }
+  }
+}
+
+.m-nutri-empty {
+  color: rgb(255 255 255 / 70%);
+  line-height: 1.8;
+
+  @apply m:mt-[12px] m:text-[14px] pt:mt-[16px] pt:text-[15px];
+}
+
+.m-nutri-empty-missing {
+  margin-top: 6px;
+  color: rgb(255 255 255 / 50%);
+  font-size: 13px;
+}

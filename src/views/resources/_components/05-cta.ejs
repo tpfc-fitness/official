@@ -1,0 +1,39 @@
+<%/* 結尾 CTA：導去免費體驗課 */%>
+<%
+  /*
+   * ⚠️ 用到 _modules/m-bg-photo，頁面樣式表要引入。
+   *
+   * 參數：
+   *   cta       { title, text, label }
+   *   location  GA 事件 cta_click 的 cta_location，例如 'nutrition-calculator'
+   *
+   * jResourceCta 是給 scripts/_resourcePage.js 綁點擊事件用的。
+   * 連結要接部署子目錄：這一頁在 /resources/ 底下，./contact.html 會連到 /resources/contact.html。
+   */
+-%>
+<section data-cta-location="<%= location %>"
+  class="m-bg-photo --cta relative overflow-hidden text-[var(--white)] text-center p:py-[100px] t:py-[75px] m:py-[50px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <%- require("img.ejs")({
+      decorative: true,
+      path: require("index/firstclass_fitness_indoor2.jpg"),
+      style: {
+        main: "m-bg-photo-img",
+        img: "object-cover object-center"
+      }
+    }) %>
+  <div class="relative z-[1] p:max-w-[760px] pt:mx-auto">
+    <h2 class="m-title"><%= cta.title %></h2>
+    <p class="m-text p:mt-[18px] tm:mt-[12px] text-[var(--xc7)]"><%= cta.text %></p>
+    <%- require('@component/mBtn.ejs')({
+      label: cta.label,
+      link: `${process.env.ROOT_DIRECTORY}contact.html`,
+      style: {
+        main: '--highlight --long --full-m mx-auto p:mt-[34px] tm:mt-[24px] jResourceCta'
+      },
+      icon: {
+        name: 'arrow',
+        css: 'w-[18px] h-[18px]'
+      }
+    }) %>
+  </div>
+</section>

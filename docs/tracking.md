@@ -3,7 +3,7 @@
 這份文件描述網站目前埋了什麼、廣告後台要怎麼配合、報表怎麼看。
 **改動事件名稱或參數時，請連同這份文件一起改。**
 
-最後更新：2026-09-28
+最後更新：2026-11-04
 
 ---
 
@@ -48,6 +48,26 @@
 
 > ⚠️ 事件綁在感謝頁的載入，所以**任何人直接開那個網址都會算一筆**。
 > 自己測試時要有數。
+
+### 免費資源頁的事件（`src/scripts/_resourcePage.js`、`nutrition-calculator.js`）
+
+只送 GA4，不送 Meta。這兩個是**行為事件，不是轉換**，不要標成關鍵事件。
+
+| 事件 | 什麼時候送 | 參數 |
+|---|---|---|
+| `nutrition_calc_result` | 營養計算機產生有效結果 | `goal`（maintain／cut／bulk）、`activity_level`（sedentary／light／moderate／active／extreme）、`difficulty`（easy／hell）、`calories_clamped`（yes／no，減脂熱量有沒有被拉回 BMR） |
+| `cta_click` | 點資源頁底部的「預約免費體驗課」 | `cta_location`（哪一頁，例如 `nutrition-calculator`、`resources`）、`link_url` |
+
+`nutrition_calc_result` 的規則：
+
+- **一次載入最多送一次**，重新整理頁面才會再算一次
+- 要**使用者自己動過欄位**、而且輸入停下來 1.5 秒結果仍然有效才送 ——
+  打字打到一半會先湊出一組有效但不是本人的數字，不能每打一個字送一次
+- 頁面一打開就看到的結果（localStorage 帶回上次的輸入）**不算**，那是回訪
+- 不送年齡、身高、體重
+
+IG 留言給的網址帶 `?utm_source=instagram&utm_medium=comment`，
+GA4 會自動歸到「工作階段來源／媒介」＝ `instagram / comment`，不用另外設定。
 
 ---
 
@@ -107,6 +127,25 @@ utm_source=fb&utm_medium=cpc&utm_campaign={{campaign.name}}&utm_content={{ad.nam
 GA4 本來就會從網址自動抓 utm，在報表裡叫「工作階段廣告活動」
 「工作階段手動廣告內容」，是內建維度。那三個參數是備份，
 之後若要直接看事件本身的值再註冊。
+
+#### 免費資源頁（選用）
+
+想在報表裡依目標、活動程度拆開看計算機的使用情況，再註冊這幾個：
+
+| 維度名稱 | 範圍 | 事件參數 |
+|---|---|---|
+| 計算機目標 | 事件 | `goal` |
+| 活動程度 | 事件 | `activity_level` |
+| 難度模式 | 事件 | `difficulty` |
+| CTA 位置 | 事件 | `cta_location` |
+
+不註冊也看得到「事件數」與來源，只是不能用這些參數切分。
+**不要**把 `nutrition_calc_result`、`cta_click` 標成關鍵事件（理由見上一節）。
+
+### 3. IG 留言帶進來的人用了多少次計算機
+
+報表 →「互動」→「事件」→ 點 `nutrition_calc_result`，
+加上次要維度「工作階段來源／媒介」，看 `instagram / comment` 那一列。
 
 ---
 

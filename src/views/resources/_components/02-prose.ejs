@@ -1,0 +1,46 @@
+<%/* 說明文字：工具下方給人與搜尋引擎讀的那一段 */%>
+<%
+  /*
+   * 參數：blocks（_data/resources/<slug>.js 的 blocks）
+   *   { h2 } { h3 } { p } { list: [] } { steps: [] }
+   *   p、list、steps 的內容可以寫 <b> 與站內連結，所以不跳脫、原樣輸出。
+   *
+   * 每個 h2 開一個 <section>，標題層級就是文件結構，
+   * 螢幕閱讀器與爬蟲都能照段落跳。
+   */
+  const sections = [];
+  blocks.forEach((block) => {
+    if (block.h2 || !sections.length) sections.push({ h2: block.h2, items: [] });
+    if (!block.h2) sections[sections.length - 1].items.push(block);
+  });
+-%>
+<div class="m-resource-prose">
+  <div class="m-resource-container">
+    <% sections.forEach((section) => { -%>
+    <section class="m-resource-section">
+      <% if (section.h2) { -%>
+      <h2 class="m-resource-h2"><%= section.h2 %></h2>
+      <% } -%>
+      <% section.items.forEach((block) => { -%>
+      <% if (block.h3) { -%>
+      <h3 class="m-resource-h3"><%= block.h3 %></h3>
+      <% } else if (block.list) { -%>
+      <ul class="m-resource-list">
+        <% block.list.forEach((li) => { -%>
+        <li><%- li %></li>
+        <% }); -%>
+      </ul>
+      <% } else if (block.steps) { -%>
+      <ol class="m-resource-steps">
+        <% block.steps.forEach((li) => { -%>
+        <li><%- li %></li>
+        <% }); -%>
+      </ol>
+      <% } else if (block.p) { -%>
+      <p class="m-resource-p"><%- block.p %></p>
+      <% } -%>
+      <% }); -%>
+    </section>
+    <% }); -%>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<%/* 資源頁頁首：英文小標、H1、一句話說明 */%>
+<%
+  /*
+   * ⚠️ 免費資源的共用區塊都用到 _modules/m-resource，使用的頁面樣式表必須引入它。
+   *
+   * 參數：hero（_data/resources/<slug>.js 的 hero，或總覽頁自己組的同格式物件）
+   *   eyebrow 英文小標、title H1、lead 說明、note 選填的小字
+   */
+-%>
+<header class="m-resource-hero">
+  <div class="m-resource-container">
+    <%- require('@component/mHeading.ejs')({
+      tag: 'h1',
+      size: 'kv',
+      eyebrow: hero.eyebrow,
+      line: true,
+      title: hero.title
+    }) %>
+    <p class="m-resource-lead"><%= hero.lead %></p>
+    <% if (hero.note) { -%>
+    <p class="m-resource-note"><%= hero.note %></p>
+    <% } -%>
+  </div>
+</header>

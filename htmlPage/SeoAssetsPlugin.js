@@ -94,6 +94,27 @@ ${lines.join('\n')}
 `;
   }
 
+  /*
+   * 接在 llms.txt 最後的免費資源清單。跟文章一樣自動產生，新增資源頁不用回來手改。
+   * 總覽頁（path 是 /resources/）不在 resource 欄位裡，用來當這段的入口網址。
+   */
+  buildResourceList() {
+    const resources = this.pages.filter((page) => page.resource && !page.noindex);
+    if (!resources.length) return '';
+
+    const lines = resources.map(
+      (page) => `* [${page.title}](${this.urlOf(page)})：${page.description}`
+    );
+
+    return `
+## 免費資源
+
+頭等倉教練整理的免費工具，在瀏覽器裡直接使用，不需要註冊、不會送出資料。總覽：${this.siteUrl}/resources/
+
+${lines.join('\n')}
+`;
+  }
+
   apply(compiler) {
     const { webpack } = compiler;
     const { RawSource } = webpack.sources;
@@ -111,7 +132,10 @@ ${lines.join('\n')}
 
           /* 沒有這個檔也不該讓 build 失敗 —— 它是選用的 */
           if (FS.existsSync(LLMS_SOURCE)) {
-            const llms = FS.readFileSync(LLMS_SOURCE, 'utf8') + this.buildArticleList();
+            const llms =
+              FS.readFileSync(LLMS_SOURCE, 'utf8') +
+              this.buildArticleList() +
+              this.buildResourceList();
             compilation.emitAsset('llms.txt', new RawSource(llms));
           }
         }

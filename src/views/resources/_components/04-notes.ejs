@@ -1,0 +1,12 @@
+<%/* 注意事項 */%>
+<%/* 參數：notes（字串陣列）。工具類的頁面都該有，結果只是參考、特殊狀況要找醫師 */%>
+<aside class="m-resource-notes" aria-labelledby="resource-notes-title">
+  <div class="m-resource-container">
+    <h2 id="resource-notes-title" class="m-resource-notes-title">注意事項</h2>
+    <ul class="m-resource-list">
+      <% notes.forEach((note) => { -%>
+      <li><%- note %></li>
+      <% }); -%>
+    </ul>
+  </div>
+</aside>

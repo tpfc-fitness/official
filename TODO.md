@@ -107,6 +107,22 @@ Elain / 阿圓 / Runa），`coach-stories.js` 的 Allen 段落已整筆註解，
       KV 區（`01-kv.ejs`）是純圖片沒有文字，若那張圖上本來就有標題，
       標準做法是在該處放一個 `sr-only` 的 h1，並把表單那個降為 h2。
 
+- [ ] **免費資源：營養計算機的說明文字、FAQ 是我起草的**，請確認或改寫
+      （`src/_data/resources/nutrition-calculator.js`）。
+      活動程度的生活／運動範例是你提供的，我把步數改成不重疊的區間、
+      「marathon / crossfit」改成中文寫法；2026-11-04 彈窗改成表格時，
+      每一級的範例又縮成一句（`activityGuide` 的 steps / training / life）。
+
+- [ ] **免費資源的下一頁**（新手健身計畫表、女生練背課表）——
+      做法寫在 `src/_data/resources.js` 檔頭：加一筆資料、寫內容檔、
+      `views/resources/<slug>/index.ejs` 與 `scripts/<slug>.js`。
+      共用的頁首、說明、FAQ、注意事項、CTA 不用重寫。
+      ⚠️ 計算機頁的用字規則不能用「新手」，下一頁的標題要用時記得那一頁另外決定。
+
+- [ ] **營養計算機的分享圖** —— 目前用全站共用的 `FB_share.png`。
+      要換成專屬圖的話，`App.ejs` 的 OG_IMAGE 目前只會替文章頁換圖，
+      資源頁需要另外接。
+
 ## 四之二、圖片（已處理）
 
 2026-09-23：全站圖片由 115 MB 壓到 14 MB。照片一律改存 JPEG，

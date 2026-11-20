@@ -12,12 +12,14 @@
    *   告訴搜尋引擎這一頁是「一組文章的入口」，並逐篇列出網址與標題。
    * - Article：只有文章頁輸出。把標題、摘要、作者與更新日期變成
    *   機器讀得懂的資料，生成式搜尋引用時才知道這是誰寫的、什麼時候更新的。
-   * - FAQPage：只有 faq 頁輸出。Google 從 2023 起不再給一般網站
+   * - FAQPage：faq 頁與免費資源頁輸出。Google 從 2023 起不再給一般網站
    *   FAQ 複合式搜尋結果，但生成式搜尋與 LLM 的爬蟲會讀 JSON-LD，
    *   所以對 AEO 仍然值得輸出。
    *
-   * ⚠️ 全站只有一頁該宣告 FAQPage。contact 頁也有問答，但那是給
-   *    已經要填表的人看的，兩頁都宣告會變成自己跟自己競爭同一組查詢。
+   * ⚠️ 同一組問題只在一頁宣告 FAQPage。contact 頁也有問答，但跟 faq 頁
+   *    回答的是同一類問題（價格、適不適合），兩頁都宣告會變成自己跟自己
+   *    競爭同一組查詢，所以 contact 不宣告。免費資源頁的題目是各工具自己的
+   *    （例如蛋白質要吃多少），跟 faq 頁不重疊，才可以各自宣告。
    *
    * 三者以 @id 錨定，Google 會跨頁去重，所以可以每頁都輸出。
    */
@@ -43,6 +45,19 @@
     url: `${siteUrl}/article/`,
   };
   const articleUrl = (slug) => `${siteUrl}/article/${slug}.html`;
+
+  /* 免費資源：名稱同樣從導覽資料取（footer 上叫什麼，麵包屑就叫什麼） */
+  const isResourceIndex = typeof IS_RESOURCE_INDEX !== 'undefined' ? IS_RESOURCE_INDEX : false;
+  const resourceSlug = typeof RESOURCE_SLUG !== 'undefined' ? RESOURCE_SLUG : '';
+  const resourceIndexNav = require('_data/nav.js').find((item) => item.url === 'resources/');
+  const resourceIndex = {
+    name: resourceIndexNav ? resourceIndexNav.label : '免費資源',
+    url: `${siteUrl}/resources/`,
+  };
+  const resourceUrl = (slug) => `${siteUrl}/resources/${slug}.html`;
+  const resource = resourceSlug
+    ? require('_data/resources.js').find((item) => item.slug === resourceSlug)
+    : null;
 
   const orgId = `${siteUrl}/#organization`;
   const siteId = `${siteUrl}/#website`;
@@ -145,8 +160,17 @@
   if (!isHome && pageTitle) {
     const trail = [{ name: '首頁', item: `${siteUrl}/` }];
 
+    /*
+     * 免費資源同理：首頁 › 免費資源 › 營養計算機。
+     * 資源頁最後一層用短名稱（name），不用 title —— title 帶了關鍵字，太長。
+     */
     if (articleSlug) trail.push(articleIndex);
-    trail.push(isArticleIndex ? articleIndex : { name: pageTitle, item: pageUrl });
+    if (resource) trail.push(resourceIndex);
+
+    if (isArticleIndex) trail.push(articleIndex);
+    else if (isResourceIndex) trail.push(resourceIndex);
+    else if (resource) trail.push({ name: resource.name, item: pageUrl });
+    else trail.push({ name: pageTitle, item: pageUrl });
 
     graph.push({
       '@type': 'BreadcrumbList',
@@ -305,6 +329,59 @@
         /* 屬於健身知識這個欄目，而不只是屬於整個網站 */
         isPartOf: { '@id': `${articleIndex.url}#webpage` },
         mainEntityOfPage: pageUrl,
+      });
+    }
+  }
+
+  /*
+   * 免費資源（總覽）：CollectionPage + ItemList，做法同健身知識列表。
+   * 各資源頁目前沒有自己的 WebPage 節點，所以只給網址與名稱，不用 @id 互指。
+   */
+  if (isResourceIndex) {
+    const resources = require('_data/resources.js');
+
+    graph.push({
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: resourceIndex.name,
+      description: typeof DESCRIPTION !== 'undefined' ? DESCRIPTION : undefined,
+      inLanguage: 'zh-Hant-TW',
+      isPartOf: { '@id': siteId },
+      publisher: { '@id': orgId },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: resources.length,
+        itemListElement: resources.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: resourceUrl(item.slug),
+          name: item.name,
+        })),
+      },
+    });
+  }
+
+  /*
+   * 免費資源頁：頁面上的常見問題輸出成 FAQPage（為什麼可以跟 faq 頁並存，見檔頭）。
+   * 內容在 _data/resources/<slug>.js 的 faq；沒有 faq 的資源頁就不輸出。
+   */
+  if (resource) {
+    const content = require(`_data/resources/${resource.slug}.js`);
+
+    if (content.faq && content.faq.length) {
+      graph.push({
+        '@type': 'FAQPage',
+        '@id': `${pageUrl}#faq`,
+        mainEntity: content.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a.join('\n').replace(/<[^>]+>/g, ''),
+          },
+        })),
       });
     }
   }

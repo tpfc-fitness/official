@@ -8,7 +8,10 @@
  *
  * 任一陣列留空時，該分頁會顯示「內容整理中」而不是空白區塊。
  *
- * credentials（選填）只有寫文章的教練需要，見 Benson 那筆的說明。
+ * 正式證照：certificates 裡的正式證照寫成 { text, credential: true }，
+ * 研習證書與比賽名次維持一般字串。教練頁顯示全部；文章作者區與結構化資料
+ * 只拿有標 credential 的（檔案最下面會自動整理出 credentials）。
+ * 結構化資料會把它們宣告成「證照」，所以只標可以查證的正式證照，比賽不算。
  *
  * slug 是這位教練在教練團隊頁的錨點（#coach-<slug>）。
  * 首頁與免費體驗頁的摘要卡片靠它連到對應的那一位並直接展開，
@@ -16,7 +19,7 @@
  *
  * ⚠️ 不可以依賴 window / document，否則 build 期 require 會壞掉。
  */
-module.exports = [
+const coaches = [
   {
     name: 'Benson',
     slug: 'benson',
@@ -24,32 +27,14 @@ module.exports = [
     tagline: '耐心魔 × 健力 × 動作教學',
     img: require('ourteam/coach_benson.jpg'),
     certificates: [
-      'NASM-CPT',
-      '美國國家運動醫學會認證私人教練',
-      '中華民國C級體適能指導員',
+      { text: 'NASM-CPT 美國國家運動醫學會認證私人教練', credential: true },
+      { text: '中華民國 C 級體適能指導員', credential: true },
       '運動按摩技術員研習證書',
       '壺鈴教學技巧KTS1研習證書',
-      'CPR+AED心肺復甦術',
-      'FPS功能性運動表現專家L1',
-      '運動科學訓練專家Lv1',
+      { text: 'CPR+AED 心肺復甦術', credential: true },
+      { text: 'FPS 功能性運動表現專家 L1', credential: true },
+      { text: '運動科學訓練專家 Lv1', credential: true },
       '2025/2026年黑馬盃健力比賽',
-    ],
-    /*
-     * 正式證照（給文章作者區與結構化資料用）。
-     *
-     * 跟上面的 certificates 分開：certificates 是教練頁「研習 & 證照」分頁的完整清單，
-     * 包含研習證書與比賽經歷；這裡只放可以查證的正式證照 ——
-     * 結構化資料宣告成 credential 的東西，必須真的是證照，比賽不是。
-     * NASM-CPT 與「美國國家運動醫學會認證私人教練」是同一張，這裡合成一筆。
-     *
-     * ⚠️ 只有寫文章的教練需要這個欄位；改證照時兩個清單都要看一下。
-     */
-    credentials: [
-      'NASM-CPT 美國國家運動醫學會認證私人教練',
-      '中華民國 C 級體適能指導員',
-      'FPS 功能性運動表現專家 L1',
-      '運動科學訓練專家 Lv1',
-      'CPR+AED 心肺復甦術',
     ],
     suitableFor: [
       '不知道怎麼開始重量訓練，或動作學了很久還是覺得哪裡不對。',
@@ -69,11 +54,11 @@ module.exports = [
     tagline: '誇誇魔 × 新手友善 × 動作教學',
     img: require('ourteam/coach_jeffery.jpg'),
     certificates: [
-      'CPR-AED',
-      '銀髮族體適能指導員',
-      '幼兒體適能指導員',
-      '中華民國C級體適能指導員',
-      'NASM-CPT',
+      {text: 'CPR-AED', credential: true},
+      {text:'銀髮族體適能指導員', credential: true },
+      {text: '幼兒體適能指導員', credential: true},
+      {text:'中華民國C級體適能指導員', credential: true},
+      {text: 'NASM-CPT', credential: true},
       'TRX-STC研習',
       '中華民國足球協會C級教練證',
       '中華民國足球協會C級裁判證',
@@ -95,9 +80,9 @@ module.exports = [
     tagline: '調整魔 × 體態調整 × 功能訓練',
     img: require('ourteam/coach_roy.jpg'),
     certificates: [
-      'NASM-CPT',
-      'TBMM-CES 矯正運動專家',
-      '中華民國健身運動協會c級指導員',
+      {text: 'NASM-CPT', credential: true},
+      {text: 'TBMM-CES 矯正運動專家', credential: true},
+      {text: '中華民國健身運動協會c級指導員', credential: true},
       '功能性藥球訓練',
       'AirFit懸吊系統訓練',
       '亞洲體適能教育協會 內臟筋膜呼吸鬆動術',
@@ -120,8 +105,8 @@ module.exports = [
     tagline: '健美魔 × 雕塑 × 增肌減脂',
     img: require('ourteam/coach_elain.jpg'),
     certificates: [
-      '中華民國C級體適能指導員',
-      'CPR+AED心肺復甦術',
+      {text: '中華民國C級體適能指導員', credential: true},
+      {text: 'CPR+AED心肺復甦術', credential: true},
       '總統盃健美健身錦標賽第二名',
       '健而美盃全國健美健身錦標賽第二名',
     ],
@@ -142,9 +127,9 @@ module.exports = [
     tagline: '肌肉魔 × 雕塑 × 增肌減脂',
     img: require('ourteam/coach_ayuan.jpg'),
     certificates: [
-      'FISAF TAIWAN 培育體適能指導員',
-      '體適能C級證照',
-      'CPR+AED心肺復甦術',
+      { text: 'FISAF TAIWAN 培育體適能指導員', credential: true },
+      { text: '體適能 C 級證照', credential: true },
+      { text: 'CPR+AED 心肺復甦術', credential: true },
       'Ifbb 健體公開組第四名',
     ],
     suitableFor: [
@@ -164,13 +149,13 @@ module.exports = [
     tagline: '調整魔 × 體態調整 × 功能訓練',
     img: require('ourteam/coach_runa.jpg'),
     certificates: [
-      'NASM-CPT',
-      '美國國家運動醫學會私人教練認證',
-      'AFAA CPI 國際皮拉提斯教練證',
-      '預防及延緩失能照護師資',
+      {text: 'NASM-CPT', credential: true},
+      {text: '美國國家運動醫學會私人教練認證', credential: true},
+      {text: 'AFAA CPI 國際皮拉提斯教練證', credential: true},
+      {text: '預防及延緩失能照護師資', credential: true},
       'C級游泳教練證',
       'C級幼兒體適能指導員',
-      '銀髮族功能性體適能指導員',
+      {text: '銀髮族功能性體適能指導員', credential: true},
       '銀髮族體適能檢測員',
       'CPR 與急救認證',
     ],
@@ -185,3 +170,21 @@ module.exports = [
     ],
   },
 ];
+
+/*
+ * 整理成頁面用的格式：
+ *   certificates  全部轉成字串，教練頁直接列出
+ *   credentials   只留標了 credential 的；一張都沒標就不給這個欄位，
+ *                 文章作者區與結構化資料就不會出現空的證照清單
+ */
+module.exports = coaches.map((coach) => {
+  const credentials = coach.certificates
+    .filter((item) => typeof item === 'object' && item.credential)
+    .map((item) => item.text);
+
+  return {
+    ...coach,
+    certificates: coach.certificates.map((item) => (typeof item === 'object' ? item.text : item)),
+    ...(credentials.length && { credentials }),
+  };
+});

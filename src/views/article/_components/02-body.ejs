@@ -74,7 +74,7 @@
         證照與教練介紹的連結。
         讀者（與搜尋引擎、AI）判斷「這篇可不可信」時，會看是誰寫的、有沒有相關資格。
         結構化資料裡宣告的證照，畫面上也一定要看得到 —— Google 規定兩邊要一致，
-        所以這裡跟 _components/mJsonLd.ejs 吃同一份 coach.js 的 credentials。
+        所以這裡跟 _components/mJsonLd.ejs 吃同一份 coach.js 的 credentials（certificates 裡標了 credential 的那幾筆）。
       */%>
       <% if (authorCoach && authorCoach.credentials) { -%>
       <ul class="m-article-author-credentials" aria-label="證照">

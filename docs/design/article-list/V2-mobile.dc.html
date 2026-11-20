@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<title>健身知識｜第二版手機</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400..900&amp;display=swap">
+<style>
+body{margin:0;background:#000}
+a{color:#fff;text-decoration:none}a:hover{color:#B3FFF5}
+.m2-tabs{scrollbar-width:none}
+.m2-tabs::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="background: #000; color: #fff; font-family: 'Noto Sans TC', sans-serif; min-height: 100%; overflow-x: hidden">
+
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px">
+    <a href="#" style="font-weight: 900; font-style: italic; letter-spacing: 0.08em; font-size: 18px">FIRST CLASS</a>
+    <button type="button" aria-label="開啟選單" style="width: 44px; height: 44px; background: transparent; border: 0; color: #fff; display: flex; align-items: center; justify-content: center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </header>
+  <div style="background: #E12020; text-align: center; padding: 10px 16px; font-size: 13px; line-height: 1.6">凡首次購買，一對一私人教練課 <b>10</b> 堂 <b>8,000</b> 元，完課期間到館自主訓練免費</div>
+
+  <section style="padding: 48px 16px 32px">
+    <p style="margin: 0 0 12px; color: #B3FFF5; font-weight: 800; letter-spacing: 0.2em; font-size: 12px">FITNESS KNOWLEDGE</p>
+    <h1 style="margin: 0 0 14px; font-size: 38px; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em">健身知識</h1>
+    <p style="margin: 0; color: #c7c7c7; font-size: 15px; line-height: 1.85">蒐集百位學員在課堂上最常問的問題，頭等倉整理成你自己也看得懂的文章，不用等教練在現場也能自己先解決!</p>
+  </section>
+
+  <section aria-label="推薦文章" style="padding: 0 0 56px 16px">
+    <div style="display: flex; gap: 12px; align-items: flex-start">
+      <div style="flex: 0 0 calc(100% - 52px); min-width: 0">
+        <img src="{{slide.img}}" alt="{{slide.alt}}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #1f1d1d">
+        <p style="margin: 18px 0 10px; display: flex; gap: 10px; align-items: center; font-size: 11px; font-weight: 800; letter-spacing: 0.14em">
+          <span style="background: #B3FFF5; color: #000; padding: 4px 8px">推薦閱讀</span>
+          <span style="color: #E12020">{{slide.category}}</span>
+        </p>
+        <h2 style="margin: 0; font-size: 22px; font-weight: 900; line-height: 1.4"><a href="#">{{slide.title}}</a></h2>
+        <p style="margin: 10px 0 0; color: #c7c7c7; font-size: 14px; line-height: 1.8">{{slide.lead}}</p>
+        <a href="#" style="display: inline-block; margin-top: 14px; color: #B3FFF5; font-weight: 700; font-size: 14px; letter-spacing: 0.06em">閱讀全文 →</a>
+      </div>
+      <button type="button" aria-label="下一則推薦" onClick="{{next}}" style="flex: 0 0 40px; padding: 0; border: 0; background: #1f1d1d; cursor: pointer; overflow: hidden">
+        <img src="{{peek.img}}" alt="" style="display: block; width: 280px; height: auto; aspect-ratio: 4 / 3; object-fit: cover; opacity: 0.45">
+      </button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-right: 16px">
+      <span style="font-size: 13px; font-weight: 800; letter-spacing: 0.08em; color: #B3FFF5">{{slideNo}}</span>
+      <div style="display: flex; gap: 6px; flex: 1 1 auto">
+        <sc-for list="{{dots}}" as="dot" hint-placeholder-count="3">
+          <button type="button" aria-label="{{dot.label}}" onClick="{{dot.pick}}" style="flex: 1 1 0; height: 24px; padding: 0; background: transparent; border: 0; cursor: pointer; display: flex; align-items: center">
+            <span style="{{dot.barStyle}}"></span>
+          </button>
+        </sc-for>
+      </div>
+      <span style="font-size: 13px; color: #8a8a8a; letter-spacing: 0.08em">{{slideTotal}}</span>
+      <div style="display: flex; gap: 8px; margin-left: 4px">
+        <button type="button" aria-label="上一則" onClick="{{prev}}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #565656; color: #fff; font-size: 16px; cursor: pointer">←</button>
+        <button type="button" aria-label="下一則" onClick="{{next}}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #565656; color: #fff; font-size: 16px; cursor: pointer">→</button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="所有文章" style="padding: 0 0 72px">
+    <div class="m2-tabs" role="tablist" aria-label="文章分類" style="display: flex; gap: 28px; overflow-x: auto; padding: 0 16px; border-bottom: 1px solid #333; white-space: nowrap">
+      <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+        <button type="button" role="tab" aria-selected="{{tab.selected}}" onClick="{{tab.pick}}" style="{{tab.btnStyle}}">
+          <span>{{tab.label}}</span>
+          <span style="{{tab.countStyle}}">{{tab.count}}</span>
+          <span aria-hidden="true" style="{{tab.barStyle}}"></span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 40px; padding: 32px 16px 0">
+      <sc-for list="{{cards}}" as="item" hint-placeholder-count="9">
+        <article style="display: flex; flex-direction: column">
+          <img src="{{item.img}}" alt="{{item.alt}}" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: #1f1d1d">
+          <p style="margin: 14px 0 6px; color: #E12020; font-weight: 800; letter-spacing: 0.12em; font-size: 11px">{{item.category}}</p>
+          <h3 style="margin: 0; font-size: 18px; font-weight: 800; line-height: 1.5"><a href="#">{{item.title}}</a></h3>
+          <p style="margin: 8px 0 0; color: #c7c7c7; font-size: 14px; line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{item.lead}}</p>
+          <p style="margin: 10px 0 0; color: #8a8a8a; font-size: 12px; display: flex; gap: 14px"><span>{{item.date}}</span><span>閱讀 {{item.time}} 分鐘</span></p>
+        </article>
+      </sc-for>
+    </div>
+
+    <nav aria-label="分頁" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 56px; padding: 0 16px">
+      <button type="button" aria-label="上一頁" onClick="{{prevPage}}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #565656; color: #fff; font-size: 15px; cursor: pointer">←</button>
+      <sc-for list="{{pages}}" as="pg" hint-placeholder-count="3">
+        <button type="button" aria-label="{{pg.label}}" aria-current="{{pg.current}}" onClick="{{pg.pick}}" style="{{pg.style}}">{{pg.num}}</button>
+      </sc-for>
+      <button type="button" aria-label="下一頁" onClick="{{nextPage}}" style="width: 44px; height: 44px; background: transparent; border: 1px solid #565656; color: #fff; font-size: 15px; cursor: pointer">→</button>
+    </nav>
+  </section>
+
+  <section style="border-top: 1px solid #333; padding: 40px 16px">
+    <p style="margin: 0; color: #E12020; font-weight: 800; letter-spacing: 0.12em; font-size: 12px">ABOUT FIRST CLASS FITNESS</p>
+    <h2 style="margin: 8px 0 12px; font-size: 22px; font-weight: 700">頭等倉運動空間</h2>
+    <p style="margin: 0; color: #c7c7c7; font-size: 14px; line-height: 1.9">台北市中山區、鄰近民權西路站的健身工作室。我們除了陪你完成訓練，也會從動作學習、訓練安排與實際操作開始，幫助你逐漸建立自主訓練能力。</p>
+    <p style="margin: 12px 0 0; color: #8a8a8a; font-size: 13px">捷運民權西路站 4 號出口步行約 3 分鐘</p>
+  </section>
+
+  <footer style="background: #151515; padding: 24px 16px; text-align: center; font-size: 12px; color: #c7c7c7">FIRST CLASS FITNESS © 2022 ALL RIGHT RESERVED.</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { slide: 0, tab: '全部', page: 1 };
+  }
+  renderVals() {
+    var self = this;
+    var cover = '/_blob/b739189cb8b36d4a130bfe5db04af74b';
+    var depth = '/_blob/1ba96acdf15ca43958bca35f735bc88c';
+    var all = [
+      { img: cover, alt: '學員扛槓鈴做背蹲舉', category: '動作教學', title: '深蹲膝蓋痛，是姿勢錯了嗎？', lead: '膝蓋在深蹲時覺得卡、酸或痛，多數時候不是「膝蓋壞了」，而是動作的分配出了問題。', date: '2026.10.02', time: 3 },
+      { img: depth, alt: '學員蹲向跳箱確認深度', category: '動作教學', title: '硬舉下背痠，先檢查這三個地方', lead: '下背痠不一定是腰不夠強，常見是起槓位置和髖關節沒有參與。', date: '2026.09.28', time: 4 },
+      { img: cover, alt: '示意圖', category: '訓練觀念', title: '練了三個月沒進步，問題可能不在努力', lead: '重量卡住、體態沒變，多半不是練不夠，而是課表少了漸進的設計。', date: '2026.09.20', time: 3 },
+      { img: depth, alt: '示意圖', category: '新手入門', title: '第一次上健身房，該從哪些器材開始？', lead: '器材那麼多，新手先把三種基本動作學起來，就夠你練好一陣子。', date: '2026.09.14', time: 2 },
+      { img: cover, alt: '示意圖', category: '動作教學', title: '臥推找不到胸部出力感，常見的兩個原因', lead: '肩膀先出力、手肘角度太開，是最常見的兩種狀況，調完當下就有感。', date: '2026.09.08', time: 3 },
+      { img: depth, alt: '示意圖', category: '飲食營養', title: '練完一定要馬上喝高蛋白嗎？', lead: '比起喝的時間點，一整天的蛋白質總量才是重點。', date: '2026.09.01', time: 2 },
+      { img: cover, alt: '示意圖', category: '訓練觀念', title: '肌肉痠痛才代表有練到嗎？', lead: '痠痛只說明身體還不習慣，不是判斷訓練有沒有效的好指標。', date: '2026.08.25', time: 3 },
+      { img: depth, alt: '示意圖', category: '新手入門', title: '一週要練幾次才夠？上班族的安排方式', lead: '一週兩到三次、每次一小時，對大多數上班族就是很好的起點。', date: '2026.08.18', time: 3 },
+      { img: cover, alt: '示意圖', category: '飲食營養', title: '外食族怎麼吃，才不會白練？', lead: '便利商店與自助餐都能吃得好，先學會看一餐裡的蛋白質在哪裡。', date: '2026.08.10', time: 4 }
+    ];
+    var picks = [all[0], all[2], all[1]];
+    var idx = this.state.slide;
+    var total = picks.length;
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+
+    var dots = picks.map(function (p, i) {
+      return {
+        label: '第 ' + (i + 1) + ' 則推薦',
+        barStyle: 'display:block;width:100%;height:' + (i === idx ? '3px' : '1px') + ';background:' + (i === idx ? '#B3FFF5' : '#565656') + ';transition:all .3s',
+        pick: function () { self.setState({ slide: i }); }
+      };
+    });
+
+    var cats = ['全部', '動作教學', '訓練觀念', '新手入門', '飲食營養'];
+    var tabs = cats.map(function (c) {
+      var on = c === self.state.tab;
+      var n = c === '全部' ? all.length : all.filter(function (a) { return a.category === c; }).length;
+      return {
+        label: c,
+        count: n,
+        selected: on ? 'true' : 'false',
+        btnStyle: 'position:relative;flex:0 0 auto;display:flex;align-items:flex-start;gap:5px;padding:16px 0 18px;background:transparent;border:0;cursor:pointer;font:inherit;font-size:16px;font-weight:' + (on ? '800' : '500') + ';color:' + (on ? '#B3FFF5' : '#8a8a8a'),
+        countStyle: 'font-size:10px;font-weight:700;line-height:1;padding:3px 5px;border-radius:999px;' + (on ? 'background:#B3FFF5;color:#000' : 'background:#1f1d1d;color:#8a8a8a'),
+        barStyle: 'position:absolute;left:0;right:0;bottom:-1px;height:3px;background:' + (on ? '#B3FFF5' : 'transparent') + ';box-shadow:' + (on ? '0 0 12px rgba(179,255,245,.6)' : 'none'),
+        pick: function () { self.setState({ tab: c, page: 1 }); }
+      };
+    });
+
+    var cards = this.state.tab === '全部' ? all : all.filter(function (a) { return a.category === self.state.tab; });
+
+    var pageCount = this.state.tab === '全部' ? 3 : 1;
+    var pages = [];
+    for (var p = 1; p <= pageCount; p++) {
+      (function (num) {
+        var cur = num === self.state.page;
+        pages.push({
+          num: num,
+          label: '第 ' + num + ' 頁',
+          current: cur ? 'page' : 'false',
+          style: 'width:44px;height:44px;font:inherit;font-size:15px;font-weight:800;cursor:pointer;' + (cur ? 'background:#B3FFF5;color:#000;border:1px solid #B3FFF5' : 'background:transparent;color:#c7c7c7;border:1px solid #333'),
+          pick: function () { self.setState({ page: num }); }
+        });
+      })(p);
+    }
+
+    return {
+      slide: picks[idx],
+      peek: picks[(idx + 1) % total],
+      slideNo: pad(idx + 1),
+      slideTotal: pad(total),
+      dots: dots,
+      prev: function () { self.setState({ slide: (idx - 1 + total) % total }); },
+      next: function () { self.setState({ slide: (idx + 1) % total }); },
+      tabs: tabs,
+      cards: cards,
+      pages: pages,
+      prevPage: function () { self.setState({ page: Math.max(1, self.state.page - 1) }); },
+      nextPage: function () { self.setState({ page: Math.min(pageCount, self.state.page + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

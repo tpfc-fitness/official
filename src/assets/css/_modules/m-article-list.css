@@ -322,12 +322,14 @@
   transition: color 0.3s ease-in-out;
 
   /*
-   * 左右 padding：桌機左 20、右 16（右邊少一點，因為篇數小圓點已經佔了一點空間）。
-   * 平板沿用桌機數值，由 rem 跟著寬度縮放；手機依字級比例（16 / 17）縮成左 19、右 15。
-   * 底線（::after）左右貼齊 tab，所以會跟著 padding 一起變寬。
+   * 文字要在整個頁籤的正中間：左右 padding 相同，篇數小圓點不佔排版寬度，
+   * 而是掛在文字右上角、落在右邊的 padding 裡（見 .m-alist-tab-count）。
+   * 所以右邊看起來比左邊窄，但文字本身是置中的。
+   * padding 要比「間距＋小圓點」寬，小圓點才不會超出頁籤：桌機 24、手機 21。
+   * 平板沿用桌機數值，由 rem 跟著寬度縮放。底線（::after）左右貼齊頁籤。
    */
-  @apply m:pl-[19px] m:pr-[15px] pt:pl-[20px] pt:pr-[16px];
-  @apply m:gap-[5px] m:pb-[18px] m:pt-[16px] m:text-[16px] pt:gap-[6px] pt:pb-[20px] pt:pt-[18px] pt:text-[17px];
+  @apply m:px-[21px] pt:px-[24px];
+  @apply m:pb-[13px] m:pt-[11px] m:text-[16px] pt:pb-[14px] pt:pt-[12px] pt:text-[17px];
 
   &:hover {
     color: var(--white);
@@ -369,8 +371,16 @@
   }
 }
 
-/* 右上角的篇數 */
+/* 文字本體：小圓點以它為定位基準 */
+.m-alist-tab-label {
+  position: relative;
+}
+
+/* 右上角的篇數：絕對定位，不佔寬度，文字才能置中 */
 .m-alist-tab-count {
+  position: absolute;
+  top: 0;
+  left: 100%;
   border-radius: 999px;
   background-color: var(--x1f1d);
   color: rgb(255 255 255 / 55%);
@@ -380,6 +390,7 @@
     background-color 0.3s ease-in-out,
     color 0.3s ease-in-out;
 
+  @apply m:ml-[5px] pt:ml-[6px];
   @apply m:px-[5px] m:py-[3px] m:text-[10px] pt:px-[6px] pt:py-[3px] pt:text-[11px];
 }
 

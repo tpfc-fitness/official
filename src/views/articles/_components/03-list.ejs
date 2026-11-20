@@ -34,8 +34,7 @@
       <button type="button" role="tab" id="alist-tab-<%= tab.id %>" class="m-alist-tab jAlistTab"
         data-category="<%= tab.value %>" aria-controls="alist-panel" aria-selected="<%= idx === 0 %>"
         tabindex="<%= idx === 0 ? 0 : -1 %>">
-        <span><%= tab.label %></span>
-        <span class="m-alist-tab-count"><%= tab.count %></span>
+        <span class="m-alist-tab-label"><%= tab.label %><span class="m-alist-tab-count"><%= tab.count %></span></span>
       </button>
       <% }); -%>
     </div>

@@ -1,0 +1,81 @@
+<%/* 條款內容 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-article（段落與標題的排版），使用的頁面樣式表必須引入它。
+   * ⚠️ 中文句子不要在中間換行：HTML 會把換行顯示成一個空格。
+   */
+  const site = require('_data/site.js');
+  const COMPANY = '頭等寶有限公司';
+  const telDisplay = '(02)2522-2330';
+  const list = 'list-disc pl-[1.4em] space-y-[6px]';
+  const link = 'underline underline-offset-4';
+-%>
+<article class="m-article-body legal-body bg-[var(--black)] m:pb-[56px] pt:pb-[80px]">
+  <div class="m-article-container">
+
+    <p class="m-article-p">本網站（<%= process.env.SITE_URL %>/）由<%= COMPANY %>（以下稱「我們」）經營，提供<%= site.name %>（First
+      Class）的課程介紹、健身知識文章、免費資源與預約服務。使用本網站前，請先閱讀這份條款與<a class="<%= link %>" href="./privacy.html">隱私權政策</a>。</p>
+
+    <h2 class="m-article-h2">一、同意條款</h2>
+    <p class="m-article-p">當你瀏覽本網站、使用網站上的工具或送出預約表單，即表示你已閱讀、了解並同意這份條款。如果你不同意，請停止使用本網站。</p>
+
+    <h2 class="m-article-h2">二、條款的變更</h2>
+    <p class="m-article-p">我們可能會修改這份條款，修改後的內容公布在這一頁時生效，並更新頁首的「最後更新」日期。修改後你繼續使用本網站，即表示同意修改後的條款。</p>
+
+    <h2 class="m-article-h2">三、使用網站時的規範</h2>
+    <p class="m-article-p">使用本網站時，請遵守中華民國法律，並且不要：</p>
+    <ul class="m-article-p <%= list %>">
+      <li>冒用他人的姓名或聯絡方式預約課程</li>
+      <li>用自動程式大量送出表單，或干擾網站正常運作</li>
+      <li>散布病毒、惡意程式，或嘗試存取不屬於你的資料</li>
+      <li>以違法或侵害他人權利的方式使用本網站</li>
+    </ul>
+    <p class="m-article-p">違反的話，我們可以拒絕你的預約，必要時依法處理。</p>
+
+    <h2 class="m-article-h2">四、內容所有權與智慧財產權</h2>
+    <p class="m-article-p">本網站上的文字、文章、圖片、影片、Logo、版面設計與工具（例如營養計算機），著作權與其他智慧財產權屬於<%= COMPANY %>或原權利人所有。</p>
+    <ul class="m-article-p <%= list %>">
+      <li>歡迎分享文章的連結。</li>
+      <li>沒有我們的書面同意，請勿重製、轉載、改作文章或圖片，也不要用在商業用途。</li>
+    </ul>
+
+    <h2 class="m-article-h2">五、健康與運動安全</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>網站上的文章、影片與營養計算機提供的是一般性的資訊，不是醫療建議，也不是為你個人設計的訓練或飲食計畫。營養計算機的結果是依公式估算的參考值。</li>
+      <li>如果你有疾病、正在治療、受傷、懷孕，或運動時出現疼痛、頭暈、胸悶等狀況，開始訓練前請先諮詢醫師。</li>
+      <li>依照網站內容自行訓練，請量力而為；因此造成的身體不適或傷害，我們不負責任。</li>
+      <li>上課前請如實告知身體狀況與病史，讓教練安排安全的訓練內容。</li>
+    </ul>
+
+    <h2 class="m-article-h2">六、免費體驗與課程</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>免費體驗課每人限一次，我們用預約時填寫的姓名與手機號碼確認。</li>
+      <li>送出預約表單後，教練會主動與你聯繫確認時間；送出表單不代表預約已經成立。</li>
+      <li>網站上的價格與方案以公告當時為準，我們可能調整。實際購買的價格、使用期限與退費方式，以購課時雙方簽訂的課程契約為準。</li>
+    </ul>
+
+    <h2 class="m-article-h2">七、外部連結</h2>
+    <p class="m-article-p">本網站連到或嵌入的外部服務，例如 Instagram、Facebook、LINE、Google 地圖、Tally
+      表單與人力銀行，由各自的業者提供與管理，適用它們自己的條款與隱私權政策。我們無法控制這些服務的內容與運作。</p>
+
+    <h2 class="m-article-h2">八、免責聲明</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>我們會盡力維持網站內容正確、網站正常運作，但不保證網站不會中斷或內容沒有錯誤。</li>
+      <li>因網路、主機、第三方服務或不可抗力造成的中斷或資料遺失，我們不負責任。</li>
+      <li>以上限制在法律允許的範圍內適用；法律規定我們應負責的部分，依法律規定處理。</li>
+    </ul>
+
+    <h2 class="m-article-h2">九、準據法與管轄</h2>
+    <p class="m-article-p">這份條款依中華民國法律解釋。因這份條款發生爭議時，以臺灣臺北地方法院為第一審管轄法院。</p>
+
+    <h2 class="m-article-h2">十、聯絡我們</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>公司名稱：<%= COMPANY %></li>
+      <li>營業名稱：<%= site.name %>（First Class）</li>
+      <li>地址：<%= site.address.postalCode %>
+        <%= site.address.addressRegion %><%= site.address.addressLocality %><%= site.address.streetAddress %></li>
+      <li>電話：<a class="<%= link %>" href="tel:<%= site.telephone %>"><%= telDisplay %></a></li>
+      <li>Email：<a class="<%= link %>" href="mailto:<%= site.email %>"><%= site.email %></a></li>
+    </ul>
+  </div>
+</article>

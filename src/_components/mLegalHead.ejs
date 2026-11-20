@@ -1,0 +1,16 @@
+<%/*
+  隱私權政策與使用條款共用的頁首（版面跟 faq 頁的頁首一樣）。
+
+  用法：require('@component/mLegalHead.ejs')({ title, lead, updated })
+    updated  最後更新日期，例如「2026 年 11 月 20 日」。
+             ⚠️ 改了條款內容就要更新 —— 這個日期是對讀者的承諾，不是裝飾。
+*/%>
+<section
+  class="text-[var(--white)] bg-[var(--black)] p:pt-[100px] p:pb-[60px] t:pt-[75px] t:pb-[48px] m:pt-[50px] m:pb-[36px] p:px-[60px] t:px-[40px] m:px-[20px]">
+  <div class="p:max-w-[900px] pt:mx-auto text-center">
+    <h1 class="m-title"><%= title %></h1>
+    <p class="m-text p:mt-[18px] tm:mt-[12px] text-[var(--xc7)]"><%= lead %></p>
+    <p class="p:mt-[18px] tm:mt-[12px] p:text-[14px] tm:text-[12px] text-[rgb(255_255_255_/_55%)]">最後更新：<%= updated %>
+    </p>
+  </div>
+</section>

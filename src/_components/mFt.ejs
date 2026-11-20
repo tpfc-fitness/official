@@ -116,7 +116,20 @@
       </ul>
     </div>
   </div>
+  <%/*
+    隱私權政策與使用條款放在版權這一行：每一頁都有、位置是大家習慣找的地方，
+    又不會跟上面「網站導覽」的主要頁面搶位置。
+  */%>
   <small class="m-ft-copyright block py-[24px] text-center text-[13px] m:px-[20px]">
     <%- process.env.COPYRIGHT %>
+    <%/* 手機上版權那句已經會斷成兩行，兩個連結另起一行，不然「｜」會單獨掉到行首 */%>
+    <span class="m:hidden mx-[8px]" aria-hidden="true">｜</span>
+    <span class="m:block m:mt-[8px]">
+      <a href="<%= href('privacy.html') %>" class="underline underline-offset-4"
+        <%- isActive('privacy.html') ? ' aria-current="page"' : '' %>>隱私權政策</a>
+      <span class="mx-[8px]" aria-hidden="true">｜</span>
+      <a href="<%= href('terms.html') %>" class="underline underline-offset-4"
+        <%- isActive('terms.html') ? ' aria-current="page"' : '' %>>使用條款</a>
+    </span>
   </small>
 </footer>

@@ -1,0 +1,21 @@
+@import url('_library');
+
+/*
+ * 內文沿用文章頁的排版（820px 行寬、段落標題、段落字級）。
+ * 隱私權政策同樣是要從頭讀到尾的長文，另做一套只會跟文章頁越長越不像。
+ */
+@import url('_modules/m-article');
+
+/*
+ * 文章頁的內文上方有 64px 留白、第一個段落標題又有 72px 上距，
+ * 那是為了跟上面的封面圖拉開。這兩頁的頁首只有標題與日期，
+ * 疊起來會跟頁首隔將近 200px，看起來像斷掉。
+ * 這裡只留頁首自己的下距。
+ */
+.legal-body {
+  padding-top: 0;
+}
+
+.legal-body .m-article-container > :first-child {
+  margin-top: 0;
+}

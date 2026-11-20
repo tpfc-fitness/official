@@ -148,6 +148,32 @@ module.exports = {
       chunks: ['faq'],
     },
     {
+      /*
+       * 隱私權政策與使用條款。入口在 footer 版權那一行（每一頁都有）。
+       * 兩頁共用 legal 這組 script／樣式 —— 版面完全一樣，分兩份只會改了一邊忘了另一邊。
+       */
+      title: '隱私權政策',
+      filename: 'privacy.html',
+      view: 'privacy',
+      path: '/privacy.html',
+      template: 'App.ejs',
+      action: 'privacy',
+      description:
+        '頭等倉運動空間如何蒐集與使用你的個人資料：預約表單收集的欄位與用途、網站使用的 Cookie 與追蹤工具，以及如何查詢、更正你的資料。',
+      chunks: ['legal'],
+    },
+    {
+      title: '使用條款',
+      filename: 'terms.html',
+      view: 'terms',
+      path: '/terms.html',
+      template: 'App.ejs',
+      action: 'terms',
+      description:
+        '使用頭等倉運動空間網站與預約課程的條款：網站使用規範、內容的智慧財產權、健康與運動安全、免費體驗課每人限一次，以及免責聲明。',
+      chunks: ['legal'],
+    },
+    {
       title: '感謝您的預約!',
       filename: 'thankyou.html',
       view: 'thankyou',

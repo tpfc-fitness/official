@@ -1,0 +1,133 @@
+<%/* 政策內容 */%>
+<%
+  /*
+   * ⚠️ 這個區塊用到 _modules/m-article（段落與標題的排版），使用的頁面樣式表必須引入它。
+   *
+   * 聯絡方式從 _data/site.js 取，跟 footer 與結構化資料同一份，換電話或信箱只要改一處。
+   * 清單用 Tailwind 的 list-disc 直接寫在標記上 —— m-article 沒有清單樣式，
+   * 只為這一頁去改共用模組不划算。
+   *
+   * ⚠️ 中文句子不要在中間換行：HTML 會把換行顯示成一個空格。
+   */
+  const site = require('_data/site.js');
+  const COMPANY = '頭等寶有限公司';
+  const telDisplay = '(02)2522-2330';
+  const list = 'list-disc pl-[1.4em] space-y-[6px]';
+  const link = 'underline underline-offset-4';
+-%>
+<article class="m-article-body legal-body bg-[var(--black)] m:pb-[56px] pt:pb-[80px]">
+  <div class="m-article-container">
+
+    <h2 class="m-article-h2">一、簡介</h2>
+    <p class="m-article-p"><%= COMPANY %>（以下稱「我們」）經營<%= site.name %>（First
+      Class）與本網站（<%= process.env.SITE_URL %>/）。我們重視你的隱私，這份政策說明我們會蒐集哪些個人資料、拿來做什麼、交給誰處理，以及你可以行使哪些權利。使用本網站或預約課程前，請先閱讀這份政策與<a
+        class="<%= link %>" href="./terms.html">使用條款</a>。</p>
+
+    <h2 class="m-article-h2">二、適用範圍</h2>
+    <p class="m-article-p">這份政策適用於：</p>
+    <ul class="m-article-p <%= list %>">
+      <li>瀏覽本網站，以及使用網站上的工具（例如營養計算機）</li>
+      <li>透過預約表單預約免費體驗課</li>
+      <li>透過電話、LINE 官方帳號、Email、Instagram 或 Facebook 私訊與我們聯絡</li>
+      <li>購買課程之後的上課安排與聯繫</li>
+    </ul>
+    <p class="m-article-p">網站上連到的其他網站（例如人力銀行、社群平台），適用它們自己的隱私權政策。</p>
+
+    <h2 class="m-article-h2">三、我們如何蒐集你的個人資料</h2>
+    <h3 class="m-article-h3">1. 預約免費體驗表單</h3>
+    <%/* ⚠️ 欄位清單照 Tally 表單（tally.so/r/Ekx0AX）實際的欄位寫，表單改了這裡要一起改 */%>
+    <ul class="m-article-p <%= list %>">
+      <li>必填：姓名、手機號碼、LINE ID、生理性別、年齡、運動頻率、方便聯絡的時間、方便運動的時間</li>
+      <li>選填：「關於您，有什麼是我們需要先知道的事嗎？」</li>
+    </ul>
+    <p class="m-article-p">選填欄位裡如果寫到身體狀況、傷病或開刀紀錄，這些資料只會用在安排安全的訓練內容，不會用在行銷。</p>
+
+    <h3 class="m-article-h3">2. 你主動聯絡我們時提供的內容</h3>
+    <p class="m-article-p">透過電話、LINE、Email 或社群私訊與我們聯絡時，你提供的姓名、聯絡方式與訊息內容。</p>
+
+    <h3 class="m-article-h3">3. 購買課程後的資料</h3>
+    <p class="m-article-p">上課紀錄、InBody 等身體測量結果，以及教練為你安排訓練時記下的身體狀況。</p>
+
+    <h3 class="m-article-h3">4. 瀏覽網站時自動產生的資料</h3>
+    <p class="m-article-p">網站使用 Google Analytics 與 Meta Pixel，會透過 Cookie 記錄你看了哪些頁面、使用的裝置與瀏覽器、IP
+      位址推估的大略地區，以及你是從哪個網站或廣告進來的。這些資料不包含你的姓名或電話，我們看到的是統計後的數字。</p>
+
+    <h2 class="m-article-h2">四、我們如何使用你的個人資料</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>聯繫你、安排免費體驗課，回覆你的詢問</li>
+      <li>確認免費體驗資格：免費體驗課每人限一次，我們用姓名與手機號碼確認是否已經使用過</li>
+      <li>了解你的身體狀況與運動習慣，安排安全、適合你的訓練內容</li>
+      <li>購買課程後的上課安排、聯繫與學員管理</li>
+      <li>統計網站流量、改善網站內容、評估廣告成效</li>
+    </ul>
+    <p class="m-article-p">以上目的對應個人資料保護法的特定目的：消費者、客戶管理與服務；契約、類似契約或其他法律關係事務；行銷；調查、統計與研究分析。</p>
+
+    <h2 class="m-article-h2">五、分享你的個人資料</h2>
+    <p class="m-article-p"><b>我們不會出售或出租你的個人資料。</b>只有下列情況會讓其他人接觸到你的資料：</p>
+    <ul class="m-article-p <%= list %>">
+      <li>頭等倉負責聯繫、上課的教練與工作人員</li>
+      <li>為了提供服務而使用的供應商：Tally（預約表單）、Google（Google Analytics）、Meta（Meta Pixel
+        與廣告）、LINE（官方帳號聯繫）。這些供應商依各自的隱私權政策處理資料，伺服器可能位在台灣以外。</li>
+      <li>依法律規定，或司法、檢調等機關依法要求時</li>
+    </ul>
+
+    <h2 class="m-article-h2">六、Cookie 與嵌入的外部內容</h2>
+    <p class="m-article-p">你可以在瀏覽器設定裡封鎖或刪除 Cookie，網站的主要內容仍然看得到。想停止 Google Analytics 的紀錄，可以安裝 <a class="<%= link %>"
+        href="https://tools.google.com/dlpage/gaoptout?hl=zh-TW" target="_blank" rel="noopener">Google Analytics
+        停用瀏覽器外掛程式</a>；Meta 的廣告偏好可以在 Facebook 的<a class="<%= link %>" href="https://www.facebook.com/adpreferences/"
+        target="_blank" rel="noopener">廣告偏好設定</a>調整。</p>
+    <p class="m-article-p">部分頁面嵌入了 Google 地圖、Instagram 影片與 Tally 表單。這些內容由各家服務直接提供，可能會設定它們自己的 Cookie，適用各自的隱私權政策。</p>
+
+    <h2 class="m-article-h2">七、資料安全</h2>
+    <p class="m-article-p">我們只讓需要聯繫你或安排課程的人員查看你的資料，並採取合理的技術與管理措施保護資料。網路傳輸沒有辦法保證百分之百安全；如果發生個人資料外洩，我們會依法通知受影響的人。</p>
+
+    <h2 class="m-article-h2">八、資料的保存與你的權利</h2>
+    <h3 class="m-article-h3">保存期間</h3>
+    <%/*
+      ⚠️ 依業主說明：資料不刪除，因為要用來確認誰已經用過免費體驗。
+      所以這裡寫「持續保存」並講明理由，不寫一個做不到的刪除期限。
+    */%>
+    <p class="m-article-p">為了確認免費體驗資格與提供後續服務，我們會持續保存你的預約與上課資料。法令另有規定保存期間的資料（例如交易紀錄），依法令保存。</p>
+    <h3 class="m-article-h3">你可以行使的權利</h3>
+    <p class="m-article-p">依個人資料保護法，你可以就你的個人資料要求：</p>
+    <ul class="m-article-p <%= list %>">
+      <li>查詢或閱覽</li>
+      <li>製給複製本</li>
+      <li>補充或更正</li>
+      <li>停止蒐集、處理或利用</li>
+      <li>刪除</li>
+    </ul>
+    <p class="m-article-p">請透過 Email <a class="<%= link %>" href="mailto:<%= site.email %>"><%= site.email %></a>、電話 <a
+        class="<%= link %>" href="tel:<%= site.telephone %>"><%= telDisplay %></a> 或 <a class="<%= link %>"
+        href="<%= site.line %>" target="_blank" rel="noopener">LINE
+        官方帳號</a>聯絡我們。為了確認是本人提出，我們可能會請你提供預約時填寫的姓名與手機號碼。查詢、閱覽與複製本會在 15 日內處理，可能酌收必要的成本費用；補充、更正、停止利用與刪除會在 30 日內處理。</p>
+    <%/*
+      ⚠️ 刪除時保留「姓名、手機、免費體驗使用紀錄」：不然要求刪除就能重新拿到免費體驗。
+      這三項的用途是確認每人一次的資格，跟第四段寫的目的一致，所以照這個目的繼續保存。
+    */%>
+    <p class="m-article-p">
+      你要求刪除時，我們會刪除其他資料，但保留姓名、手機號碼與免費體驗的使用紀錄，只用來確認免費體驗每人一次，刪除後不會重新取得體驗資格。依法令或為履行課程契約必須保存的資料，也會在說明理由後保留。</p>
+
+    <h2 class="m-article-h2">九、不提供資料會怎樣</h2>
+    <p class="m-article-p">要不要提供個人資料由你決定。不過表單的必填欄位沒有填寫的話，我們無法聯繫你、安排體驗課。身體狀況是選填，沒有填寫的話，教練會在體驗課開始前當面詢問。</p>
+
+    <h2 class="m-article-h2">十、未成年人</h2>
+    <p class="m-article-p">未滿 18 歲的人預約或購買課程前，請先取得父母或法定代理人的同意。</p>
+
+    <h2 class="m-article-h2">十一、準據法與管轄</h2>
+    <p class="m-article-p">這份政策依中華民國法律解釋。因這份政策發生爭議時，以臺灣臺北地方法院為第一審管轄法院。</p>
+
+    <h2 class="m-article-h2">十二、隱私權政策的異動</h2>
+    <p class="m-article-p">這份政策修改時，會公布在這一頁，並更新頁首的「最後更新」日期。重大的修改，例如蒐集的資料種類或目的改變，我們會在網站上另外公告。</p>
+
+    <h2 class="m-article-h2">十三、聯絡我們</h2>
+    <ul class="m-article-p <%= list %>">
+      <li>公司名稱：<%= COMPANY %></li>
+      <li>營業名稱：<%= site.name %>（First Class）</li>
+      <li>地址：<%= site.address.postalCode %>
+        <%= site.address.addressRegion %><%= site.address.addressLocality %><%= site.address.streetAddress %></li>
+      <li>電話：<a class="<%= link %>" href="tel:<%= site.telephone %>"><%= telDisplay %></a></li>
+      <li>Email：<a class="<%= link %>" href="mailto:<%= site.email %>"><%= site.email %></a></li>
+    </ul>
+  </div>
+</article>

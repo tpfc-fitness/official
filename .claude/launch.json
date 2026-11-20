@@ -1,0 +1,22 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "build-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        ".claude/serve-build.js"
+      ],
+      "port": 8766
+    }
+  ]
+}

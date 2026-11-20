@@ -28,7 +28,7 @@ module.exports = {
     ],
   },
 
-  cta: { label: '預約免費體驗', link: '#resevation' },
+  cta: { label: '預約免費體驗', link: '#reservation' },
 
   /*
    * 大標寫成行陣列：手機在逗號後斷行，桌機與平板接成一行。

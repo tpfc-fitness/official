@@ -87,7 +87,7 @@ module.exports = [
     /* 這一題叫人去按按鈕，就直接把按鈕放在答案裡，不要讓人回頭找 */
     cta: {
       label: '預約免費體驗',
-      link: '#resevation',
+      link: '#reservation',
     },
   },
 ];

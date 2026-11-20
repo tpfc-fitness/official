@@ -2,11 +2,13 @@
 <% const site = require('_data/site.js'); -%>
 <!-- 預約表單 -->
 <%/*
-  id 維持舊拼法 resevation（少一個 r）：廣告、IG、LINE 上已經發出去的連結
-  可能帶著 #resevation，改掉的話那些連結就跳不到表單。class 與檔名已改正。
+  錨點已改成正確拼法 #reservation，站內連結都用這個。
+  ⚠️ 下面那個 id="resevation"（少一個 r）的空 span 不要刪：廣告、IG、LINE 上
+  已經發出去的連結可能還帶著舊拼法，留著它，那些連結才跳得到表單。
 */%>
-<section id="resevation"
+<section id="reservation"
   class="contact-bd flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[60px] t:px-[20px] t:py-[40px] m:pb-[20px]">
+  <span id="resevation" aria-hidden="true"></span>
   <div data-aos="fade-in"
     class="bg-[var(--black)] p:p-[60px] p:min-w-[600px] p:min-h-[400px] p:max-w-[800px] text-center t:p-[30px] t:pb-[40px]">
     <div class="m:p-[20px]">

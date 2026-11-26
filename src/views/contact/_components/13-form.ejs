@@ -7,43 +7,68 @@
   已經發出去的連結可能還帶著舊拼法，留著它，那些連結才跳得到表單。
 */%>
 <section id="reservation"
-  class="contact-bd flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[60px] t:px-[20px] t:py-[40px] m:pb-[20px]">
+  class="contact-bd flex flex-col justify-center items-center text-[var(--white)] bg-[var(--x15)] p:px-[60px] p:py-[60px] t:px-[20px] t:py-[40px] m:py-[20px]">
   <span id="resevation" aria-hidden="true"></span>
   <div data-aos="fade-in"
     class="bg-[var(--black)] p:p-[60px] p:min-w-[600px] p:min-h-[400px] p:max-w-[800px] text-center t:p-[30px] t:pb-[40px]">
-    <div class="m:p-[20px]">
-      <h2 class="m-title-xl p:mb-[20px] t:mb-[14px]">
-        預約免費體驗
-      </h2>
-      <%/*
+    <%/*
+      從臉書潛在客戶表單過來的人（網址帶 ?from=leadform）已經留過資料了，
+      這裡改成顯示「已收到」與 LINE 按鈕，表單收起來，免得他們又填一次。
+      切換由 scripts/_leadformReturn.js 在頁面掛載前處理；
+      沒有 JS 時維持顯示表單，一般訪客不受影響。
+    */%>
+    <div data-booking="done" hidden class="m:p-[20px]">
+      <h2 class="m-title-xl p:mb-[20px] t:mb-[14px]">已收到你的預約資料</h2>
+      <p class="m-text">教練會在三天內與你聯繫，請留意陌生來電 📞</p>
+      <i class="block border-[1px] border-solid border-[var(--white)] p:my-[30px] tm:my-[24px]"></i>
+      <p class="m-text p:mb-[24px] tm:mb-[20px]">等不及的話，也可以用 LINE 加速預約🔥</p>
+      <%- require('@component/mBtn.ejs')({
+        label: 'LINE 直接問教練',
+        link: site.line,
+        style: {
+          main: '--highlight --long --full-m mx-auto'
+        },
+        icon: {
+          name: 'arrow',
+          css: 'p:w-[18px] p:h-[18px] tm:w-[18px] tm:h-[18px]'
+        }
+      }) %>
+    </div>
+    <div data-booking="form">
+      <div class="m:p-[20px]">
+        <h2 class="m-title-xl p:mb-[20px] t:mb-[14px]">
+          預約免費體驗
+        </h2>
+        <%/*
         不想填表的人也要有路可走，LINE 是唯一的替代管道。
 
         不放 LINE 的圖示：這裡是一句話裡的行內連結，塞一個品牌標進去
         會變成句子中間卡一塊圖。滑過去也不換字色 —— 沿用站上其他
         行內連結的作法，只讓底線由半透明變實心。
       */%>
-      <p class="m-text p:mb-[10px] tm:mb-[12px]">
-        請填寫送出下方表單，<br class="pt:hidden" />或
-        <a href="<%= site.line %>" target="_blank" rel="noopener"
-          class="font-bold border-b border-solid border-[rgb(255_255_255_/_45%)] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">點擊此處</a>
-        使用 LINE 官方帳號預約
-      </p>
-      <i
-        class="block border-[1px] border-solid border-[var(--white)] p:mt-[10px] p:mb-[20px] tm:mt-[16px] t:mb-[20px]"></i>
-    </div>
-    <!-- <%- require('@component/mBtn.ejs')({
+        <p class="m-text p:mb-[10px] tm:mb-[12px]">
+          請填寫送出下方表單，<br class="pt:hidden" />或
+          <a href="<%= site.line %>" target="_blank" rel="noopener"
+            class="font-bold border-b border-solid border-[rgb(255_255_255_/_45%)] hover:border-[var(--white)] transition-colors duration-300 ease-in-out">點擊此處</a>
+          使用 LINE 官方帳號預約
+        </p>
+        <i
+          class="block border-[1px] border-solid border-[var(--white)] p:mt-[10px] p:mb-[20px] tm:mt-[16px] t:mb-[20px]"></i>
+      </div>
+      <!-- <%- require('@component/mBtn.ejs')({
       label: '即刻預約',
       link: 'https://docs.google.com/forms/d/e/1FAIpQLSdyIMF1EHcdkUKsr6EY7b3o6dQgXuQfB6XiKzTJqid_7FO0Bg/viewform',
       style: {
         main: '--contain mx-auto p:text-[18px] text-[var(--white)] p:w-[270px] p:h-[50px] t:w-[216px] t:h-[60px] m:w-[140px] m:h-[46px]'
       }
     }) %> -->
-    <!-- <iframe class="pt:w-[640px] pt:h-[500px] m:w-[360px] m:h-[450px]" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" src="https://www.surveycake.com/s/4ONx6" allowTransparency="true" frameborder="0"></iframe> -->
+      <!-- <iframe class="pt:w-[640px] pt:h-[500px] m:w-[360px] m:h-[450px]" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" src="https://www.surveycake.com/s/4ONx6" allowTransparency="true" frameborder="0"></iframe> -->
 
-    <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyIMF1EHcdkUKsr6EY7b3o6dQgXuQfB6XiKzTJqid_7FO0Bg/viewform?embedded=true" class="pt:w-[640px] pt:h-[400px] m:w-[360px] m:h-[450px]" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe> -->
-    <iframe class="pt:w-[640px] pt:h-[500px] m:w-[360px] m:h-[450px]"
-      src="https://tally.so/embed/Ekx0AX?alignLeft=1&hideTitle=1&transparentBackground=1" loading="lazy" width="100%"
-      height="600" frameborder="0" marginheight="0" marginwidth="0" title="頭等倉 | 免費體驗教練課預約"></iframe>
+      <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyIMF1EHcdkUKsr6EY7b3o6dQgXuQfB6XiKzTJqid_7FO0Bg/viewform?embedded=true" class="pt:w-[640px] pt:h-[400px] m:w-[360px] m:h-[450px]" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe> -->
+      <iframe class="pt:w-[640px] pt:h-[500px] m:w-[360px] m:h-[450px]"
+        src="https://tally.so/embed/Ekx0AX?alignLeft=1&hideTitle=1&transparentBackground=1" loading="lazy" width="100%"
+        height="600" frameborder="0" marginheight="0" marginwidth="0" title="頭等倉 | 免費體驗教練課預約"></iframe>
+    </div>
   </div>
   <!-- <span class="flex flex-col items-center justify-center pt-[20px]">
     <p class="pt:text-[18px] m:text-[16px]">了解更多</p>

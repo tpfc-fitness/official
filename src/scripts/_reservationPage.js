@@ -11,6 +11,7 @@ import { svgRequire, lazyLoadFun, hdScroll, deviceType } from '_prototype.js';
 import store from '_store.js';
 import { createSlider } from '_slider.js';
 import kvVariant from '_kvVariant.js';
+import leadformReturn from '_leadformReturn.js';
 
 export default function initReservationPage() {
   /* 一次載入使用到的 svg */
@@ -18,6 +19,9 @@ export default function initReservationPage() {
 
   /* 在掛載之前換好 KV 標題，載入遮罩還蓋著，不會看到文字跳動 */
   kvVariant();
+
+  /* 從臉書潛在客戶表單回來的人，表單換成「已收到」（同樣要在掛載前） */
+  leadformReturn();
 
   window.PetiteVue.createApp({
     store,

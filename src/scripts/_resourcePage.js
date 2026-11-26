@@ -31,6 +31,24 @@ const trackCta = () => {
 };
 
 /*
+ * 下載檔案（課表圖片等）→ GA4 resource_download。
+ * GA4 加強型評估的 file_download 不認 png、jpg，圖片下載要自己送。
+ * resource_name 讀連結上的 data-resource，看哪一頁的資源被存走最多。
+ */
+const trackDownload = () => {
+  document.querySelectorAll('.jResourceDownload').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (typeof window.gtag !== 'function') return;
+
+      window.gtag('event', 'resource_download', {
+        resource_name: link.dataset.resource || '',
+        link_url: link.href,
+      });
+    });
+  });
+};
+
+/*
  * page：要合併進 petite-vue 根狀態的物件（可以有 getter 與方法）。
  * page.onMounted 選填，在共用流程跑完之後呼叫。
  *
@@ -60,6 +78,7 @@ export const mountResourcePage = (page = {}) => {
     }, 300);
 
     trackCta();
+    trackDownload();
     if (typeof page.onMounted === 'function') page.onMounted.call(vm);
 
     store.load.finish();

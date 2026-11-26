@@ -1,0 +1,18 @@
+<%/*
+ * 薄肌美背課表
+ *
+ * 版面：頁首 → 課表（含下載圖片） → 說明 → 常見問題 → 注意事項 → CTA。
+ * 全部都是 resources/_components/ 的共用區塊，
+ * 內容在 _data/resources/back-workout.js。
+ */%>
+<%
+  const content = require('_data/resources/back-workout.js');
+  const imageUrl = require('@imgs/resources/back-workout.png');
+-%>
+<%- require('../_components/01-hero.ejs')({ hero: content.hero }) %> <%/* 頁首 */%>
+<%- require('../_components/06-plan.ejs')({ plans: content.plans, download: content.download, imageUrl, slug: 'back-workout' }) %>
+<%/* 課表 */%>
+<%- require('../_components/02-prose.ejs')({ blocks: content.blocks }) %> <%/* 說明 */%>
+<%- require('../_components/03-faq.ejs')({ faq: content.faq }) %> <%/* 常見問題 */%>
+<%- require('../_components/04-notes.ejs')({ notes: content.notes }) %> <%/* 注意事項 */%>
+<%- require('../_components/05-cta.ejs')({ cta: content.cta, location: 'back-workout' }) %> <%/* 導去預約 */%>

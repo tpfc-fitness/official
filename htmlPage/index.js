@@ -210,14 +210,14 @@ module.exports = {
        * 免費資源（總覽）。同健身知識：filename 是 resources/index.html，
        * 對外網址是資料夾 /resources/，各資源頁都在它底下。
        */
-      title: '免費資源｜營養計算機與訓練工具',
+      title: '免費資源｜營養計算機與重訓課表',
       filename: 'resources/index.html',
       view: 'resources',
       path: '/resources/',
       template: 'App.ejs',
       action: 'resources',
       description:
-        '頭等倉教練整理的免費工具：營養計算機幫你算出每日熱量與蛋白質、脂肪、碳水，之後會陸續加上訓練計畫表。不用註冊，打開就能用。',
+        '頭等倉教練整理的免費工具：營養計算機算出每日熱量與蛋白質、脂肪、碳水；基礎重訓課表、翹臀課表、女生練背課表，組數次數都排好，可下載圖片。不用註冊，打開就能用。',
       lastmod: resources.length
         ? resources
             .map((item) => item.updated)

@@ -1,0 +1,88 @@
+<%/* 課表：表格＋下載圖片（基礎重訓課表、翹臀、練背共用） */%>
+<%
+  /*
+   * ⚠️ 用到 _modules/m-workout，頁面樣式表要引入。
+   *
+   * 參數：
+   *   plans     _data/resources/<slug>.js 的 plans，一張表一筆
+   *               { key, caption, exercises: [] }
+   *               key：A、B 這種版本代號，有填才會顯示紅色標記與「版本 X」；
+   *               沒填就只有一張表，caption 給螢幕閱讀器念（畫面上不顯示）
+   *   download  _data/resources/<slug>.js 的 download（按鈕文字、存檔檔名）
+   *   imageUrl  下載的圖。要在頁面 view 裡 require（webpack 才拿得到加了 hash 的網址）
+   *   slug      資源頁的 slug，送 GA 用
+   *
+   * 每個動作：
+   *   { name } 或 { choice: [] }（二選一）、sets 組數、reps 次數
+   *   fatigue 疲勞度（選填，任何一個動作有填，整張表就多一欄）
+   *   note    動作下方的小字（選填）
+   *
+   * 課表用真的 <table> 輸出在 HTML 裡，不是只放圖 ——
+   * 圖片裡的字搜尋引擎與 AI 讀不到，螢幕閱讀器也念不出來。
+   * 圖片另外給人下載，方便在健身房離線打開。
+   *
+   * 下載用 <a download>：同網域的檔案會直接存檔；iPhone Safari 會先打開圖片，
+   * 要長按才能存，大家都會，所以不另外寫提示。點擊事件由 _resourcePage.js 的 jResourceDownload 送 GA。
+   */
+  const single = plans.length === 1;
+-%>
+<section class="m-workout" aria-labelledby="workout-title">
+  <div class="m-resource-container">
+    <h2 id="workout-title" class="sr-only">課表內容</h2>
+
+    <div class="m-workout-plans<%= single ? ' --single' : '' %>">
+      <% plans.forEach((plan) => { -%>
+      <% const hasFatigue = plan.exercises.some((item) => item.fatigue); -%>
+      <table class="m-workout-table">
+        <% if (plan.key) { -%>
+        <caption class="m-workout-caption">
+          <span class="m-workout-caption-inner">
+            <span class="m-workout-key"><%= plan.key %></span>
+            <span>版本 <%= plan.key %></span>
+          </span>
+        </caption>
+        <% } else { -%>
+        <caption class="sr-only"><%= plan.caption %></caption>
+        <% } -%>
+        <thead>
+          <tr>
+            <th scope="col">動作</th>
+            <th scope="col">組數</th>
+            <th scope="col">次數</th>
+            <% if (hasFatigue) { -%>
+            <th scope="col">疲勞度</th>
+            <% } -%>
+          </tr>
+        </thead>
+        <tbody>
+          <% plan.exercises.forEach((item) => { -%>
+          <tr>
+            <th scope="row">
+              <% if (item.choice) { -%>
+              <%= item.choice.join(' 或 ') %>
+              <span class="m-workout-tag">二選一</span>
+              <% } else { -%>
+              <%= item.name %>
+              <% } -%>
+              <% if (item.note) { -%>
+              <span class="m-workout-note"><%= item.note %></span>
+              <% } -%>
+            </th>
+            <td><%= item.sets %></td>
+            <td><%= item.reps %></td>
+            <% if (hasFatigue) { -%>
+            <td><%= item.fatigue %></td>
+            <% } -%>
+          </tr>
+          <% }); -%>
+        </tbody>
+      </table>
+      <% }); -%>
+    </div>
+
+    <div class="m-workout-download">
+      <a class="m-workout-download-btn jResourceDownload" href="<%= imageUrl %>" download="<%= download.filename %>"
+        data-resource="<%= slug %>"><%= download.label %></a>
+    </div>
+  </div>
+</section>

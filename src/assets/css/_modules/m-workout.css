@@ -1,0 +1,154 @@
+/*
+ * 課表（表格＋下載圖片），基礎重訓課表、翹臀、練背共用（views/resources/_components/06-plan.ejs）。
+ *
+ * 兩張表（A、B）時桌機並排，跟下載的圖同一個排法，網頁看到的跟存下來的長得一樣；
+ * 手機上下排。只有一張表時置中、不撐滿。顏色照 color.css 的分工：A、B 標記用紅，數字用藍綠。
+ */
+.m-workout {
+  color: var(--white);
+
+  @apply m:pb-[24px] pt:pb-[40px];
+}
+
+.m-workout-plans {
+  display: grid;
+  gap: 24px;
+
+  @apply t:grid-cols-2 t:gap-[24px] p:grid-cols-2 p:gap-[40px];
+
+  &.--single {
+    max-width: 720px;
+    margin: 0 auto;
+
+    @apply t:grid-cols-1 p:grid-cols-1;
+  }
+}
+
+.m-workout-table {
+  width: 100%;
+  border: 1px solid var(--x56);
+  border-collapse: collapse;
+  background-color: var(--x15);
+  text-align: center;
+
+  th,
+  td {
+    padding: 14px 10px;
+    border-top: 1px solid rgb(255 255 255 / 14%);
+  }
+
+  thead th {
+    border-top: 0;
+    background-color: rgb(255 255 255 / 8%);
+    color: rgb(255 255 255 / 70%);
+    font-weight: 400;
+
+    @apply m:text-[13px] pt:text-[14px];
+  }
+
+  /* 動作名稱靠左，長名稱（二選一）換行時才好讀 */
+  thead th:first-child,
+  tbody th {
+    padding-left: 16px;
+    text-align: left;
+  }
+
+  /* 數字欄用固定寬度：有疲勞度時是三欄，用 em 算會跟著大字變寬，手機上把動作名稱擠掉 */
+  thead th:not(:first-child),
+  td {
+    white-space: nowrap;
+
+    @apply m:w-[60px] m:px-[4px] pt:w-[88px];
+  }
+
+  tbody th {
+    font-weight: 700;
+    line-height: 1.5;
+
+    @apply m:text-[16px] pt:text-[17px];
+  }
+
+  td {
+    color: var(--x7de9);
+    font-weight: 800;
+
+    @apply m:text-[20px] pt:text-[22px];
+  }
+}
+
+/* 動作下方的小字（練背課表的動作重點） */
+.m-workout-note {
+  display: block;
+  margin-top: 2px;
+  color: rgb(255 255 255 / 60%);
+  font-weight: 400;
+
+  @apply m:text-[13px] pt:text-[14px];
+}
+
+/* caption 本身不能改 display，不然會脫離「表格標題」的位置，被排到表頭下面；flex 下在裡面那層 */
+.m-workout-caption {
+  padding-bottom: 12px;
+  font-weight: 700;
+  text-align: left;
+
+  @apply m:text-[17px] pt:text-[19px];
+}
+
+.m-workout-caption-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.m-workout-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--xe120);
+  font-weight: 800;
+}
+
+.m-workout-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border: 1px solid rgb(255 255 255 / 40%);
+  color: rgb(255 255 255 / 75%);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
+/* 下載圖片：手機滿寬好按，桌機置中 */
+.m-workout-download {
+  text-align: center;
+
+  @apply m:mt-[24px] pt:mt-[32px];
+}
+
+.m-workout-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 32px;
+  border: 1px solid var(--white);
+  color: var(--white);
+  font-weight: 700;
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+
+  @apply m:w-full m:text-[16px] pt:min-w-[280px] pt:text-[17px];
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--white);
+    color: var(--black);
+  }
+}

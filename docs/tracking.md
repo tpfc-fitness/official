@@ -56,7 +56,8 @@
 | 事件 | 什麼時候送 | 參數 |
 |---|---|---|
 | `nutrition_calc_result` | 營養計算機產生有效結果 | `goal`（maintain／cut／bulk）、`activity_level`（sedentary／light／moderate／active／extreme）、`difficulty`（easy／hell）、`calories_clamped`（yes／no，減脂熱量有沒有被拉回 BMR） |
-| `cta_click` | 點資源頁底部的「預約免費體驗課」 | `cta_location`（哪一頁，例如 `nutrition-calculator`、`resources`）、`link_url` |
+| `cta_click` | 點資源頁底部的「預約免費體驗課」 | `cta_location`（哪一頁，例如 `nutrition-calculator`、`full-body-workout`、`resources`）、`link_url` |
+| `resource_download` | 點資源頁的「下載」（課表圖片） | `resource_name`（哪一份，例如 `full-body-workout`）、`link_url` |
 
 `nutrition_calc_result` 的規則：
 
@@ -138,9 +139,10 @@ GA4 本來就會從網址自動抓 utm，在報表裡叫「工作階段廣告活
 | 活動程度 | 事件 | `activity_level` |
 | 難度模式 | 事件 | `difficulty` |
 | CTA 位置 | 事件 | `cta_location` |
+| 下載的資源 | 事件 | `resource_name` |
 
 不註冊也看得到「事件數」與來源，只是不能用這些參數切分。
-**不要**把 `nutrition_calc_result`、`cta_click` 標成關鍵事件（理由見上一節）。
+**不要**把 `nutrition_calc_result`、`cta_click`、`resource_download` 標成關鍵事件（理由見上一節）。
 
 ### 3. IG 留言帶進來的人用了多少次計算機
 
